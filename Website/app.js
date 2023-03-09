@@ -4,19 +4,20 @@ var myTimerTypeWriter;
 
 //runs when the page is loaded
 function pageLoad(){
+    sessionStorage.setItem("navOpen","true"); //makes sure the nav is closed whenever the page loads
+    navToggle();
     checkTheme();
+    resizeChatbotDiv();
+
     var colourFound = false;
     var txt = document.getElementsByClassName('conversationArea')[0].textContent; //gets the text inside the HTML for the typewriter effect
     window.setInterval('cursor()',400); //used to make the underscore cursor blink
+
+
     document.getElementsByClassName('conversationArea')[0].innerHTML = '';
     myTimerTypeWriter = setTimeout(function(){
         typeWriter(txt, colourFound, 'conversationArea');
-    },900); //waits for the transition to happen before starting the typewriter effect
-
-    //helps make the animation look smoother if the certs and online courses for the about page load in after the transition animation
-    if ( document.URL.includes("about") ) {
-        myTimer = setInterval('imageLoad()', 550);
-    }
+    },400); 
 }
 
 //checks what theme is in the local storage and updates the webpage accordingly 
@@ -69,6 +70,37 @@ function cursor() {
     }
 }
 
+function navToggle() {
+    // CLOSE THE NAV
+    var chatbotDiv = document.getElementsByClassName('chatbot')[0];
+    var textboxDiv = document.getElementsByClassName('textbox')[0];
+    var textarea = document.getElementById("usersText");
+    var windowWidth = window.innerWidth;
+    if(sessionStorage.getItem("navOpen") == "true"){
+        document.getElementsByClassName('sidebar')[0].style.width = "55px";
+        chatbotDiv.style.width = (windowWidth-55)+"px";
+        chatbotDiv.style.left = "55px";
+        textboxDiv.style.width = (windowWidth-55)+"px";
+        textboxDiv.style.left = "55px";
+        textarea.style.width = (windowWidth-175)+"px";
+        sessionStorage.setItem("navOpen","false");
+    }
+    // OPEN THE NAV
+    else if(sessionStorage.getItem("navOpen") == "false"){
+        document.getElementsByClassName('sidebar')[0].style.width = "250px";
+        chatbotDiv.style.width = (windowWidth-250)+"px";
+        chatbotDiv.style.left = "250px";
+        textboxDiv.style.width = (windowWidth-250)+"px";
+        textboxDiv.style.left = "250px";
+        textarea.style.width = (windowWidth-370)+"px";
+        sessionStorage.setItem("navOpen","true");
+    }
+}
+
+function updateChatbotDivWidth(){
+
+}
+
 function listeners(){
     //toggle theme
     var themeBtn = document.querySelector('.theme-btn');
@@ -86,20 +118,47 @@ function listeners(){
 
     var input = document.getElementById("usersText");
     input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        usersText = input.value;
-        input.value = "";
-        event.preventDefault();
-        displayText(usersText);
-    }
+        if (event.key === "Enter") {
+            usersText = input.value;
+            input.value = "";
+            event.preventDefault();
+            displayText(usersText);
+        }
     });
+
+    window.addEventListener('resize', function(){resizeChatbotDiv()});
 }
 
 function displayText(text){
     var conversationArea = document.getElementsByClassName('conversationArea')[0];
-    conversationArea.innerHTML += '<p className="">';
-    typeWriter(text, false, 'conversationArea');
-    conversationArea.innerHTML += "";
+    conversationArea.innerHTML += '<p>'+text;
+    //typeWriter(text, false, 'conversationArea');
+    conversationArea.innerHTML += "</p>";
+}
+
+function resizeChatbotDiv(){
+    var chatbotDiv = document.getElementsByClassName("chatbot")[0];
+    var textboxDiv = document.getElementsByClassName('textbox')[0];
+    var textarea = document.getElementById("usersText");
+    var windowWidth = window.innerWidth;
+
+    chatbotDiv.style.height = (window.innerHeight - 85) + "px";
+    // NAV IS OPEN
+    if(sessionStorage.getItem("navOpen") == "true"){
+        chatbotDiv.style.width = (windowWidth-250)+"px";
+        chatbotDiv.style.left = "250px";
+        textboxDiv.style.width = (windowWidth-250)+"px";
+        textboxDiv.style.left = "250px";
+        textarea.style.width = (windowWidth-370)+"px";
+    }
+    // NAV IS NOT OPEN
+    else if(sessionStorage.getItem("navOpen") == "false"){
+        chatbotDiv.style.width = (windowWidth-55)+"px";
+        chatbotDiv.style.left = "55px";
+        textboxDiv.style.width = (windowWidth-55)+"px";
+        textboxDiv.style.left = "55px";
+        textarea.style.width = (windowWidth-175)+"px";
+    }
 }
 
 window.onload = pageLoad();

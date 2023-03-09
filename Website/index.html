@@ -11,18 +11,18 @@
     <body class="main-content">
         <main>
             <div class="sidebar">
-                <h1>Sidebar</h1>
+                <span style="font-size:30px;cursor:pointer" class="closebtn" onclick="navToggle()">&#9776;</span>
             </div>
             <div class="chatbot">
                 <h1>Chatbot Text Area</h1>
                 <div>
                     <p><span class="conversationArea">This is a type writer effect that will be used to display the users text</span><span class="visable cursor" id="cursorId">_</span></p>
                 </div>
-                <div class="textbox">
-                    <form action="" autocomplete="chrome-off">
-                        <textarea autocomplete="chrome-off" id="usersText" type="text" required placeholder="ENTER TEXT"></textarea>
-                    </form>
-                </div>
+                
+            </div>
+            
+            <div class="textbox">
+                <textarea autocomplete="chrome-off" id="usersText" type="text" required placeholder="ENTER TEXT"></textarea>
             </div>
         </main>
 

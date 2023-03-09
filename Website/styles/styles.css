@@ -3,6 +3,8 @@
   padding: 0;
   list-style: none;
   box-sizing: border-box;
+  transition: all 0.23s ease-in-out;
+  overflow: hidden;
 }
 
 :root {
@@ -19,7 +21,7 @@
   --color-grey-6: #13181b;
   --br-sm-2: 14px;
   --box-shadow-1: 0 3px 15px rgba(0,0,0,.2)
-  //--transition-1: all .4s ease-in-out;
+  //--transition-1: all .23s ease-in-out;
 }
 
 .light-mode {
@@ -45,41 +47,57 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: 1.1rem;
   color: var(--color-tertiary);
-  transition: all 0.4s ease-in-out;
+  transition: all 0.23s ease-in-out;
+  overflow-y: visible;
 }
 
 .sidebar {
-  width: 20%;
   height: 100vh;
   background-color: var(--color-secondary);
-  transition: all 0.4s ease-in-out;
-  display: inline;
-  float: left;
+  transition: all 0.23s ease-in-out;
+  width: 55px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 10px;
+}
+.sidebar .closebtn {
+  top: 0;
 }
 
 .chatbot {
-  overflow-y: auto;
-  width: 80%;
   height: 100vh;
+  overflow-y: visible;
   background-color: var(--color-primary);
-  transition: all 0.4s ease-in-out;
+  transition: all 0.23s ease-in-out;
   float: right;
   display: inline;
-  position: relative;
+  position: absolute;
+  padding-top: 28.11px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .textbox {
-  width: 80%;
-  min-height: 60px;
+  position: fixed;
+  left: 0%;
+  transition: all 0.23s ease-in-out;
+  background-color: var(--color-primary);
+  min-height: 85px;
   position: absolute;
-  left: 10%;
-  bottom: 1%;
+  bottom: -24px;
   margin: 1.5rem 0;
+  padding-left: 60px;
 }
-.textbox input, .textbox textarea {
+.textbox textarea {
+  overflow-y: visible;
   text-align: left !important;
   position: absolute;
-  top: 2.5px;
+  top: 7.5px;
   border-radius: 30px;
   padding: 0.8rem 1.1rem;
   font-weight: inherit;
@@ -88,9 +106,8 @@ body {
   outline: none;
   border: none;
   background-color: var(--color-grey-6);
-  width: 100%;
   color: var(--color-tertiary);
-  height: 95%;
+  height: 70%;
 }
 
 .theme-btn {
@@ -106,7 +123,7 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
-  transition: all 0.1s ease-in-out;
+  transition: all 0.23s ease-in-out;
 }
 .theme-btn:active {
   transform: translateY(-3px);

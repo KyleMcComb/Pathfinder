@@ -1,0 +1,40 @@
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder</title>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' %}" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="{% static 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' %}"></script>
+</head>
+    <body class="main-content">
+        <main>
+            <div class="sidebar">
+                <span style="font-size:30px;cursor:pointer" class="closebtn" onclick="navToggle()">&#9776;</span>
+            </div>
+            <div class="chatbot">
+                <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
+                <h1>Pathfinder Chatbot</h1>
+                <div>
+                    <p><span class="conversationArea"></span><span class="visable cursor" id="cursorId">_</span></p>
+                </div>
+                
+            </div>
+            
+            <div class="textbox">
+                <textarea autocomplete="chrome-off" id="userInput" type="text" required placeholder="ENTER TEXT"></textarea>
+            </div>
+        </main>
+
+        <div class="theme-btn">
+            <i class="fas fa-adjust"></i>
+        </div>
+        <script src="{% static 'assets/js/app.js' %}"></script>
+    </body>
+</html>
+
+{% endblock %}

@@ -1,2 +1,5 @@
 activate_env.ps1
 .vscode/settings.json
+/Scripts
+/Lib
+/pyvenv.cfg

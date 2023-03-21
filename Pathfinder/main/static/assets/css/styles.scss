@@ -51,23 +51,7 @@ body {
     overflow-y: visible;
 }
 
-.sidebar{
-    height: 100vh;
-    background-color: var(--color-secondary);
-    transition: all .23s ease-in-out;
-    width: 55px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding: 10px;
-    .closebtn{
-        top: 0;
-    }
-}
+
 
 .chatbot{
     height: 100vh;
@@ -136,6 +120,99 @@ body {
     opacity: 0;
 }
 
-.mobile-view{
-    display: none;
+
+/* sidebar menu */
+
+.sidebar{
+    white-space: nowrap;
+    height: 100vh;
+    background-color: var(--color-secondary);
+    transition: all .23s ease-in-out;
+    width: 55px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 10px;
+    margin: 0px;
+    .closebtn{
+        font-size:30px;
+        cursor:pointer;
+        position: relative;
+        top: 30;
+    }
+    .menu-item {
+        cursor: pointer;
+        display: block;
+        padding: clamp(0.25rem, 0.5vw, 1rem) 0rem;
+        text-decoration: none;
+        transition: opacity 400ms ease;
+    }
+    #menu-items{
+        padding-left: 60px;
+        a {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--color-tertiary);
+        }
+    }
+    #menu-background-pattern {
+        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 9%, transparent 9%);
+        background-position: 0% 0%;
+        background-size: 12vmin 12vmin;
+        position: absolute;
+        height: 200vh;
+        left: 0px;
+        top: 0px;
+        transition: opacity 800ms ease, background-size 800ms ease, background-position 800ms ease;
+        width: 250px;
+        z-index: -2;
+    }
+}
+
+#menu[data-active-index="0"] > #menu-background-pattern {
+    background-position: 0% -12.5%;
+}
+
+#menu[data-active-index="1"] > #menu-background-pattern {
+    background-position: 0% -25%;
+}
+
+#menu[data-active-index="2"] > #menu-background-pattern {
+    background-position: 0% -37.5%;
+}
+
+#menu[data-active-index="3"] > #menu-background-pattern {
+    background-position: 0% -50%;
+}
+
+#menu[data-active-index="4"] > #menu-background-pattern {
+    background-position: 0% -62.5%;
+}
+
+#menu[data-active-index="5"] > #menu-background-pattern {
+    background-position: 0% -75%;
+}
+
+#menu[data-active-index="6"] > #menu-background-pattern {
+    background-position: 0% -87.5%;
+}
+
+#menu[data-active-index="7"] > #menu-background-pattern {
+    background-position: 0% -100%;
+}
+
+#menu-items:hover ~ #menu-background-pattern {
+    background-size: 11vmin 11vmin;
+    opacity: 0.5;
+}
+
+#menu-items:hover > .menu-item {
+    opacity: 0.3;
+}
+
+#menu-items:hover > .menu-item:hover {
+    opacity: 1; 
 }

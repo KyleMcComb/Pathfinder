@@ -13,8 +13,21 @@
 </head>
     <body class="main-content">
         <main>
-            <div class="sidebar">
-                <span style="font-size:30px;cursor:pointer" class="closebtn" onclick="navToggle()">&#9776;</span>
+            <div class="sidebar" id="menu">
+                <div class="toggleButton">
+                    <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
+                </div>
+                <br />
+                <div id="menu-items">
+                    <a class="menu-item">Home</a>
+                    <a class="menu-item">About</a>
+                    <a class="menu-item">Module <br /> Information</a>
+                    <a href="https://www.qub.ac.uk/" target="_blank" class="menu-item">Queen's <br /> Website</a>
+                    <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
+                    <a class="menu-item">Sign-Up</a>
+                    <a class="menu-item">Settings</a>
+                </div>
+                <div id="menu-background-pattern"></div>
             </div>
             <div class="chatbot">
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />

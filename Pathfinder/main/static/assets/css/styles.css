@@ -64,6 +64,36 @@ body {
   padding-right: 30px;
 }
 
+/* Resize image and header */
+.chatbot img {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+
+.chatbot h1 {
+  position: relative;
+  top: 32px;
+  left: 10px;
+  padding-bottom: 100px;
+}
+
+
+/* Needed for formatting */
+
+.conversationArea p {
+  padding-left: 110px;
+}
+
+.visable {
+  padding-left: 110px;
+}
+
+.hidden {
+  padding-left: 110px;
+}
+
+
 .textbox {
   position: fixed;
   left: 0%;

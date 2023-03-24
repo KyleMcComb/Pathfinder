@@ -229,6 +229,50 @@ body {
   opacity: 1;
 }
 
+/* chat bubbles */
+.userText {
+  overflow-x: visible;
+  text-align: right;
+}
+.userText p {
+  overflow-wrap: break-word;
+  line-height: 1.5em;
+  display: inline-block;
+  background: var(--color-secondary);
+  padding: 10px;
+  border-radius: 8px;
+  border-bottom-right-radius: 2px;
+  max-width: 80%;
+  margin-right: 10px;
+  animation: floatup 0.5s forwards;
+}
+
+.botText {
+  text-align: left;
+}
+.botText p {
+  overflow-wrap: break-word;
+  line-height: 1.5em;
+  display: inline-block;
+  background: var(--color-grey-5);
+  padding: 10px;
+  border-radius: 8px;
+  border-bottom-left-radius: 2px;
+  max-width: 80%;
+  margin-left: 10px;
+  animation: floatup 0.5s forwards;
+}
+
+@keyframes floatup {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
 /* Login pop up */
 /* Full-width input fields */
 input[type=text], input[type=password] {

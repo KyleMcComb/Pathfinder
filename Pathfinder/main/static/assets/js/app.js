@@ -126,12 +126,10 @@ function listeners(){
     window.addEventListener('resize', function(){resizeChatbotDiv()});
 }
 
-function displayText(text){
-    var conversationArea = document.document.getElementById('conversationArea');
-    conversationArea.innerHTML += '<p>'+text;
-    //typeWriter(text, false, 'conversationArea');
-    conversationArea.innerHTML += "</p>";
+function displayText(message, sender){
+    $("#chatbot").append('<div class='+sender+'><p>'+message+'</p></div>');
 }
+
 /*
 function getResponse() {
     let userText = $("textbox").val();

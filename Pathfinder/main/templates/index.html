@@ -29,11 +29,11 @@
                 </div>
                 <div id="menu-background-pattern"></div>
             </div>
-            <div class="chatbot">
+            <div id="chatbot">
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
                 <h1>Pathfinder Chatbot</h1>
                 <div>
-                    <p><span class="conversationArea"></span><span class="visable cursor" id="cursorId">_</span></p>
+                    <p><span id="conversationArea">This is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users textThis is a type writer effect that will be used to display the users text</span><span class="visable cursor" id="cursorId">_</span></p>
                 </div>
                 
             </div>
@@ -42,6 +42,25 @@
                 <textarea autocomplete="chrome-off" id="userInput" type="text" required placeholder="ENTER TEXT"></textarea>
             </div>
         </main>
+
+        <div id="id01" class="modal">
+            <form class="modal-content animate" action="" method="">
+                <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                    <button type="submit">Login</button>
+                    <button onclick="document.getElementById('id01').style.display='none'">Cancel</button>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
+                <div class="container">
+                    <span class="psw"><a href="#">Forget Password?</a></span>
+                </div>
+            </form>
+        </div>
 
         <div class="theme-btn">
             <i class="fas fa-adjust"></i>

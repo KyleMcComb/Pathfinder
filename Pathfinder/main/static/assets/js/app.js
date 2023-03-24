@@ -9,15 +9,16 @@ function pageLoad(){
     checkTheme();
     resizeChatbotDiv();
 
-    var colourFound = false;
-    var txt = document.getElementsByClassName('conversationArea')[0].textContent; //gets the text inside the HTML for the typewriter effect
-    window.setInterval('cursor()',400); //used to make the underscore cursor blink
+    displayText("put instructions here?","botText");
 
-
-    document.getElementsByClassName('conversationArea')[0].innerHTML = '';
-    myTimerTypeWriter = setTimeout(function(){
-        typeWriter(txt, colourFound, 'conversationArea');
-    },400); 
+    // uncomment the below code to add the typewrite affect for the intro text from the chatbot
+    //var colourFound = false;
+    //var txt = document.getElementsByClassName('conversationArea')[0].textContent; //gets the text inside the HTML for the typewriter effect
+    //document.getElementsByClassName('conversationArea')[0].innerHTML = '';
+    // myTimerTypeWriter = setTimeout(function(){
+    //     typeWriter(txt, colourFound, 'conversationArea');
+    // },400); 
+    //window.setInterval('cursor()',400); //used to make the underscore cursor blink
 }
 
 //checks what theme is in the local storage and updates the webpage accordingly 
@@ -72,9 +73,9 @@ function cursor() {
 
 function navToggle() {
     // CLOSE THE NAV
-    var chatbotDiv = document.getElementsByClassName('chatbot')[0];
+    var chatbotDiv = document.getElementById('chatbot');
     var textboxDiv = document.getElementsByClassName('textbox')[0];
-    var textarea = document.getElementById("userInput");
+    var textarea = document.getElementById("usersInput");
     var windowWidth = window.innerWidth;
     if(sessionStorage.getItem("navOpen") == "true"){
         document.getElementsByClassName('sidebar')[0].style.width = "55px";
@@ -95,10 +96,6 @@ function navToggle() {
         textarea.style.width = (windowWidth-370)+"px";
         sessionStorage.setItem("navOpen","true");
     }
-}
-
-function updateChatbotDivWidth(){
-
 }
 
 function listeners(){
@@ -130,7 +127,7 @@ function listeners(){
 }
 
 function displayText(text){
-    var conversationArea = document.getElementsByClassName('conversationArea')[0];
+    var conversationArea = document.document.getElementById('conversationArea');
     conversationArea.innerHTML += '<p>'+text;
     //typeWriter(text, false, 'conversationArea');
     conversationArea.innerHTML += "</p>";
@@ -180,9 +177,9 @@ $("#userInput").keypress(function (e) {
 
 
 function resizeChatbotDiv(){
-    var chatbotDiv = document.getElementsByClassName("chatbot")[0];
+    var chatbotDiv = document.getElementById("chatbot");
     var textboxDiv = document.getElementsByClassName('textbox')[0];
-    var textarea = document.getElementById("userInput");
+    var textarea = document.getElementById("usersInput");
     var windowWidth = window.innerWidth;
 
     chatbotDiv.style.height = (window.innerHeight - 85) + "px";
@@ -216,3 +213,13 @@ Array.from(document.getElementsByClassName("menu-item")).forEach((item, index) =
         menu.dataset.activeIndex = index;
     }
 });
+
+/* Login */
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

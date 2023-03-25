@@ -75,7 +75,7 @@ function navToggle() {
     // CLOSE THE NAV
     var chatbotDiv = document.getElementById('chatbot');
     var textboxDiv = document.getElementsByClassName('textbox')[0];
-    var textarea = document.getElementById("usersInput");
+    var textarea = document.getElementById("userInput");
     var windowWidth = window.innerWidth;
     if(sessionStorage.getItem("navOpen") == "true"){
         document.getElementsByClassName('sidebar')[0].style.width = "55px";
@@ -113,13 +113,14 @@ function listeners(){
         }
     });
 
+    // whenever a user enters text
     var input = document.getElementById("userInput");
     input.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
-            userInput = input.value;
+            usersInput = input.value;
             input.value = "";
             event.preventDefault();
-            displayText(userInput);
+            displayText(usersInput,"userText");
         }
     });
 
@@ -177,7 +178,7 @@ $("#userInput").keypress(function (e) {
 function resizeChatbotDiv(){
     var chatbotDiv = document.getElementById("chatbot");
     var textboxDiv = document.getElementsByClassName('textbox')[0];
-    var textarea = document.getElementById("usersInput");
+    var textarea = document.getElementById("userInput");
     var windowWidth = window.innerWidth;
 
     chatbotDiv.style.height = (window.innerHeight - 85) + "px";

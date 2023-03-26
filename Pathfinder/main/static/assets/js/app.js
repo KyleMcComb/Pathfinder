@@ -129,6 +129,10 @@ function listeners(){
 
 function displayText(message, sender){
     $("#chatbot").append('<div class='+sender+'><p>'+message+'</p></div>');
+    const element = $('#chatbot');
+    element.animate({
+        scrollTop: element.prop("scrollHeight")
+    }, 500);
 }
 
 /*

@@ -3,3 +3,6 @@ activate_env.ps1
 /Scripts
 /Lib
 /pyvenv.cfg
+./Pathfinder/mysite
+./Pathfinder/main/migrations
+/Pathfinder/main/__pycache__

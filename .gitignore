@@ -1,8 +1,11 @@
+# Python Virtual Environment
 activate_env.ps1
 .vscode/settings.json
 /Scripts
 /Lib
 /pyvenv.cfg
-./Pathfinder/mysite
-./Pathfinder/main/migrations
-/Pathfinder/main/__pycache__
+
+# django files
+/Pathfinder/mysite/__pycache__/
+./Pathfinder/main/migrations/
+/Pathfinder/main/__pycache__/

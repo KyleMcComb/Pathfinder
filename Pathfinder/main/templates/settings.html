@@ -30,13 +30,34 @@
             </div>
             <div id="chatbot">
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                <h1>Pathfinder Chatbot</h1>
+                <h1>Settings</h1>
                 <div>
-                    <p><span id="conversationArea">This is a type writer effect that will be used to display the users text.</span><span class="visable cursor" id="cursorId">_</span></p>
+                    <form class="modal-content animate" action="" method="">
+                        <div class="container">
+                            <label for="name"><b>Name</b></label>
+                            <input type="text" placeholder="Enter Username" name="name" required>
+                            <label for="email"><b>Email</b></label>
+                            <input type="text" placeholder="Enter email" name="email" required>
+                            <label for="snum"><b>Student Number</b></label>
+                            <input type="text" placeholder="Enter student number" name="snum" required>
+                            <label for="pathway"><b>Pathway</b></label>
+                            <input type="text" placeholder="Enter pathway" name="pathway" required>
+                            <label for="semester"><b>Current Semester</b></label>
+                            <input type="text" placeholder="Enter semester" name="semester" required>
+                            <label for="stage"><b>Current Stage</b></label>
+                            <input type="text" placeholder="Enter stage" name="stage" required>
+                            <button type="submit">Save Changes</button>
+                            <label>
+                                <input type="checkbox" checked="checked" name="remember"> Remember me
+                            </label>
+                        </div>
+                        <div class="container">
+                            <span class="psw"><a href="#">Forget Password?</a></span>
+                        </div>
+                    </form>
                 </div>
-                
             </div>
-            
+
             <div class="textbox">
                 <textarea autocomplete="chrome-off" id="userInput" type="text" required placeholder="ENTER TEXT"></textarea>
             </div>
@@ -45,8 +66,8 @@
         <div id="id01" class="modal">
             <form class="modal-content animate" action="" method="">
                 <div class="container">
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" name="email" required>
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
                     <label for="psw"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="psw" required>
                     <button type="submit">Login</button>

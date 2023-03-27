@@ -139,6 +139,7 @@ function displayText(message, sender) {
     }
 }
 
+/*
 function processUserInput(inputMessage) {
     // Make an AJAX request to your server to get the bot response
     $.ajax({
@@ -149,8 +150,14 @@ function processUserInput(inputMessage) {
             displayText(data.message, 'botText'); // Display the bot response
         }
     });
-}
+} */
 
+function processUserInput(inputMessage) {
+    // Make an AJAX request to your server to get the bot response
+    $.get("/receive_message/", { message: inputMessage }, function (data) {
+    displayText(data.message, "botText"); //display bot response 
+});
+}
 // whenever a user enters text
 var input = document.getElementById("userInput");
 input.addEventListener("keypress", function (event) {

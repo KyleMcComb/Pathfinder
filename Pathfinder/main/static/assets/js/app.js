@@ -127,57 +127,45 @@ function listeners(){
     window.addEventListener('resize', function(){resizeChatbotDiv()});
 }
 
-function displayText(message, sender){
-    $("#chatbot").append('<div class='+sender+'><p>'+message+'</p></div>');
-    const element = $('#chatbot');
-    element.animate({
-        scrollTop: element.prop("scrollHeight")
-    }, 500);
+/* START OF CHATBOT CODE */
+
+function displayText(message, sender) {
+    if (message.trim().length > 0) {
+        $("#chatbot").append('<div class=' + sender + '><p>' + message + '</p></div>');
+        const element = $('#chatbot');
+        element.animate({
+            scrollTop: element.prop("scrollHeight")
+        }, 500);
+    }
 }
 
-/*
-function getResponse() {
-    let userText = $("textbox").val();
-    let userHtml = '<p class="userText"><span>' + userText + '</span></p>';
-    $("#userInput").val("");
-    $("#chatbox").append(userHtml);
-    document.getElementById('userInput').scrollIntoView({ block: 'start', behaviour: 'smooth' });
-    $.get("/get", { msg: userText }).done(function (data) {
-        var botHtml = '<p><span class="conversationArea">' + data + '</span></p>';
-        $("#chatbox").append(botHtml);
-        document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+function processUserInput(inputMessage) {
+    // Make an AJAX request to your server to get the bot response
+    $.ajax({
+        type: 'GET',
+        url: '/receive_message/',
+        data: { message: inputMessage },
+        success: function (data) {
+            displayText(data.message, 'botText'); // Display the bot response
+        }
     });
 }
 
-$("#userInput").keypress(function (e) {
-    //if enter key is pressed
-    if (e.which == 13) {
-        getResponse();
+// whenever a user enters text
+var input = document.getElementById("userInput");
+input.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        usersInput = input.value.trim();
+        if (usersInput.length > 0) {
+            input.value = "";
+            displayText(usersInput, "userText");
+            processUserInput(usersInput); // Process the user input and get the bot response
+        }
     }
 });
-/* Placeholder if we add a button.
-$("#buttonInput").click(function () {
-    getResponse();
-}); */
 
-/*
-$("#userInput").keypress(function (e) {
-    //if enter key is pressed
-    if (e.which == 13) {
-        e.preventDefault();
-        $.ajax({
-            url: 'http://localhost:8000/message?message=' + encodeURIComponent($('#userInput').val()),
-            type: 'GET',
-            dataType: 'text', // specify the data type as text
-            success: function (response) {
-                $('<p>').text(response).appendTo('.conversationArea');
-            }
-        });
-        /*$('#userInput').val('');
-    }
-}); */
-
-
+/* END OF CHATBOT CODE */
 
 function resizeChatbotDiv(){
     var chatbotDiv = document.getElementById("chatbot");

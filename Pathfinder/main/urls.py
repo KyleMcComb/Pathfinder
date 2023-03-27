@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import index
+from . import views
+from .chatbot import receive_message
 
 app_name = 'main'
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', views.index, name='index'),
+    path('receive_message/', receive_message, name='receive_message'),
 ]

@@ -52,7 +52,7 @@ body {
   overflow-y: visible;
 }
 
-#chatbot {
+.content {
   height: 100vh;
   overflow-y: visible;
   background-color: var(--color-primary);
@@ -172,12 +172,12 @@ body {
 }
 
 /* Resize image and header */
-#chatbot img {
+.content img {
   float: left;
   width: 100px;
   height: 100px;
 }
-#chatbot h1 {
+.content h1 {
   position: relative;
   top: 32px;
   left: 10px;
@@ -323,17 +323,10 @@ span.psw {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   padding-top: 60px;
-  /* The Close Button (x) */
 }
-.modal .close {
-  position: absolute;
-  top: 0;
-  font-size: 18px;
-  width: 18px;
-  text-align: right;
-  color: var(--color-tertiary);
-  font-size: 35px;
-  font-weight: bold;
+
+.test {
+  background-color: yellow;
 }
 
 /* Modal Content/Box */

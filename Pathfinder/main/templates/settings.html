@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pathfinder</title>
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
     <body>
         <main>
@@ -28,36 +27,48 @@
                 </div>
                 <div id="menu-background-pattern"></div>
             </div>
+
             <div class="content">
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
                 <h1>Settings</h1>
                 <div>
                     <h2>Account Information</h2>
                     <form class="" action="" method="">
-                        <div class="signup">
-                            <label for="name"><b>Name</b></label>
-                            <input type="text" placeholder="Enter Username" name="name" required>
-                            <label for="email"><b>Email</b></label>
-                            <input type="text" placeholder="Enter email" name="email" required>
-                            <label for="snum"><b>Student Number</b></label>
-                            <input type="text" placeholder="Enter student number" name="snum" required>
-                            <label for="pathway"><b>Pathway</b></label>
-                            <input type="text" placeholder="Enter pathway" name="pathway" required>
-                            <label for="semester"><b>Current Semester</b></label>
-                            <input type="text" placeholder="Enter semester" name="semester" required>
-                            <label for="stage"><b>Current Stage</b></label>
-                            <input type="text" placeholder="Enter stage" name="stage" required>
-                            <button type="submit">Save Changes</button>
-                            <label>
-                                <input type="checkbox" checked="checked" name="remember"> Remember me
-                            </label>
-                        </div>
+                        <label for="name"><b>Name: </b></label>
+                        <input type="text" placeholder="Enter Username" name="name" required>
+                        <label for="email"><b>Email: </b></label>
+                        <input type="text" placeholder="Enter email" name="email" required>
+                        <label for="snum"><b>Student Number: </b></label>
+                        <input type="text" placeholder="Enter student number" name="snum" required>
+                        <label for="pathway"><b>Pathway: </b></label>
+                        <input type="text" placeholder="Enter pathway" name="pathway" required>
+                        <label for="semester"><b>Current Semester: </b></label>
+                        <input type="text" placeholder="Enter semester" name="semester" required>
+                        <label for="stage"><b>Current Stage: </b></label>
+                        <input type="text" placeholder="Enter stage" name="stage" required>
+                        <button type="submit">Save Changes</button>
+                    </form>
+
+                    <h2>Accessability</h2>
+                    <form onsubmit="return updateAccessabilityOptions()">
+                        <label class="" for="theme"><b>Theme: </b></label>
+                        <input type="radio" id="dark" name="theme" value="dark-mode" checked="checked">
+                        <label for="dark">Dark</label>
+                        <input type="radio" id="light" name="theme" value="light-mode">
+                        <label for="light">Light</label>
+                        <input type="radio" id="highContrast" name="theme" value="high-contrast-mode">
+                        <label for="highContrast">High Contrast</label><br>
+                        
+                        <label><b>Font Size: </b></label>
+                        <input type="radio" id="small" name="fontSize" value="small">
+                        <label for="small">Small</label>
+                        <input type="radio" id="medium" name="fontSize" value="medium" checked="checked">
+                        <label for="medium">Medium</label>
+                        <input type="radio" id="large" name="fontSize" value="large">
+                        <label for="large">Large</label><br>
+                        <button type="submit">Save Changes</button>
                     </form>
                 </div>
-            </div>
-
-            <div class="textbox">
-                <textarea autocomplete="chrome-off" id="userInput" type="text" required placeholder="ENTER TEXT"></textarea>
             </div>
         </main>
 
@@ -80,11 +91,9 @@
             </form>
         </div>
 
-        <div class="theme-btn">
-            <i class="fas fa-adjust"></i>
-        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="{% static 'assets/js/general.js' %}"></script>
+        <script src="{% static 'assets/js/settingsPage.js' %}"></script>
     </body>
 </html>
 

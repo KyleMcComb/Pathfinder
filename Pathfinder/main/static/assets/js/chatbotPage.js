@@ -47,7 +47,7 @@ function displayText(message, sender) {
         const element = $('.content');
         element.animate({
             scrollTop: element.prop("scrollHeight")
-        }, 500);
+        }, 30);
     }
 }
 

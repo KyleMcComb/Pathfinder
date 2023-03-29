@@ -6,15 +6,43 @@ var myTimerTypeWriter;
 function pageLoad(){
     sessionStorage.setItem("navOpen","false"); //makes sure the nav is closed whenever the page loads
     checkTheme();
+    checkFontSize()
     resizeContentDiv();
 }
 
 //checks what theme is in the local storage and updates the webpage accordingly 
 function checkTheme(){
     var theme = localStorage.getItem('theme');
-    if(theme == 'light-mode'){
-        let element = document.body;
-        element.classList.toggle('light-mode');
+    let element = document.body;
+
+    // removes the 2 none default themes to turn the page into the default dark mode
+    element.classList.remove('light-mode');
+    element.classList.remove('high-contrast-mode');
+
+    // checks for new theme, if light mode or high contrast is not selected the default (dark mode) is then applied
+    if(theme == 'light-mode'){ 
+        element.classList.add("light-mode");
+    }
+    else if(theme == 'high-contrast-mode') {
+        element.classList.add("high-contrast-mode");
+    }
+}
+
+function checkFontSize(){
+    var fontSize = localStorage.getItem('fontSize');
+    let element = document.body;
+
+    // checks for new font size, if small or large size is not selected the default (medium) is then applied
+    if(fontSize == 'small'){ 
+        element.style.fontSize  = "0.9rem";
+    }
+    else if(fontSize == 'large') {
+        element.style.fontSize = "1.6rem";
+        document.getElementsByClassName("menu-item")[1].innerHTML = "Grade <br />Dashboard";
+        document.getElementsByClassName("menu-item")[3].innerHTML = "Queen's <br />Website";
+    }
+    else {
+        element.style.fontSize  = "1.1rem";
     }
 }
 
@@ -49,19 +77,6 @@ function resizeContentDiv(){
 }
 
 function listeners(){
-    //toggle theme
-    var themeBtn = document.querySelector('.theme-btn');
-    themeBtn.addEventListener('click', () =>{
-        var theme = localStorage.getItem('theme');
-        let element = document.body;
-        element.classList.toggle('light-mode');
-        if(theme == 'dark-mode'){
-            localStorage.setItem('theme','light-mode');
-        }
-        else{
-            localStorage.setItem('theme','dark-mode');
-        }
-    });
     window.addEventListener('resize', function(){resizeContentDiv()});
 }
 

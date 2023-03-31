@@ -173,6 +173,14 @@ body {
     }
 }
 
+.toggleButton{
+    //makes text non highlightable
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
 #menu[data-active-index="0"] > #menu-background-pattern {
     background-position: 0% -12.5%;
 }
@@ -266,37 +274,126 @@ body {
     }
 }
 
-.module-table {
+/* module information page */
+.modules-container{
     padding-left: 5%;
     padding-right: 5%;
+    width:100%;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-gap: 2rem;
-    padding-top: 20px;
-    .main-module-info{
+    position: absolute;
+    top:275px;
+    padding-bottom: 50px;
+    //formatting for each of the modules within the module information page
+    .module-table {
+        z-index: 0;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         grid-gap: 2rem;
-    }
-    .top-of-table{
-        padding-top: 20px;
-        position: relative;
-        &::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            width: 100%;
-            height: 1px;
-            background-color: var(--color-secondary);
-            transform: translateX(-50%);
+        padding-top: 30px;
+        .main-module-info{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 2rem;
+        }
+        .top-of-table{
+            padding-top: 25px;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 0;
+                width: 100%;
+                height: 1px;
+                background-color: var(--color-secondary);
+                transform: translateX(-50%);
+            }
         }
     }
 }
 
+
+//search bar and filter
+.filter-and-search{
+    z-index: 3;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+
+    .search-bar{
+        grid-template-rows: 60px;
+        width: 100%;
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0rem;
+        grid-template-columns: 1fr 60px;
+    }
+}
+
+.filter{
+    z-index: 3;
+    padding-top: 24px;
+    //makes text non highlightable
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.multiselect {
+    width: 100%;
+}
+
+.selectBox {
+    position: relative;
+    .filtersApplied{
+        padding: 5px;
+        background-color: var(--color-primary);
+        color: var(--color-tertiary);
+        font-size: inherit;
+    }
+}
+
+.selectBox select {
+    width: 100%;
+}
+
+.overSelect {
+    color: var(--color-tertiary);
+    //background-color: var(--color-primary);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#mySelectOptions {
+    display: none;
+    border: 0.5px #7c7c7c solid;
+    background-color: #ffffff;
+    max-height: 300px;
+    overflow-y: auto;
+    label {
+        display: block;
+        font-weight: normal;
+        display: block;
+        white-space: nowrap;
+        min-height: 1.2em;
+        background-color: var(--color-primary);
+        padding: 0 2.25rem 0 .75rem;
+        //padding: .375rem 2.25rem .375rem .75rem; 
+        #mySelectOptions label:hover {
+            background-color: #1e90ff;
+        }
+    }
+}
+
+
 /* Login pop up */
 
-/* Full-width input fields - Also used in the settings page and signup pop up */
+//Full-width input fields - Also used in the settings page and signup pop up
 input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;
@@ -308,7 +405,7 @@ input[type=text], input[type=password] {
     color: var(--color-tertiary);
 }
 
-/* Set a style for all buttons - Also used in the settings page and signup pop up */
+// Set a style for all buttons - Also used in the settings page and signup pop up 
 button {
     background-color: var(--color-secondary);
     color: white;
@@ -332,11 +429,11 @@ span.psw {
     padding-top: 16px;
 }
 
-/* The Modal (background) */
+// The Modal (blurred background effect for login pop-up) 
 .modal {
     display: none; /* Hidden by default */
     position: relative; 
-    z-index: 1; /* Sit on top */
+    z-index: 10; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */

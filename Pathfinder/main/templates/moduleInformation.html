@@ -32,44 +32,83 @@
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
                 <h1>Module Information</h1>
                 
-                <div class="module-table">
-                    <div class="top-of-table">
-                        <p><b class="heading">Module Name: </b><span> hello</span></p>
-                    </div>
-                    <div class="main-module-info">
-                        <div>
-                            <p><b class="heading">Lecturer</b><span> hello</span></p>
+                <div class="filter-and-search">
+                    <form action="" class="search-bar">
+                        <input type="text" placeholder="Search." name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+
+                    <div class="filter">
+                        <div id="myMultiselect" class="multiselect">
+                            <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
+                                <select class="filtersApplied">
+                                    <option>No Filters are applied</option>
+                                </select>
+                                <div class="overSelect"></div>
+                            </div>
+                            <div id="mySelectOptions">
+                                <label>Stage</label>
+                                <label for="stage-1">&nbsp;&nbsp;<input type="checkbox" id="stage-1" onchange="checkboxStatusChange()" value="stage-1" />1</label>
+                                <label for="stage-2">&nbsp;&nbsp;<input type="checkbox" id="stage-2" onchange="checkboxStatusChange()" value="stage-2" />2</label>
+                                <label for="stage-3">&nbsp;&nbsp;<input type="checkbox" id="stage-3" onchange="checkboxStatusChange()" value="stage-3" />3</label>
+                                <label for="stage-4">&nbsp;&nbsp;<input type="checkbox" id="stage-4" onchange="checkboxStatusChange()" value="stage-4" />4</label>
+
+                                <label>Semester</label>
+                                <label for="semester-1">&nbsp;&nbsp;<input type="checkbox" id="semester-1" onchange="checkboxStatusChange()" value="semester-1" />1</label>
+                                <label for="semester-2">&nbsp;&nbsp;<input type="checkbox" id="semester-2" onchange="checkboxStatusChange()" value="semester-2" />2</label>
+
+                                <label>Required</label>
+                                <label for="Required">&nbsp;&nbsp;<input type="checkbox" id="Required" onchange="checkboxStatusChange()" value="Required" />Required</label>
+                                <label for="Optional">&nbsp;&nbsp;<input type="checkbox" id="Optional" onchange="checkboxStatusChange()" value="Optional" />Optional</label>
+
+                                <label>Pathways</label>
+                                <label for="BIT">&nbsp;&nbsp;<input type="checkbox" id="BIT" onchange="checkboxStatusChange()" value="BIT" />BIT</label>
+                                <label for="CS">&nbsp;&nbsp;<input type="checkbox" id="CS" onchange="checkboxStatusChange()" value="CS" />CS</label>
+                                <label for="SE">&nbsp;&nbsp;<input type="checkbox" id="SE" onchange="checkboxStatusChange()" value="SE" />SE</label>
+                            </div>
                         </div>
-                        <div>
-                            <p><b class="heading">Stage: </b></p>
-                        </div>
-                        <div>
-                            <p><b class="heading">Semester: </b></p>
-                        </div>
-                        <div>
-                            <p><b class="heading">Weighting: </b></p>
-                        </div>
-                        <div>
-                            <p><b class="heading">Required: </b></p>
-                        </div>
-                    </div>
-                    <div>
-                        <b class="heading">Pathways available on: </b><br />
-                    </div>
-                    <div>
-                        <h3>Assesment name: </h3>
-                    </div>
-                    <div>
-                        <h3>Assesment name: </h3>
-                    </div>
-                    <div>
-                        <b class="heading">Description: </b><br />
-                        <p>
-                            
-                        </p>
                     </div>
                 </div>
 
+                <div class="modules-container">
+                    <div class="module-table">
+                        <div class="top-of-table">
+                            <p><b class="heading">Module Name: </b><span> hello</span></p>
+                        </div>
+                        <div class="main-module-info">
+                            <div>
+                                <p><b class="heading">Lecturer: </b><span> hello</span></p>
+                            </div>
+                            <div>
+                                <p><b class="heading">Stage: </b></p>
+                            </div>
+                            <div>
+                                <p><b class="heading">Semester: </b></p>
+                            </div>
+                            <div>
+                                <p><b class="heading">Weighting: </b></p>
+                            </div>
+                            <div>
+                                <p><b class="heading">Required: </b></p>
+                            </div>
+                        </div>
+                        <div>
+                            <b class="heading">Pathways available on: </b><br />
+                        </div>
+                        <div>
+                            <h3>Assesment name: </h3>
+                        </div>
+                        <div>
+                            <h3>Assesment name: </h3>
+                        </div>
+                        <div>
+                            <b class="heading">Description: </b><br />
+                            <p>
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -92,9 +131,6 @@
             </form>
         </div>
 
-        <div class="theme-btn">
-            <i class="fas fa-adjust"></i>
-        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="{% static 'assets/js/general.js' %}"></script>
         <script src="{% static 'assets/js/moduleInformationPage.js' %}"></script>

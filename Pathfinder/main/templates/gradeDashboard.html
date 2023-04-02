@@ -14,7 +14,7 @@
         <main>
             <div class="sidebar" id="menu">
                 <div class="toggleButton">
-                    <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
+                    <p><span class="closebtn" onclick="navToggleOnGradeDashboardPage()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
                 </div>
                 <br />
                 <div id="menu-items">
@@ -32,6 +32,40 @@
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
                 <h1>Grade Dashboard</h1>
                 
+                <div class="filter">
+                    <div id="myMultiselect" class="multiselect">
+                        <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
+                            <select class="filtersApplied">
+                                <option>No Filters are applied</option>
+                            </select>
+                            <div class="overSelect"></div>
+                        </div>
+                        <div id="mySelectOptions">
+                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-1" onchange="checkboxStatusChange()" value="stage-1" />1</label>
+                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-2" onchange="checkboxStatusChange()" value="stage-2" />2</label>
+                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-3" onchange="checkboxStatusChange()" value="stage-3" />3</label>
+                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-4" onchange="checkboxStatusChange()" value="stage-4" />4</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-container">
+                    <div class="assesments">
+
+                    </div>
+                    <div class="grades">
+
+                    </div>
+                    <div class="stats">
+                        <div class="module-avg"></div>
+                        <div class="assesment-avg"></div>
+                        <div class="left-to-earn"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-bar">
+                <p>hi</p>
             </div>
         </main>
 
@@ -59,6 +93,7 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="{% static 'assets/js/general.js' %}"></script>
+        <script src="{% static 'assets/js/gradeDashboardPage.js' %}"></script>
     </body>
 </html>
 

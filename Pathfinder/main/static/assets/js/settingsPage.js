@@ -8,7 +8,7 @@ function settingsPageLoad(){
         document.getElementById('highContrast').checked = true;
     }
     else { // default option is dark mode
-        document.getElementById('dark').checked = true;
+        document.getElementById('dark-mode').checked = true;
     }
 
     // check the current fontSize then select this within the radio button.

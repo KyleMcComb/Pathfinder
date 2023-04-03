@@ -222,7 +222,6 @@ body {
   opacity: 1;
 }
 
-/* chat bubbles */
 .userText {
   overflow-x: visible;
   text-align: right;
@@ -374,6 +373,35 @@ body {
 }
 #mySelectOptions label #mySelectOptions label:hover {
   background-color: #1e90ff;
+}
+
+/* Grade Dashboard Page */
+.grade-progression {
+  padding-top: 6px;
+  border-top: 2.5px solid var(--color-secondary);
+}
+
+.dashboard-container {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 600px;
+}
+.dashboard-container .grades {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.dashboard-container .grades #stageGrades {
+  margin: auto;
+  margin-top: 20%;
+}
+.dashboard-container .stats {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.dashboard-container .stats .stat-box {
+  height: 30px;
 }
 
 /* Login pop up */

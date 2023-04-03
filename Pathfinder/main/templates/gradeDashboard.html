@@ -36,7 +36,7 @@
                     <div id="myMultiselect" class="multiselect">
                         <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
                             <select class="filtersApplied">
-                                <option>No Filters are applied</option>
+                                <option>Select Stage to Display</option>
                             </select>
                             <div class="overSelect"></div>
                         </div>
@@ -50,22 +50,22 @@
                 </div>
 
                 <div class="dashboard-container">
-                    <div class="assesments">
-
+                    <div class="assesments" style="background-color: aliceblue;">
+                        <p>List of modules and their assesments</p>
                     </div>
                     <div class="grades">
-
+                        <canvas id="stageGrades" style="width:100%;max-width:650px"></canvas>
                     </div>
-                    <div class="stats">
-                        <div class="module-avg"></div>
-                        <div class="assesment-avg"></div>
-                        <div class="left-to-earn"></div>
+                    <div class="stats" style="background-color: black;">
+                        <div class="stat-box" id="module-avg" style="background-color: green;"><p>module avg</p></div>
+                        <div class="stat-box" id="assesment-avg" style="background-color: gold;"><p>assesment avg</p></div>
+                        <div class="stat-box" id="left-to-earn" style="background-color: blue;"><p>left to earn of degree</p></div>
                     </div>
                 </div>
             </div>
 
-            <div class="bottom-bar">
-                <p>hi</p>
+            <div class="bottom-bar grade-progression">
+                <p>Place for Grade Progression bar</p>
             </div>
         </main>
 
@@ -92,6 +92,7 @@
             <i class="fas fa-adjust"></i>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0/chart.min.js" integrity="sha512-lkEx3HSoujDP3+V+i46oZpNx3eK67QPiWiCwoeQgR1I+4kutWAuOSs3BxEUZt4U/mUfyY5uDHlypuQ1HHKVykA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="{% static 'assets/js/general.js' %}"></script>
         <script src="{% static 'assets/js/gradeDashboardPage.js' %}"></script>
     </body>

@@ -175,7 +175,7 @@ body {
 }
 
 .toggleButton{
-    //makes text non highlightable
+    // makes text non highlightable - thanks to https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
@@ -227,8 +227,7 @@ body {
     opacity: 1; 
 }
 
-/* chat bubbles */
-
+//chat bubbles
 .userText {
     overflow-x: visible;
     text-align: right;
@@ -332,10 +331,12 @@ body {
     }
 }
 
+
+// filter
 .filter{
     z-index: 3;
     padding-top: 24px;
-    //makes text non highlightable
+    // makes text non highlightable - thanks to https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
@@ -391,6 +392,34 @@ body {
     }
 }
 
+/* Grade Dashboard Page */
+.grade-progression {
+    padding-top: 6px;
+    border-top: 2.5px solid var(--color-secondary);
+}
+
+.dashboard-container{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 600px;
+    .grades{
+        padding-left: 20px;
+        padding-right: 20px;
+        #stageGrades{
+            margin: auto;
+            margin-top: 20%;
+        }
+    }
+    .stats{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        .stat-box{
+            height: 30px;
+        }
+    }
+}
 
 /* Login pop up */
 

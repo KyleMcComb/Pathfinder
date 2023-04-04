@@ -11,7 +11,6 @@ function resizeGradeDashboardPage(){
     var windowWidth = window.innerWidth;
 
     document.getElementsByClassName('content')[0].style.height = (window.innerHeight - 85) + 'px';
-    console.log(document.getElementsByClassName('content')[0].style.height);
     // NAV IS OPEN
     if(sessionStorage.getItem('navOpen') == 'true'){
         bottomBarDiv.style.width = (windowWidth-250)+'px';
@@ -52,7 +51,7 @@ function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Modul
             datasets: [{
                 backgroundColor: barColours,
                 data: grades,
-                label: 'Grade for modules during semester'
+                label: 'Grade'
             }],
             hoverOffset: 4
         },
@@ -70,11 +69,6 @@ function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Modul
                         color: axisAndGridColour,
                     }
                 },
-                x: {
-                    grid: {
-                        color: axisAndGridColour,
-                    }
-                }
             }
         }
     });

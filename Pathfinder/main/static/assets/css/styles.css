@@ -51,7 +51,7 @@ html {
 body {
   background-color: var(--color-primary);
   font-family: "Poppins", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--color-tertiary);
   transition: all 0.23s ease-in-out;
   overflow-y: visible;
@@ -269,7 +269,7 @@ body {
 }
 /* module information page */
 .modules-container {
-  padding-left: 5%;
+  padding-left: 2.5%;
   padding-right: 5%;
   width: 100%;
   display: grid;
@@ -330,6 +330,7 @@ body {
 
 .multiselect {
   width: 100%;
+  z-index: 3;
 }
 
 .selectBox {
@@ -341,7 +342,6 @@ body {
   color: var(--color-tertiary);
   font-size: inherit;
 }
-
 .selectBox select {
   width: 100%;
 }
@@ -371,9 +371,6 @@ body {
   background-color: var(--color-primary);
   padding: 0 2.25rem 0 0.75rem;
 }
-#mySelectOptions label #mySelectOptions label:hover {
-  background-color: #1e90ff;
-}
 
 /* Grade Dashboard Page */
 .grade-progression {
@@ -382,26 +379,67 @@ body {
 }
 
 .dashboard-container {
+  z-index: 0;
   padding-top: 20px;
   padding-bottom: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  height: 600px;
+  width: 95%;
+}
+.dashboard-container .assesments {
+  z-index: -1;
+  float: left;
+  width: 17.7%;
+}
+.dashboard-container .assesments .assesment-grade {
+  z-index: -1;
+  width: 100px;
 }
 .dashboard-container .grades {
+  height: inherit;
+  width: 64%;
+  float: left;
   padding-left: 20px;
   padding-right: 20px;
 }
 .dashboard-container .grades #stageGrades {
-  margin: auto;
-  margin-top: 20%;
+  transition: none;
 }
 .dashboard-container .stats {
+  height: inherit;
+  float: right;
+  width: 17.7%;
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  grid-gap: 1rem;
 }
-.dashboard-container .stats .stat-box {
-  height: 30px;
+.dashboard-container .stats .stat-item {
+  width: 300px;
+  height: 160px;
+  border: 1px solid var(--color-grey);
+  border-radius: 5px;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 1px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.dashboard-container .stats .stat-item:hover {
+  transform: translateY(-5px);
+  border: 1px solid var(--color-secondary);
+  box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.32);
+}
+.dashboard-container .stats .stat-item .stat-text {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-container .stats .stat-item .stat-text .large-text {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+.dashboard-container .stats .stat-item .stat-text .small-text {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: var(--color-tertiary);
+  letter-spacing: 2px;
 }
 
 /* Login pop up */
@@ -414,9 +452,11 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
   background-color: var(--color-grey);
   color: var(--color-tertiary);
+  font-size: inherit;
 }
 
 button {
+  font-size: inherit;
   background-color: var(--color-secondary);
   color: white;
   padding: 14px 20px;

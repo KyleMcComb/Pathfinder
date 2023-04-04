@@ -34,15 +34,15 @@ function checkFontSize(){
 
     // checks for new font size, if small or large size is not selected the default (medium) is then applied
     if(fontSize == 'small'){ 
-        element.style.fontSize  = "0.9rem";
+        element.style.fontSize  = "0.8rem";
     }
     else if(fontSize == 'large') {
-        element.style.fontSize = "1.6rem";
+        element.style.fontSize = "1.5rem";
         document.getElementsByClassName("menu-item")[1].innerHTML = "Grade <br />Dashboard";
         document.getElementsByClassName("menu-item")[3].innerHTML = "Queen's <br />Website";
     }
     else {
-        element.style.fontSize  = "1.1rem";
+        element.style.fontSize  = "1rem";
     }
 }
 
@@ -57,6 +57,8 @@ function navToggle() {
         document.getElementsByClassName('sidebar')[0].style.width = "250px";
         sessionStorage.setItem("navOpen","true");
     }
+    document.getElementsByClassName('sidebar')[0].style.height = "100vh";
+    console.log("change made");
     resizeContentDiv();
 }
 

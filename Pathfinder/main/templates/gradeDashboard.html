@@ -50,16 +50,32 @@
                 </div>
 
                 <div class="dashboard-container">
-                    <div class="assesments" style="background-color: aliceblue;">
-                        <p>List of modules and their assesments</p>
+                    <div class="assesments">
+                        <h3>Module 1</h3>
+                        <p>&nbsp;&nbsp;Assesment 1: <input class="assesment-grade" type="text" placeholder="Grade" name="assesment1" required>%</p>
                     </div>
                     <div class="grades">
-                        <canvas id="stageGrades" style="width:100%;max-width:650px"></canvas>
+                        <canvas id="stageGrades"></canvas>
                     </div>
-                    <div class="stats" style="background-color: black;">
-                        <div class="stat-box" id="module-avg" style="background-color: green;"><p>module avg</p></div>
-                        <div class="stat-box" id="assesment-avg" style="background-color: gold;"><p>assesment avg</p></div>
-                        <div class="stat-box" id="left-to-earn" style="background-color: blue;"><p>left to earn of degree</p></div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-text" id="module-avg">
+                                <p class="large-text">10%</p>
+                                <p class="small-text">- module avg</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-text" id="assesment-avg">
+                                <p class="large-text">30%</p>
+                                <p class="small-text">- assesment avg</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-text" id="left-to-earn">
+                                <p class="large-text">89%</p>
+                                <p class="small-text">- left to earn of degree</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

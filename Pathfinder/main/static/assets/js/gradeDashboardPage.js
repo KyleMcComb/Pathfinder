@@ -4,7 +4,13 @@ function gradeDashboardPageLoad() {
     resizeGradeDashboardPage();
     createGradeBarChart();
     initMultiselect();
+    progressBar('50');
 } 
+
+function progressBar(grade='0'){
+    document.getElementById('current-progression').style.width = grade+'%';
+    document.getElementById('grade').innerHTML = grade;
+}
 
 function resizeGradeDashboardPage(){
     var bottomBarDiv = document.getElementsByClassName('bottom-bar')[0];

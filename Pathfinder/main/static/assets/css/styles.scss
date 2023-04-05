@@ -286,7 +286,6 @@ body {
     padding-bottom: 50px;
     //formatting for each of the modules within the module information page
     .module-table {
-        z-index: 0;
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 2rem;
@@ -331,6 +330,11 @@ body {
     }
 }
 
+.filter-container{
+    z-index: 3;
+    display:grid;
+    grid-template-columns: repeat(1, 1fr);
+}
 
 // filter
 .filter{
@@ -378,30 +382,23 @@ body {
     max-height: 300px;
     overflow-y: auto;
     label {
+        z-index: 3;
         display: block;
         font-weight: normal;
-        display: block;
         white-space: nowrap;
         min-height: 1.2em;
-        background-color: var(--color-primary);
         padding: 0 2.25rem 0 .75rem;
         //padding: .375rem 2.25rem .375rem .75rem; 
     }
 }
 
 /* Grade Dashboard Page */
-.grade-progression {
-    padding-top: 6px;
-    border-top: 2.5px solid var(--color-secondary);
-}
-
-
 .dashboard-container{
     z-index: 0;
     padding-top: 20px;
     padding-bottom: 10px;
-    // position: absolute;
-    //top:250px;
+    position: absolute;
+    top:250px;
     width:95%;
     //input widget where the grade will be displayed
     .assesments{
@@ -409,7 +406,7 @@ body {
         float: left;
         width: 17.7%;
         .assesment-grade{
-            z-index: -1;
+            z-index: 20;
             width: 100px;
         }
     }
@@ -466,6 +463,69 @@ body {
         }
     }
 }
+
+.grade-progression {
+    padding-top: 6px;
+    border-top: 2.5px solid var(--color-secondary);
+    .title{
+        text-align: center;
+    }
+    .degree-classifications{
+        width:95%;
+        span{
+            display: inline-block;
+            text-align: end !important;
+            border-right: solid 1px var(--color-tertiary);
+        }
+        #third{
+            width:40%;
+        }
+        #lower-second, #upper-second, #first{
+            width: 10%;
+        }
+    }
+    .progression-bar{
+        display: flex;
+        border-radius: 30px;
+        width:95%;
+        background-color: var(--color-black);
+        #current-progression{
+            align-self: stretch;
+            display: inline-block;
+            text-align: end;
+            width: 40%;
+            background-color: var(--color-secondary);
+        }
+    }
+    /* below code will change the colour of the progress bar - thanks to https://www.geeksforgeeks.org/how-to-set-color-of-progress-bar-using-html-and-css/ */
+    // For Chrome or Safari 
+    progress::-webkit-progress-bar {
+        background-color: var(--color-tertiary);
+    }
+
+    progress::-webkit-progress-value {
+        background-color: var(--color-secondary) !important;
+    }
+
+    // For Firefox
+    progress {
+        background-color: var(--color-tertiary);
+    }
+
+    progress::-moz-progress-bar {
+        background-color: var(--color-secondary) !important;
+    }
+
+    // For IE10
+    progress {
+        background-color: var(--color-tertiary);
+    }
+
+    progress {
+        background-color: var(--color-secondary);
+    }
+}
+
 
 /* Login pop up */
 

@@ -279,7 +279,6 @@ body {
   padding-bottom: 50px;
 }
 .modules-container .module-table {
-  z-index: 0;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 2rem;
@@ -318,6 +317,12 @@ body {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 0rem;
   grid-template-columns: 1fr 60px;
+}
+
+.filter-container {
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .filter {
@@ -363,25 +368,21 @@ body {
   overflow-y: auto;
 }
 #mySelectOptions label {
+  z-index: 3;
   display: block;
   font-weight: normal;
-  display: block;
   white-space: nowrap;
   min-height: 1.2em;
-  background-color: var(--color-primary);
   padding: 0 2.25rem 0 0.75rem;
 }
 
 /* Grade Dashboard Page */
-.grade-progression {
-  padding-top: 6px;
-  border-top: 2.5px solid var(--color-secondary);
-}
-
 .dashboard-container {
   z-index: 0;
   padding-top: 20px;
   padding-bottom: 10px;
+  position: absolute;
+  top: 250px;
   width: 95%;
 }
 .dashboard-container .assesments {
@@ -390,7 +391,7 @@ body {
   width: 17.7%;
 }
 .dashboard-container .assesments .assesment-grade {
-  z-index: -1;
+  z-index: 20;
   width: 100px;
 }
 .dashboard-container .grades {
@@ -440,6 +441,60 @@ body {
   font-size: 1.2rem;
   color: var(--color-tertiary);
   letter-spacing: 2px;
+}
+
+.grade-progression {
+  padding-top: 6px;
+  border-top: 2.5px solid var(--color-secondary);
+  /* below code will change the colour of the progress bar - thanks to https://www.geeksforgeeks.org/how-to-set-color-of-progress-bar-using-html-and-css/ */
+}
+.grade-progression .title {
+  text-align: center;
+}
+.grade-progression .degree-classifications {
+  width: 95%;
+}
+.grade-progression .degree-classifications span {
+  display: inline-block;
+  text-align: end !important;
+  border-right: solid 1px var(--color-tertiary);
+}
+.grade-progression .degree-classifications #third {
+  width: 40%;
+}
+.grade-progression .degree-classifications #lower-second, .grade-progression .degree-classifications #upper-second, .grade-progression .degree-classifications #first {
+  width: 10%;
+}
+.grade-progression .progression-bar {
+  display: flex;
+  border-radius: 30px;
+  width: 95%;
+  background-color: var(--color-black);
+}
+.grade-progression .progression-bar #current-progression {
+  align-self: stretch;
+  display: inline-block;
+  text-align: end;
+  width: 40%;
+  background-color: var(--color-secondary);
+}
+.grade-progression progress::-webkit-progress-bar {
+  background-color: var(--color-tertiary);
+}
+.grade-progression progress::-webkit-progress-value {
+  background-color: var(--color-secondary) !important;
+}
+.grade-progression progress {
+  background-color: var(--color-tertiary);
+}
+.grade-progression progress::-moz-progress-bar {
+  background-color: var(--color-secondary) !important;
+}
+.grade-progression progress {
+  background-color: var(--color-tertiary);
+}
+.grade-progression progress {
+  background-color: var(--color-secondary);
 }
 
 /* Login pop up */

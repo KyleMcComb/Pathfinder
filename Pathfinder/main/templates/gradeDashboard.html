@@ -32,22 +32,25 @@
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
                 <h1>Grade Dashboard</h1>
                 
-                <div class="filter">
-                    <div id="myMultiselect" class="multiselect">
-                        <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
-                            <select class="filtersApplied">
-                                <option>Select Stage to Display</option>
-                            </select>
-                            <div class="overSelect"></div>
-                        </div>
-                        <div id="mySelectOptions">
-                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-1" onchange="checkboxStatusChange()" value="stage-1" />1</label>
-                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-2" onchange="checkboxStatusChange()" value="stage-2" />2</label>
-                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-3" onchange="checkboxStatusChange()" value="stage-3" />3</label>
-                            <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-4" onchange="checkboxStatusChange()" value="stage-4" />4</label>
+                <div class="filter-container">
+                    <div class="filter">
+                        <div id="myMultiselect" class="multiselect">
+                            <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
+                                <select class="filtersApplied">
+                                    <option>Select Stage to Display</option>
+                                </select>
+                                <div class="overSelect"></div>
+                            </div>
+                            <div id="mySelectOptions">
+                                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-1" onchange="checkboxStatusChange()" value="stage-1" />1</label>
+                                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-2" onchange="checkboxStatusChange()" value="stage-2" />2</label>
+                                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-3" onchange="checkboxStatusChange()" value="stage-3" />3</label>
+                                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-4" onchange="checkboxStatusChange()" value="stage-4" />4</label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="dashboard-container">
                     <div class="assesments">
@@ -81,7 +84,11 @@
             </div>
 
             <div class="bottom-bar grade-progression">
-                <p>Place for Grade Progression bar</p>
+                <p class="title">Overall Degree Progress</p>
+                <p class="degree-classifications">
+                    <span id="third">3rd&nbsp;</span><span id="lower-second">2.2&nbsp;</span><span id="upper-second">2.1&nbsp;</span><span id="first">1st&nbsp;</span>
+                </p>
+                <p class="progression-bar"><span id="current-progression"><span id="grade"></span>%</span></p>
             </div>
         </main>
 

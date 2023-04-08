@@ -378,7 +378,7 @@ body {
 #mySelectOptions {
     display: none;
     border: 0.5px #7c7c7c solid;
-    background-color: #ffffff;
+    background-color: var(--color-primary);
     max-height: 300px;
     overflow-y: auto;
     label {
@@ -567,6 +567,32 @@ span.psw {
     padding-top: 16px;
 }
 
+#sign-up-2{
+    display:none;
+}
+
+#sign-up-3{
+    display: none;
+    text-align: center;
+    div {
+        padding: 30px;
+    }
+}
+
+.module-picker{
+    h3 {
+        padding: 5px;
+    }
+    .semesters{
+        margin: auto;
+        margin-top: 2.5px;
+        margin-bottom: 2.5px;
+        width: 95%;
+        padding: 10px;
+    }
+}
+
+
 // The Modal (blurred background effect for login pop-up) 
 .modal {
     display: none; /* Hidden by default */
@@ -580,10 +606,6 @@ span.psw {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     padding-top: 60px;
-}
-
-.test{
-    background-color: yellow;
 }
 
 /* Modal Content/Box */

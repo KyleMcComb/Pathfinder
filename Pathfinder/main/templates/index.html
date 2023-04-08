@@ -23,7 +23,7 @@
                     <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
                     <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's Website</a>
                     <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
-                    <a class="menu-item">Sign-Up</a>
+                    <a class="menu-item" onclick="document.getElementById('id02').style.display='block'">Sign-Up</a>
                     <a href="/settings", target="_parent" class="menu-item">Settings</a>
                 </div>
                 <div id="menu-background-pattern"></div>
@@ -59,6 +59,63 @@
                     <span class="psw"><a href="#">Forget Password?</a></span>
                 </div>
             </form>
+        </div>
+
+        <div id="id02" class="modal">
+            <form id="sign-up-1" class="modal-content animate" onsubmit="nextSignUpStep()">
+                <div class="container">
+                    <h2>Enter Account Information</h2><br />
+                    <p>All fields must be filled.</p><br /><br />
+                    <label for="name"><b>Name</b></label>
+                    <input type="text" placeholder="Enter name" name="name" required>
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter email" name="email" required>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                    <label for="student-number"><b>Student Number</b></label>
+                    <input type="text" placeholder="Enter student number" name="student-number" required>
+
+                    <div class="Pathway">
+                        <label><b>Pathway</b></label><br />
+                        <label for="BIT"><input type="radio" id="BIT" name="pathway" value="BIT" onchange="updateStageOptions()" checked="true"/> BIT</label>
+                        <label for="CS"><input type="radio" id="CS" name="pathway" value="CS" onchange="updateStageOptions()"/> CS</label>
+                        <label for="SE3"><input type="radio" id="SE3" name="pathway" value="SE3" onchange="updateStageOptions()"/> SE 3 year</label>
+                        <label for="SE4"><input type="radio" id="SE4" name="pathway" value="SE4" onchange="updateStageOptions()"/> SE 4 year</label>
+                    </div>
+
+                    <label for="stage"><b>Stage</b></label><br />
+                    <label for="stage-1"><input type="radio" id="stage-1" name="stage" value="1"checked="true" /> 1</label>
+                    <label for="stage-2"><input type="radio" id="stage-2" name="stage" value="2" /> 2</label>
+                    <label for="stage-3"><input type="radio" id="stage-3" name="stage" value="3" /> 3</label>
+                    <label for="stage-4" class="stage-4"><input type="radio" id="stage-4" name="stage" value="4" /> 4</label>
+                    <br />
+
+                    <label><b>Semester</b></label><br />
+                    <label for="semester-1"><input type="radio" id="semester-1" name="semester" value="1" checked="true"/> 1</label>
+                    <label for="semester-2"><input type="radio" id="semester-2" name="semester" value="2" /> 2</label>
+
+                    <button onclick="goToSignUp2()" type="button">Next</button>
+                    <button  onclick="document.getElementById('id02').style.display='none'">Cancel</button>
+                </div>
+            </form>
+
+            <form id="sign-up-2" class="modal-content animate" action="" method="">
+                <div class="container">
+                    <h2>Enter Module Information</h2><br />
+                    <p>Please select all of the optional modules which you took during the respective semesters (required modules will be automatically added).</p><br /><br />
+                    <div class="module-picker"></div>
+                    <button type="button" onclick="goToSignUp3()">Next</button>
+                    <button type="button" onclick="goToSignUp1()">Back</button>
+                    <button type="button" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
+                </div>
+            </form>
+
+            <div id="sign-up-3" class="modal-content animate">
+                <div>
+                    <h2>Congratulations!</h2><br /><br />
+                    <p>Your account has been created. <br /> Please go to the Grade Calculator dashboard to enter the grades for your modules</p>
+                </div>
+            </div>
         </div>
 
         <div class="theme-btn">

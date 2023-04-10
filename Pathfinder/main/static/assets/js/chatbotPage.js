@@ -1,5 +1,6 @@
 function chatbotPageLoad(){
-    displayText("Where introduction can go","botText");
+    displayText("Hello I am Pathfinder. A chatbot to help EEECS Students. Here is a list of commands to use: <br><br>- What do you do?<br>- What can you help me with? <br>- I'm in first year<br>- I'm in second year<br>- I'm in fourth year<br>- I'm in final year<br>","botText");
+    displayText("I can recommend you modules based off your likes or dislikes. Try saying 'I like ai' or 'i hate ai' and I will recommend a module based off your response.","botText");
     resizeChatbotPage();
 }
 

@@ -28,10 +28,7 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, requi
             <p>${pathways}</p>
         </div>
         <div>
-            <h3>Assesment name: </h3>
-        </div>
-        <div>
-            <h3>Assesment name: </h3>
+            <b class="heading">Assesment name: </b>
         </div>
         <div>
             <b class="heading">Description: </b><br />

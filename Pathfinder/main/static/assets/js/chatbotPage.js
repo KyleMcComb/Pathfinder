@@ -19,7 +19,7 @@ function listenersForChatbotPage(){
 }
 
 function resizeChatbotPage(){
-    var textboxDiv = document.getElementsByClassName('textbox')[0];
+    var bottomBarDiv = document.getElementsByClassName('bottom-bar')[0];
     var textarea = document.getElementById("userInput");
     var windowWidth = window.innerWidth;
 
@@ -27,16 +27,21 @@ function resizeChatbotPage(){
     console.log(document.getElementsByClassName('content')[0].style.height);
     // NAV IS OPEN
     if(sessionStorage.getItem("navOpen") == "true"){
-        textboxDiv.style.width = (windowWidth-250)+"px";
-        textboxDiv.style.left = "250px";
+        bottomBarDiv.style.width = (windowWidth-250)+"px";
+        bottomBarDiv.style.left = "250px";
         textarea.style.width = (windowWidth-370)+"px";
     }
     // NAV IS NOT OPEN
     else if(sessionStorage.getItem("navOpen") == "false"){
-        textboxDiv.style.width = (windowWidth-55)+"px";
-        textboxDiv.style.left = "55px";
+        bottomBarDiv.style.width = (windowWidth-55)+"px";
+        bottomBarDiv.style.left = "55px";
         textarea.style.width = (windowWidth-175)+"px";
     }
+}
+
+function navToggleOnChatbotPage(){
+    navToggle();
+    resizeChatbotPage();
 }
 
 /* START OF CHATBOT CODE */

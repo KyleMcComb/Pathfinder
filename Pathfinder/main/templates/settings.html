@@ -18,12 +18,20 @@
                 <br />
                 <div id="menu-items">
                     <a href="/" class="menu-item">Home</a>
-                    <a href="/GradeDashboard" class="menu-item">Grade Dashboard</a>
                     <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
                     <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's Website</a>
-                    <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
-                    <a class="menu-item" onclick="document.getElementById('id02').style.display='block'">Sign-Up</a>
                     <a href="/settings", target="_parent" class="menu-item">Settings</a>
+                    {% if user.is_authenticated and user.username == "admin" %}
+                        <a href="/admin" class="menu-item">Admin Page</a>
+                    {% elif user.is_authenticated and user.username != "admin" %}
+                        <a href="/GradeDashboard" class="menu-item">Grade Dashboard</a>
+                    {% else %}
+                        <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
+                        <a class="menu-item" onclick="document.getElementById('id02').style.display='block'">Sign-Up</a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <a href="/logout" class="menu-item">Logout</a>
+                    {% endif %}
                 </div>
                 <div id="menu-background-pattern"></div>
             </div>
@@ -78,9 +86,9 @@
                     <label for="email"><b>Email</b></label>
                     <input type="text" placeholder="Enter email" name="email" required>
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-                    <button type="submit">Login</button>
-                    <button onclick="document.getElementById('id01').style.display='none'">Cancel</button>
+                    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+                    <button onclick="login()" type="button">Login</button>
+                    <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
                     <label>
                         <input type="checkbox" checked="checked" name="remember"> Remember me
                     </label>

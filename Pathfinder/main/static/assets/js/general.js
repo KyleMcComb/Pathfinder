@@ -172,6 +172,21 @@ function goToSignUp3(){
     document.getElementById('sign-up-3').style.display = 'block';
 }
 
+function login(){
+    var username = document.querySelector('input[name="email"]').value;
+    var password = document.getElementById("password").value;
+    console.log(typeof username,typeof password);
+    $.get("/verify/", { username: username, password: password }, function (data) {
+        if(data.loggedIn == "true"){
+            alert("Login success");
+            location.reload();
+        }
+        else{
+            alert("Login failed, either username or password is incorrect");
+        }
+    });
+}
+
 window.onload = pageLoad();
 
 listeners();

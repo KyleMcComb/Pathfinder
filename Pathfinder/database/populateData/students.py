@@ -78,7 +78,7 @@ def addStudentModules():
     stu1Mod7 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2058'), stuModMark=81)
     stu1Mod8 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2059'), stuModMark=61)
     stu1Mod9 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2063'), stuModMark=80)
-    stu1Mod10 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='C2065'), stuModMark=70)
+    stu1Mod10 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2065'), stuModMark=70)
     stu1Mod11 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2066'), stuModMark=74)
 
     stu2Mod1 = StudentModule(studentID=student2ID, moduleID=Module.objects.get(moduleID='CSC1023'), stuModMark=72)

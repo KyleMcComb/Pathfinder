@@ -24,14 +24,14 @@ class Lecturer(models.Model):
     lecturerName = models.CharField(max_length=100)
     lecturerEmail = models.EmailField()
     def __str__(self):
-        return str(self.lecturerID)
+        return str(self.lecturerName)
 
 class ModuleLecturer(models.Model):
     moduleLecturerID = models.IntegerField(primary_key=True, auto_created=True)
-    lectureID = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
+    lecturerID = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     def __str__(self):
-        return str(self.moduleLecturerID)
+        return str(self.moduleID)+'_'+str(self.lecturerID)
 
 class Pathway(models.Model):
     pathwayID = models.CharField(primary_key=True,max_length=4, auto_created=False)

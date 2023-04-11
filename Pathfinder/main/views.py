@@ -26,7 +26,7 @@ def moduleInfo(request):
         lecturers = ModuleLecturer.objects.filter(moduleID=code)
         temp = []
         for j in range(len(lecturers)):
-            temp.append(Lecturer.objects.get(lecturerID=lecturers[j].lectureID).lecturerName)
+            temp.append(Lecturer.objects.get(lecturerID=lecturers[j].lecturerID).lecturerName)
         lecturer = ', '.join(temp);
 
         temp = []

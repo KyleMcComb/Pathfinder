@@ -286,7 +286,7 @@ body {
 }
 .modules-container .module-table .main-module-info {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 2rem;
 }
 .modules-container .module-table .top-of-table {

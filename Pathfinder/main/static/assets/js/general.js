@@ -175,7 +175,6 @@ function goToSignUp3(){
 function login(){
     var username = document.querySelector('input[name="email"]').value;
     var password = document.getElementById("password").value;
-    console.log(typeof username,typeof password);
     $.get("/verify/", { username: username, password: password }, function (data) {
         if(data.loggedIn == "true"){
             alert("Login success");

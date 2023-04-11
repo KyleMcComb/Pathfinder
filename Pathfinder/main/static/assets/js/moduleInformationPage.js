@@ -1,8 +1,25 @@
-window.onload = addModuleToPage("Module written using JS","code","lecture","stage","semester","weightin","req","1,2,3,4,5,","assesments","this is a description test");
+//window.onload = addModuleToPage("Module written using JS","code","lecture","stage","semester","weightin","req","1,2,3,4,5,","assesments","this is a description test");
+window.onload = getModuleInfo();
+
+function getModuleInfo(){
+    $.get("/getModuleInfo/", function(data){
+        for (var i=0; i<data.moduleList.length; i++){
+            var module = data.moduleList[i];
+            assesments = module.assesments.split(',');
+            addModuleToPage(module.name, module.code, module.lecturer, module.stage, module.semester, module.weighting, 'true', module.pathways, assesments ,module.description);
+        }
+    });
+}
 
 function addModuleToPage(name, code, lecturer, stage, semester, weighting, required, pathways, assesments, description){
+    pathwaysClasses = '';
+    arrayOfPathways = pathways.split(',');
+    for(var i=0; i<arrayOfPathways.length; i++){
+        pathwaysClasses += arrayOfPathways[i].replace(/\s/g,'');
+        pathwaysClasses += ' ';
+    }
     htmlFormat = `
-    <div class="module-table">
+    <div class="module-table stage-${stage} semester-${semester} ${name.replace(/\s/g,'').toLowerCase()} ${pathwaysClasses}">
         <div class="top-of-table">
             <p><b class="heading">Module Name: </b><span> ${name} (${code})</span></p>
         </div>
@@ -24,12 +41,19 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, requi
             </div>
         </div>
         <div>
-            <b class="heading">Pathways available on: </b><br />
-            <p>${pathways}</p>
+            <p><b class="heading">Pathways available on: </b><span> ${pathways}</span></p>
         </div>
-        <div>
-            <b class="heading">Assesment name: </b>
-        </div>
+    `;
+
+    for(var i=0; i<assesments.length; i++){
+        htmlFormat += `
+            <div>
+                <b class="heading">Assesment: </b><span> ${assesments[i]}</span></p>
+            </div>
+        `;
+    }
+
+    htmlFormat += `
         <div>
             <b class="heading">Description: </b><br />
             <p>${description}</p>
@@ -44,6 +68,60 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, requi
 //filter code
 window.onload = initMultiselect();
 
+document.getElementById('searchbutton').addEventListener("click", function(evt){
+    search();
+});
+
+document.getElementById('search-input').addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        search();
+    }
+});
+
+function search(){
+    var values = [];
+    var searchTerm = document.querySelector('input[name="search"]').value;
+    var checkedCheckboxes = document.getElementById("mySelectOptions").querySelectorAll('input[type=checkbox]:checked');
+
+    values.push(searchTerm.replace(/\s/g,'').toLowerCase());
+    for (const item of checkedCheckboxes) {
+        var checkboxValue = item.getAttribute('value');
+        values.push(checkboxValue);
+    }
+    if(searchTerm == ""){
+        showAllItemsWithClassNames(['module-table']);
+    }
+    else{
+        hideAllItemsWithClassNames(['module-table']);
+        if(values.length > 0){
+            showAllItemsWithClassNames(values);
+        }
+    }
+}
+
+function formatClassNames(nameArray){
+    var names = '';
+    for(var i=0; i<nameArray.length; i++){
+        names += '.';
+        names += nameArray[i].replace(/\s/g,'');
+    }
+    return names
+}
+
+function hideAllItemsWithClassNames(nameArray){
+    var names = formatClassNames(nameArray);
+    document.querySelectorAll(names).forEach(item => {
+        item.style.display = 'none';
+    });
+}
+
+function showAllItemsWithClassNames(nameArray){
+    var names = formatClassNames(nameArray);
+    document.querySelectorAll(names).forEach(item => {
+        item.style.display = 'grid';
+    });
+}
 
 function initMultiselect() {
     checkboxStatusChange();
@@ -82,9 +160,14 @@ function checkboxStatusChange() {
         values.push(checkboxValue);
     }
 
+    hideAllItemsWithClassNames(['module-table']);
     var dropdownValue = "No filters are applied";
     if (values.length > 0) {
         dropdownValue = values.join(', ');
+        showAllItemsWithClassNames(values);
+    }
+    else{
+        showAllItemsWithClassNames(['module-table']);
     }
 
     multiselectOption.innerText = dropdownValue;

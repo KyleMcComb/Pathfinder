@@ -41,9 +41,9 @@
                 <h1>Module Information</h1>
                 
                 <div class="filter-and-search">
-                    <form action="" class="search-bar">
-                        <input type="text" placeholder="Search." name="search">
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                    <form onsubmit="return false" class="search-bar">
+                        <input type="text" placeholder="Search by module name" name="search" id="search-input">
+                        <button type="button" id="searchbutton"><i class="fa fa-search"></i></button>
                     </form>
 
                     <div class="filter">
@@ -78,45 +78,7 @@
                     </div>
                 </div>
 
-                <div class="modules-container">
-                    <div class="module-table">
-                        <div class="top-of-table">
-                            <p><b class="heading">Module Name: </b><span> hello</span></p>
-                        </div>
-                        <div class="main-module-info">
-                            <div>
-                                <p><b class="heading">Lecturer: </b><span> hello</span></p>
-                            </div>
-                            <div>
-                                <p><b class="heading">Stage: </b></p>
-                            </div>
-                            <div>
-                                <p><b class="heading">Semester: </b></p>
-                            </div>
-                            <div>
-                                <p><b class="heading">Weighting: </b></p>
-                            </div>
-                            <div>
-                                <p><b class="heading">Required: </b></p>
-                            </div>
-                        </div>
-                        <div>
-                            <b class="heading">Pathways available on: </b><br />
-                        </div>
-                        <div>
-                            <b class="heading">Assesment name: </b>
-                        </div>
-                        <div>
-                            <b class="heading">Assesment name: </b>
-                        </div>
-                        <div>
-                            <b class="heading">Description: </b><br />
-                            <p>
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <div class="modules-container"></div>
             </div>
         </main>
 

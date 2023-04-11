@@ -25,7 +25,7 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, requi
         </div>
         <div class="main-module-info">
             <div>
-                <p><b class="heading">Lecturer</b><span> ${lecturer}</span></p>
+                <p><b class="heading">Lecturer(s):</b><span> ${lecturer}</span></p>
             </div>
             <div>
                 <p><b class="heading">Stage: </b><span> ${stage}</span></p>

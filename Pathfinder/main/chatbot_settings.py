@@ -1,6 +1,7 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from .interest_adapter import InterestAdapter
+from .year_adapter import YearAdapter
 import os
 
 chatbot = ChatBot(
@@ -8,7 +9,10 @@ chatbot = ChatBot(
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
     logic_adapters=[
         {
-            'import_path': 'main.interest_adapter.InterestAdapter' # Use the custom adapter
+            'import_path': 'main.interest_adapter.InterestAdapter' # Use the custom InterestAdapter
+        },
+        {
+            'import_path': 'main.year_adapter.YearAdapter' # Use the custom YearAdapter
         },
         {
             'import_path': 'chatterbot.logic.BestMatch',

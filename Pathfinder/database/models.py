@@ -12,7 +12,7 @@ class Module(models.Model):
         return self.moduleID
     
 class Assessment(models.Model):
-    assessmentID = models.IntegerField(primary_key=True, auto_created=True)
+    assessmentID = models.IntegerField(primary_key=True, auto_created=False)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     assessmentType = models.CharField(max_length=20)
     assessmentWeight = models.IntegerField(default=20)

@@ -101,7 +101,7 @@ def addComputerScienceModules():
                         moduleLevel = 1, 
                         moduleWeight = 20)
 
-    module1032 = Module(moduleID = 'CSC1031', 
+    module1032 = Module(moduleID = 'CSC1032', 
                         moduleName ='Introduction to Cyber Security', 
                         moduleSemester = 2, 
                         moduleDescription = '', 

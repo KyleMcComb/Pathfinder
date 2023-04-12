@@ -1,10 +1,12 @@
 window.onload = gradeDashboardPageLoad();
 
+var chart = null;
+
 function gradeDashboardPageLoad() {
     resizeGradeDashboardPage();
-    createGradeBarChart();
     initMultiselect();
     progressBar('50');
+    getGradeData();
 } 
 
 function progressBar(grade='0'){
@@ -34,6 +36,64 @@ function navToggleOnGradeDashboardPage(){
     resizeGradeDashboardPage();
 }
 
+function getGradeData(){
+    $.get("/gradeInfo/", function(data){
+        console.log(data);
+        progressBar(data.currentPathwayMark);
+        document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'
+        document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'
+        document.getElementById('leftToEarn').innerHTML = data.leftToEarn + '%'
+
+        var stages = data.stages;
+        for(var i=0; i<stages.length; i++){
+            var defaultChecked = 0;
+            if(i==0){
+                defaultChecked = 'checked="true"';
+            }
+            document.getElementById('mySelectOptions').innerHTML = `
+                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-${i+1}" onchange="checkboxStatusChange()" value="stage-${i+1}" ${defaultChecked}/>1</label>
+            `;
+        }
+        displayStage(1);
+    });
+}
+
+function displayStage(stageSelected){
+    $.get("/gradeInfo/", function(data){
+        var modules = [];
+        var grades = [];
+        var stages = data.stages;
+        for(var i=0; i<stages.length; i++){
+            for(var j=0; j<stages[i].length; j++){
+                modules.push(stages[i][j].name);
+                grades.push(stages[i][j].studentMark);
+            }
+        }
+
+        document.getElementsByClassName('assesments')[0].innerHTML = '';
+        var stage = stages[stageSelected-1];
+        var htmlFormat = '';
+        for(var i=0; i<stage.length; i++){
+            htmlFormat += `
+                <h3>${stage[i].name}</h3>
+            `;
+            assessments = stage[i].assessments
+            for(var j=0; j<assessments.length; j++){
+                htmlFormat += `
+                    <p>&nbsp;&nbsp;${assessments[j].name}: ${assessments[j].mark}%</p>
+                `;
+            }
+        }
+
+        document.getElementsByClassName('assesments')[0].innerHTML = htmlFormat;
+
+        if(chart != null){
+            chart.destroy();
+        }
+        createGradeBarChart(modules, grades);
+    });
+}
+
 //grade bar chart
 function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6'], grades=[55, 49, 44, 24, 15, 22]) {
     var theme = localStorage.getItem('theme');
@@ -50,7 +110,7 @@ function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Modul
     
     Chart.defaults.color = axisAndGridColour;
 
-    new Chart('stageGrades', {  
+    chart = new Chart('stageGrades', {  
         type: 'bar',
         data: {
             labels: modules,

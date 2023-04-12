@@ -12,7 +12,7 @@ class Module(models.Model):
         return self.moduleID
     
 class Assessment(models.Model):
-    assessmentID = models.IntegerField(primary_key=True, auto_created=True)
+    assessmentID = models.IntegerField(primary_key=True, auto_created=False)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     assessmentType = models.CharField(max_length=20)
     assessmentWeight = models.IntegerField(default=20)
@@ -80,3 +80,9 @@ class StudentInterest(models.Model):
     interestImportance = models.IntegerField(default=0)
     def __str__(self):
         return str(self.studentInterestID)
+    
+class StudentModuleAssesment(models.Model):
+    studentModuleAssesmentID =  models.IntegerField(primary_key=True, auto_created=True)
+    studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
+    assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
+    assesmentMark = models.IntegerField(default=100)

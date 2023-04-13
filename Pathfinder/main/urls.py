@@ -14,6 +14,7 @@ urlpatterns = [
     path('ModuleInformation/', views.moduleInformation, name='ModuleInformation'),
     path('receive_message/', receive_message, name='receive_message'),
     path('verify/', views.verify, name='verify'),
-    path('getModuleInfo/', views.moduleInfo, name='getModuleInfo'),
-    path('gradeInfo/', views.gradeInfo, name='gradeInfo')
+    path('gradeInfo/', views.gradeInfo, name='gradeInfo'),
+    path('listOfPathways/', views.listOfPathways, name='listOfPathways'),
+    path('searchModules/', views.searchModules, name='searchModules')
 ]

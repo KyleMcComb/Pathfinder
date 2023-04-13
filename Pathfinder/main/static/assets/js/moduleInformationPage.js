@@ -1,17 +1,39 @@
-//window.onload = addModuleToPage("Module written using JS","code","lecture","stage","semester","weightin","req","1,2,3,4,5,","assesments","this is a description test");
-window.onload = getModuleInfo();
+window.onload = pageLoad();
 
-function getModuleInfo(){
-    $.get("/getModuleInfo/", function(data){
+function pageLoad(){
+    getPathwayList();
+    getModuleInfo('');
+    checkboxStatusChange();
+    listners();
+}
+
+function getModuleInfo(searchTerm){
+    document.getElementsByClassName('modules-container')[0].innerHTML = '';
+    // if searchTerm is an empty string the get request below will return all of the modules
+    $.get("/searchModules/", { moduleName: searchTerm }, function(data){
         for (var i=0; i<data.moduleList.length; i++){
             var module = data.moduleList[i];
             assesments = module.assesments.split(',');
-            addModuleToPage(module.name, module.code, module.lecturer, module.stage, module.semester, module.weighting, 'true', module.pathways, assesments ,module.description);
+            addModuleToPage(module.name, module.code, module.lecturer, module.stage, module.semester, module.weighting, module.pathways, assesments ,module.description);
         }
     });
 }
 
-function addModuleToPage(name, code, lecturer, stage, semester, weighting, required, pathways, assesments, description){
+function getPathwayList(){
+    $.get("/listOfPathways/", function(data){
+        var pathwayList = data.pathwayList;
+        var htmlFormat = '';
+        for(var i=0; i<pathwayList.length; i++){
+            pathwaysHtmlClassFormat = pathwayList[i].replace(/\s/g,'');
+            htmlFormat += `
+                <label for="${pathwaysHtmlClassFormat}">&nbsp;&nbsp;<input type="checkbox" id="${pathwaysHtmlClassFormat}" onchange="checkboxStatusChange()" value="${pathwaysHtmlClassFormat}" /> ${pathwayList[i]}</label>
+            `;
+        }
+        document.getElementsByClassName('pathways')[0].innerHTML = htmlFormat;
+    });
+}
+
+function addModuleToPage(name, code, lecturer, stage, semester, weighting, pathways, assesments, description){
     pathwaysClasses = '';
     arrayOfPathways = pathways.split(',');
     for(var i=0; i<arrayOfPathways.length; i++){
@@ -35,9 +57,6 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, requi
             </div>
             <div>
                 <p><b class="heading">Weighting: </b><span> ${weighting}</span></p>
-            </div>
-            <div>
-                <p><b class="heading">Required: </b><span> ${required}</span></p>
             </div>
         </div>
         <div>
@@ -65,38 +84,56 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, requi
 
 }
 
-//filter code
-window.onload = initMultiselect();
 
-document.getElementById('searchbutton').addEventListener("click", function(evt){
-    search();
-});
-
-document.getElementById('search-input').addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
+function listners(){
+    document.getElementById('searchbutton').addEventListener("click", function(evt){
         search();
-    }
-});
+    });
+    
+    document.getElementById('search-input').addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            search();
+        }
+    });
+
+    //init multiselet checboxes
+    document.addEventListener("click", function(evt) {
+        var flyoutElement = document.getElementById('myMultiselect'),
+        targetElement = evt.target; // clicked element
+
+        do {
+            if (targetElement == flyoutElement) {
+                // This is a click inside. Do nothing, just return.
+                //console.log('click inside');
+                return;
+            }
+
+            // Go up the DOM
+            targetElement = targetElement.parentNode;
+        } while (targetElement);
+
+        // This is a click outside.
+        toggleCheckboxArea(true);
+    });
+}
 
 function search(){
     var values = [];
     var searchTerm = document.querySelector('input[name="search"]').value;
     var checkedCheckboxes = document.getElementById("mySelectOptions").querySelectorAll('input[type=checkbox]:checked');
 
-    values.push(searchTerm.replace(/\s/g,'').toLowerCase());
     for (const item of checkedCheckboxes) {
         var checkboxValue = item.getAttribute('value');
         values.push(checkboxValue);
     }
-    if(searchTerm == ""){
-        showAllItemsWithClassNames(['module-table']);
-    }
-    else{
-        hideAllItemsWithClassNames(['module-table']);
-        if(values.length > 0){
+    getModuleInfo(searchTerm);
+    if(values.length != 0){
+        // waits 30ms for response from the get request and for the html page to update
+        setTimeout( function(){
+            hideAllItemsWithClassNames(['module-table']);
             showAllItemsWithClassNames(values);
-        }
+        },100);
     }
 }
 
@@ -123,29 +160,7 @@ function showAllItemsWithClassNames(nameArray){
     });
 }
 
-function initMultiselect() {
-    checkboxStatusChange();
 
-    document.addEventListener("click", function(evt) {
-        var flyoutElement = document.getElementById('myMultiselect'),
-        targetElement = evt.target; // clicked element
-
-        do {
-            if (targetElement == flyoutElement) {
-                // This is a click inside. Do nothing, just return.
-                //console.log('click inside');
-                return;
-            }
-
-            // Go up the DOM
-            targetElement = targetElement.parentNode;
-        } while (targetElement);
-
-        // This is a click outside.
-        toggleCheckboxArea(true);
-        console.log('click outside');
-    });
-}
 
 function checkboxStatusChange() {
     var multiselect = document.getElementById("mySelectLabel");
@@ -162,6 +177,7 @@ function checkboxStatusChange() {
 
     hideAllItemsWithClassNames(['module-table']);
     var dropdownValue = "No filters are applied";
+    console.log(values);
     if (values.length > 0) {
         dropdownValue = values.join(', ');
         showAllItemsWithClassNames(values);

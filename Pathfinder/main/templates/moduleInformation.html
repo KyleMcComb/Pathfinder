@@ -38,11 +38,11 @@
             </div>
             <div class="content">
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                <h1>Module Information</h1>
+                <h1 onclick="hideAllItemsWithClassNames(['stage-1']);">Module Information</h1>
                 
                 <div class="filter-and-search">
                     <form onsubmit="return false" class="search-bar">
-                        <input type="text" placeholder="Search by module name" name="search" id="search-input">
+                        <input type="text" placeholder="Search by module name, clear bar and hit enter to clear search option" name="search" id="search-input">
                         <button type="button" id="searchbutton"><i class="fa fa-search"></i></button>
                     </form>
 
@@ -64,15 +64,13 @@
                                 <label>Semester</label>
                                 <label for="semester-1">&nbsp;&nbsp;<input type="checkbox" id="semester-1" onchange="checkboxStatusChange()" value="semester-1" /> 1</label>
                                 <label for="semester-2">&nbsp;&nbsp;<input type="checkbox" id="semester-2" onchange="checkboxStatusChange()" value="semester-2" /> 2</label>
-
-                                <label>Required</label>
-                                <label for="Required">&nbsp;&nbsp;<input type="checkbox" id="Required" onchange="checkboxStatusChange()" value="Required" /> Required</label>
-                                <label for="Optional">&nbsp;&nbsp;<input type="checkbox" id="Optional" onchange="checkboxStatusChange()" value="Optional" /> Optional</label>
-
+                                
                                 <label>Pathways</label>
-                                <label for="BIT">&nbsp;&nbsp;<input type="checkbox" id="BIT" onchange="checkboxStatusChange()" value="BIT" /> BIT</label>
-                                <label for="CS">&nbsp;&nbsp;<input type="checkbox" id="CS" onchange="checkboxStatusChange()" value="CS" /> CS</label>
-                                <label for="SE">&nbsp;&nbsp;<input type="checkbox" id="SE" onchange="checkboxStatusChange()" value="SE" /> SE</label>
+                                <div class="pathways">
+                                    <label for="BIT">&nbsp;&nbsp;<input type="checkbox" id="BIT" onchange="checkboxStatusChange()" value="BIT" /> BIT</label>
+                                    <label for="CS">&nbsp;&nbsp;<input type="checkbox" id="CS" onchange="checkboxStatusChange()" value="CS" /> CS</label>
+                                    <label for="SE">&nbsp;&nbsp;<input type="checkbox" id="SE" onchange="checkboxStatusChange()" value="SE" /> SE</label>
+                                </div>
                             </div>
                         </div>
                     </div>

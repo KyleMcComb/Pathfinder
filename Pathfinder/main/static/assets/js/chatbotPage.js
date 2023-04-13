@@ -57,24 +57,11 @@ function displayText(message, sender) {
     }
 }
 
-/*
-function processUserInput(inputMessage) {
-    // Make an AJAX request to your server to get the bot response
-    $.ajax({
-        type: 'GET',
-        url: '/receive_message/',
-        data: { message: inputMessage },
-        success: function (data) {
-            displayText(data.message, 'botText'); // Display the bot response
-        }
-    });
-} */
-
 function processUserInput(inputMessage) {
     // Make an AJAX request to your server to get the bot response
     $.get("/receive_message/", { message: inputMessage }, function (data) {
-    displayText(data.message, "botText"); //display bot response 
-});
+        displayText(data.message, "botText"); //display bot response 
+    });
 }
 // whenever a user enters text
 var input = document.getElementById("userInput");

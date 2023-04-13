@@ -13,3 +13,4 @@ admin.site.register(Student);
 admin.site.register(StudentInfo);
 admin.site.register(StudentModule);
 admin.site.register(StudentInterest);
+admin.site.register(StudentModuleAssesment);

@@ -33,9 +33,8 @@ def moduleInfo(request):
         temp = []
         assesmentsIncluded = Assessment.objects.filter(moduleID=code)
         for j in range(len(assesmentsIncluded)):
-            temp.append(assesmentsIncluded[i].assessmentType+' ('+assesmentsIncluded[i].assessmentWeight+'%)')
+            temp.append(assesmentsIncluded[j].assessmentType+' ('+str(assesmentsIncluded[j].assessmentWeight)+'%)')
         assesments = ', '.join(temp);
-        assesments = 'name1 (20%), name2 (80%)'
         
         infoNeeded = {
             'name': name, #string

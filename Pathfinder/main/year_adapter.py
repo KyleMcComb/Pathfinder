@@ -10,7 +10,7 @@ class YearAdapter(LogicAdapter):
         statement_text = statement.text.lower()
         return re.search(r"\b(?:first year|second year|final year|fourth year|1st year|2nd year|3rd year|4th year|year 1|year 2|year 3|year 4|stage 1|stage 2|stage 3)\b", statement_text) is not None
 
-    def process(self, input_statement, additional_response_selection_parameters):
+    def process(self, input_statement):
         statement_text = input_statement.text.lower()
         response = Statement("")
 

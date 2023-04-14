@@ -10,7 +10,7 @@ class InterestAdapter(LogicAdapter):
         statement_text = statement.text.lower()
         return re.search(r'\b(like|dislike|hate)\b', statement_text) is not None
 
-    def process(self, input_statement): 
+    def process(self, input_statement, additional_response_selection_parameters=None): 
         statement_text = input_statement.text.lower()
         response = Statement('')
 

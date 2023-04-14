@@ -123,7 +123,7 @@ def addComputerScienceModules():
 
     #Computer Science level 2 modules
     module2051 = Module(moduleID = 'CSC2051', 
-                        moduleName ='Systems Administration and Supoort', 
+                        moduleName ='Systems Administration and Support', 
                         moduleSemester = 1, 
                         moduleDescription = '', 
                         moduleLevel = 2, 
@@ -137,7 +137,7 @@ def addComputerScienceModules():
                         moduleWeight = 20)
 
     module2053 = Module(moduleID = 'CSC2053', 
-                        moduleName ='Intoduction to Enterprise Computing', 
+                        moduleName ='Introduction to Enterprise Computing', 
                         moduleSemester = 2, 
                         moduleDescription = '', 
                         moduleLevel = 2, 

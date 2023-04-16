@@ -7,6 +7,10 @@ function pageLoad(){
     listners();
 }
 
+function signUp(){
+    $.get("/signUp/");
+}
+
 function getModuleInfo(searchTerm){
     document.getElementsByClassName('modules-container')[0].innerHTML = '';
     // if searchTerm is an empty string the get request below will return all of the modules
@@ -24,9 +28,10 @@ function getPathwayList(){
         var pathwayList = data.pathwayList;
         var htmlFormat = '';
         for(var i=0; i<pathwayList.length; i++){
-            pathwaysHtmlClassFormat = pathwayList[i].replace(/\s/g,'');
+            var pathwayNames = pathwayList[i].name;
+            var pathwaysHtmlClassFormat = pathwayNames.replace(/\s/g,'');
             htmlFormat += `
-                <label for="${pathwaysHtmlClassFormat}">&nbsp;&nbsp;<input type="checkbox" id="${pathwaysHtmlClassFormat}" onchange="checkboxStatusChange()" value="${pathwaysHtmlClassFormat}" /> ${pathwayList[i]}</label>
+                <label for="${pathwaysHtmlClassFormat}">&nbsp;&nbsp;<input type="checkbox" id="${pathwaysHtmlClassFormat}" onchange="checkboxStatusChange()" value="${pathwaysHtmlClassFormat}" /> ${pathwayNames}</label>
             `;
         }
         document.getElementsByClassName('pathways')[0].innerHTML = htmlFormat;

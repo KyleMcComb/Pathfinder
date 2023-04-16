@@ -1,6 +1,4 @@
-var visible = true;
-var myTimer;
-var myTimerTypeWriter;
+var pathwayData = '';
 
 //runs when the page is loaded
 function pageLoad(){
@@ -9,6 +7,13 @@ function pageLoad(){
     checkFontSize()
     resizeContentDiv();
     updateStageOptions();
+    getPathwayData();
+}
+
+function getPathwayData(){
+    $.get("/listOfPathways/", function(data){
+        pathwayData = data.pathwayList;
+    });
 }
 
 //checks what theme is in the local storage and updates the webpage accordingly 
@@ -100,20 +105,39 @@ window.onclick = function(event) {
     }
 }
 
+function displaySignUpPage(){
+    var pathwayList = pathwayData;
+    var htmlFormat = '';
+    for(var i=0; i<pathwayList.length; i++){
+        var checked = '';
+        if(i==0){
+            checked = 'checked="true"';
+        }
+        var pathwayNames = pathwayList[i].name;
+        var pathwaysHtmlClassFormat = pathwayNames.replace(/\s/g,'');
+        htmlFormat += `
+            <label for="${pathwaysHtmlClassFormat}"><input type="radio" ${checked} id="${pathwaysHtmlClassFormat}" name="pathway" onchange="updateStageOptions()" value="${pathwayNames}" /> ${pathwayNames}</label><br />
+        `;
+    }
+    document.getElementsByClassName('Pathway')[0].innerHTML = htmlFormat;
+    document.getElementById('id02').style.display='block';
+    updateStageOptions();
+}
+
 function updateStageOptions(){
-    var fourStageCourse = false;
+    document.getElementsByClassName('stage-4')[0].style.display = 'none';
     var selectedPathway = document.querySelector('input[name="pathway"]:checked').value;
     // update this so that it will be able to see which modules have 4 stages, then apply the fourStageCourse to it
-    if(selectedPathway == 'SE4'){
-        fourStageCourse = true;
-    }
-    if(fourStageCourse){
-        document.getElementsByClassName('stage-4')[0].style.display = '';
-    }
-    else {
-        document.getElementsByClassName('stage-4')[0].style.display = 'none';
+    for(var i=0; i<pathwayData.length; i++){
+        var pathwayName = pathwayData[i].name;
+        if(selectedPathway == pathwayName && pathwayData[i].stages == 4){
+            document.getElementsByClassName('stage-4')[0].style.display = '';
+        }
     }
 }
+
+/* 
+code that might be introduced again for the final system but will not be used during prototype
 
 function goToSignUp2(){
     document.getElementById('sign-up-1').style.display = 'none';
@@ -165,16 +189,42 @@ function goToSignUp1(){
     document.getElementById('sign-up-3').style.display = 'none';
     document.getElementById('sign-up-1').style.display = 'block';
 }
+*/
 
 function goToSignUp3(){
     document.getElementById('sign-up-1').style.display = 'none';
-    document.getElementById('sign-up-2').style.display = 'none';
     document.getElementById('sign-up-3').style.display = 'block';
+
+    var studentNumber = document.querySelector('input[name="student-number-sign-up"]').value;
+    var name = document.querySelector('input[name="name"]').value;
+    var email = document.querySelector('input[name="email"]').value;
+    var selectedPathway = document.querySelector('input[name="pathway"]:checked').value;
+    var currentStage = document.querySelector('input[name="stage"]:checked').value;
+    var currentSemester = document.querySelector('input[name="semester"]:checked').value;
+
+    signUpInfo = {
+        'studentNumber':studentNumber,
+        'name':name,
+        'email':email,
+        'selectedPathway':selectedPathway,
+        'currentStage':currentStage,
+        'currentSemester':currentSemester
+    }
+
+    $.get("/signUp/", signUpInfo, function (data) {
+        if(data.success == "true"){
+            document.getElementById('sign-up-1').style.display = 'none';
+            document.getElementById('sign-up-3').style.display = 'block';
+        }
+        else{
+            alert("Sign up failed, try again.");
+        }
+    });
 }
 
 function login(){
-    var username = document.querySelector('input[name="email"]').value;
-    var password = document.getElementById("password").value;
+    var username = document.querySelector('input[name="student-number-login"]').value;
+    var password = document.getElementById('password-login').value;
     $.get("/verify/", { username: username, password: password }, function (data) {
         if(data.loggedIn == "true"){
             alert("Login success");

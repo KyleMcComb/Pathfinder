@@ -25,7 +25,6 @@ function resizeChatbotPage(){
     var windowWidth = window.innerWidth;
 
     document.getElementsByClassName('content')[0].style.height = (window.innerHeight - 85) + "px";
-    console.log(document.getElementsByClassName('content')[0].style.height);
     // NAV IS OPEN
     if(sessionStorage.getItem("navOpen") == "true"){
         bottomBarDiv.style.width = (windowWidth-250)+"px";

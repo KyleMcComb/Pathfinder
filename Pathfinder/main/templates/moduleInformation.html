@@ -38,7 +38,7 @@
             </div>
             <div class="content">
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                <h1 onclick="hideAllItemsWithClassNames(['stage-1']);">Module Information</h1>
+                <h1 onclick="signUp()">Module Information</h1>
                 
                 <div class="filter-and-search">
                     <form onsubmit="return false" class="search-bar">
@@ -103,18 +103,16 @@
             <form id="sign-up-1" class="modal-content animate" onsubmit="nextSignUpStep()">
                 <div class="container">
                     <h2>Enter Account Information</h2><br />
-                    <p>All fields must be filled.</p><br /><br />
+                    <p>All fields must be filled, then a request to the admin to create your account will be sent.</p><br /><br />
+                    <label for="student-number-sign-up"><b>Student Number</b></label>
+                    <input type="text" placeholder="Enter student number" name="student-number-sign-up" required>
                     <label for="name"><b>Name</b></label>
                     <input type="text" placeholder="Enter name" name="name" required>
                     <label for="email"><b>Email</b></label>
                     <input type="text" placeholder="Enter email" name="email" required>
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-                    <label for="student-number"><b>Student Number</b></label>
-                    <input type="text" placeholder="Enter student number" name="student-number" required>
-
+                    
+                    <label><b>Pathway</b></label><br />
                     <div class="Pathway">
-                        <label><b>Pathway</b></label><br />
                         <label for="BIT"><input type="radio" id="BIT" name="pathway" value="BIT" onchange="updateStageOptions()" checked="true"/> BIT</label>
                         <label for="CS"><input type="radio" id="CS" name="pathway" value="CS" onchange="updateStageOptions()"/> CS</label>
                         <label for="SE3"><input type="radio" id="SE3" name="pathway" value="SE3" onchange="updateStageOptions()"/> SE 3 year</label>
@@ -132,10 +130,13 @@
                     <label for="semester-1"><input type="radio" id="semester-1" name="semester" value="1" checked="true"/> 1</label>
                     <label for="semester-2"><input type="radio" id="semester-2" name="semester" value="2" /> 2</label>
 
-                    <button onclick="goToSignUp2()" type="button">Next</button>
+                    <button onclick="goToSignUp3()" type="button">Next</button>
                     <button  onclick="document.getElementById('id02').style.display='none'">Cancel</button>
                 </div>
             </form>
+
+            <!--
+            code that will code that might be introduced again for the final system but will not be used during prototype
 
             <form id="sign-up-2" class="modal-content animate" action="" method="">
                 <div class="container">
@@ -147,11 +148,12 @@
                     <button type="button" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
                 </div>
             </form>
+            -->
 
             <div id="sign-up-3" class="modal-content animate">
                 <div>
-                    <h2>Congratulations!</h2><br /><br />
-                    <p>Your account has been created. <br /> Please go to the Grade Calculator dashboard to enter the grades for your modules</p>
+                    <h2>Sign Up Request Submitted!</h2><br /><br />
+                    <p>Your information has been sent to the admin <br /> Once the admin creates your, they'll send an email with your login details <br />If you have any questions please contact the admin here: <span id="admin-email"></span></p>
                 </div>
             </div>
         </div>

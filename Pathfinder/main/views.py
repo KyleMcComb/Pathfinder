@@ -4,14 +4,55 @@ from .chatbot_settings import get_response
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from database.models import *
-from django.core import serializers
+from django.contrib.auth.models import User
 import math
+
+# below imports are used for sending an email
+import smtplib
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
+def signUp(request):
+    # get required info
+    studentNumber = request.GET.get('studentNumber')
+    name = request.GET.get('name')
+    email = request.GET.get('email')
+    selectedPathway = request.GET.get('selectedPathway')
+    currentStage = request.GET.get('currentStage')
+    currentSemester = request.GET.get('currentSemester')
+
+    admin = User.objects.get(username='admin')
+    adminEmail = admin.email
+
+    # send email
+    msg = MIMEMultipart()
+    msg['From'] = 'pathfinder3068@gmail.com'
+    msg['To'] = "{0}".format(adminEmail)
+    msg['Subject'] = 'Sign-Up User'
+
+    messageContentInHtml = '<h1>Request has been made to sign up user</h1><br/><p><b>Student Number: </b>'+studentNumber+'</p><p><b>Name: </b>'+name+'</p><p><b>Email: </b>'+email+'</p><p><b>Pathway: </b>'+selectedPathway+'</p><p><b>Stage: </b>'+currentStage+'</p><p><b>Semester: </b>'+currentSemester+'</p><br/><p>From Pathfinder.'
+
+    body = MIMEText(messageContentInHtml, 'html')
+    msg.attach(body)
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls() #encrypts login
+    server.login('pathfinder3068@gmail.com', 'eglrgyaxlnyrvixi') # email account and 3rd party app password for the account which the email will be sent from
+    server.sendmail(msg['From'], msg['To'], msg.as_string())
+    server.quit()
+
+    return JsonResponse({'success':'true'}, safe=False)
 
 def listOfPathways(request):
     pathwayList = []
     allPathwayObjects = Pathway.objects.all()
     for i in range(len(allPathwayObjects)):
-        pathwayList.append(allPathwayObjects[i].pathwayName)
+        name = allPathwayObjects[i].pathwayName
+        stages = allPathwayObjects[i].pathwayLevels
+        pathwayInfo = {'name':name,'stages':stages}
+        pathwayList.append(pathwayInfo)
 
     return JsonResponse({'pathwayList':pathwayList}, safe=False)
 

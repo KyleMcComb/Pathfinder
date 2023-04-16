@@ -16,5 +16,6 @@ urlpatterns = [
     path('verify/', views.verify, name='verify'),
     path('gradeInfo/', views.gradeInfo, name='gradeInfo'),
     path('listOfPathways/', views.listOfPathways, name='listOfPathways'),
+    path('signUp/', views.signUp, name='signUp'),
     path('searchModules/', views.searchModules, name='searchModules')
 ]

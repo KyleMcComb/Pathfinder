@@ -1,53 +1,84 @@
 import re
 from chatterbot.logic import LogicAdapter
 from chatterbot.conversation import Statement
+from database.models import Module, StudentInterest, Student
+from django.core.exceptions import MultipleObjectsReturned
 
 class InterestAdapter(LogicAdapter):
     def __init__(self, chatbot, **kwargs):
         super().__init__(chatbot, **kwargs)
+        self.awaiting_module_choice = False
+        self.modules_to_choose = []
+        self.student_id = 40191566  # using this id as a placeholder atm.
 
     def can_process(self, statement):
         statement_text = statement.text.lower()
-        return re.search(r'\b(like|dislike|hate)\b', statement_text) is not None
+        return self.awaiting_module_choice or re.search(r'\b(like|dislike|hate)\b', statement_text) is not None
 
-    def process(self, input_statement, additional_response_selection_parameters=None): 
+    def process(self, input_statement, additional_response_selection_parameters=None):
         statement_text = input_statement.text.lower()
         response = Statement('')
 
-        dislike_match = re.search(r'\bdislike\b', statement_text)
-        hate_match = re.search(r'\bhate\b', statement_text)
-        like_match = re.search(r'\blike\b', statement_text)
+        if self.awaiting_module_choice:
+            try:
+                choice = int(statement_text)
+                if 0 <= choice <= len(self.modules_to_choose):
+                    if choice != 0:
+                        module = self.modules_to_choose[choice - 1]
+                        student = Student.objects.get(studentID=self.student_id)
+                        try:
+                            interest_obj = StudentInterest.objects.filter(studentID=student, interestName=module.moduleName).first()
+                            if interest_obj:
+                                interest_obj.interestImportance = 1
+                                interest_obj.save()
+                            else:
+                                interest_obj = StudentInterest.objects.create(studentID=student, interestName=module.moduleName, interestImportance=1)
+                                interest_obj.save()
+                        except MultipleObjectsReturned:
+                            interest_obj = StudentInterest.objects.filter(studentID=student, interestName=module.moduleName).first()
+                            interest_obj.interestImportance = 1
+                            interest_obj.save()
+                        response.text = f"Thanks for your input! I've updated your interest for {module.moduleName}."
+                    else:
+                        response.text = "Thanks for your input! I will not update your interest for the given modules."
+                else:
+                    response.text = f"Sorry, you need to enter a number between 0 and {len(self.modules_to_choose)}."
+            except ValueError:
+                response.text = f"Sorry, you need to enter a number between 0 and {len(self.modules_to_choose)}."
 
-        if dislike_match:
-            interest = statement_text[dislike_match.end():].strip()
-            response_type = 'dislike'
-        elif hate_match:
-            interest = statement_text[hate_match.end():].strip()
-            response_type = 'hate'
-        elif like_match:
-            interest = statement_text[like_match.end():].strip()
-            response_type = 'like'
-
-        interest_match = re.search(r'\b(?:ai|network security)\b', interest)
-        if interest_match:
-            interest = interest_match.group()
-
-        if response_type == 'like':
-            if 'ai' == interest:
-                response.text = f"That's great! I would recommend this AI module: CSCAI (placeholder)"
-            elif 'network security' == interest:
-                response.text = f"That's great! I would recommend this network security module: CSC3064 Network Security"
-            else:
-                response.text = f"You like {interest}. I will try and recommend any modules that contains {interest}."
-                # Add more custom responses for other interests here
+            self.awaiting_module_choice = False
+            self.modules_to_choose = []
         else:
-            if 'ai' == interest:
-                response.text = f"Thanks for providing me with this information. I won't recommend any modules that contain AI."
-            elif 'network security' == interest:
-                response.text = f"Thanks for providing me with this information. I won't recommend any modules that contain Network Security."
-            else:
-                response.text = f"You dislike {interest}. I will try and not recommend any modules that contains {interest}."
-                # Add more custom responses for other interests here
+            dislike_match = re.search(r'\bdislike\b', statement_text)
+            hate_match = re.search(r'\bhate\b', statement_text)
+            like_match = re.search(r'\blike\b', statement_text)
 
-        response.confidence = 1
+            if dislike_match:
+                interest = statement_text[dislike_match.end():].strip()
+                response_type = 'dislike'
+            elif hate_match:
+                interest = statement_text[hate_match.end():].strip()
+                response_type = 'hate'
+            elif like_match:
+                interest = statement_text[like_match.end():].strip()
+                response_type = 'like'
+
+            student = Student.objects.get(studentID=self.student_id)
+            modules = Module.objects.filter(moduleName__icontains=interest)
+
+            if response_type == 'like':
+                if modules.count() >= 1:
+                    response.text = f"That's great! Here are some modules related to {interest}:<br>"
+                    for i, module in enumerate(modules, start=1):
+                        response.text += f"{i}. {module.moduleID}: {module.moduleName}<br>"
+                    response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any."
+
+                    self.awaiting_module_choice = True
+                    self.modules_to_choose = list(modules)
+                else:
+                    response.text = f"You like {interest}. I will try and recommend any modules that contain {interest}."
+            else:
+                response.text = f"Thanks for providing me with this information. I won't recommend any modules that contain {interest}."
+
+            response.confidence = 1
         return response

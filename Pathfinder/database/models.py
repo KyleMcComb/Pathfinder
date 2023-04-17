@@ -51,19 +51,12 @@ class ModulePathway(models.Model):
 class Student(models.Model):
     studentID = models.IntegerField(primary_key=True, auto_created=False)
     pathwayID = models.ForeignKey(Pathway, on_delete=models.SET_NULL, null=True)
+    studentName = models.CharField(default="temp", max_length=100)
+    studentCurrentLevel = models.IntegerField(default=1)
+    studentCurrentSemester = models.IntegerField(default=1)
     currentPathwayMark = models.IntegerField(default=100)
     def __str__(self):
         return str(self.studentID)
-
-class StudentInfo(models.Model):
-    studentInfoID = models.IntegerField(primary_key=True, auto_created=True)
-    studentID = models.ForeignKey(Student, on_delete=models.CASCADE)
-    stuInfoPassword = models.CharField(max_length=50)
-    stuInfoName = models.CharField(default="temp", max_length=100)
-    stuInfoEmail = models.EmailField()
-    stuInfoCurrentLevel = models.IntegerField(default=1)
-    def __str__(self):
-        return str(self.studentInfoID)
 
 class StudentModule(models.Model):
     studentModuleID = models.IntegerField(primary_key=True, auto_created=True)

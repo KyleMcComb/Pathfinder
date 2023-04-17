@@ -26,9 +26,9 @@ to add studentModels assessment linkers
 """
 
 def addStudents():
-    student1 = Student(studentID=40291577, pathwayID=Pathway.objects.get(pathwayID='G606'))
-    student2 = Student(studentID=40191566, pathwayID=Pathway.objects.get(pathwayID='G400'), currentPathwayMark=7)
-    student3 = Student(studentID=99999999, pathwayID=Pathway.objects.get(pathwayID='G400'))
+    student1 = Student(studentID=40291577, pathwayID=Pathway.objects.get(pathwayID='G606'), studentCurrentLevel=2, studentCurrentSemester=1)
+    student2 = Student(studentID=40191566, pathwayID=Pathway.objects.get(pathwayID='G400'), studentCurrentLevel=1, studentCurrentSemester=1, currentPathwayMark=7)
+    student3 = Student(studentID=99999999, pathwayID=Pathway.objects.get(pathwayID='G400'), studentCurrentLevel=3, studentCurrentSemester=1)
 
     ##ADD ALL Students
     stu_list = [student1, student2, student3]

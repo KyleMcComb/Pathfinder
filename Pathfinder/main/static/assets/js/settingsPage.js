@@ -22,6 +22,28 @@ function settingsPageLoad(){
     else { // default option is dark mode
         document.getElementById('medium').checked = true;
     }
+    getAccountInfo()
+}
+
+function getAccountInfo(){
+    $.get("/accountInfo/", function(data){
+        console.log(data);
+        if(data != null){
+            document.getElementById('account-name').innerHTML = data.name;
+            document.getElementById('account-email').innerHTML = data.email;
+            document.getElementsByClassName('admin-email')[0].innerHTML = data.adminEmail;
+            try{
+                document.getElementById('account-student-number').innerHTML = data.studentNumber;
+                document.getElementById('account-pathway').innerHTML = data.pathway;
+                document.getElementById('account-semester').innerHTML = data.currentSemester;
+                document.getElementById('account-stage').innerHTML = data.currentStage;
+            }
+            catch(e){}//pass
+        }
+        else{
+
+        }
+    });
 }
 
 function updateAccessabilityOptions(){

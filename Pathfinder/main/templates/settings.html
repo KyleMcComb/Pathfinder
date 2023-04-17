@@ -30,7 +30,7 @@
                         <a class="menu-item" onclick="document.getElementById('id02').style.display='block'">Sign-Up</a>
                     {% endif %}
                     {% if user.is_authenticated %}
-                        <a href="/logout" class="menu-item">Logout</a>
+                        <a onclick="logout()" class="menu-item">Logout</a>
                     {% endif %}
                 </div>
                 <div id="menu-background-pattern"></div>
@@ -40,22 +40,26 @@
                 <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
                 <h1>Settings</h1>
                 <div>
-                    <h2>Account Information</h2>
-                    <form class="" action="" method="">
-                        <label for="name"><b>Name: </b></label>
-                        <input type="text" placeholder="Enter Username" name="name" required>
-                        <label for="email"><b>Email: </b></label>
-                        <input type="text" placeholder="Enter email" name="email" required>
-                        <label for="snum"><b>Student Number: </b></label>
-                        <input type="text" placeholder="Enter student number" name="snum" required>
-                        <label for="pathway"><b>Pathway: </b></label>
-                        <input type="text" placeholder="Enter pathway" name="pathway" required>
-                        <label for="semester"><b>Current Semester: </b></label>
-                        <input type="text" placeholder="Enter semester" name="semester" required>
-                        <label for="stage"><b>Current Stage: </b></label>
-                        <input type="text" placeholder="Enter stage" name="stage" required>
-                        <button type="submit">Save Changes</button>
-                    </form>
+                    {% if user.is_authenticated %}
+                        <h2>Account Information</h2>
+                        <form class="" action="" method="">
+                            <p><b>Name:</b></p>
+                            <p class="accountInformation" id="account-name"></p>
+                            <p><b>Email:</b></p>
+                            <p class="accountInformation" id="account-email"></p>
+                            {% if user.is_authenticated and user.username != "admin" %}
+                                <p><b>Student Number:</b></p>
+                                <p class="accountInformation" id="account-student-number"></p>
+                                <p><b>Pathway:</b></p>
+                                <p class="accountInformation" id="account-pathway"></p>
+                                <p><b>Current Semester:</b></p>
+                                <p class="accountInformation" id="account-semester"></p>
+                                <p><b>Current Stage:</b></p>
+                                <p class="accountInformation" id="account-stage"></p>
+                            {% endif %}
+                            <p>If any of this information is incorrect please contact the admin here: <b><span class="admin-email"></span></b></p>
+                        </form>
+                    {% endif %}
 
                     <h2>Accessability</h2>
                     <form onsubmit="return updateAccessabilityOptions()">
@@ -83,10 +87,10 @@
         <div id="id01" class="modal">
             <form class="modal-content animate" action="" method="">
                 <div class="container">
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" name="email" required>
+                    <label for="student-number-login"><b>Student Number</b></label>
+                    <input type="text" placeholder="Enter Student Number" name="student-number-login" required>
                     <label for="psw"><b>Password</b></label>
-                    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+                    <input id="password-login" type="password" placeholder="Enter Password" name="psw" required>
                     <button onclick="login()" type="button">Login</button>
                     <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
                     <label>

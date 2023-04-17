@@ -546,6 +546,12 @@ span.psw {
   padding: 30px;
 }
 
+.accountInformation {
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .module-picker h3 {
   padding: 5px;
 }

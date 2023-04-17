@@ -13,37 +13,77 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+def accountInfo(request):
+    try:
+        currentUser = request.user.username
+        print(currentUser)
+        user = User.objects.get(username=currentUser)
+        email = user.email
+        name = user.first_name+' '+user.last_name
+        studentNumber = ''
+        pathwayName = ''
+        currentSemester = ''
+        currentStage = ''
+        try:
+            studentInDb = Student.objects.get(studentID=currentUser)
+            studentNumber = str(currentUser)
+            pathway = studentInDb.pathwayID
+            pathwayName = Pathway.objects.get(pathwayID=pathway).pathwayName
+            currentSemester = studentInDb.studentCurrentSemester
+            currentStage = studentInDb.studentCurrentLevel
+        except:
+            pass
+        
+        admin = User.objects.get(username='admin')
+        adminEmail = admin.email
+        accountInfo = {
+            'name': name,
+            'email': email,
+            'studentNumber': studentNumber,
+            'pathway': pathwayName,
+            'currentSemester': currentSemester,
+            'currentStage': currentStage,
+            'adminEmail': adminEmail
+        }
+    except:
+        accountInfo = None
+    return JsonResponse(accountInfo, safe=False)
+
 
 def signUp(request):
     # get required info
-    studentNumber = request.GET.get('studentNumber')
-    name = request.GET.get('name')
-    email = request.GET.get('email')
-    selectedPathway = request.GET.get('selectedPathway')
-    currentStage = request.GET.get('currentStage')
-    currentSemester = request.GET.get('currentSemester')
+    success = {'success':'true'}
+    try:
+        studentNumber = request.GET.get('studentNumber')
+        name = request.GET.get('name')
+        email = request.GET.get('email')
+        selectedPathway = request.GET.get('selectedPathway')
+        currentStage = request.GET.get('currentStage')
+        currentSemester = request.GET.get('currentSemester')
 
-    admin = User.objects.get(username='admin')
-    adminEmail = admin.email
+        admin = User.objects.get(username='admin')
+        adminEmail = admin.email
 
-    # send email
-    msg = MIMEMultipart()
-    msg['From'] = 'pathfinder3068@gmail.com'
-    msg['To'] = "{0}".format(adminEmail)
-    msg['Subject'] = 'Sign-Up User'
+        # send email
+        msg = MIMEMultipart()
+        msg['From'] = 'pathfinder3068@gmail.com'
+        msg['To'] = "{0}".format(adminEmail)
+        msg['Subject'] = 'Sign-Up User'
 
-    messageContentInHtml = '<h1>Request has been made to sign up user</h1><br/><p><b>Student Number: </b>'+studentNumber+'</p><p><b>Name: </b>'+name+'</p><p><b>Email: </b>'+email+'</p><p><b>Pathway: </b>'+selectedPathway+'</p><p><b>Stage: </b>'+currentStage+'</p><p><b>Semester: </b>'+currentSemester+'</p><br/><p>From Pathfinder.'
+        messageContentInHtml = '<h1>Request has been made to sign up user</h1><br/><p><b>Student Number: </b>'+studentNumber+'</p><p><b>Name: </b>'+name+'</p><p><b>Email: </b>'+email+'</p><p><b>Pathway: </b>'+selectedPathway+'</p><p><b>Stage: </b>'+currentStage+'</p><p><b>Semester: </b>'+currentSemester+'</p><br/><p>From Pathfinder.'
 
-    body = MIMEText(messageContentInHtml, 'html')
-    msg.attach(body)
+        body = MIMEText(messageContentInHtml, 'html')
+        msg.attach(body)
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls() #encrypts login
-    server.login('pathfinder3068@gmail.com', 'eglrgyaxlnyrvixi') # email account and 3rd party app password for the account which the email will be sent from
-    server.sendmail(msg['From'], msg['To'], msg.as_string())
-    server.quit()
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls() #encrypts login
+        server.login('pathfinder3068@gmail.com', 'eglrgyaxlnyrvixi') # email account and 3rd party app password for the account which the email will be sent from
+        server.sendmail(msg['From'], msg['To'], msg.as_string())
+        server.quit()
+    except:
+        success = {'success':'false'}
 
-    return JsonResponse({'success':'true'}, safe=False)
+    return JsonResponse(success, safe=False)
 
 def listOfPathways(request):
     pathwayList = []
@@ -111,8 +151,7 @@ def getModuleInfofromObject(moduleObject):
 def gradeInfo(request):
     currentUser = request.user.username
     studentInDb = Student.objects.get(studentID=currentUser)
-    studentInfoInDb = StudentInfo.objects.get(studentID=currentUser)
-    currentStage = studentInfoInDb.stuInfoCurrentLevel
+    currentStage = studentInDb.studentCurrentLevel
     studentModuleInfo = StudentModule.objects.filter(studentID=currentUser) # array of the modules the student takes
 
     # below gets the modules, module marks, assessments and assessment marks that a student is on

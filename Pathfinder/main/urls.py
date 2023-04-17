@@ -17,5 +17,6 @@ urlpatterns = [
     path('gradeInfo/', views.gradeInfo, name='gradeInfo'),
     path('listOfPathways/', views.listOfPathways, name='listOfPathways'),
     path('signUp/', views.signUp, name='signUp'),
+    path('accountInfo/', views.accountInfo, name='accountInfo'),
     path('searchModules/', views.searchModules, name='searchModules')
 ]

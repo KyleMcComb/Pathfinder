@@ -16,6 +16,11 @@ function getPathwayData(){
     });
 }
 
+function logout(){
+    alert('You have successfully logged out of the system.');
+    window.location.href = '/logout';
+}
+
 //checks what theme is in the local storage and updates the webpage accordingly 
 function checkTheme(){
     var theme = localStorage.getItem('theme');

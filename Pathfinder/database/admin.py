@@ -10,7 +10,6 @@ admin.site.register(ModuleLecturer);
 admin.site.register(Pathway);
 admin.site.register(ModulePathway);
 admin.site.register(Student);
-admin.site.register(StudentInfo);
 admin.site.register(StudentModule);
 admin.site.register(StudentInterest);
 admin.site.register(StudentModuleAssesment);

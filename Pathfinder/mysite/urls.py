@@ -25,3 +25,5 @@ urlpatterns = [
     path('settings/', settings),
 ]
 
+admin.site.site_header = "Pathfinder Administration"
+admin.site.site_title = "Pathfinder Administration"

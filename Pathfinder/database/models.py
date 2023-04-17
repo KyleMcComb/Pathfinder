@@ -51,7 +51,6 @@ class ModulePathway(models.Model):
 class Student(models.Model):
     studentID = models.IntegerField(primary_key=True, auto_created=False)
     pathwayID = models.ForeignKey(Pathway, on_delete=models.SET_NULL, null=True)
-    studentName = models.CharField(default="temp", max_length=100)
     studentCurrentLevel = models.IntegerField(default=1)
     studentCurrentSemester = models.IntegerField(default=1)
     currentPathwayMark = models.IntegerField(default=100)

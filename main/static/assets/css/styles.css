@@ -1,0 +1,609 @@
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  list-style: none;
+  box-sizing: border-box;
+  transition: all 0.23s ease-in-out;
+  overflow: hidden;
+}
+
+:root {
+  --color-primary: #191d2b;
+  --color-secondary: #27AE60;
+  --color-tertiary: #FFFFFF;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-grey: #13181b;
+  --color-chat-bubble-user: #27AE60;
+  --color-chat-bubble-bot: #2a2e35;
+  --br-sm-2: 14px;
+  --box-shadow-1: 0 3px 15px rgba(0,0,0,.2)
+  //--transition-1: all .23s ease-in-out;
+}
+
+.light-mode {
+  --color-primary: #FFFFFF;
+  --color-secondary: #b92261;
+  --color-tertiary: #000000;
+  --color-black: #000;
+  --color-white: #FFFFFF;
+  --color-grey: #f8f8f8;
+  --color-chat-bubble-user: #b92261;
+  --color-chat-bubble-bot: #47535c;
+}
+
+.high-contrast-mode {
+  --color-primary: #FFFFFF;
+  --color-secondary: #000000;
+  --color-tertiary: #000000;
+  --color-black: #000;
+  --color-white: #FFFFFF;
+  --color-grey: #f8f8f8;
+  --color-chat-bubble-user: #000000;
+  --color-chat-bubble-bot: #000000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-primary);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: var(--color-tertiary);
+  transition: all 0.23s ease-in-out;
+  overflow-y: visible;
+}
+
+/* main content div for all pages */
+.content {
+  height: 100vh;
+  overflow-y: visible;
+  background-color: var(--color-primary);
+  transition: all 0.23s ease-in-out;
+  float: right;
+  display: inline;
+  position: absolute;
+  padding-top: 28.11px;
+  padding-left: 30px;
+  padding-right: 30px;
+  /* Resize image and header */
+}
+.content img {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+.content h1 {
+  position: relative;
+  top: 32px;
+  left: 10px;
+  padding-bottom: 100px;
+}
+.content form {
+  padding: 18px;
+}
+
+.bottom-bar {
+  width: 100%;
+  position: fixed;
+  left: 0%;
+  transition: all 0.23s ease-in-out;
+  background-color: var(--color-primary);
+  min-height: 85px;
+  position: absolute;
+  bottom: -24px;
+  margin: 1.5rem 0;
+  padding-left: 60px;
+}
+.bottom-bar textarea {
+  overflow-y: visible;
+  text-align: left !important;
+  position: absolute;
+  top: 7.5px;
+  border-radius: 30px;
+  padding: 0.8rem 1.1rem;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  outline: none;
+  border: none;
+  background-color: var(--color-grey);
+  color: var(--color-tertiary);
+  height: 70%;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+/* sidebar menu */
+.sidebar {
+  color: var(--color-white);
+  white-space: nowrap;
+  height: 100vh;
+  background-color: var(--color-secondary);
+  transition: all 0.23s ease-in-out;
+  width: 55px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 10px;
+  margin: 0px;
+}
+.sidebar .closebtn {
+  font-size: 30px !important;
+  cursor: pointer;
+  position: relative;
+  top: 30;
+  color: var(--color-white);
+}
+.sidebar .menu-item {
+  cursor: pointer;
+  display: block;
+  padding: clamp(0.25rem, 0.5vw, 1rem) 0rem;
+  text-decoration: none;
+  transition: opacity 400ms ease;
+}
+.sidebar #menu-items {
+  padding-left: 60px;
+}
+.sidebar #menu-items a {
+  font-family: "Poppins", sans-serif;
+  font-size: inherit;
+  color: var(--color-white);
+}
+.sidebar #menu-background-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 9%, transparent 9%);
+  background-position: 0% 0%;
+  background-size: 12vmin 12vmin;
+  position: absolute;
+  height: 200vh;
+  left: 0px;
+  top: 0px;
+  transition: opacity 800ms ease, background-size 800ms ease, background-position 800ms ease;
+  width: 250px;
+  z-index: -2;
+}
+
+.toggleButton {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */ /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+#menu[data-active-index="0"] > #menu-background-pattern {
+  background-position: 0% -12.5%;
+}
+
+#menu[data-active-index="1"] > #menu-background-pattern {
+  background-position: 0% -25%;
+}
+
+#menu[data-active-index="2"] > #menu-background-pattern {
+  background-position: 0% -37.5%;
+}
+
+#menu[data-active-index="3"] > #menu-background-pattern {
+  background-position: 0% -50%;
+}
+
+#menu[data-active-index="4"] > #menu-background-pattern {
+  background-position: 0% -62.5%;
+}
+
+#menu[data-active-index="5"] > #menu-background-pattern {
+  background-position: 0% -75%;
+}
+
+#menu[data-active-index="6"] > #menu-background-pattern {
+  background-position: 0% -87.5%;
+}
+
+#menu[data-active-index="7"] > #menu-background-pattern {
+  background-position: 0% -100%;
+}
+
+#menu-items:hover ~ #menu-background-pattern {
+  background-size: 11vmin 11vmin;
+  opacity: 0.5;
+}
+
+#menu-items:hover > .menu-item {
+  opacity: 0.3;
+}
+
+#menu-items:hover > .menu-item:hover {
+  opacity: 1;
+}
+
+.userText {
+  overflow-x: visible;
+  text-align: right;
+}
+.userText p {
+  color: var(--color-white);
+  overflow-wrap: break-word;
+  line-height: 1.5em;
+  display: inline-block;
+  background: var(--color-chat-bubble-user);
+  padding: 10px;
+  border-radius: 8px;
+  border-bottom-right-radius: 2px;
+  max-width: 80%;
+  margin-right: 10px;
+  animation: floatup 0.5s forwards;
+}
+
+.botText {
+  text-align: left;
+}
+.botText p {
+  color: var(--color-white);
+  overflow-wrap: break-word;
+  line-height: 1.5em;
+  display: inline-block;
+  background: var(--color-chat-bubble-bot);
+  padding: 10px;
+  border-radius: 8px;
+  border-bottom-left-radius: 2px;
+  max-width: 80%;
+  margin-left: 10px;
+  animation: floatup 0.5s forwards;
+}
+
+@keyframes floatup {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+/* module information page */
+.modules-container {
+  padding-left: 2.5%;
+  padding-right: 5%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  position: absolute;
+  top: 275px;
+  padding-bottom: 50px;
+}
+.modules-container .module-table {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 2rem;
+  padding-top: 30px;
+}
+.modules-container .module-table .main-module-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+}
+.modules-container .module-table .top-of-table {
+  padding-top: 25px;
+  position: relative;
+}
+.modules-container .module-table .top-of-table::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-secondary);
+  transform: translateX(-50%);
+}
+
+.filter-and-search {
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+}
+.filter-and-search .search-bar {
+  grid-template-rows: 60px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0rem;
+  grid-template-columns: 1fr 60px;
+}
+
+.filter-container {
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.filter {
+  z-index: 3;
+  padding-top: 24px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */ /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.multiselect {
+  width: 100%;
+  z-index: 3;
+}
+
+.selectBox {
+  position: relative;
+}
+.selectBox .filtersApplied {
+  padding: 5px;
+  background-color: var(--color-primary);
+  color: var(--color-tertiary);
+  font-size: inherit;
+}
+.selectBox select {
+  width: 100%;
+}
+
+.overSelect {
+  color: var(--color-tertiary);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#mySelectOptions {
+  display: none;
+  border: 0.5px #7c7c7c solid;
+  background-color: var(--color-primary);
+  max-height: 300px;
+  overflow-y: auto;
+}
+#mySelectOptions label {
+  z-index: 3;
+  display: block;
+  font-weight: normal;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0 2.25rem 0 0.75rem;
+}
+
+/* Grade Dashboard Page */
+.dashboard-container {
+  z-index: 0;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  position: absolute;
+  top: 250px;
+  width: 95%;
+}
+.dashboard-container .assesments {
+  z-index: -1;
+  float: left;
+  width: 17.7%;
+}
+.dashboard-container .assesments .assesment-grade {
+  z-index: 20;
+  width: 100px;
+}
+.dashboard-container .grades {
+  height: inherit;
+  width: 64%;
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.dashboard-container .grades #stageGrades {
+  transition: none;
+}
+.dashboard-container .stats {
+  height: inherit;
+  float: right;
+  width: 17.7%;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 1rem;
+}
+.dashboard-container .stats .stat-item {
+  width: 300px;
+  height: 160px;
+  border: 1px solid var(--color-grey);
+  border-radius: 5px;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 1px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.dashboard-container .stats .stat-item:hover {
+  transform: translateY(-5px);
+  border: 1px solid var(--color-secondary);
+  box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.32);
+}
+.dashboard-container .stats .stat-item .stat-text {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-container .stats .stat-item .stat-text .large-text {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+.dashboard-container .stats .stat-item .stat-text .small-text {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: var(--color-tertiary);
+  letter-spacing: 2px;
+}
+
+.grade-progression {
+  padding-top: 6px;
+  border-top: 2.5px solid var(--color-secondary);
+  /* below code will change the colour of the progress bar - thanks to https://www.geeksforgeeks.org/how-to-set-color-of-progress-bar-using-html-and-css/ */
+}
+.grade-progression .title {
+  text-align: center;
+}
+.grade-progression .degree-classifications {
+  width: 95%;
+}
+.grade-progression .degree-classifications span {
+  display: inline-block;
+  text-align: end !important;
+  border-right: solid 1px var(--color-tertiary);
+}
+.grade-progression .degree-classifications #third {
+  width: 40%;
+}
+.grade-progression .degree-classifications #lower-second, .grade-progression .degree-classifications #upper-second, .grade-progression .degree-classifications #first {
+  width: 10%;
+}
+.grade-progression .progression-bar {
+  display: flex;
+  border-radius: 30px;
+  width: 95%;
+  background-color: var(--color-black);
+}
+.grade-progression .progression-bar #current-progression {
+  align-self: stretch;
+  display: inline-block;
+  text-align: end;
+  width: 40%;
+  background-color: var(--color-secondary);
+}
+.grade-progression progress::-webkit-progress-bar {
+  background-color: var(--color-tertiary);
+}
+.grade-progression progress::-webkit-progress-value {
+  background-color: var(--color-secondary) !important;
+}
+.grade-progression progress {
+  background-color: var(--color-tertiary);
+}
+.grade-progression progress::-moz-progress-bar {
+  background-color: var(--color-secondary) !important;
+}
+.grade-progression progress {
+  background-color: var(--color-tertiary);
+}
+.grade-progression progress {
+  background-color: var(--color-secondary);
+}
+
+/* Login pop up */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: var(--color-grey);
+  color: var(--color-tertiary);
+  font-size: inherit;
+}
+
+button {
+  font-size: inherit;
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+#sign-up-2 {
+  display: none;
+}
+
+#sign-up-3 {
+  display: none;
+  text-align: center;
+}
+#sign-up-3 div {
+  padding: 30px;
+}
+
+.accountInformation {
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.module-picker h3 {
+  padding: 5px;
+}
+.module-picker .semesters {
+  margin: auto;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  width: 95%;
+  padding: 10px;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: relative;
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: var(--color-primary);
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Add Zoom Animation for login */
+.animate {
+  animation: animatezoom 0.6s;
+}
+@keyframes animatezoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}/*# sourceMappingURL=styles.css.map */

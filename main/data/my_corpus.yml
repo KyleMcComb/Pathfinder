@@ -1,0 +1,51 @@
+categories:
+- conversations
+conversations:
+- - Good morning, how are you?
+  - I am doing well, how about you?
+  - I'm also good.
+  - That's good to hear.
+  - Yes it is.
+- - Hello
+  - Hi
+  - How are you doing?
+  - I am doing well.
+  - That is good to hear
+  - Yes it is.
+  - Can I help you with anything?
+  - Yes, I have a question.
+  - What is your question?
+- - How are you doing?
+  - I am doing well, how about you?
+  - I am also good.
+  - That's good.
+- - What is your purpose?
+  - I'm Pathfinder. I am a bot that helps you with all your EEECS needs.
+  - QuBot! An EEECS AI tool to help students!
+- - What do you do?
+  - I'm Pathfinder. I am a bot that helps you with all your EEECS needs.
+  - QuBot! An EEECS AI tool to help students!
+- - What can you help me with?
+  - I can do lots of things. One thing I can do is recommend you a module based off your interest. For example, if you like networking or cybersecurity, I would recommend the CSC3064 - Network Security module.
+  - I can help recommend modules for you based on your likes and dislikes. 
+  - I can assist you with recommending modules for you based off your interests. Try saying, "I like AI" or "I hate AI" based on whether you like or hate that interest.
+- - I like AI
+  - That's great. I would recommend this module then - CSCAI (placeholder)
+- - I hate AI
+  - Thanks for providing me with this information. I won't recommend any modules that contain AI
+- - I like network security
+  - That's great. I would recommend this module then - CSC3064 Network Security (placeholder)
+- - I hate network security
+  - Thanks for providing me with this information. I won't recommend any modules that contain Network Security
+- - I'm in first year
+  - Good to know. Here are all the first year modules you can do for EEECS - (insert info or paste database)
+  - Great. I'll only recommend first year modules for you.
+- - I'm in second year
+  - Good to know. Here are all the second year modules you can do for EEECS - (insert info or paste database)
+  - Great. I'll only recommend second year modules for you.
+- - I'm in final year
+  - Good to know. Here are all the final year modules you can do for EEECS - (insert info or paste database)
+  - Great. I'll only recommend final year modules for you.
+- - I'm in fourth year
+  - Good to know. Here are all the fourth year modules you can do for EEECS - (insert info or paste database)
+  - Great. I'll only recommend fourth year modules for you.

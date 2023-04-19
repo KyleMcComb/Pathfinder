@@ -27,15 +27,21 @@ function resizeChatbotPage(){
     document.getElementsByClassName('content')[0].style.height = (window.innerHeight - 85) + "px";
     // NAV IS OPEN
     if(sessionStorage.getItem("navOpen") == "true"){
-        bottomBarDiv.style.width = (windowWidth-250)+"px";
-        bottomBarDiv.style.left = "250px";
-        textarea.style.width = (windowWidth-370)+"px";
+        //bottomBarDiv.style.width = (windowWidth-250)+"px";
+        bottomBarDiv.style.width = windowWidth-(windowWidth*0.13)+"px";
+        //bottomBarDiv.style.left = "250px";
+        bottomBarDiv.style.left = windowWidth*0.13+"px";
+        //textarea.style.width = (windowWidth-370)+"px";
+        textarea.style.width = (windowWidth-(windowWidth*0.1927))+"px";
     }
     // NAV IS NOT OPEN
     else if(sessionStorage.getItem("navOpen") == "false"){
-        bottomBarDiv.style.width = (windowWidth-55)+"px";
-        bottomBarDiv.style.left = "55px";
-        textarea.style.width = (windowWidth-175)+"px";
+        // bottomBarDiv.style.width = (windowWidth-55)+"px";
+        // bottomBarDiv.style.left = "55px";
+        // textarea.style.width = (windowWidth-175)+"px";
+        bottomBarDiv.style.width = windowWidth-(windowWidth*0.0286)+"px";
+        bottomBarDiv.style.left = windowWidth*0.0286+"px";
+        textarea.style.width = (windowWidth-(windowWidth*0.091145))+"px";
     }
 }
 

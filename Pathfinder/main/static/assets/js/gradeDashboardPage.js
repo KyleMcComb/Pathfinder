@@ -17,17 +17,32 @@ function progressBar(grade='0'){
 function resizeGradeDashboardPage(){
     var bottomBarDiv = document.getElementsByClassName('bottom-bar')[0];
     var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+    var progress = windowHeight * 0.078241;
+    var barchartWidth = (((windowWidth - 55) * 0.95) * 0.64);
+    var barchartHeight = (1130/2261.3) * barchartWidth;
+    document.getElementsByClassName('content')[0].style.height = (windowHeight - progress) + 'px';
+    document.getElementsByClassName('bottom-bar')[0].style.height =  progress + 'px';
+    document.getElementsByClassName('stats')[0].style.height = barchartHeight+'px';
 
-    document.getElementsByClassName('content')[0].style.height = (window.innerHeight - 85) + 'px';
+    
+
+    console.log(document.getElementsByClassName('filter-container')[0].style.height);
     // NAV IS OPEN
-    if(sessionStorage.getItem('navOpen') == 'true'){
-        bottomBarDiv.style.width = (windowWidth-250)+'px';
-        bottomBarDiv.style.left = '250px';
+    if(sessionStorage.getItem("navOpen") == "true"){
+        //bottomBarDiv.style.width = (windowWidth-250)+"px";
+        bottomBarDiv.style.width = windowWidth-(windowWidth*0.13)+"px";
+        //bottomBarDiv.style.left = "250px";
+        bottomBarDiv.style.left = windowWidth*0.13+"px";
+        //textarea.style.width = (windowWidth-370)+"px";
     }
     // NAV IS NOT OPEN
-    else if(sessionStorage.getItem('navOpen') == 'false'){
-        bottomBarDiv.style.width = (windowWidth-55)+'px';
-        bottomBarDiv.style.left = '55px';
+    else if(sessionStorage.getItem("navOpen") == "false"){
+        // bottomBarDiv.style.width = (windowWidth-55)+"px";
+        // bottomBarDiv.style.left = "55px";
+        // textarea.style.width = (windowWidth-175)+"px";
+        bottomBarDiv.style.width = windowWidth-(windowWidth*0.0286)+"px";
+        bottomBarDiv.style.left = windowWidth*0.0286+"px";
     }
 }
 

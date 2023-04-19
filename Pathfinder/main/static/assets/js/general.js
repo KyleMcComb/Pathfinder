@@ -45,27 +45,27 @@ function checkFontSize(){
 
     // checks for new font size, if small or large size is not selected the default (medium) is then applied
     if(fontSize == 'small'){ 
-        element.style.fontSize  = "0.8rem";
+        element.style.fontSize  = "0.66vw";
     }
     else if(fontSize == 'large') {
-        element.style.fontSize = "1.5rem";
+        element.style.fontSize = "1.25vw";
         document.getElementsByClassName("menu-item")[1].innerHTML = "Grade <br />Dashboard";
         document.getElementsByClassName("menu-item")[3].innerHTML = "Queen's <br />Website";
     }
     else {
-        element.style.fontSize  = "1rem";
+        element.style.fontSize  = "0.83vw"; 
     }
 }
 
 function navToggle() {
     // CLOSE THE NAV
     if(sessionStorage.getItem("navOpen") == "true"){
-        document.getElementsByClassName('sidebar')[0].style.width = "55px";
+        document.getElementsByClassName('sidebar')[0].style.width = "2.864vw";
         sessionStorage.setItem("navOpen","false");
     }
     // OPEN THE NAV
     else if(sessionStorage.getItem("navOpen") == "false"){
-        document.getElementsByClassName('sidebar')[0].style.width = "250px";
+        document.getElementsByClassName('sidebar')[0].style.width = "13vw";
         sessionStorage.setItem("navOpen","true");
     }
     document.getElementsByClassName('sidebar')[0].style.height = "100vh";
@@ -78,13 +78,17 @@ function resizeContentDiv(){
 
     // NAV IS OPEN
     if(sessionStorage.getItem("navOpen") == "true"){
-        contentDiv.style.width = (windowWidth-250)+"px";
-        contentDiv.style.left = "250px";
+        //contentDiv.style.width = (windowWidth-250)+"px";
+        contentDiv.style.width = windowWidth-(windowWidth*0.13)+"px";
+        //contentDiv.style.left = "250px";
+        contentDiv.style.left = windowWidth*0.13+"px";
     }
     // NAV IS NOT OPEN
     else if(sessionStorage.getItem("navOpen") == "false"){
-        contentDiv.style.width = (windowWidth-55)+"px";
-        contentDiv.style.left = "55px";
+        // contentDiv.style.width = (windowWidth-55)+"px";
+        // contentDiv.style.left = "55px";
+        contentDiv.style.width = windowWidth-(windowWidth*0.0286)+"px";
+        contentDiv.style.left = windowWidth*0.0286+"px";
     }
 }
 

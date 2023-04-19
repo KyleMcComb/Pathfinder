@@ -14,7 +14,7 @@
         <main>
             <div class="sidebar" id="menu">
                 <div class="toggleButton">
-                    <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
+                    <p><span class="closebtn" onclick="navToggle()">&#9776;</span>Pathfinder</p>
                 </div>
                 <br />
                 <div id="menu-items">
@@ -37,8 +37,10 @@
                 <div id="menu-background-pattern"></div>
             </div>
             <div class="content">
-                <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                <h1 onclick="signUp()">Module Information</h1>
+                <div>
+                    <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
+                    <h1 onclick="signUp()">Module Information</h1>
+                </div>
                 
                 <div class="filter-and-search">
                     <form onsubmit="return false" class="search-bar">

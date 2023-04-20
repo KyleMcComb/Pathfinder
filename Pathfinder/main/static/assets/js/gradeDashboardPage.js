@@ -61,12 +61,14 @@ function getGradeData(){
 
         var stages = data.stages;
         for(var i=0; i<stages.length; i++){
+            stageNum = i+1;
+            console.log(stageNum);
             var defaultChecked = 0;
             if(i==0){
                 defaultChecked = 'checked="true"';
             }
-            document.getElementById('mySelectOptions').innerHTML = `
-                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-${i+1}" onchange="checkboxStatusChange()" value="stage-${i+1}" ${defaultChecked}/>1</label>
+            document.getElementById('mySelectOptions').innerHTML += `
+                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-${stageNum}" onchange="checkboxStatusChange()" value="${stageNum}" ${defaultChecked}/>${stageNum}</label>
             `;
         }
         displayStage(1);
@@ -78,11 +80,15 @@ function displayStage(stageSelected){
         var modules = [];
         var grades = [];
         var stages = data.stages;
-        for(var i=0; i<stages.length; i++){
-            for(var j=0; j<stages[i].length; j++){
-                modules.push(stages[i][j].name);
-                grades.push(stages[i][j].studentMark);
-            }
+        // for(var i=0; i<stages.length; i++){
+        //     for(var j=0; j<stages[i].length; j++){
+        //         modules.push(stages[i][j].name);
+        //         grades.push(stages[i][j].studentMark);
+        //     }
+        // }
+        for(var j=0; j<stages[stageSelected-1].length; j++){
+            modules.push(stages[stageSelected-1][j].name);
+            grades.push(stages[stageSelected-1][j].studentMark);
         }
 
         document.getElementsByClassName('assesments')[0].innerHTML = '';
@@ -186,21 +192,18 @@ function checkboxStatusChange() {
     var multiselect = document.getElementById('mySelectLabel');
     var multiselectOption = multiselect.getElementsByTagName('option')[0];
 
-    var values = [];
+    var display = 'stage 1' 
     var checkboxes = document.getElementById('mySelectOptions');
-    var checkedCheckboxes = checkboxes.querySelectorAll('input[type=checkbox]:checked');
-
-    for (const item of checkedCheckboxes) {
-        var checkboxValue = item.getAttribute('value');
-        values.push(checkboxValue);
+    var stageSelected = document.querySelector('input[name="stageSelect"]:checked');
+    if(stageSelected != null){
+        display = 'stage '+stageSelected.value;
+        console.log(stageSelected.value);
+        displayStage(stageSelected.value);
     }
+    //console.log(checkedCheckboxes);
 
-    var dropdownValue = 'Select Stage to Display';
-    if (values.length > 0) {
-        dropdownValue = values.join(', ');
-    }
-
-    multiselectOption.innerText = dropdownValue;
+    multiselectOption.innerText = display;
+    //console.log(checkedCheckboxes.value);
 }
 
 function toggleCheckboxArea(onlyHide = false) {

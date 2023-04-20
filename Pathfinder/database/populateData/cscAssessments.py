@@ -25,12 +25,9 @@ def addAssessments():
     mod1024ass3 = Assessment(assessmentID=10243, moduleID=mod1024, assessmentType='Project', assessmentWeight = 35)
     mod1024ass4 = Assessment(assessmentID=10244, moduleID=mod1024, assessmentType='Class Test', assessmentWeight = 20)
 
-<<<<<<< HEAD
     mod1025 = Module.objects.get(moduleID='CSC1025')
     mod1025ass1 = Assessment(assessmentID=10251, moduleID=mod1025, assessmentType='Class Test', assessmentWeight = 100)
 
-=======
->>>>>>> ee244162ea47d33bca8671482ef12cf01bb8a24a
     mod1026 = Module.objects.get(moduleID='CSC1026')
     mod1026ass1 = Assessment(assessmentID=10261, moduleID=mod1026, assessmentType='Continual Assessment', assessmentWeight = 60)
     mod1026ass2 = Assessment(assessmentID=10262, moduleID=mod1026, assessmentType='Timed exam on Computer', assessmentWeight = 40)
@@ -45,11 +42,6 @@ def addAssessments():
 
     mod1029 = Module.objects.get(moduleID='CSC1029')
     mod1029ass1 = Assessment(assessmentID=10291, moduleID=mod1029, assessmentType='Class Test', assessmentWeight = 20)
-<<<<<<< HEAD
-=======
-    mod1029ass2 = Assessment(assessmentID=10292, moduleID=mod1029, assessmentType='Continual Assessment', assessmentWeight = 50)
-    mod1029ass3 = Assessment(assessmentID=10293, moduleID=mod1029, assessmentType='Timed exam on Computer', assessmentWeight = 30)
->>>>>>> ee244162ea47d33bca8671482ef12cf01bb8a24a
 
     mod1030 = Module.objects.get(moduleID='CSC1030')
     mod1030ass1 = Assessment(assessmentID=10301, moduleID=mod1030, assessmentType='Project', assessmentWeight = 60)
@@ -67,13 +59,8 @@ def addAssessments():
 
     ##ADD stage 1 assessments
     stage1Assess_list = [mod1023ass1, mod1023ass2, mod1023ass3, mod1024ass1, mod1024ass2, 
-<<<<<<< HEAD
                          mod1024ass3, mod1024ass4, mod1025ass1, mod1026ass1, mod1026ass2, mod1027ass1, mod1027ass2, 
                          mod1027ass3, mod1028ass1, mod1029ass1, mod1030ass1,
-=======
-                         mod1024ass3, mod1024ass4,mod1026ass1, mod1026ass2, mod1027ass1, mod1027ass2, 
-                         mod1027ass3, mod1028ass1, mod1029ass1, mod1029ass2, mod1029ass3, mod1030ass1,
->>>>>>> ee244162ea47d33bca8671482ef12cf01bb8a24a
                          mod1030ass2, mod1031ass1,mod1031ass2,mod1032ass1,mod1033ass1]
     for x in stage1Assess_list:
         x.save()
@@ -136,8 +123,4 @@ def addAssessments():
                          mod2059ass2, mod2060ass1, mod2060ass2, mod2062ass1, mod2062ass2, mod2062ass3,
                          mod2063ass1, mod2063ass2,mod2065ass1,mod2066ass1]
     for x in stage2Assess_list:
-<<<<<<< HEAD
         x.save()
-=======
-        x.save()
->>>>>>> ee244162ea47d33bca8671482ef12cf01bb8a24a

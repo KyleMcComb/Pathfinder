@@ -36,7 +36,7 @@ def addStudents():
         x.save()
 
 def addExtraStudent():
-    student1 = Student(studentID=40294254, pathwayID=Pathway.objects.get(pathwayID='G606'), studentCurrentLevel=2, studentCurrentSemester=2, currentPathwayMark=28)
+    student1 = Student(studentID=40294254, pathwayID=Pathway.objects.get(pathwayID='G606'), studentCurrentLevel=2, studentCurrentSemester=2, currentPathwayMark=31)
 
     stu_list = [student1]
     for x in stu_list:
@@ -57,7 +57,7 @@ def addExtraStudent():
     stu1Mod6 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC1030'), stuModMark=75)
 
     stu1Mod7 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2056'), stuModMark=94)
-    stu1Mod8 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2057'), stuModMark=42)
+    stu1Mod8 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2057'), stuModMark=90)
     stu1Mod9 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2066'), stuModMark=78)
     stu1Mod10 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2054'), stuModMark=72)
     stu1Mod11 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2053'), stuModMark=56)
@@ -105,7 +105,7 @@ def addExtraStudent():
     mod2056ass1g = StudentModuleAssesment(studentModuleID = stu2Mod7, assessmentID = mod2056ass1, assesmentMark=98)
     mod2056ass2g = StudentModuleAssesment(studentModuleID = stu2Mod7, assessmentID = mod2056ass2, assesmentMark=90)
 
-    mod2057ass1g = StudentModuleAssesment(studentModuleID = stu2Mod8, assessmentID = mod2057ass1, assesmentMark=14)
+    mod2057ass1g = StudentModuleAssesment(studentModuleID = stu2Mod8, assessmentID = mod2057ass1, assesmentMark=70)
     mod2057ass2g = StudentModuleAssesment(studentModuleID = stu2Mod8, assessmentID = mod2057ass2, assesmentMark=93)
 
     mod2065ass1g = StudentModuleAssesment(studentModuleID = stu2Mod9, assessmentID = mod2065ass1, assesmentMark=78)

@@ -1,5 +1,10 @@
 {% load static %}
 {% block content%}
+
+<!-- 
+    Author: @DeanLogan123
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +16,7 @@
 </head>
     <body>
         <main>
+            <!-- This is for the sidebar/navigation, this will change depending on the access levels the user has. -->
             <div class="sidebar" id="menu">
                 <div class="toggleButton">
                     <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
@@ -19,21 +25,21 @@
                 <div id="menu-items">
                     <a href="/" class="menu-item">Home</a>
                     <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
-                    <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's Website</a>
+                    <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
                     <a href="/settings", target="_parent" class="menu-item">Settings</a>
-                    {% if user.is_authenticated and user.username == "admin" %}
+                    {% if user.is_authenticated and user.username == "admin" %} <!-- displays link to admin page if user is the admin -->
                         <a href="/admin" class="menu-item">Admin Page</a>
-                    {% elif user.is_authenticated and user.username != "admin" %}
-                        <a href="/GradeDashboard" class="menu-item">Grade Dashboard</a>
-                    {% else %}
+                    {% elif user.is_authenticated and user.username != "admin" %} <!-- displays link to grade dashboard page if user is the student -->
+                        <a href="/GradeDashboard" class="menu-item">Grade  <br /> Dashboard</a>
+                    {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
                         <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
-                        <a class="menu-item" onclick="document.getElementById('id02').style.display='block'">Sign-Up</a>
+                        <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
                     {% endif %}
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
                         <a onclick="logout()" class="menu-item">Logout</a>
                     {% endif %}
                 </div>
-                <div id="menu-background-pattern"></div>
+                <div id="menu-background-pattern"></div> <!-- this is for the dots that appear in the background of the side bar -->
             </div>
 
             <div class="content">
@@ -86,7 +92,8 @@
             </div>
         </main>
 
-        <div id="id01" class="modal">
+        <!-- Login pop up -->
+        <div id="id01" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
             <form class="modal-content animate" action="" method="">
                 <div class="container">
                     <label for="student-number-login"><b>Student Number</b></label>
@@ -95,9 +102,6 @@
                     <input id="password-login" type="password" placeholder="Enter Password" name="psw" required>
                     <button onclick="login()" type="button">Login</button>
                     <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
                 </div>
                 <div class="container">
                     <span class="psw"><a href="#">Forget Password?</a></span>
@@ -105,7 +109,8 @@
             </form>
         </div>
 
-        <div id="id02" class="modal">
+        <!-- Sign-up pop up -->
+        <div id="id02" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
             <form id="sign-up-1" class="modal-content animate" onsubmit="nextSignUpStep()">
                 <div class="container">
                     <h2>Enter Account Information</h2><br />
@@ -118,11 +123,9 @@
                     <input type="text" placeholder="Enter email" name="email" required>
                     
                     <label><b>Pathway</b></label><br />
+                    <!-- this is where the pathways will be added to once they are got from the database -->
                     <div class="Pathway">
-                        <label for="BIT"><input type="radio" id="BIT" name="pathway" value="BIT" onchange="updateStageOptions()" checked="true"/> BIT</label>
-                        <label for="CS"><input type="radio" id="CS" name="pathway" value="CS" onchange="updateStageOptions()"/> CS</label>
-                        <label for="SE3"><input type="radio" id="SE3" name="pathway" value="SE3" onchange="updateStageOptions()"/> SE 3 year</label>
-                        <label for="SE4"><input type="radio" id="SE4" name="pathway" value="SE4" onchange="updateStageOptions()"/> SE 4 year</label>
+                        <label for="BIT"><input type="radio" id="BIT" name="pathway" value="BIT" onchange="updateStageOptions()" checked="true"/> BIT</label> <!-- placeholder until the js populates this with the correct pathways -->
                     </div>
 
                     <label for="stage"><b>Stage</b></label><br />
@@ -136,27 +139,12 @@
                     <label for="semester-1"><input type="radio" id="semester-1" name="semester" value="1" checked="true"/> 1</label>
                     <label for="semester-2"><input type="radio" id="semester-2" name="semester" value="2" /> 2</label>
 
-                    <button onclick="goToSignUp3()" type="button">Next</button>
+                    <button onclick="goToSignUp2()" type="button">Next</button>
                     <button  onclick="document.getElementById('id02').style.display='none'">Cancel</button>
                 </div>
             </form>
 
-            <!--
-            code that will code that might be introduced again for the final system but will not be used during prototype
-
-            <form id="sign-up-2" class="modal-content animate" action="" method="">
-                <div class="container">
-                    <h2>Enter Module Information</h2><br />
-                    <p>Please select all of the optional modules which you took during the respective semesters (required modules will be automatically added).</p><br /><br />
-                    <div class="module-picker"></div>
-                    <button type="button" onclick="goToSignUp3()">Next</button>
-                    <button type="button" onclick="goToSignUp1()">Back</button>
-                    <button type="button" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
-                </div>
-            </form>
-            -->
-
-            <div id="sign-up-3" class="modal-content animate">
+            <div id="sign-up-2" class="modal-content animate">
                 <div>
                     <h2>Sign Up Request Submitted!</h2><br /><br />
                     <p>Your information has been sent to the admin <br /> Once the admin creates your, they'll send an email with your login details <br />If you have any questions please contact the admin here: <span id="admin-email"></span></p>

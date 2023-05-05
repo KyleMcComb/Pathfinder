@@ -89,6 +89,7 @@ body {
   padding: 18px;
 }
 
+/* the bar that appears at the bottom of the chatbot page and gradedashboard page, this is pinned to the bottom of the screen */
 .bottom-bar {
   width: 100%;
   position: fixed;
@@ -99,9 +100,11 @@ body {
   position: absolute;
   bottom: -24px;
   margin: 1.5rem 0;
-  padding-left: 60px;
+  padding-left: 3.125vw;
+  /* where the user enters text to send to the chatbot */
 }
 .bottom-bar textarea {
+  width: 100%;
   overflow-y: visible;
   text-align: left !important;
   position: absolute;
@@ -142,7 +145,7 @@ body {
 .sidebar .closebtn {
   padding-left: 0.05vw;
   padding-right: 0.75vw;
-  font-size: 1.8vw !important;
+  font-size: 1.8vw;
   cursor: pointer;
   position: relative;
   top: 30;
@@ -159,6 +162,9 @@ body {
   padding-left: 3.125vw;
 }
 .sidebar #menu-items a {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */ /* IE10+/Edge */
+  user-select: none; /* Standard */
   font-family: "Poppins", sans-serif;
   font-size: inherit;
   color: var(--color-white);
@@ -182,6 +188,7 @@ body {
   user-select: none; /* Standard */
 }
 
+/* below is the animation for the background for whenever a user hovers over a menu item, it will change the position of the pattern based on which item is being hovered over */
 #menu[data-active-index="0"] > #menu-background-pattern {
   background-position: 0% -12.5%;
 }
@@ -227,6 +234,7 @@ body {
   opacity: 1;
 }
 
+/* styling for the chat bubbles*/
 .userText {
   overflow-x: visible;
   text-align: right;
@@ -262,6 +270,7 @@ body {
   animation: floatup 0.5s forwards;
 }
 
+/* animation for whenever the chat bubble appears on screen */
 @keyframes floatup {
   from {
     transform: translateY(14px);
@@ -273,6 +282,7 @@ body {
   }
 }
 /* module information page */
+/* container for all of the module tables */
 .modules-container {
   padding-left: 2.5%;
   padding-right: 5%;
@@ -309,6 +319,7 @@ body {
   transform: translateX(-50%);
 }
 
+/* styling for search bar and filter */
 .filter-and-search {
   z-index: 3;
   display: grid;
@@ -338,6 +349,7 @@ body {
   user-select: none; /* Standard */
 }
 
+/* styling for the multi select drop down menu that is used for the filters on the module info page and grade dashboard page */
 .multiselect {
   width: 100%;
   z-index: 3;
@@ -453,7 +465,6 @@ body {
 .grade-progression {
   padding-top: 6px;
   border-top: 2.5px solid var(--color-secondary);
-  /* below code will change the colour of the progress bar - thanks to https://www.geeksforgeeks.org/how-to-set-color-of-progress-bar-using-html-and-css/ */
 }
 .grade-progression .title {
   text-align: center;
@@ -487,24 +498,6 @@ body {
   width: 40%;
   background-color: var(--color-secondary);
   color: var(--color-white);
-}
-.grade-progression progress::-webkit-progress-bar {
-  background-color: var(--color-tertiary);
-}
-.grade-progression progress::-webkit-progress-value {
-  background-color: var(--color-secondary) !important;
-}
-.grade-progression progress {
-  background-color: var(--color-tertiary);
-}
-.grade-progression progress::-moz-progress-bar {
-  background-color: var(--color-secondary) !important;
-}
-.grade-progression progress {
-  background-color: var(--color-tertiary);
-}
-.grade-progression progress {
-  background-color: var(--color-secondary);
 }
 
 /* Login pop up */
@@ -546,13 +539,9 @@ span.psw {
 
 #sign-up-2 {
   display: none;
-}
-
-#sign-up-3 {
-  display: none;
   text-align: center;
 }
-#sign-up-3 div {
+#sign-up-2 div {
   padding: 30px;
 }
 

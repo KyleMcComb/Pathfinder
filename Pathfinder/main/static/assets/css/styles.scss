@@ -92,6 +92,7 @@ body {
     }
 }
 
+/* the bar that appears at the bottom of the chatbot page and gradedashboard page, this is pinned to the bottom of the screen */
 .bottom-bar{
     width: 100%;
     position: fixed;
@@ -102,8 +103,10 @@ body {
     position: absolute;
     bottom: -24px;
     margin: 1.5rem 0;
-    padding-left: 60px;
+    padding-left: 3.125vw;
+    /* where the user enters text to send to the chatbot */
     textarea{
+        width:100%;
         overflow-y: visible;
         text-align: left !important;
         position: absolute;
@@ -126,7 +129,6 @@ body {
 }
 
 /* sidebar menu */
-
 .sidebar{
     color: var(--color-white);
     white-space: nowrap;
@@ -146,7 +148,7 @@ body {
     .closebtn{
         padding-left: 0.05vw;
         padding-right: 0.75vw;
-        font-size: 1.8vw !important;
+        font-size: 1.8vw;
         cursor:pointer;
         position: relative;
         top: 30;
@@ -163,6 +165,11 @@ body {
         //padding-left: 60px;
         padding-left: 3.125vw;
         a {
+            // makes text non highlightable - thanks to https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
+            -webkit-user-select: none; /* Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
             font-family: 'Poppins', sans-serif;
             font-size: inherit;
             color: var(--color-white);
@@ -191,6 +198,7 @@ body {
     user-select: none; /* Standard */
 }
 
+/* below is the animation for the background for whenever a user hovers over a menu item, it will change the position of the pattern based on which item is being hovered over */ 
 #menu[data-active-index="0"] > #menu-background-pattern {
     background-position: 0% -12.5%;
 }
@@ -236,7 +244,7 @@ body {
     opacity: 1; 
 }
 
-//chat bubbles
+/* styling for the chat bubbles*/
 .userText {
     overflow-x: visible;
     text-align: right;
@@ -272,6 +280,7 @@ body {
     }
 }
 
+/* animation for whenever the chat bubble appears on screen */
 @keyframes floatup {
     from {
         transform: translateY(14px);
@@ -284,6 +293,8 @@ body {
 }
 
 /* module information page */
+
+/* container for all of the module tables */
 .modules-container{
     padding-left: 2.5%;
     padding-right: 5%;
@@ -293,7 +304,8 @@ body {
     position: absolute;
     top:25.5vh;
     padding-bottom: 50px;
-    //formatting for each of the modules within the module information page
+
+    //formatting for each of the module tables
     .module-table {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -322,7 +334,7 @@ body {
 }
 
 
-//search bar and filter
+/* styling for search bar and filter */
 .filter-and-search{
     z-index: 3;
     display:grid;
@@ -345,7 +357,6 @@ body {
     grid-template-columns: repeat(1, 1fr);
 }
 
-// filter
 .filter{
     z-index: 3;
     padding-top: 24px;
@@ -355,6 +366,9 @@ body {
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
+
+
+/* styling for the multi select drop down menu that is used for the filters on the module info page and grade dashboard page */
 
 .multiselect {
     width: 100%;
@@ -411,7 +425,6 @@ body {
     position: absolute;
     top:24vh;
     width:95%;
-    //height: 100%;
     //input widget where the grade will be displayed
     .assesments{
         z-index: -1;
@@ -426,15 +439,14 @@ body {
     .grades{
         height:100%;
         width:64%;
-        //max-height: 540px;
         float: left;
         padding-left: 20px;
         padding-right: 20px;
         #stageGrades{
             transition: none;
-            //max-height: 500px;
         }
     }
+    // styling for the divs that contian the stats for the grade dashboard
     .stats{
         float:right;
         width:17.7%;
@@ -445,7 +457,6 @@ body {
         grid-gap: 1rem;
         .stat-item {
             width: 100%;
-            //height: 160px;
             height: 100%;
             border: 1px solid var(--color-grey);
             border-radius: 5px;
@@ -513,39 +524,12 @@ body {
             color: var(--color-white);
         }
     }
-    /* below code will change the colour of the progress bar - thanks to https://www.geeksforgeeks.org/how-to-set-color-of-progress-bar-using-html-and-css/ */
-    // For Chrome or Safari 
-    progress::-webkit-progress-bar {
-        background-color: var(--color-tertiary);
-    }
-
-    progress::-webkit-progress-value {
-        background-color: var(--color-secondary) !important;
-    }
-
-    // For Firefox
-    progress {
-        background-color: var(--color-tertiary);
-    }
-
-    progress::-moz-progress-bar {
-        background-color: var(--color-secondary) !important;
-    }
-
-    // For IE10
-    progress {
-        background-color: var(--color-tertiary);
-    }
-
-    progress {
-        background-color: var(--color-secondary);
-    }
 }
 
 
 /* Login pop up */
 
-//Full-width input fields - Also used in the settings page and signup pop up
+// Full-width input fields
 input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;
@@ -558,7 +542,7 @@ input[type=text], input[type=password] {
     font-size: inherit;
 }
 
-// Set a style for all buttons - Also used in the settings page and signup pop up 
+// Set a style for all buttons
 button {
     font-size: inherit;
     background-color: var(--color-secondary);
@@ -584,10 +568,6 @@ span.psw {
 }
 
 #sign-up-2{
-    display:none;
-}
-
-#sign-up-3{
     display: none;
     text-align: center;
     div {

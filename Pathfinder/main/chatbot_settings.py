@@ -26,7 +26,7 @@ chatbot = ChatBot(
 trainer = ChatterBotCorpusTrainer(chatbot)
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_PATH = os.path.join(ROOT_DIR, 'data\my_corpus.yml')
+DATASET_PATH = os.path.join(ROOT_DIR, 'data/my_corpus.yml')
 
 # Train the chatbot with the English corpus
 #trainer.train("chatterbot.corpus.english")

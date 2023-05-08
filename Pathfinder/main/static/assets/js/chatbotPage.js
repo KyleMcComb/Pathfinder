@@ -18,6 +18,7 @@ function listenersForChatbotPage(){
     input.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             usersInput = input.value;
+            processUserInput(usersInput);
             input.value = "";
             event.preventDefault();
             displayText(usersInput,"userText"); // Process the user input and get the bot response

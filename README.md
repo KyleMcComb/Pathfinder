@@ -50,9 +50,7 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
 * Student Account 2
   * Student Number: 40191566
   * Password: b450ma11
-* Student Account 3
-  * Student Number: 40291577
-  * Password: b550ma11
+  
 
 ## Useful Links
 Below are some links that might be helpful in createing/running docker containers and virtual environmnents if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familar with similar technologies these resources can be ignored.

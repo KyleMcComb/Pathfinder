@@ -8,5 +8,9 @@ activate_env.ps1
 
 # django files
 /Pathfinder/mysite/__pycache__/
+/Pathfinder/database/__pycache__/
+/Pathfinder/database/migrations/
 ./Pathfinder/main/migrations/
 /Pathfinder/main/__pycache__/
+/Pathfinder/test/__pycache__/
+/Pathfinder/test/migrations/

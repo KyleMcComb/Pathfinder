@@ -1,5 +1,5 @@
-# CSC3068-Pathfinder
-This README includes an project description (what the project is along with what technologies were used to build it), how to set up the system (the steps needed to execute the code either with docker or a virtual environment) and account information to log into the system.
+# Pathfinder
+This README includes a project description (what the project is along with what technologies were used to build it), how to set up the system (the steps needed to execute the code either with docker or a virtual environment), and account information to log into the system.
 
 ## Project Description
 
@@ -39,7 +39,7 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 4.	Now you can navigate to http://localhost:8000/ (or whichever port you have specified the container to run in) to view the website.
 ## Accounts
 
-There are 2 access levels to the system “admin” and “student”. Admin accounts has access to the database through the admin panel and have full access to all data, student accounts do not have access to the admin panel, they can see personalised information on the grade dashboard page.
+There are 2 access levels to the system “admin” and “student”. Admin accounts have access to the database through the admin panel and have full access to all data, student accounts do not have access to the admin panel, they can see personalised information on the grade dashboard page.
 
 * Admin Account 
   * Student Number: admin
@@ -53,7 +53,7 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
   
 
 ## Useful Links
-Below are some links that might be helpful in createing/running docker containers and virtual environmnents if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familar with similar technologies these resources can be ignored.
+Below are some links that might be helpful in creating/running docker containers and virtual environments if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familiar with similar technologies these resources can be ignored.
 * [Docker Getting Started Tutorial](https://github.com/docker/getting-started)
 * [Overview of Docker Build Docker Documentation](https://docs.docker.com/build/)
 * [Containerize an application Docker Documentation](https://docs.docker.com/get-started/02_our_app/)

@@ -6,17 +6,6 @@ from django.utils.safestring import *
 # Register your models here.
 from .models import *
 
-# admin.site.register(Module);
-# admin.site.register(Assessment);
-# admin.site.register(Lecturer);
-# admin.site.register(ModuleLecturer);
-# admin.site.register(Pathway);
-# admin.site.register(ModulePathway);
-# admin.site.register(Student);
-# admin.site.register(StudentModule);
-# admin.site.register(StudentInterest);
-# admin.site.register(StudentModuleAssesment);
-
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ("moduleID", "moduleName", "moduleSemester", "moduleDescription", "moduleLevel", "moduleWeight")

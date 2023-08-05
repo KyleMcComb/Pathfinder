@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    'database',
+    'dbbackup',
+    'database'
+]
+
+# Below are the backup settings for the project
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'dbBackup'}
+
+# Below is a list of the jobs to be run and the time intervals for those jobs
+CRONJOBS = [
+    ('0 2 * * 0', 'mysite.jobs.backupJob')  # Run at 2:00 AM every Sunday (0:00 is Sunday).
 ]
 
 MIDDLEWARE = [
@@ -125,7 +136,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#LOGIN_REDIRECT_URL = "/"
 
 LOGOUT_REDIRECT_URL = "/"

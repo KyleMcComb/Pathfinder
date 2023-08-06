@@ -6,6 +6,7 @@ activate_env.ps1
 /Scripts
 /Lib
 /pyvenv.cfg
+/dbBackup
 
 # django files
 main/__pycache__/

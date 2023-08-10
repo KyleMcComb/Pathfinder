@@ -13,21 +13,23 @@ RUN python -m spacy download en_core_web_sm
 # Installs cron to schedule jobs 
 RUN apt-get update && apt-get install -y cron 
 
-
 WORKDIR /app
 COPY . /app
 ADD tagging.py /usr/local/lib/python3.7/site-packages/chatterbot/tagging.py
-
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
 
 # Copy the entrypoint script into the container
 COPY entrypoint.sh /app/entrypoint.sh
 
 # Set the entrypoint for the container
 ENTRYPOINT ["/app/entrypoint.sh"]
+
+# below has been removed for the time being, might be added back in at some point
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
+# RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+# # Change the ownership of the dbBackup folder and its contents
+# USER appuser
+# RUN chown -R appuser:appuser /app/dbBackup
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

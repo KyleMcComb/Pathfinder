@@ -1,9 +1,7 @@
 from django.core.management import call_command
 from django.http import JsonResponse
-from mysite.settings import *
+from mysite.backupManagement import *
 
-import os
-import glob
 
 """
     @Author: @DeanLogan123
@@ -17,25 +15,6 @@ import glob
     @return: JsonResponse - A JSON response containing the status of the backup job and, if applicable,
     the name of the oldest backup file that was deleted due to exceeding the backup limit.
 """
-def backupJob(request=None):
-    try:
-        # Triggers the database backup using Django's 'dbbackup' management command
-        call_command('dbbackup')
-
-        # Check the number of existing backup files
-        backupFiles = glob.glob(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], '*.dump'))
-        oldestBackupName = 'Less than 10 backups, therefore none deleted'
-        if len(backupFiles) > 10:
-            # Sort backup files by modification time (oldest first)
-            backupFiles.sort(key=os.path.getmtime)
-
-            # Delete the oldest backup file
-            oldestBackup = backupFiles[0]
-            os.remove(oldestBackup)
-            oldestBackupName = os.path.basename(oldestBackup)
-
-        # Return JSON response indicating success, along with the name of the oldest deleted backup (if any)
-        return JsonResponse({'Response': 'Success', 'DeletedBackup': oldestBackupName})
-    except Exception as e:
-        # Return JSON response indicating failure
-        return JsonResponse({'Response': 'Failed', 'Error': str(e)})
+def backupJob(request=None):    
+    # Return JSON response indicating success, along with the name of the oldest deleted backup (if any)
+    return JsonResponse({'Local Backup Created':createBackupFile(), 'Cloud Backup Created':uploadLatestBackup(), 'Deleted Local Backup':deleteOldestBackupFile(), 'Deleted Cloud Backup':deleteOldestBackupBlob()})

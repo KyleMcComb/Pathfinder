@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
 # Below are the backup settings for the project
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'dbBackup'}
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'backups' / 'dbBackup'}
 
 # Below is a list of the jobs to be run and the time intervals for those jobs
 CRONJOBS = [

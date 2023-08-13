@@ -1,0 +1,27 @@
+version: '3'
+
+# Define the services for the containers
+services:
+  # Service for the Pathfinder Django application
+  pathfinder:
+    build:
+      context: .           # Context for building the Docker image
+      dockerfile: Dockerfile   # Specify the Dockerfile for the image
+    ports:
+      - "8080:8000"         # Map port 8000 in the container to port 8080 on the host
+    depends_on:
+      - azurite             # Specify that this service depends on the 'azurite' service
+
+  # Service for Azurite storage emulator
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite  # Use the official Azurite image
+    ports:
+      - "10000:10000"       # Map port 10000 in the container to port 10000 on the host
+      - "10001:10001"       # Map port 10001 in the container to port 10001 on the host
+      - "10002:10002"       # Map port 10002 in the container to port 10002 on the host
+    volumes:
+      - azurite-storage:/data  # Mount the named volume 'azurite-storage' to the '/data' directory in the container
+
+# Define named volumes
+volumes:
+  azurite-storage:  # Define the named volume 'azurite-storage'

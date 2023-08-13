@@ -13,14 +13,14 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 1.	Clone the repository to your system.
 2.	[Install Docker Desktop](https://www.docker.com/products/docker-desktop/) on your computer if it has not already been installed.
 3.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called CSC3068-Pathfinder.
-4.	Then run the following command to build the image ```docker build -t csc3068pathfinder .```
-5.  Once that has been completed run the following command to build the image for Azurite which is used to emulate Azure storage ```docker pull mcr.microsoft.com/azure-storage/azurite```.
+4.	Then run the following command to build the image ```docker-compose up -d```
+
 ### Virtual Environment
 1.  Clone the repository to your computer.
 2.  [Install Python 3.7.9](https://www.python.org/downloads/release/python-379/) on your computer if it has not already been installed.
 3.  Open a terminal window on your computer and navigate to the directory where the project has been cloned to. To do this, open the folder where you extracted the repository, then right-click on the folder called "CSC3068-Pathfinder" and choose "Open in Terminal" (for Linux/Mac) or "Open Powershell window here" (for Windows).
 4.  In the terminal, create a virtual environment by running the following command, replacing "<directory to python install>" with the directory where Python 3.7.9 was installed: ```<directory to python install>\python.exe -m venv .```. For example, if Python 3.7.9 was installed in ```C:\Python37```, the command would be: ```C:\Python37\python.exe -m venv .```.
-5.  Activate the virtual environment by running the following command: ```.\Scripts\activate``` (for Windows) or ```source bin/activate``` (for Linux/Mac).
+5.  Activate the virtual environment by running the following command: ```.\Scripts\activate``` (for Windows) or ```source bin\activate``` (for Linux/Mac).
 6.  Install the required packages by entering the following command into the terminal: ```pip install -r requirements.txt``` (keep this terminal open).
 7.  Open File Explorer on your computer and navigate to the folder where you extracted the repository. Then go into the "CSC3068-Pathfinder" folder and copy the "tagging.py" file.
 8.  In File Explorer, navigate to the following directory: "CSC3068-Pathfinder\Lib\site-packages\chatterbot". Replace the "tagging.py" file found in this directory with the "tagging.py" file you copied from the "CSC3068-Pathfinder" folder.
@@ -28,14 +28,12 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 
 ## Running The Project
 ### Docker (Creating a container)
-(Note: if a container has already been created from the image made in Set Up then just run that container, [more help here](https://docs.docker.com/engine/reference/commandline/container_run/). If a container has already been created skip to step 3).
-1.	Navigate to the repository within a terminal window then open the Pathfinder folder (CSC3068-Pathfinder\Pathfinder).
-2.	Create a container for the project to run by entering this command into the terminal ```docker run -p 8080:8000 -d csc3068pathfinder```.
-3.  Create a container for the Azurite (Azure Storage Emulator) to run by entering this command into the terminal ```docker run --name cloud_storage -p 10000:10000 -p 10001:10001 mcr.microsoft.com/azure-storage/azurite```.
-3.	Now you can navigate to http://localhost:8080/ (or whichever port you have specified the container to run in) to view the website.
+1.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called CSC3068-Pathfinder.
+2.	Then run the following command this will build the images and run the corresponding containers ```docker-compse up -d```
+3.	Now you can navigate to http://localhost:8080/ to view the website.
 
 ### Virtual Environment
-1.	Navigate to the repository within a terminal window then open the Pathfinder folder (CSC3068-Pathfinder\Pathfinder).
+1.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called CSC3068-Pathfinder.
 2.	In the terminal run the following command ```.\Scripts\activate```.
 3.	In the terminal run the following command ```python manage.py runserver```.
 4.	Now you can navigate to http://localhost:8000/ (or whichever port you have specified the container to run in) to view the website.

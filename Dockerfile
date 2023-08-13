@@ -17,13 +17,18 @@ WORKDIR /app
 COPY . /app
 ADD tagging.py /usr/local/lib/python3.7/site-packages/chatterbot/tagging.py
 
-# Copy the entrypoint script into the container
-COPY entrypoint.sh /app/entrypoint.sh
+
+# Copy the addjobs.sh file into the container
+COPY addjobs.sh /app/addjobs.sh
+
+# Convert line endings using dos2unix
+RUN apt-get update && apt-get install -y dos2unix
+RUN dos2unix /app/addjobs.sh
 
 # Set the entrypoint for the container
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/addjobs.sh"]
 
-# below has been removed for the time being, might be added back in at some point
+# below has been removed for the time being, might be added back in at some point do do not delete it
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
 # RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app

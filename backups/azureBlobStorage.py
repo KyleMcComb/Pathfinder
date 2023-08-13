@@ -1,8 +1,8 @@
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-from mysite.settings import *
+#from mysite.settings import *
 
 # Set the connection string for the Azurite Blob service
-CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;"
+CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://host.docker.internal:10000/devstoreaccount1;"
 
 # Name of the container in which you want to store the file
 CONTAINER_NAME = "pathfinderbackups"
@@ -94,9 +94,14 @@ def listBlobs():
     blobList = containerClient.list_blobs() # List all blobs in the container
     
     print(f"Blobs in container '{CONTAINER_NAME}':")
+    count = 0
     if not blobList:
         print("No blobs found in the container.")
     else:
         for blob in blobList:
+            count += 1
             print(f"- {blob.name}")  # Print the name of each blob in the container
+    print(count)
 
+if __name__ == "__main__":
+    listBlobs()

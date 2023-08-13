@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Give execute permissions to the entrypoint script
-chmod +x /app/entrypoint.sh
-
 # Run the command to add crontab
 python manage.py crontab add
 

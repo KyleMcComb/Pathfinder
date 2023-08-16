@@ -1,5 +1,6 @@
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-#from mysite.settings import *
+import threading
+from azure.storage.blob import BlobServiceClient
+from mysite.settings import *
 
 # Set the connection string for the Azurite Blob service
 CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://host.docker.internal:10000/devstoreaccount1;"
@@ -8,19 +9,38 @@ CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;
 CONTAINER_NAME = "pathfinderbackups"
 
 """
+@Author: DeanLogan123
+@Description: Retrieves a Blob Storage container client with a specified timeout for completion.
+@param: timeout - The maximum time to wait for the container client retrieval.
+@return: A container client object if retrieved within the timeout, None otherwise.
+"""
+def getContainerClientWithTimeout(timeout):
+    thread = threading.Thread(target=lambda: setattr(thread, "result", getContainerClient()))
+    thread.result = None  # Create a new attribute to store the result
+    thread.start()
+    thread.join(timeout=timeout)
+    if thread.is_alive():
+        return None  # Thread is still running
+    else:
+        return thread.result  # Return the result of the thread
+
+"""
     @Author: DeanLogan123
     @Description: Retrieves or creates a Blob Storage container client using a connection string and container name.
     @return: A container client object for interacting with the specified container.
     """
 def getContainerClient():
-    blobServiceClient = BlobServiceClient.from_connection_string(CONNECTION_STRING) # Create a BlobServiceClient using the provided connection string
-    containerClient = blobServiceClient.get_container_client(CONTAINER_NAME) # Get or create a container client using the specified container name
-    
-    # Check if the container exists; if not, create it
-    if not containerClient.exists():
-        containerClient.create_container()
-    
-    return containerClient # Return the container client object for further interaction
+    try:
+        blobServiceClient = BlobServiceClient.from_connection_string(CONNECTION_STRING) # Create a BlobServiceClient using the provided connection string
+        containerClient = blobServiceClient.get_container_client(CONTAINER_NAME) # Get or create a container client using the specified container name
+        
+        # Check if the container exists; if not, create it
+        if not containerClient.exists():
+            containerClient.create_container()
+        
+        return containerClient # Return the container client object for further interaction
+    except:
+        return None
 
 """
 @Author: DeanLogan123
@@ -30,16 +50,19 @@ def getContainerClient():
 @return: True if the upload is successful, False otherwise.
 """
 def uploadFileToBlob(filePath, destinationBlobName):
-    containerClient = getContainerClient()  # Get a container client using the defined function
-    try:
-        # Upload the file to Blob Storage
-        with open(filePath, "rb") as file:
-            blobClient = containerClient.get_blob_client(destinationBlobName)
-            blobClient.upload_blob(file)  # Upload the file to the blob storage
-        
-        return True  # Return True if the upload is successful
-    except:
-        return False  # Return False if there's any exception during the upload
+    containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
+    if containerClient is not None:
+        try:
+            # Upload the file to Blob Storage
+            with open(filePath, "rb") as file:
+                blobClient = containerClient.get_blob_client(destinationBlobName)
+                blobClient.upload_blob(file)  # Upload the file to the blob storage
+            
+            return True  # Return True if the upload is successful
+        except:
+            return False  # Return False if there's any exception during the upload
+    else:
+        return False
 
 
 """
@@ -49,20 +72,22 @@ def uploadFileToBlob(filePath, destinationBlobName):
 @return: True if the blob exists in the container, False otherwise.
 """
 def blobInBlobContainer(destinationBlobName):
-    containerClient = getContainerClient()  # Get a container client using the defined function
-    
-    # Check if the container exists
-    if not containerClient.exists():
+    containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
+    if containerClient is not None:
+        # Check if the container exists
+        if not containerClient.exists():
+            return False
+        
+        blobs = containerClient.list_blobs() # List all blobs in the container
+        
+        # Check if the uploaded file exists in the container
+        for blob in blobs:
+            if blob.name == destinationBlobName:
+                return True
+        
+        return False  # Return False if the blob doesn't exist in the container
+    else:
         return False
-    
-    blobs = containerClient.list_blobs() # List all blobs in the container
-    
-    # Check if the uploaded file exists in the container
-    for blob in blobs:
-        if blob.name == destinationBlobName:
-            return True
-    
-    return False  # Return False if the blob doesn't exist in the container
 
 
 """
@@ -72,36 +97,38 @@ def blobInBlobContainer(destinationBlobName):
 @return: True if the blob was deleted successfully, False if the blob doesn't exist.
 """
 def deleteBlob(blobNameToDelete):
-    containerClient = getContainerClient()  # Get a container client using the defined function
-    
-    # Get the blob client for the specified blob name
-    blobClient = containerClient.get_blob_client(blobNameToDelete)
-    
-    # Check if the blob exists
-    if blobClient.exists():
-        blobClient.delete_blob()  # Delete the blob
-        return True  # Return True if the blob was deleted successfully
-    else:
-        return False  # Return False if the blob doesn't exist in the container
-
+    containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
+    if containerClient is not None:
+        # Get the blob client for the specified blob name
+        blobClient = containerClient.get_blob_client(blobNameToDelete)
+        
+        # Check if the blob exists
+        if blobClient.exists():
+            blobClient.delete_blob()  # Delete the blob
+            return True  # Return True if the blob was deleted successfully
+        else:
+            return False  # Return False if the blob doesn't exist in the container
+    return False
 """
 @Author: DeanLogan123
 @Description: Lists all blobs in a Blob Storage container.
 """
 def listBlobs():
-    containerClient = getContainerClient()  # Get a container client using the defined function
-    
-    blobList = containerClient.list_blobs() # List all blobs in the container
-    
-    print(f"Blobs in container '{CONTAINER_NAME}':")
-    count = 0
-    if not blobList:
-        print("No blobs found in the container.")
+    containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
+    if containerClient is not None:
+        blobList = containerClient.list_blobs() # List all blobs in the container
+        
+        print(f"Blobs in container '{CONTAINER_NAME}':")
+        count = 0
+        if not blobList:
+            print("No blobs found in the container.")
+        else:
+            for blob in blobList:
+                count += 1
+                print(f"- {blob.name}")  # Print the name of each blob in the container
+        print(count)
     else:
-        for blob in blobList:
-            count += 1
-            print(f"- {blob.name}")  # Print the name of each blob in the container
-    print(count)
+        print("container not connected")
 
 if __name__ == "__main__":
     listBlobs()

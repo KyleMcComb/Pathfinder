@@ -93,3 +93,22 @@ class StudentModuleAssesmentAdmin(admin.ModelAdmin):
     list_display = ("studentModuleAssesmentID", "studentModule", "assessment", "assesmentMark")
     search_fields =  ('studentModuleAssesmentID', )
     list_filter = ("studentModuleID", "assessmentID")
+
+@admin.register(Career)
+class CareerAdmin(admin.ModelAdmin):
+    list_display = ("careerID", "jobTitle", "companyName", "jobDescription")
+    search_fields = ("careerID", "jobTitle", "companyName")
+    list_display_links = ("jobTitle",)
+    list_filter = ("companyName",)
+
+@admin.register(CareerModule)
+class CareerModuleAdmin(admin.ModelAdmin):
+    def career(self, obj):
+        return mark_safe(f"<a href='/admin/database/career/{obj.careerID.pk}/change/'>{obj.careerID.jobTitle} at {obj.careerID.companyName}</a>")
+
+    def module(self, obj):
+        return mark_safe(f"<a href='/admin/database/module/{obj.moduleID.pk}/change/'>{obj.moduleID.moduleName}</a>")
+
+    list_display = ("careerModuleID", "career", "module")
+    search_fields = ("careerModuleID", "jobTitle", "moduleID")
+    list_filter = ("careerID", "moduleID")

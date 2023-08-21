@@ -7,6 +7,7 @@
  */
 function addBackupRowsToTable(fileNames, tbody) {
     const dateTimeCounts = {}; // To keep track of file counts with the same date-time
+    
     // Create an array of HTML strings using the map function
     const htmlStrings = fileNames.map(fileName => {
         // Use regex to extract date-time information from the fileName
@@ -14,18 +15,21 @@ function addBackupRowsToTable(fileNames, tbody) {
         if (match) {
             // Destructure values from the match array using specific indices
             const [_, datePart, timePart] = match;
+            
             // Initialize the count for this date-time if not already set
             const dateTimeKey = datePart + timePart;
             dateTimeCounts[dateTimeKey] = (dateTimeCounts[dateTimeKey] || 0) + 1;
             const count = dateTimeCounts[dateTimeKey];
+            
             // Format the time as HH:MM:SS
-            const formattedTime = `${timePart.replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2')}`;
+            const formattedTime = `${timePart.replace(/(\d{2})(\d{2})(\d{2})/, '$1:$2:$3')}`;
             
             // Construct the name with count and hashValue if needed
             let formattedName = `${datePart} - ${formattedTime}`;
             if (count > 1) {
                 formattedName += ` - ${count}`;
             }
+            
             // Return the formatted row as an HTML string
             return `
                 <tr class="model-group">

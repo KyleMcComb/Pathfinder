@@ -9,10 +9,10 @@ CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;
 CONTAINER_NAME = "pathfinderbackups"
 
 """
-@Author: DeanLogan123
-@Description: Retrieves a Blob Storage container client with a specified timeout for completion.
-@param: timeout - The maximum time to wait for the container client retrieval.
-@return: A container client object if retrieved within the timeout, None otherwise.
+    @Author: DeanLogan123
+    @Description: Retrieves a Blob Storage container client with a specified timeout for completion.
+    @param: timeout - The maximum time to wait for the container client retrieval.
+    @return: A container client object if retrieved within the timeout, None otherwise.
 """
 def getContainerClientWithTimeout(timeout):
     thread = threading.Thread(target=lambda: setattr(thread, "result", getContainerClient()))
@@ -28,7 +28,7 @@ def getContainerClientWithTimeout(timeout):
     @Author: DeanLogan123
     @Description: Retrieves or creates a Blob Storage container client using a connection string and container name.
     @return: A container client object for interacting with the specified container.
-    """
+"""
 def getContainerClient():
     try:
         blobServiceClient = BlobServiceClient.from_connection_string(CONNECTION_STRING) # Create a BlobServiceClient using the provided connection string
@@ -43,11 +43,11 @@ def getContainerClient():
         return None
 
 """
-@Author: DeanLogan123
-@Description: Uploads a file from the local file system to a specified Blob Storage container.
-@param: filePath - The local path of the file to be uploaded.
-@param: destinationBlobName - The name to assign to the uploaded blob in the container.
-@return: True if the upload is successful, False otherwise.
+    @Author: DeanLogan123
+    @Description: Uploads a file from the local file system to a specified Blob Storage container.
+    @param: filePath - The local path of the file to be uploaded.
+    @param: destinationBlobName - The name to assign to the uploaded blob in the container.
+    @return: True if the upload is successful, False otherwise.
 """
 def uploadFileToBlob(filePath, destinationBlobName):
     containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
@@ -66,10 +66,10 @@ def uploadFileToBlob(filePath, destinationBlobName):
 
 
 """
-@Author: DeanLogan123
-@Description: Checks if a specified blob exists in a Blob Storage container.
-@param: destinationBlobName - The name of the blob to check for.
-@return: True if the blob exists in the container, False otherwise.
+    @Author: DeanLogan123
+    @Description: Checks if a specified blob exists in a Blob Storage container.
+    @param: destinationBlobName - The name of the blob to check for.
+    @return: True if the blob exists in the container, False otherwise.
 """
 def blobInBlobContainer(destinationBlobName):
     containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
@@ -91,10 +91,10 @@ def blobInBlobContainer(destinationBlobName):
 
 
 """
-@Author: DeanLogan123
-@Description: Deletes a specified blob from a Blob Storage container, if it exists.
-@param: blobNameToDelete - The name of the blob to delete.
-@return: True if the blob was deleted successfully, False if the blob doesn't exist.
+    @Author: DeanLogan123
+    @Description: Deletes a specified blob from a Blob Storage container, if it exists.
+    @param: blobNameToDelete - The name of the blob to delete.
+    @return: True if the blob was deleted successfully, False if the blob doesn't exist.
 """
 def deleteBlob(blobNameToDelete):
     containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
@@ -109,26 +109,29 @@ def deleteBlob(blobNameToDelete):
         else:
             return False  # Return False if the blob doesn't exist in the container
     return False
+
 """
-@Author: DeanLogan123
-@Description: Lists all blobs in a Blob Storage container.
+    @Author: DeanLogan123
+    @Description: Retrieves a list of blob names from a Blob Storage container and provides informative output.
+    @return: List of blob names retrieved from the container.
 """
 def listBlobs():
-    containerClient = getContainerClientWithTimeout(3) # Get a container client, if there is no response in 3 secs containerClient is None
+    blobNames = []
+    containerClient = getContainerClientWithTimeout(3)  # Get a container client, if there is no response in 3 secs, containerClient is None
     if containerClient is not None:
-        blobList = containerClient.list_blobs() # List all blobs in the container
-        
         print(f"Blobs in container '{CONTAINER_NAME}':")
-        count = 0
-        if not blobList:
-            print("No blobs found in the container.")
+        # Iterate through the list of blobs and collect their names
+        for blob in containerClient.list_blobs():
+            blobNames.append(blob.name)
+            print(f"- {blob.name}")  # Print the name of each blob in the container
+        if(len(blobNames) > 0 ):
+            print(len(blobNames))
         else:
-            for blob in blobList:
-                count += 1
-                print(f"- {blob.name}")  # Print the name of each blob in the container
-        print(count)
+            print("Container is empty")
     else:
-        print("container not connected")
+        print("Container not connected")
+    
+    return blobNames
 
 if __name__ == "__main__":
     listBlobs()

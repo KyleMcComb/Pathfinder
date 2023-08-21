@@ -7,7 +7,6 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #path('receive_message/', receive_message, name='receive_message'),
     path('receive_message/', views.receive_message, name='receive_message'),
     path('Settings/', views.settings, name='settings'),
     path('GradeDashboard/', views.gradeDashboard, name='GradeDashboard'),
@@ -18,5 +17,7 @@ urlpatterns = [
     path('listOfPathways/', views.listOfPathways, name='listOfPathways'),
     path('signUp/', views.signUp, name='signUp'),
     path('accountInfo/', views.accountInfo, name='accountInfo'),
-    path('searchModules/', views.searchModules, name='searchModules')
+    path('searchModules/', views.searchModules, name='searchModules'),
+    path('listLocalBackupFiles/', views.listLocalBackupFiles, name='listLocalBackupFiles'),
+    path('listCloudBackupFiles/', views.listCloudBackupFiles, name='listCloudBackupFiles')
 ]

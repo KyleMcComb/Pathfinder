@@ -93,3 +93,5 @@ class StudentModuleAssesmentAdmin(admin.ModelAdmin):
     list_display = ("studentModuleAssesmentID", "studentModule", "assessment", "assesmentMark")
     search_fields =  ('studentModuleAssesmentID', )
     list_filter = ("studentModuleID", "assessmentID")
+
+admin.site.index_template = 'adminFiles/extendedAdminPage.html'  # Path to your custom template

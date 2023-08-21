@@ -1,17 +1,21 @@
+from database.models import *
+from mysite.settings import *
 from django.shortcuts import render
 from django.http import JsonResponse
-from .chatbot_settings import get_response
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
-from database.models import *
+from .chatbot_settings import get_response
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+
+import os
+import glob
 import math
 
 # below imports are used for sending an email
 import smtplib
+from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 '''
     @Author: @DeanLogan123
@@ -327,6 +331,36 @@ def verify(request):
         return JsonResponse({'loggedIn': 'true'})
     else:
         return JsonResponse({'loggedIn': 'false'})
+
+"""
+    @Author: DeanLogan123
+    @Description: Lists the names of local backup files in descending order of modification time (newest first).
+    @param: request - HttpRequest object that contains metadata about the request (unused in this function).
+    @return: JsonResponse with a dictionary containing 'fileNames' as keys and the list of file names as values.
+"""
+def listLocalBackupFiles(request):
+    try:
+        backupFiles = glob.glob(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], '*.dump')) # Check the number of existing backup files
+        backupFiles.sort(key=os.path.getmtime, reverse=True) # Sort backup files by modification time (newest first)
+        
+        fileNames = [os.path.basename(file) for file in backupFiles]  # Extract only the filenames
+        
+        return JsonResponse({'fileNames': fileNames}, safe=False)
+    except:
+        return JsonResponse({'fileNames': []}, safe=False)
+
+"""
+    @Author: DeanLogan123
+    @Description: Retrieves and returns a list of cloud backup file names from a Blob Storage container.
+    @param: request - HttpRequest object that contains metadata about the request (unused in this function).
+    @return: JsonResponse with a dictionary containing 'fileNames' as keys and the list of cloud backup file names as values.
+"""
+from backups.azureBlobStorage import listBlobs
+def listCloudBackupFiles(request):
+    try:
+        return JsonResponse({'fileNames': listBlobs()}, safe=False)
+    except:
+        return JsonResponse({'fileNames': []}, safe=False)
 
 '''
     @Author: @KyleMcComb

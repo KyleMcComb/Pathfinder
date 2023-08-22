@@ -7,9 +7,11 @@ from .chatbot_settings import get_response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+import re
 import os
 import glob
 import math
+from datetime import datetime
 
 # below imports are used for sending an email
 import smtplib
@@ -341,13 +343,34 @@ def verify(request):
 def listLocalBackupFiles(request):
     try:
         backupFiles = glob.glob(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], '*.dump')) # Check the number of existing backup files
-        backupFiles.sort(key=os.path.getmtime, reverse=True) # Sort backup files by modification time (newest first)
         
         fileNames = [os.path.basename(file) for file in backupFiles]  # Extract only the filenames
+
+        fileNames = sorted(fileNames, key=lambda filename: extractedDate(filename), reverse=True) # Sort the array based on the extracted dates from file name (newest first)
         
         return JsonResponse({'fileNames': fileNames}, safe=False)
     except:
         return JsonResponse({'fileNames': []}, safe=False)
+
+"""
+    @Author: DeanLogan123
+    @Description: Extracts the date and hash information from a backup filename.
+    @param: filename - The filename to extract information from.
+    @return: A tuple containing the extracted datetime object and hash part (if any).
+"""
+def extractedDate(filename):
+    match = re.search(r'(\d{4}-\d{2}-\d{2}-\d{6})(?:_(.*))?\.dump', filename)
+    
+    if match:
+        date_part = match.group(1)  # Extract the date part from the filename
+        hash_part = match.group(2) or ""  # Extract the hash part or use an empty string if not present
+        
+        # Convert the date part to a datetime object using the specified format
+        extracted_datetime = datetime.strptime(date_part, '%Y-%m-%d-%H%M%S')
+        
+        return extracted_datetime, hash_part
+    else:
+        return None, None  # Return None if no match is found in the filename
 
 """
     @Author: DeanLogan123

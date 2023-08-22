@@ -3,7 +3,7 @@
 {% block content %}
     <div id="content-main">
         {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
-        <div class="module"><input type="submit" value="Backup"></div>
+        <div class="module"><input type="submit" onclick="onClickTest()" value="Create Backup"></div>
     </div>
 {% endblock %}
 

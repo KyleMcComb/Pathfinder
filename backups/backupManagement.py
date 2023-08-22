@@ -31,7 +31,8 @@ def deleteOldestBackupFile():
             # Delete the oldest backup file
             oldestBackup = backupFiles[0]
             os.remove(oldestBackup)
-            return True
+            deleteOldestBackupFile()
+        return True
     except:
         return False
 
@@ -45,7 +46,7 @@ def deleteOldestBackupBlob():
     blobList = containerClient.list_blobs()
 
     backupFiles = [(blob.name, blob.last_modified) for blob in blobList] # Convert the blob list to a list of (blob_name, last_modified) tuples
-    if len(backupFiles) >= 20:
+    if len(backupFiles) > 20:
         backupFiles.sort(key=lambda x: x[1]) # Sort backup files by last_modified time (oldest first)
         
         # Delete the oldest backup blob

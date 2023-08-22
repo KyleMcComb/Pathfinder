@@ -1,3 +1,19 @@
+// Set the pageLoad function to execute when the window finishes loading
+window.onload = pageLoad();
+
+/**
+ * @Author - @DeanLogan123
+ * @Description - Executes when the page loads to populate local and cloud backup tables with file information.
+ * Fetches and displays backup file information in the respective tables.
+ */
+function pageLoad() {
+    // Populate the local backup table with file information
+    backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"));
+    
+    // Populate the cloud backup table with file information
+    backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"));
+}
+
 /**
  * @Author - @DeanLogan123
  * @Description - Adds rows to a table for displaying backup file information. Each row contains a formatted date-time,
@@ -70,18 +86,25 @@ function backupFilesRequestMaker(request, tbody) {
     });
 }
 
-/**
- * @Author - @DeanLogan123
- * @Description - Executes when the page loads to populate local and cloud backup tables with file information.
- * Fetches and displays backup file information in the respective tables.
- */
-function pageLoad() {
-    // Populate the local backup table with file information
-    backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"));
-    
-    // Populate the cloud backup table with file information
-    backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"));
+function onClickTest(){
+    $.get("/backup/", function(data) {
+        const values = Object.values(data);
+        if (values.includes(false)) {
+            var message = "";
+            if(!data['Local Backup Created']){
+                message += 'Local backup failed\n';
+            }
+            if(!data['Cloud Backup Created']){
+                message += 'Cloud backup failed\n';
+            }
+            if(!data['Deleted Local Backup']){
+                message += 'Deletion of oldest local backup failed\n';
+            }
+            if(!data['Deleted Cloud Backup']){
+                message += 'Deletion of oldest cloud backup failed\n';
+            }
+            alert(message);
+        }
+    });
+    location.reload();
 }
-
-// Set the pageLoad function to execute when the window finishes loading
-window.onload = pageLoad();

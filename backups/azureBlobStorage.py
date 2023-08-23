@@ -1,6 +1,7 @@
+import os
 import threading
-from azure.storage.blob import BlobServiceClient
 from mysite.settings import *
+from azure.storage.blob import BlobServiceClient
 
 # Set the connection string for the Azurite Blob service
 CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://host.docker.internal:10000/devstoreaccount1;"
@@ -111,6 +112,29 @@ def deleteBlob(blobNameToDelete):
     return False
 
 """
+@Author: DeanLogan123
+@Description: Downloads a blob from a Blob Storage container and saves it to a local file.
+@param: blobName - The name of the blob to be downloaded.
+@param: filePath - The path of the local file where the blob will be saved.
+@return: True if the download is successful, False otherwise.
+"""
+def downloadBlob(blobName, filePath):
+    print(filePath)
+    containerClient = getContainerClientWithTimeout(0.2)  # Get a container client; if there's no response in 0.2 secs, containerClient is None
+    
+    # Download the blob and save it to the local file
+    blobClient = containerClient.get_blob_client(blobName)
+    with open(filePath, "wb") as localFile:
+        if blobClient.exists():
+            blobClient.download_blob().readinto(localFile)  # Download and write the blob data to the local file
+            localFile.close()
+            return True
+        else:
+            localFile.close()
+            return False  # Return False if the blob does not exist
+
+
+"""
     @Author: DeanLogan123
     @Description: Retrieves a list of blob names from a Blob Storage container and provides informative output.
     @return: List of blob names retrieved from the container.
@@ -119,13 +143,13 @@ def listBlobs():
     blobNames = []
     containerClient = getContainerClientWithTimeout(0.2)  # Get a container client, if there is no response in 0.2 secs, containerClient is None
     if containerClient is not None:
-        print(f"Blobs in container '{CONTAINER_NAME}':")
+        #print(f"Blobs in container '{CONTAINER_NAME}':")
         # Iterate through the list of blobs and collect their names
         blobList = list(containerClient.list_blobs())  # Convert the iterator to a list
         blobList.reverse()  # Reverse the order of the list
         for blob in blobList:
             blobNames.append(blob.name)
-            print(f"- {blob.name}")  # Print the name of each blob in the container
+            #print(f"- {blob.name}")  # Print the name of each blob in the container
         if(len(blobNames) > 0 ):
             print(len(blobNames))
         else:

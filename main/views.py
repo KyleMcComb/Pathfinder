@@ -8,11 +8,14 @@ from django.contrib.auth.models import User
 from backups.azureBlobStorage import listBlobs
 from django.core.management import call_command
 from django.contrib.auth import authenticate, login
+from backups.azureBlobStorage import downloadBlob, deleteBlob
 
 import re
 import os
 import glob
 import math
+import platform
+import subprocess
 from datetime import datetime
 
 # below imports are used for sending an email
@@ -382,12 +385,12 @@ def extractedDate(filename):
 @param: request - HttpRequest object that contains metadata about the request.
 @return: JsonResponse indicating the status of the restore operation.
 """
-def restoreFromLocalBackup(request):
+def restoreBackup(request):
     try:
         # Check if the user is authenticated as 'admin'
         if request.user.is_authenticated and request.user.username == 'admin':
             # Get the backup file name from the request parameters and restore the database
-            restoreBackup(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+            restoreFromBackup(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
     except:
         return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
     
@@ -395,47 +398,72 @@ def restoreFromLocalBackup(request):
 
 """
 @Author: DeanLogan123
-@Description: Deletes all data from the default database and restores it from a local backup file if the user is authenticated as 'admin'.
+@Description: Rolls back the database to a previous state by restoring a backup file.
 @param: request - HttpRequest object that contains metadata about the request.
 @return: JsonResponse indicating the status of the rollback operation.
 """
-def rollbackFromLocalBackup(request):
+def rollbackBackup(request):
     try:
         # Check if the user is authenticated as 'admin'
         if request.user.is_authenticated and request.user.username == 'admin':
+            if request.GET.get('cloud'):
+                backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], 'temp', request.GET.get('fileName'))
+                if not downloadBlob(request.GET.get('fileName'), backupFile):
+                    return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if blob download fails
+            else:
+                backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
+            
             # Delete database data and restore from the backup file
-            deleteDbData()
-            restoreBackup(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+            call_command('flush', '--noinput', '--database=default')  # Delete all data from the default database
+            restoreFromBackup(backupFile)  # Restore the database from the specified backup file
+            restoreFromBackup(backupFile)  # Restore again to ensure all data is added (dependency issues)
+            
+            if request.GET.get('cloud'):
+                os.remove(backupFile)  # Remove the downloaded backup file if it was downloaded from cloud storage
     except:
         return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
     
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
 
-def deleteFromLocalBackup(request):
+"""
+@Author: DeanLogan123
+@Description: Deletes a backup file if the user is authenticated as 'admin'.
+@param: request - HttpRequest object that contains metadata about the request.
+@return: JsonResponse indicating the status of the delete operation.
+"""
+def deleteBackup(request):
     try:
         # Check if the user is authenticated as 'admin'
         if request.user.is_authenticated and request.user.username == 'admin':
-            print(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
-            os.remove(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+            file_path = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
+            print(file_path)  # Print the path of the file to be deleted (for debugging)
+            
+            os.remove(file_path)  # Delete the specified backup file
     except:
         return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
+    
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
+
 
 """
 @Author: DeanLogan123
 @Description: Restores a database backup from the specified file using Django's 'dbrestore' management command.
 @param: filePath - The path to the backup file to restore from.
 """
-def restoreBackup(filePath):
-    call_command('dbrestore', '-I', filePath, '--noinput')
-
-"""
-@Author: DeanLogan123
-@Description: Deletes all data from the default database using Django's 'flush' management command.
-"""
-def deleteDbData():
-    call_command('flush', '--noinput', '--database=default')
+def restoreFromBackup(filePath):
+    command = [
+        "python", "manage.py", "dbrestore",
+        "-I",
+        f'"{filePath}"',
+        "--noinput"
+    ]
+    
+    # Determine the platform (OS) and adjust the command accordingly
+    if platform.system() == "Windows":
+        subprocess.run(" ".join(command), shell=True)  # Run the command as a single string using shell (Windows)
+    else:
+        subprocess.run(command)  # Run the command as a list (Linux, macOS)
 
 """
     @Author: DeanLogan123

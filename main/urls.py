@@ -20,7 +20,7 @@ urlpatterns = [
     path('searchModules/', views.searchModules, name='searchModules'),
     path('listLocalBackupFiles/', views.listLocalBackupFiles, name='listLocalBackupFiles'),
     path('listCloudBackupFiles/', views.listCloudBackupFiles, name='listCloudBackupFiles'),
-    path('restoreFromLocalBackup/', views.restoreFromLocalBackup, name='restoreFromLocalBackup'),
-    path('rollbackFromLocalBackup/', views.rollbackFromLocalBackup, name='rollbackFromLocalBackup'),
-    path('deleteFromLocalBackup/', views.deleteFromLocalBackup, name='deleteFromLocalBackup')
+    path('restoreBackup/', views.restoreBackup, name='restoreBackup'),
+    path('rollbackBackup/', views.rollbackBackup, name='rollbackBackup'),
+    path('deleteBackup/', views.deleteBackup, name='deleteBackup')
 ]

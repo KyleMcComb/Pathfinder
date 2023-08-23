@@ -8,10 +8,10 @@ window.onload = pageLoad();
  */
 function pageLoad() {
     // Populate the local backup table with file information
-    backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"));
+    backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"), false);
     
     // Populate the cloud backup table with file information
-    backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"));
+    backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"), true);
 }
 
 /**
@@ -20,8 +20,9 @@ function pageLoad() {
  * optional count of files with the same date-time, and links for restore and delete actions.
  * @param {string[]} fileNames - An array of backup file names.
  * @param {HTMLElement} tbody - The HTML <tbody> element to which rows will be added.
+ * @param {boolean} cloud - Indicates whether the backup files are from the cloud (true) or local storage (false).
  */
-function addBackupRowsToTable(fileNames, tbody) {
+function addBackupRowsToTable(fileNames, tbody, cloud) {
     const dateTimeCounts = {}; // To keep track of file counts with the same date-time
     
     // Create an array of HTML strings using the map function
@@ -50,9 +51,9 @@ function addBackupRowsToTable(fileNames, tbody) {
             return `
                 <tr class="model-group">
                     <th scope="row"><a href="">${formattedName}</a></th>
-                    <td><a class="addlink restore" onclick="rollbackDb('${fileName}')">Rollback</a></td>
-                    <td><a class="addlink restore" onclick="restoreDb('${fileName}')">Restore</a></td>
-                    <td><a class="deletelink delete" onclick="deleteBackup('${fileName}')">Delete</a></td>
+                    <td><a class="addlink restore" onclick="rollbackDb('${fileName}', ${cloud})">Rollback</a></td>
+                    <td><a class="addlink restore" onclick="restoreDb('${fileName}', ${cloud})">Restore</a></td>
+                    <td><a class="deletelink delete" onclick="deleteBackup('${fileName}', ${cloud})">Delete</a></td>
                 </tr>
             `;
         }
@@ -69,14 +70,15 @@ function addBackupRowsToTable(fileNames, tbody) {
  * If no files are found, it adds a single row indicating no files are available.
  * @param {string} request - The URL or endpoint for fetching backup file information.
  * @param {HTMLElement} tbody - The HTML <tbody> element of the table to be updated.
+ * @param {boolean} cloud - Indicates whether the backup files are from the cloud (true) or local storage (false).
  */
-function backupFilesRequestMaker(request, tbody) {
+function backupFilesRequestMaker(request, tbody, cloud) {
     // Make a GET request to fetch backup file information
     $.get(request, function(data) {
         console.log(data.fileNames);
         if (data.fileNames.length > 0) {
             // If there are files, add rows with backup details to the table
-            addBackupRowsToTable(data.fileNames, tbody);
+            addBackupRowsToTable(data.fileNames, tbody, cloud);
         } else {
             // If no files found, add a row indicating no files are available
             tbody.insertAdjacentHTML('beforeend', `
@@ -113,9 +115,9 @@ function createBackup(){
 
 // TODO: Refactor the restore and rollback functions to reduce code repetition
 
-function restoreDb(fileName){
+function restoreDb(fileName, cloud){
     if (window.confirm("You are attempting to restore the database\nThis will add/update records from this backup but WILL NOT DELETE RECORDS THAT HAVE BEEN ADDED FROM THIS BACKUP\nDo you want to proceed?")){
-        $.get('/restoreFromLocalBackup/', { fileName:fileName }, function (data) {
+        $.get('/restoreBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
                 alert('Restore successful, you will now be logged out of the system');
                 location.reload();
@@ -129,9 +131,10 @@ function restoreDb(fileName){
     }
 }
 
-function rollbackDb(fileName){
+function rollbackDb(fileName, cloud){
     if (window.confirm("You are attempting to rollback the database\nThis will cause you to be logged out of the system and you will need to login again\nThe database will be brought back to the EXACT STATE of this backup\nDo you want to proceed?")){
-        $.get('/rollbackFromLocalBackup/', { fileName:fileName }, function (data) {
+        console.log(cloud);
+        $.get('/rollbackBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
                 alert('Rollback successful, you will now be logged out of the system');
                 location.reload();
@@ -145,9 +148,9 @@ function rollbackDb(fileName){
     }
 }
 
-function deleteBackup(fileName){
+function deleteBackup(fileName, cloud){
     if (window.confirm("You are attempting to delete this backup\nDo you want to proceed?")){
-        $.get('/deleteFromLocalBackup/', { fileName:fileName }, function (data) {
+        $.get('/deleteBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
                 alert('Deleted backup successful');
                 location.reload();

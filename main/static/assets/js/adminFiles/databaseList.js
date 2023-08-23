@@ -50,8 +50,9 @@ function addBackupRowsToTable(fileNames, tbody) {
             return `
                 <tr class="model-group">
                     <th scope="row"><a href="">${formattedName}</a></th>
-                    <td><a href="/admin/backups/restore/" class="addlink">Restore</a></td>
-                    <td><a href="/admin/backups/delete/" class="deletelink">Delete</a></td>
+                    <td><a class="addlink restore" onclick="rollbackDb('${fileName}')">Rollback</a></td>
+                    <td><a class="addlink restore" onclick="restoreDb('${fileName}')">Restore</a></td>
+                    <td><a class="deletelink delete" onclick="deleteBackup('${fileName}')">Delete</a></td>
                 </tr>
             `;
         }
@@ -72,6 +73,7 @@ function addBackupRowsToTable(fileNames, tbody) {
 function backupFilesRequestMaker(request, tbody) {
     // Make a GET request to fetch backup file information
     $.get(request, function(data) {
+        console.log(data.fileNames);
         if (data.fileNames.length > 0) {
             // If there are files, add rows with backup details to the table
             addBackupRowsToTable(data.fileNames, tbody);
@@ -86,7 +88,7 @@ function backupFilesRequestMaker(request, tbody) {
     });
 }
 
-function onClickTest(){
+function createBackup(){
     $.get("/backup/", function(data) {
         const values = Object.values(data);
         if (values.includes(false)) {
@@ -107,4 +109,54 @@ function onClickTest(){
         }
     });
     location.reload();
+}
+
+// TODO: Refactor the restore and rollback functions to reduce code repetition
+
+function restoreDb(fileName){
+    if (window.confirm("You are attempting to restore the database\nThis will add/update records from this backup but WILL NOT DELETE RECORDS THAT HAVE BEEN ADDED FROM THIS BACKUP\nDo you want to proceed?")){
+        $.get('/restoreFromLocalBackup/', { fileName:fileName }, function (data) {
+            if (data.Status == 'true') {
+                alert('Restore successful, you will now be logged out of the system');
+                location.reload();
+            } else {
+                alert("Restore Failed");
+            }
+        });
+    }
+    else{
+        alert("Restore Cancelled");
+    }
+}
+
+function rollbackDb(fileName){
+    if (window.confirm("You are attempting to rollback the database\nThis will cause you to be logged out of the system and you will need to login again\nThe database will be brought back to the EXACT STATE of this backup\nDo you want to proceed?")){
+        $.get('/rollbackFromLocalBackup/', { fileName:fileName }, function (data) {
+            if (data.Status == 'true') {
+                alert('Rollback successful, you will now be logged out of the system');
+                location.reload();
+            } else {
+                alert("Rollback Failed");
+            }
+        });
+    }
+    else{
+        alert("Rollback Cancelled");
+    }
+}
+
+function deleteBackup(fileName){
+    if (window.confirm("You are attempting to delete this backup\nDo you want to proceed?")){
+        $.get('/deleteFromLocalBackup/', { fileName:fileName }, function (data) {
+            if (data.Status == 'true') {
+                alert('Deleted backup successful');
+                location.reload();
+            } else {
+                alert("Deletion Failed");
+            }
+        });
+    }
+    else{
+        alert("Deletion Cancelled");
+    }
 }

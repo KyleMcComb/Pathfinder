@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'dbbackup',
-    'database'
+    'database',
+    'backups'
 ]
 
 # Below are the backup settings for the project

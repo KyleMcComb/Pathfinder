@@ -19,5 +19,8 @@ urlpatterns = [
     path('accountInfo/', views.accountInfo, name='accountInfo'),
     path('searchModules/', views.searchModules, name='searchModules'),
     path('listLocalBackupFiles/', views.listLocalBackupFiles, name='listLocalBackupFiles'),
-    path('listCloudBackupFiles/', views.listCloudBackupFiles, name='listCloudBackupFiles')
+    path('listCloudBackupFiles/', views.listCloudBackupFiles, name='listCloudBackupFiles'),
+    path('restoreFromLocalBackup/', views.restoreFromLocalBackup, name='restoreFromLocalBackup'),
+    path('rollbackFromLocalBackup/', views.rollbackFromLocalBackup, name='rollbackFromLocalBackup'),
+    path('deleteFromLocalBackup/', views.deleteFromLocalBackup, name='deleteFromLocalBackup')
 ]

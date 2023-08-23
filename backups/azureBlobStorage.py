@@ -50,7 +50,7 @@ def getContainerClient():
     @return: True if the upload is successful, False otherwise.
 """
 def uploadFileToBlob(filePath, destinationBlobName):
-    containerClient = getContainerClientWithTimeout(0.2) # Get a container client, if there is no response in 3 secs containerClient is None
+    containerClient = getContainerClientWithTimeout(0.2) # Get a container client, if there is no response in 0.2 secs containerClient is None
     if containerClient is not None:
         try:
             # Upload the file to Blob Storage
@@ -72,7 +72,7 @@ def uploadFileToBlob(filePath, destinationBlobName):
     @return: True if the blob exists in the container, False otherwise.
 """
 def blobInBlobContainer(destinationBlobName):
-    containerClient = getContainerClientWithTimeout(0.2) # Get a container client, if there is no response in 3 secs containerClient is None
+    containerClient = getContainerClientWithTimeout(0.2) # Get a container client, if there is no response in 0.2 secs containerClient is None
     if containerClient is not None:
         # Check if the container exists
         if not containerClient.exists():
@@ -97,7 +97,7 @@ def blobInBlobContainer(destinationBlobName):
     @return: True if the blob was deleted successfully, False if the blob doesn't exist.
 """
 def deleteBlob(blobNameToDelete):
-    containerClient = getContainerClientWithTimeout(0.2) # Get a container client, if there is no response in 3 secs containerClient is None
+    containerClient = getContainerClientWithTimeout(0.2) # Get a container client, if there is no response in 0.2 secs containerClient is None
     if containerClient is not None:
         # Get the blob client for the specified blob name
         blobClient = containerClient.get_blob_client(blobNameToDelete)
@@ -117,7 +117,7 @@ def deleteBlob(blobNameToDelete):
 """
 def listBlobs():
     blobNames = []
-    containerClient = getContainerClientWithTimeout(0.2)  # Get a container client, if there is no response in 3 secs, containerClient is None
+    containerClient = getContainerClientWithTimeout(0.2)  # Get a container client, if there is no response in 0.2 secs, containerClient is None
     if containerClient is not None:
         print(f"Blobs in container '{CONTAINER_NAME}':")
         # Iterate through the list of blobs and collect their names

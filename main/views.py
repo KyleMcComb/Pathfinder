@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from .chatbot_settings import get_response
 from django.contrib.auth.models import User
+from backups.azureBlobStorage import listBlobs
+from django.core.management import call_command
 from django.contrib.auth import authenticate, login
 
 import re
@@ -372,13 +374,75 @@ def extractedDate(filename):
     else:
         return None, None  # Return None if no match is found in the filename
 
+# TODO: Refactor the restore and rollback functions to reduce code repetition  
+
+"""
+@Author: DeanLogan123
+@Description: Restores the database from a local backup file if the user is authenticated as 'admin'.
+@param: request - HttpRequest object that contains metadata about the request.
+@return: JsonResponse indicating the status of the restore operation.
+"""
+def restoreFromLocalBackup(request):
+    try:
+        # Check if the user is authenticated as 'admin'
+        if request.user.is_authenticated and request.user.username == 'admin':
+            # Get the backup file name from the request parameters and restore the database
+            restoreBackup(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+    except:
+        return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
+    
+    return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
+
+"""
+@Author: DeanLogan123
+@Description: Deletes all data from the default database and restores it from a local backup file if the user is authenticated as 'admin'.
+@param: request - HttpRequest object that contains metadata about the request.
+@return: JsonResponse indicating the status of the rollback operation.
+"""
+def rollbackFromLocalBackup(request):
+    try:
+        # Check if the user is authenticated as 'admin'
+        if request.user.is_authenticated and request.user.username == 'admin':
+            # Delete database data and restore from the backup file
+            deleteDbData()
+            restoreBackup(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+    except:
+        return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
+    
+    return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
+
+
+def deleteFromLocalBackup(request):
+    try:
+        # Check if the user is authenticated as 'admin'
+        if request.user.is_authenticated and request.user.username == 'admin':
+            print(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+            os.remove(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
+    except:
+        return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
+    return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
+
+"""
+@Author: DeanLogan123
+@Description: Restores a database backup from the specified file using Django's 'dbrestore' management command.
+@param: filePath - The path to the backup file to restore from.
+"""
+def restoreBackup(filePath):
+    call_command('dbrestore', '-I', filePath, '--noinput')
+
+"""
+@Author: DeanLogan123
+@Description: Deletes all data from the default database using Django's 'flush' management command.
+"""
+def deleteDbData():
+    call_command('flush', '--noinput', '--database=default')
+
 """
     @Author: DeanLogan123
     @Description: Retrieves and returns a list of cloud backup file names from a Blob Storage container.
     @param: request - HttpRequest object that contains metadata about the request (unused in this function).
     @return: JsonResponse with a dictionary containing 'fileNames' as keys and the list of cloud backup file names as values.
 """
-from backups.azureBlobStorage import listBlobs
 def listCloudBackupFiles(request):
     try:
         return JsonResponse({'fileNames': listBlobs()}, safe=False)

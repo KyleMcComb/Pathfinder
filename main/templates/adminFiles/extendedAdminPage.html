@@ -3,46 +3,60 @@
 {% block content %}
     <div id="content-main">
         {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
-        <div class="module"><input type="submit" onclick="onClickTest()" value="Create Backup"></div>
+        <div class="module"><input type="submit" onclick="createBackup()" value="Create Backup"></div>
     </div>
 {% endblock %}
 
 {% block sidebar %}
     <style>
-    .backups {
-        float: right;
-        width: 100%;
-        position: relative;
-    }
+    
+        .restore {
+            color: #81D4FA;
+        }
 
-    #content-local-backup {
-        margin-right: -620px;
-    }
+        .delete {
+            color: #CC3434;
+        }
 
-    #content-cloud-backup {
-        margin-right: -1240px;
-    }
+        .restore:hover,
+        .delete:hover {
+            cursor: pointer;
+        }
 
-    @media screen and (max-width: 1280px) {
         .backups {
-            position: static;
-            margin-right: 0;
+            float: right;
+            width: 100%;
+            position: relative;
         }
 
-        #content-local-backup,
-        #content-cloud-backup {
-            margin-right: 0;
-            float: none;
-            position: static;
-        }
-    }
-
-    @media screen and (min-width: 1280px) and (max-width: 1893px) {
-        #content-cloud-backup {
-            margin-top: 456px;
+        #content-local-backup {
             margin-right: -620px;
         }
-    }
+
+        #content-cloud-backup {
+            margin-right: -1240px;
+        }
+
+        @media screen and (max-width: 1280px) {
+            .backups {
+                position: static;
+                margin-right: 0;
+            }
+
+            #content-local-backup,
+            #content-cloud-backup {
+                margin-right: 0;
+                float: none;
+                position: static;
+            }
+        }
+
+        @media screen and (min-width: 1280px) and (max-width: 1893px) {
+            #content-cloud-backup {
+                margin-top: 456px;
+                margin-right: -620px;
+            }
+        }
 
     </style>
 

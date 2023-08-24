@@ -12,7 +12,7 @@ import glob
 """
 def createBackupFile():
     try:
-        call_command('dbbackup') # Triggers the database backup using Django's 'dbbackup' management command
+        call_command('dbbackup', exclude_tables='django_session') # Triggers the database backup using Django's 'dbbackup' management command
         return True
     except:
         return False

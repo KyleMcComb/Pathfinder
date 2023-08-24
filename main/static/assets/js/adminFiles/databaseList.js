@@ -53,7 +53,7 @@ function addBackupRowsToTable(fileNames, tbody, cloud) {
                 <tr class="model-group">
                     <th scope="row"><a href="">${formattedName}</a></th>
                     <td><a class="addlink restore" onclick="rollbackDb('${fileName}', ${cloud})">Rollback</a></td>
-                    <!--<td><a class="addlink restore" onclick="restoreDb('${fileName}', ${cloud})">Restore</a></td>-->
+                    <td><a class="addlink restore" onclick="restoreDb('${fileName}', ${cloud})">Restore</a></td>
                     <td><a class="deletelink delete" onclick="deleteBackup('${fileName}', ${cloud})">Delete</a></td>
                 </tr>
             `;

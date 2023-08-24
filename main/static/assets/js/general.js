@@ -204,6 +204,12 @@ function listeners() {
     // When the window is resized, adjust UI elements
     window.addEventListener('resize', function() { resizeContentDiv(); }); // Resize content div
     window.addEventListener('resize', function() { resizeNav(sessionStorage.getItem('navOpen')); }); // Resize navigation sidebar
+
+    document.addEventListener("keypress", function(event) {
+        if (event.key === "Enter" && (event.target.id === "username-login" || event.target.id === "password-login")) {
+            login();
+        }
+    });
     
     // Menu animation code
     const menu = document.getElementById('menu');
@@ -308,7 +314,7 @@ function goToSignUp() {
 
 /**
  * @Author - @DeanLogan123
- * @Description - Gathers the entered login information and sends a GET request to verify the credentials.
+ * @Description - Gathers the entered login information and sends a POST request to verify the credentials.
  * If successful, the user is logged in; if not, an alert is displayed.
  */
 function login() {
@@ -316,8 +322,8 @@ function login() {
     var username = document.querySelector('input[name="student-number-login"]').value;
     var password = document.getElementById('password-login').value;
     
-    // Send a GET request to verify login credentials
-    $.get('/verify/', { username: username, password: password }, function (data) {
+    // Send a POST request to verify login credentials
+    $.post('/verify/', { username: username, password: password }, function (data) {
         if (data.loggedIn == 'true') {
             // If login is successful, display a success alert and reload the page
             alert('Login success');

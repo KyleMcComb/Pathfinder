@@ -1,5 +1,6 @@
 from database.models import *
 from mysite.settings import *
+from django.db import connection
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from django.contrib.auth.models import User
 from backups.azureBlobStorage import listBlobs
 from django.core.management import call_command
 from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_exempt
 from backups.azureBlobStorage import downloadBlob, deleteBlob
 
 import re
@@ -329,15 +331,19 @@ def calcLeftToEarn(currentStage, studentInDb):
     @param: request -  HttpRequest object that contains metadata about the request
     @return: loggedIn - JSON object containing whether or not a the log in attempt was successful
 '''
+@csrf_exempt
 def verify(request):
-    username = request.GET.get('username')
-    password = request.GET.get('password')
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return JsonResponse({'loggedIn': 'true'})
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'loggedIn': 'true'})
+        else:
+            return JsonResponse({'loggedIn': 'false'})
     else:
-        return JsonResponse({'loggedIn': 'false'})
+        return JsonResponse({'error': 'Invalid request method'})
 
 """
     @Author: DeanLogan123
@@ -422,7 +428,7 @@ def rollbackBackup(request):
                 backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
             
             # Delete database data and restore from the backup file
-            call_command('flush', '--noinput', '--database=default')  # Delete all data from the default database
+            call_command('flush', '--noinput', '--database=default', '--skip-checks')  # Delete all data from the default database
             restoreFromBackup(backupFile)  # Restore the database from the specified backup file
             restoreFromBackup(backupFile)  # Restore again to ensure all data is added (dependency issues)
             
@@ -454,10 +460,6 @@ def deleteBackup(request):
     
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
-
-from django.db import connections
-from django.db.migrations.executor import MigrationExecutor
-
 """
 @Author: DeanLogan123
 @Description: Restores a database backup from the specified file using Django's 'dbrestore' management command.
@@ -468,19 +470,24 @@ def restoreFromBackup(filePath):
     if platform.system() == "Windows":
         print("windows")
         subprocess.run(" ".join([
-        "python", "manage.py", "dbrestore",
-        "-I",
-        f'"{filePath}"',
-        "--noinput"
-    ]), shell=True)  # Run the command as a single string using shell (Windows)
+            "python", "manage.py", "dbrestore",
+            "-I",
+            f'"{filePath}"',
+            "--noinput",
+            "--skip-checks"
+        ]), shell=True)  # Run the command as a single string using shell (Windows)
     else:
         print("unix")
         subprocess.run([
-        "python", "manage.py", "dbrestore",
-        "-I",
-        f"{filePath}",
-        "--noinput"
-    ])  # Run the command as a list (Linux, macOS)
+            "python", "manage.py", "dbrestore",
+            "-I",
+            f"{filePath}",
+            "--noinput",
+            "--skip-checks"
+        ])  # Run the command as a list (Linux, macOS)
+    with connection.cursor() as cursor:
+        cursor.execute("VACUUM;")
+    print("complete vacum (hopefully)")
 
 """
     @Author: DeanLogan123

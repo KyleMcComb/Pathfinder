@@ -119,7 +119,7 @@ function restoreDb(fileName, cloud){
     if (window.confirm("You are attempting to restore the database\nThis will add/update records from this backup but WILL NOT DELETE RECORDS THAT HAVE BEEN ADDED FROM THIS BACKUP\nDo you want to proceed?")){
         $.get('/restoreBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
-                alert('Restore successful, you will now be logged out of the system');
+                alert('Restore successful');
                 location.reload();
             } else {
                 alert("Restore Failed");

@@ -386,14 +386,29 @@ def extractedDate(filename):
 @return: JsonResponse indicating the status of the restore operation.
 """
 def restoreBackup(request):
-    try:
-        # Check if the user is authenticated as 'admin'
-        if request.user.is_authenticated and request.user.username == 'admin':
-            # Get the backup file name from the request parameters and restore the database
-            restoreFromBackup(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName')))
-    except:
-        return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
-    
+    # try:
+    # Check if the user is authenticated as 'admin'
+    print(request.user.username)
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated and request.user.username == 'admin':
+        print("first if worked")
+        print(os.path.abspath(__file__))
+        print(os.path.dirname(os.path.abspath(__file__)))
+        if request.GET.get('cloud') == 'true':
+            backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], 'temp', request.GET.get('fileName'))
+            if not downloadBlob(request.GET.get('fileName'), backupFile):
+                return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if blob download fails
+        else:
+            backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
+        print("end of os files")
+        print(backupFile)
+        restoreFromBackup(backupFile)  # Restore the database from the specified backup file
+        restoreFromBackup(backupFile)  # Restore again to ensure all data is added (dependency issues)
+        
+        if request.GET.get('cloud') == 'true':
+            os.remove(backupFile)  # Remove the downloaded backup file if it was downloaded from cloud storage
+    # except:
+    #     return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
 """
@@ -406,7 +421,7 @@ def rollbackBackup(request):
     try:
         # Check if the user is authenticated as 'admin'
         if request.user.is_authenticated and request.user.username == 'admin':
-            if request.GET.get('cloud'):
+            if request.GET.get('cloud') == 'true':
                 backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], 'temp', request.GET.get('fileName'))
                 if not downloadBlob(request.GET.get('fileName'), backupFile):
                     return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if blob download fails
@@ -418,7 +433,7 @@ def rollbackBackup(request):
             restoreFromBackup(backupFile)  # Restore the database from the specified backup file
             restoreFromBackup(backupFile)  # Restore again to ensure all data is added (dependency issues)
             
-            if request.GET.get('cloud'):
+            if request.GET.get('cloud') == 'true':
                 os.remove(backupFile)  # Remove the downloaded backup file if it was downloaded from cloud storage
     except:
         return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
@@ -436,10 +451,11 @@ def deleteBackup(request):
     try:
         # Check if the user is authenticated as 'admin'
         if request.user.is_authenticated and request.user.username == 'admin':
-            file_path = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
-            print(file_path)  # Print the path of the file to be deleted (for debugging)
-            
-            os.remove(file_path)  # Delete the specified backup file
+            if request.GET.get('cloud') == 'true':
+                deleteBlob(request.GET.get('fileName'))
+            else:
+                file_path = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
+                os.remove(file_path)  # Delete the specified backup file
     except:
         return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
     
@@ -452,18 +468,23 @@ def deleteBackup(request):
 @param: filePath - The path to the backup file to restore from.
 """
 def restoreFromBackup(filePath):
-    command = [
+# Determine the platform (OS) and adjust the command accordingly
+    if platform.system() == "Windows":
+        print("windows")
+        subprocess.run(" ".join([
         "python", "manage.py", "dbrestore",
         "-I",
         f'"{filePath}"',
         "--noinput"
-    ]
-    
-    # Determine the platform (OS) and adjust the command accordingly
-    if platform.system() == "Windows":
-        subprocess.run(" ".join(command), shell=True)  # Run the command as a single string using shell (Windows)
+    ]), shell=True)  # Run the command as a single string using shell (Windows)
     else:
-        subprocess.run(command)  # Run the command as a list (Linux, macOS)
+        print("unix")
+        subprocess.run([
+        "python", "manage.py", "dbrestore",
+        "-I",
+        f"{filePath}",
+        "--noinput"
+    ])  # Run the command as a list (Linux, macOS)
 
 """
     @Author: DeanLogan123

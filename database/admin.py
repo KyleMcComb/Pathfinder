@@ -6,6 +6,17 @@ from django.utils.safestring import *
 # Register your models here.
 from .models import *
 
+@admin.register(Pathway)
+class PathwayAdmin(admin.ModelAdmin):
+    list_display = ("pathwayID", "pathwayName", "pathwayLevels")
+    search_fields = ("pathwayID", "pathwayName")
+    list_filter = ("pathwayLevels", )
+
+@admin.register(Lecturer)
+class LecturerAdmin(admin.ModelAdmin):
+    list_display = ("lecturerID", "lecturerName", "lecturerEmail")
+    search_fields = ("lecturerID", "lecturerName")
+
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ("moduleID", "moduleName", "moduleSemester", "moduleDescription", "moduleLevel", "moduleWeight")
@@ -21,11 +32,6 @@ class AssessmentAdmin(admin.ModelAdmin):
     search_fields = ("assessmentID", "assessmentType")
     list_filter = ("moduleID", )
 
-@admin.register(Lecturer)
-class LecturerAdmin(admin.ModelAdmin):
-    list_display = ("lecturerID", "lecturerName", "lecturerEmail")
-    search_fields = ("lecturerID", "lecturerName")
-
 @admin.register(ModuleLecturer)
 class ModuleLecturerAdmin(admin.ModelAdmin):
     def module(self, obj):
@@ -36,12 +42,6 @@ class ModuleLecturerAdmin(admin.ModelAdmin):
     list_display = ("moduleLecturerID", "lecturer", "module")
     search_fields = ("moduleLecturerID", "lecturerID", "moduleID")
     list_filter = ("moduleID", )
-
-@admin.register(Pathway)
-class PathwayAdmin(admin.ModelAdmin):
-    list_display = ("pathwayID", "pathwayName", "pathwayLevels")
-    search_fields = ("pathwayID", "pathwayName")
-    list_filter = ("pathwayLevels", )
 
 @admin.register(ModulePathway)
 class ModulePathwayAdmin(admin.ModelAdmin):

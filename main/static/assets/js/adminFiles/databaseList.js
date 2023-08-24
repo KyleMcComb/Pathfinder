@@ -7,6 +7,7 @@ window.onload = pageLoad();
  * Fetches and displays backup file information in the respective tables.
  */
 function pageLoad() {
+    document.querySelector(".overlay").style.display = "none";
     // Populate the local backup table with file information
     backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"), false);
     
@@ -52,7 +53,7 @@ function addBackupRowsToTable(fileNames, tbody, cloud) {
                 <tr class="model-group">
                     <th scope="row"><a href="">${formattedName}</a></th>
                     <td><a class="addlink restore" onclick="rollbackDb('${fileName}', ${cloud})">Rollback</a></td>
-                    <td><a class="addlink restore" onclick="restoreDb('${fileName}', ${cloud})">Restore</a></td>
+                    <!--<td><a class="addlink restore" onclick="restoreDb('${fileName}', ${cloud})">Restore</a></td>-->
                     <td><a class="deletelink delete" onclick="deleteBackup('${fileName}', ${cloud})">Delete</a></td>
                 </tr>
             `;
@@ -75,7 +76,6 @@ function addBackupRowsToTable(fileNames, tbody, cloud) {
 function backupFilesRequestMaker(request, tbody, cloud) {
     // Make a GET request to fetch backup file information
     $.get(request, function(data) {
-        console.log(data.fileNames);
         if (data.fileNames.length > 0) {
             // If there are files, add rows with backup details to the table
             addBackupRowsToTable(data.fileNames, tbody, cloud);
@@ -91,6 +91,7 @@ function backupFilesRequestMaker(request, tbody, cloud) {
 }
 
 function createBackup(){
+    document.querySelector(".overlay").style.display = "flex";
     $.get("/backup/", function(data) {
         const values = Object.values(data);
         if (values.includes(false)) {
@@ -107,21 +108,29 @@ function createBackup(){
             if(!data['Deleted Cloud Backup']){
                 message += 'Deletion of oldest cloud backup failed\n';
             }
+            document.querySelector(".overlay").style.display = "none";
             alert(message);
+            return null;
         }
     });
-    location.reload();
+    setTimeout(function() {
+        document.querySelector(".overlay").style.display = "none";
+        location.reload();
+    }, 600);
 }
 
 // TODO: Refactor the restore and rollback functions to reduce code repetition
 
 function restoreDb(fileName, cloud){
     if (window.confirm("You are attempting to restore the database\nThis will add/update records from this backup but WILL NOT DELETE RECORDS THAT HAVE BEEN ADDED FROM THIS BACKUP\nDo you want to proceed?")){
+        document.querySelector(".overlay").style.display = "flex";
         $.get('/restoreBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
+                document.querySelector(".overlay").style.display = "none";
                 alert('Restore successful');
                 location.reload();
             } else {
+                document.querySelector(".overlay").style.display = "none";
                 alert("Restore Failed");
             }
         });
@@ -133,12 +142,14 @@ function restoreDb(fileName, cloud){
 
 function rollbackDb(fileName, cloud){
     if (window.confirm("You are attempting to rollback the database\nThis will cause you to be logged out of the system and you will need to login again\nThe database will be brought back to the EXACT STATE of this backup\nDo you want to proceed?")){
-        console.log(cloud);
+        document.querySelector(".overlay").style.display = "flex";
         $.get('/rollbackBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
+                document.querySelector(".overlay").style.display = "none";
                 alert('Rollback successful, you will now be logged out of the system');
                 location.reload();
             } else {
+                document.querySelector(".overlay").style.display = "none";
                 alert("Rollback Failed");
             }
         });
@@ -150,11 +161,14 @@ function rollbackDb(fileName, cloud){
 
 function deleteBackup(fileName, cloud){
     if (window.confirm("You are attempting to delete this backup\nDo you want to proceed?")){
+        document.querySelector(".overlay").style.display = "flex";
         $.get('/deleteBackup/', { fileName:fileName, cloud:cloud }, function (data) {
             if (data.Status == 'true') {
+                document.querySelector(".overlay").style.display = "none";
                 alert('Deleted backup successful');
                 location.reload();
             } else {
+                document.querySelector(".overlay").style.display = "none";
                 alert("Deletion Failed");
             }
         });

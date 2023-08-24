@@ -1,65 +1,19 @@
 {% extends "admin/index.html" %}
 {% load static %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'assets/css/adminFiles/styles.css' %}">
     <div id="content-main">
         {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
         <div class="module"><input type="submit" onclick="createBackup()" value="Create Backup"></div>
+        <div class="overlay">
+            <div class="overlay-content">
+                <div class="loader"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block sidebar %}
-    <style>
-    
-        .restore {
-            color: #81D4FA;
-        }
-
-        .delete {
-            color: #CC3434;
-        }
-
-        .restore:hover,
-        .delete:hover {
-            cursor: pointer;
-        }
-
-        .backups {
-            float: right;
-            width: 100%;
-            position: relative;
-        }
-
-        #content-local-backup {
-            margin-right: -620px;
-        }
-
-        #content-cloud-backup {
-            margin-right: -1240px;
-        }
-
-        @media screen and (max-width: 1280px) {
-            .backups {
-                position: static;
-                margin-right: 0;
-            }
-
-            #content-local-backup,
-            #content-cloud-backup {
-                margin-right: 0;
-                float: none;
-                position: static;
-            }
-        }
-
-        @media screen and (min-width: 1280px) and (max-width: 1893px) {
-            #content-cloud-backup {
-                margin-top: 456px;
-                margin-right: -620px;
-            }
-        }
-
-    </style>
-
     <div id="content-local-backup" class="backups">
         <div class="module">
             <table>

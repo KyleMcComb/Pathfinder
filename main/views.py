@@ -386,29 +386,22 @@ def extractedDate(filename):
 @return: JsonResponse indicating the status of the restore operation.
 """
 def restoreBackup(request):
-    # try:
-    # Check if the user is authenticated as 'admin'
-    print(request.user.username)
-    print(request.user.is_authenticated)
-    if request.user.is_authenticated and request.user.username == 'admin':
-        print("first if worked")
-        print(os.path.abspath(__file__))
-        print(os.path.dirname(os.path.abspath(__file__)))
-        if request.GET.get('cloud') == 'true':
-            backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], 'temp', request.GET.get('fileName'))
-            if not downloadBlob(request.GET.get('fileName'), backupFile):
-                return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if blob download fails
-        else:
-            backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
-        print("end of os files")
-        print(backupFile)
-        restoreFromBackup(backupFile)  # Restore the database from the specified backup file
-        restoreFromBackup(backupFile)  # Restore again to ensure all data is added (dependency issues)
-        
-        if request.GET.get('cloud') == 'true':
-            os.remove(backupFile)  # Remove the downloaded backup file if it was downloaded from cloud storage
-    # except:
-    #     return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
+    try:
+        # Check if the user is authenticated as 'admin'
+        if request.user.is_authenticated and request.user.username == 'admin':
+            if request.GET.get('cloud') == 'true':
+                backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], 'temp', request.GET.get('fileName'))
+                if not downloadBlob(request.GET.get('fileName'), backupFile):
+                    return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if blob download fails
+            else:
+                backupFile = os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], request.GET.get('fileName'))
+            restoreFromBackup(backupFile)  # Restore the database from the specified backup file
+            restoreFromBackup(backupFile)  # Restore again to ensure all data is added (dependency issues)
+            
+            if request.GET.get('cloud') == 'true':
+                os.remove(backupFile)  # Remove the downloaded backup file if it was downloaded from cloud storage
+    except:
+        return JsonResponse({'Status': 'false'}, safe=False)  # Return status 'false' if an exception occurs
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
 """
@@ -461,6 +454,9 @@ def deleteBackup(request):
     
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
+
+from django.db import connections
+from django.db.migrations.executor import MigrationExecutor
 
 """
 @Author: DeanLogan123

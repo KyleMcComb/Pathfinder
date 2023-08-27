@@ -1,3 +1,17 @@
+import re
+import os
+import glob
+import math
+import platform
+import subprocess
+from datetime import datetime
+
+# below imports are used for sending an email
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+
 from database.models import *
 from mysite.settings import *
 from django.db import connection
@@ -12,19 +26,6 @@ from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 from backups.azureBlobStorage import downloadBlob, deleteBlob
 
-import re
-import os
-import glob
-import math
-import platform
-import subprocess
-from datetime import datetime
-
-# below imports are used for sending an email
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
 
 '''
     @Author: @DeanLogan123

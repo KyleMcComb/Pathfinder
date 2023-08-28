@@ -6,7 +6,7 @@ import os
 import glob
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Initiates a database backup using Django's 'dbbackup' management command.
     @return: True if the backup process was successful, False otherwise.
 """
@@ -18,7 +18,7 @@ def createBackupFile():
         return False
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Deletes the oldest local backup file if the number of existing backup files exceeds a limit.
     @return: True if a backup file was deleted successfully, False otherwise.
 """
@@ -37,7 +37,7 @@ def deleteOldestBackupFile():
         return False
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Deletes the oldest backup blob from the Azure Blob Storage container if the number of blobs exceeds a limit.
     @return: True if a blob was deleted successfully, False otherwise.
 """
@@ -56,7 +56,7 @@ def deleteOldestBackupBlob():
 
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Uploads the latest local backup file to the Azure Blob Storage container.
     @return: True if the upload was successful, False otherwise.
 """

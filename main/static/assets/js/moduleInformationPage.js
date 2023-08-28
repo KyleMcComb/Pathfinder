@@ -1,7 +1,7 @@
 window.onload = pageLoad();
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Initializes the page by fetching pathway list, module information, and setting up event listeners.
  */
 function pageLoad() {
@@ -12,7 +12,7 @@ function pageLoad() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Fetches module information based on the provided search term and populates the modules container on the page.
  * @param {string} searchTerm - The term to search for modules. An empty string returns all modules.
  */
@@ -41,7 +41,7 @@ function getModuleInfo(searchTerm) {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Fetches the list of pathways and populates the pathways section on the page with checkboxes.
  */
 function getPathwayList() {
@@ -64,7 +64,7 @@ function getPathwayList() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Adds module information to the page by creating and appending HTML elements.
  * @param {string} name - The name of the module.
  * @param {string} code - The code of the module.
@@ -129,7 +129,7 @@ function addModuleToPage(name, code, lecturer, stage, semester, weighting, pathw
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Adds event listeners to the module information page for search functionality and dropdown interaction.
  */
 function listenersForModuleInfoPage() {
@@ -168,7 +168,7 @@ function listenersForModuleInfoPage() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Initiates a search based on the provided search term and selected checkboxes.
  * Retrieves module information, updates the displayed modules, and applies filters if checkboxes are selected.
  */
@@ -194,7 +194,7 @@ function search() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Formats an array of names into a string with dot-separated class names.
  * Replaces whitespace with empty strings to match class naming conventions.
  * @param {string[]} nameArray - Array of names to be formatted into class names.
@@ -210,7 +210,7 @@ function formatClassNames(nameArray) {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Hides all HTML elements with specific class names.
  * Uses the provided array of names to generate dot-separated class names.
  * @param {string[]} nameArray - Array of names used to generate class names of elements to hide.
@@ -223,7 +223,7 @@ function hideAllItemsWithClassNames(nameArray) {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Shows all HTML elements with specific class names.
  * Uses the provided array of names to generate dot-separated class names.
  * @param {string[]} nameArray - Array of names used to generate class names of elements to show.
@@ -236,7 +236,7 @@ function showAllItemsWithClassNames(nameArray) {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Handles the change in checkbox status for module filtering.
  * Updates the displayed modules based on the selected checkboxes.
  */
@@ -268,7 +268,7 @@ function checkboxStatusChange() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Toggles the state of the checkbox area (dropdown) for selecting filters.
  * @param {boolean} [onlyHide=false] - If true, only hides the checkbox area without opening it.
  */

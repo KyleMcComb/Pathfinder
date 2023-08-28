@@ -28,7 +28,7 @@ from backups.azureBlobStorage import downloadBlob, deleteBlob
 
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Gets the account information (name, email, admins email, then if student: student number, pathway, current stage and semester) for the user currently logged into the system then formats this to be returned as a JSON object.
     @param: request -  HttpRequest object that contains metadata about the request
     @return: accountInfo - JSON object containing the necassary information for the user currently logged into the system. If a user is not logged into the system returns None
@@ -70,7 +70,7 @@ def accountInfo(request):
     return JsonResponse(accountInfo, safe=False)
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Gets the information needed for sign-up then sends an email containing this informatuion, or if email cannot be sent a fail message. 
     @param: request -  HttpRequest object that contains metadata about the request
     @return: success - JSON object containing true or false (stored as string as in Django a response can only have a JSON object with strings), depending if a successful email was sent to the admin
@@ -111,7 +111,7 @@ def signUp(request):
     return JsonResponse(success, safe=False)
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Returns a JSON object with all the pathway names and the stage the pathway is on formatted into a JSON object. 
     @param: request -  HttpRequest object that contains metadata about the request
     @return: pathwayList - JSON object containing the pathway information
@@ -129,7 +129,7 @@ def listOfPathways(request):
 
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Gets the information needed for sign-up then sends an email containing this informatuion, or if email cannot be sent a fail message. 
     @param: request -  HttpRequest object that contains metadata about the request
     @return: moduleList - JSON object containing a list of all modules that meet the search term
@@ -148,7 +148,7 @@ def searchModules(request):
 
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: extracts the module information (name, code, lecturer(s), stage, semester, weighting, assesments and description) from the given module object, formating any 1-many relationships into a list.
     @param: request -  HttpRequest object that contains metadata about the request
     @return: infoNeeded - JSON object containing module information for the given module object
@@ -194,12 +194,15 @@ def getModuleInfofromObject(moduleObject):
     return infoNeeded
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Calculates the students module average and assesment average throughout their degree, also gets all the modules a student takes along with the assesments relating to those modules and the grades for all the modules and assesments. 
     @param: request -  HttpRequest object that contains metadata about the request
     @return: allGradeInfo - JSON object containing the grade information for the user
 '''
+from .gradeInfo import *
+import time
 def gradeInfo(request):
+    start_time = time.time_ns()  # Get the current time in nanoseconds
     currentUser = request.user.username
     studentInDb = Student.objects.get(studentID=currentUser) # gets record for the student who is currently logged in
     currentStage = studentInDb.studentCurrentLevel
@@ -239,25 +242,39 @@ def gradeInfo(request):
             'assessments': assessments
         }
         stages[moduleInStage-1].append(studentModuleInfoJSON) # adds the module in the correct array for the corresponding stage
-    
+
     currentPathwayMark = studentInDb.currentPathwayMark
     
     avgs = moduleAndAssesmentAvg(stages)
     moduleAvg = avgs[0]
     assessmentAvg = avgs[1]
     
+    end_time = time.time_ns()
+    elapsed_time_ns = end_time - start_time
+    elapsed_time_us0 = elapsed_time_ns / 1000  # Convert nanoseconds to microseconds
+
+    start_time = time.time_ns()  # Get the current time in nanoseconds
+    thing1 = gradeInfoTest(request)
+    end_time = time.time_ns()
+    elapsed_time_ns = end_time - start_time
+    elapsed_time_us1 = elapsed_time_ns / 1000  # Convert nanoseconds to microseconds
+    
     allGradeInfo = {
+        'timing for og': (elapsed_time_us0) / 1000,
+        'timing for 1st attempt': (elapsed_time_us1) / 1000,
+        'time saving': (elapsed_time_us0 - elapsed_time_us1) / 1000,
         'currentPathwayMark': str(math.trunc(round(currentPathwayMark, 0))),
         'moduleAvg': str(math.trunc(round(moduleAvg,0))),
         'assesmentAvg': str(math.trunc(round(assessmentAvg,0))),
         'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb),0))),
-        'stages': stages
+        'stages': stages,
+        'result': thing1
     }
     
     return JsonResponse(allGradeInfo, safe=False)
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Calculates the students module average and assesment average based on the information that is stored in their stages dictionary
     @param: stages - dictionary that contains a students information for each one of their stages, the module information for each given stage 
     @return: avgs - array containing the module average and assessment average based on the information within stages
@@ -297,7 +314,7 @@ def moduleAndAssesmentAvg(stages):
     return avgs
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Calculates how much of the degree is left to earn for a given student.
     @param: currentStage - the stage the student is currently on
     @param: studentInDb - student object for the student the calculation is for
@@ -327,7 +344,7 @@ def calcLeftToEarn(currentStage, studentInDb):
     return leftToEarn
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Gets the username and password from the request then checks if these credentials are on the system, returns true or false based on authentication result.
     @param: request -  HttpRequest object that contains metadata about the request
     @return: loggedIn - JSON object containing whether or not a the log in attempt was successful
@@ -347,7 +364,7 @@ def verify(request):
         return JsonResponse({'error': 'Invalid request method'})
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Lists the names of local backup files in descending order of modification time (newest first).
     @param: request - HttpRequest object that contains metadata about the request (unused in this function).
     @return: JsonResponse with a dictionary containing 'fileNames' as keys and the list of file names as values.
@@ -365,7 +382,7 @@ def listLocalBackupFiles(request):
         return JsonResponse({'fileNames': []}, safe=False)
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Extracts the date and hash information from a backup filename.
     @param: filename - The filename to extract information from.
     @return: A tuple containing the extracted datetime object and hash part (if any).
@@ -387,7 +404,7 @@ def extractedDate(filename):
 # TODO: Refactor the restore and rollback functions to reduce code repetition  
 
 """
-@Author: DeanLogan123
+@Author: @DeanLogan
 @Description: Restores the database from a local backup file if the user is authenticated as 'admin'.
 @param: request - HttpRequest object that contains metadata about the request.
 @return: JsonResponse indicating the status of the restore operation.
@@ -412,7 +429,7 @@ def restoreBackup(request):
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
 """
-@Author: DeanLogan123
+@Author: @DeanLogan
 @Description: Rolls back the database to a previous state by restoring a backup file.
 @param: request - HttpRequest object that contains metadata about the request.
 @return: JsonResponse indicating the status of the rollback operation.
@@ -442,7 +459,7 @@ def rollbackBackup(request):
 
 
 """
-@Author: DeanLogan123
+@Author: @DeanLogan
 @Description: Deletes a backup file if the user is authenticated as 'admin'.
 @param: request - HttpRequest object that contains metadata about the request.
 @return: JsonResponse indicating the status of the delete operation.
@@ -462,7 +479,7 @@ def deleteBackup(request):
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
 """
-@Author: DeanLogan123
+@Author: @DeanLogan
 @Description: Restores a database backup from the specified file using Django's 'dbrestore' management command.
 @param: filePath - The path to the backup file to restore from.
 """
@@ -491,7 +508,7 @@ def restoreFromBackup(filePath):
     print("complete vacum (hopefully)")
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Retrieves and returns a list of cloud backup file names from a Blob Storage container.
     @param: request - HttpRequest object that contains metadata about the request (unused in this function).
     @return: JsonResponse with a dictionary containing 'fileNames' as keys and the list of cloud backup file names as values.
@@ -519,7 +536,7 @@ def index(request):
     return render(request, 'index.html')
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Renders the settings.html file to be displayed to the user.
     @param: request -  HttpRequest object that contains metadata about the request
 '''
@@ -527,7 +544,7 @@ def settings(request):
     return render(request, 'settings.html')
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Renders the gradeDashboard.html file to be displayed to the user.
     @param: request -  HttpRequest object that contains metadata about the request
 '''
@@ -535,7 +552,7 @@ def gradeDashboard(request):
     return render(request, 'gradeDashboard.html')
 
 '''
-    @Author: @DeanLogan123
+    @Author: @DeanLogan
     @Description: Renders the moduleInformation.html file to be displayed to the user.
     @param: request -  HttpRequest object that contains metadata about the request
 '''

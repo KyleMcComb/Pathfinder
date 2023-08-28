@@ -4,7 +4,7 @@ from backups.backupManagement import *
 
 
 """
-@Author: DeanLogan123
+@Author: @DeanLogan
 @Description: Executes a backup job, creating local and cloud backups, and deleting the oldest backups if needed.
 @param: request - Optional HttpRequest object with metadata about the request
 @return: JSON response indicating the success of the backup operations and information about deleted backups.

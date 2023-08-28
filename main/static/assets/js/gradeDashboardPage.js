@@ -3,7 +3,7 @@ window.onload = gradeDashboardPageLoad();
 var chart = null; // initialises the global variable chart that's used to store the chart object
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Runs on load for the grade dashboard page. Initializes dropdown, bar chart, and progress bar.
  * Resizes the page to ensure UI elements fit the user's screen resolution.
  */
@@ -16,7 +16,7 @@ function gradeDashboardPageLoad() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Updates the progress bar's width and displayed grade.
  * @param {string} [grade='0'] - The percentage value to set the progress bar width and display the grade.
  */
@@ -26,7 +26,7 @@ function progressBar(grade='0'){
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Resizes the grade dashboard page's UI elements to fit the screen resolution.
  */
 function resizeGradeDashboardPage() {
@@ -68,7 +68,7 @@ function resizeGradeDashboardPage() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Toggles the navigation sidebar open or closed and resizes the grade dashboard page accordingly.
  */
 function navToggleOnGradeDashboardPage() {
@@ -78,7 +78,7 @@ function navToggleOnGradeDashboardPage() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Retrieves grade information for the student from the server using an AJAX GET request.
  * Updates progress bar, module averages, assessment averages, and the left-to-earn percentage.
  * Populates the stage selection dropdown with radio buttons corresponding to the student's stages.
@@ -86,6 +86,7 @@ function navToggleOnGradeDashboardPage() {
  */
 function getGradeData() {
     $.get("/gradeInfo/", function(data) {
+        console.log(data);
         progressBar(data.currentPathwayMark); // Update progress bar
         document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'; // Display module average
         document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'; // Display assessment average
@@ -109,7 +110,7 @@ function getGradeData() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Retrieves and displays grade data for a specific stage using an AJAX GET request.
  * Populates the UI with module names, assessment names, and grades for the selected stage.
  * Destroys the previous chart and creates a new bar chart for the selected semester's grades.
@@ -157,7 +158,7 @@ function displayStage(stageSelected) {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Creates a bar chart to display module grades for a specific stage.
  * The chart's appearance and colors are determined based on the current theme.
  * @param {Array} [modules=['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6']]
@@ -211,7 +212,7 @@ function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Modul
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Sets up event listeners for the grade dashboard page.
  * Listens for clicks to close the dropdown and for window resizing to adjust UI elements.
  */
@@ -241,7 +242,7 @@ function listenersForGradeDashboardPage() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Updates the displayed dropdown option based on the selected stage.
  * Calls the displayStage function to update stage-related information.
  */
@@ -260,7 +261,7 @@ function radioBtnStatusChange() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Toggles the visibility state of the radio button options area.
  * If onlyHide is set to true, the options area is only hidden.
  * @param {boolean} [onlyHide=false] - Indicates whether to only hide the options area.

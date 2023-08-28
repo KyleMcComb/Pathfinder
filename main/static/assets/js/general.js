@@ -1,7 +1,7 @@
 var pathwayData = ''; // global variable that will hold information on each of the pathways which is taken from the database
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Executes when the page loads to ensure proper initialization and sizing of UI elements.
  * Handles navigation, theme, font size, sign-up data, and sets up event listeners.
  */
@@ -23,7 +23,7 @@ function pageLoad() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Retrieves pathway data by making an AJAX request to the server's endpoint.
  */
 function getPathwayData() {
@@ -35,7 +35,7 @@ function getPathwayData() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Logs out the user from the system by displaying an alert message and redirecting to the logout page.
  */
 function logout(){
@@ -44,7 +44,7 @@ function logout(){
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Checks the user's selected theme and applies it to the page's body element.
  * Removes non-default themes to ensure only one theme is applied at a time.
  */
@@ -65,7 +65,7 @@ function checkTheme() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Checks the user's selected font size and applies it to the page's body element.
  * Adjusts the font size of the body element based on user preference.
  */
@@ -88,7 +88,7 @@ function checkFontSize() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Toggles the side bar (nav) open or closed, and updates its state in session storage.
  * Adjusts UI elements by calling resizeNav and resizeContentDiv functions.
  */
@@ -111,7 +111,7 @@ function navToggle() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Resizes the navigation sidebar based on its state (open or closed) and window width.
  * Adjusts the width and height of the sidebar and resizes the close button accordingly.
  * @param {string} navOpen - The state of the navigation sidebar ('true' for open, 'false' for closed).
@@ -144,7 +144,7 @@ function resizeNav(navOpen) {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Resizes the close button (often called "burger" icon) based on window width.
  * Adjusts the font size of the close button for responsive design.
  */
@@ -161,7 +161,7 @@ function resiveClosebtn() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Resizes the content div based on the state of the navigation sidebar (open or closed) and window width.
  * Adjusts the width and position of the content div to fit the layout.
  */
@@ -197,7 +197,7 @@ function resizeContentDiv() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Holds event listeners that are applied to every web page.
  */
 function listeners() {
@@ -231,7 +231,7 @@ function listeners() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Displays the sign-up pop-up, adds pathway options to radio buttons.
  */
 function displaySignUpPage() {
@@ -254,7 +254,7 @@ function displaySignUpPage() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Updates stage options depending on the selected module's stages.
  */
 function updateStageOptions() {
@@ -272,7 +272,7 @@ function updateStageOptions() {
 
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Displays the next part for sign-up. Sends a GET request with user-entered information from sign-up-1.
  * If the request is successful, displays sign-up-2; otherwise, shows an alert.
  */
@@ -313,7 +313,7 @@ function goToSignUp() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Gathers the entered login information and sends a POST request to verify the credentials.
  * If successful, the user is logged in; if not, an alert is displayed.
  */

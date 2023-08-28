@@ -2,7 +2,7 @@
 window.onload = pageLoad();
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Executes when the page loads to populate local and cloud backup tables with file information.
  * Fetches and displays backup file information in the respective tables.
  */
@@ -16,7 +16,7 @@ function pageLoad() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Adds rows to a table for displaying backup file information. Each row contains a formatted date-time,
  * optional count of files with the same date-time, and links for restore and delete actions.
  * @param {string[]} fileNames - An array of backup file names.
@@ -65,7 +65,7 @@ function addBackupRowsToTable(fileNames, tbody, cloud) {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Makes a request to fetch backup file information and updates the table with the results.
  * If there are backup files available, it adds rows with file details to the table.
  * If no files are found, it adds a single row indicating no files are available.

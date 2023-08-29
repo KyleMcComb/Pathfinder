@@ -18,9 +18,9 @@ function pageLoad() {
  */
 function getModuleInfo(searchTerm) {
     document.getElementsByClassName('modules-container')[0].innerHTML = ''; // Clear the modules container
-
     // If searchTerm is an empty string, the GET request below will return all modules
     $.get("/searchModules/", { moduleName: searchTerm }, function(data) {
+        console.log(data);
         for (var i = 0; i < data.moduleList.length; i++) {
             var module = data.moduleList[i];
             assesments = module.assesments.split(','); // Split assessments into an array

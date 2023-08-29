@@ -25,3 +25,5 @@ database/populateData/migrations/
 
 *.sqlite3-shm
 *.sqlite3-wal
+
+__pycache__

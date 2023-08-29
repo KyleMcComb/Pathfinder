@@ -1,5 +1,9 @@
-from database.models import *
+import math
 from collections import defaultdict
+
+from database.models import *
+from django.http import JsonResponse
+
 
 """
 @Author: DeanLogan
@@ -126,15 +130,19 @@ def calcLeftToEarn(currentStage, studentInDb):
 @param: request -  HttpRequest object that contains metadata about the request
 @return: allGradeInfo - JSON object containing the grade information for the user
 '''
-def gradeInfoTest(request):
+def gradeInfoRequest(request):
     studentInDb = Student.objects.get(studentID=request.user.username)
     currentStage = studentInDb.studentCurrentLevel
     stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
     
-    return {
-        'currentPathwayMark': studentInDb.currentPathwayMark,
-        'moduleAvg': moduleAvgAllStages(stagesInfo),
-        'assesmentAvg': assessmentAvgAllStages(stagesInfo),
-        'leftToEarn': calcLeftToEarn(currentStage, studentInDb),
-        'stages': stagesInfo
-    }
+    return JsonResponse(
+        {
+            'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
+            'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
+            'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
+            'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
+            'stages': stagesInfo
+        }, 
+        safe=False
+    )
+

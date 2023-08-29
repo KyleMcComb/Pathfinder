@@ -26,7 +26,7 @@ def moduleInfoForStudent(student, currentStage):
         if moduleInfo:
             studentModuleInfoAsStages[moduleLevel - 1].append({
                 'name': moduleInfo['moduleName'],
-                'studentMark': studentModules.get(moduleID=moduleId).stuModMark,
+                'mark': studentModules.get(moduleID=moduleId).stuModMark,
                 'weighting': moduleInfo['moduleWeight'],
                 'assessments': assessmentInfos[moduleId]
             })
@@ -48,91 +48,93 @@ def assessmentInfoForStudentsModule(studentID, moduleID):
     assessmentInfo = []
     
     # Create a list of dictionaries containing assessment information
-    for student_assessment in studentAssessments:
+    for studentAssessment in studentAssessments:
         assessmentInfo.append({
-            'name': student_assessment.assessmentID.assessmentType,
-            'mark': student_assessment.assesmentMark
+            'name': studentAssessment.assessmentID.assessmentType,
+            'mark': studentAssessment.assesmentMark
         })
     
     return assessmentInfo
 
-def moduleAvg(moduleInfo):
-    stageAverages = []
+"""
+@Author: @DeanLogan
+@Description: Calculates the average module mark across all stages.
+@param: stages - A list of stages, each containing a list of modules with assessments.
+@return: The calculated average module mark or 0 if no modules are present.
+"""
+def moduleAvgAllStages(stages):
+    avgForStage = 0
+    for stage in stages:
+        avgForStage += calcAvgMark(stage)
     
-    for stageInfo in moduleInfo:
-        totalWeightedMarks = 0
-        totalWeighting = 0
-        
-        for module in stageInfo:
-            totalWeightedMarks += module['studentMark'] * module['weighting']
-            totalWeighting += module['weighting']
-        
-        stageAverage = totalWeightedMarks / totalWeighting if totalWeighting != 0 else 0
-        stageAverages.append(stageAverage)
+    return avgForStage / len(stages)
+
+"""
+@Author: @DeanLogan
+@Description: Calculates the average assessment mark across all stages and modules.
+@param: stages - A list of stages, each containing a list of modules with assessments.
+@return: The calculated average assessment mark or 0 if no assessments are present.
+"""
+def assessmentAvgAllStages(stages):
+    avgForModules = 0
+    numOfModules = 0
+    for stage in stages:
+        numOfModules += len(stage)
+        for module in stage:
+            avgForModules += calcAvgMark(module['assessments'])
     
-    return stageAverages
+    return avgForModules / numOfModules if numOfModules != 0 else 0
+
+"""
+@Author: @DeanLogan
+@Description: Calculates the average mark from a list of grade dictionaries.
+@param: arr - List of dictionaries containing 'mark' values.
+@return: The calculated average mark or 0 if the list is empty.
+"""
+def calcAvgMark(arr):
+    return sum(grade['mark'] for grade in arr) / len(arr) if len(arr) != 0 else 0
 
 
-def assessmentAvg(student, assessment):
-    pass
+"""
+@Author: @DeanLogan
+@Description: Calculates the number of credits left to earn in a student's pathway.
+@param: currentStage - The current stage of the student's progress.
+@param: studentInDb - The student's database object containing information such as the pathway.
+@return: The number of credits left to earn in the student's pathway.
+"""
+def calcLeftToEarn(currentStage, studentInDb):
+    # Lookup table for credits left to earn at different stages based on pathway stages
+    leftTOEarnLookUp = {
+        3: [90, 60, 0],
+        4: [90, 40, 20, 0]
+    }
+    
+    # Get the total stages in the student's pathway
+    pathwayStages = Pathway.objects.get(pathwayID=studentInDb.pathwayID).pathwayLevels
+    
+    if pathwayStages in leftTOEarnLookUp:
+        leftToEarnValues = leftTOEarnLookUp[pathwayStages]
+        leftToEarn = leftToEarnValues[currentStage - 1] if currentStage <= pathwayStages else 0
+    else:
+        leftToEarn = 0
 
-def leftToEarn(student, stage):
-    pass
+    return leftToEarn
 
-
-def studentInfo(user):
-    moduleInfoForStudent(user, 1)
-    moduleInfoForStudent(user, 1)
-
+'''
+@Author: @DeanLogan
+@Description: Calculates the students module average and assesment average throughout their degree, also gets all the modules a student takes along with the assesments relating to those modules and the grades for all the modules and assesments. 
+@param: request -  HttpRequest object that contains metadata about the request
+@return: allGradeInfo - JSON object containing the grade information for the user
+'''
 def gradeInfoTest(request):
     studentInDb = Student.objects.get(studentID=request.user.username)
     currentStage = studentInDb.studentCurrentLevel
     stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
     
     return {
-        'currentPathwayMark': 'test',
-        'moduleAvg': moduleAvg(stagesInfo),
-        'assesmentAvg': 'test',
-        'leftToEarn': 'test',
+        'currentPathwayMark': studentInDb.currentPathwayMark,
+        'moduleAvg': moduleAvgAllStages(stagesInfo),
+        'assesmentAvg': assessmentAvgAllStages(stagesInfo),
+        'leftToEarn': calcLeftToEarn(currentStage, studentInDb),
         'stages': stagesInfo
     }
-
-'''
-    @Author: @DeanLogan
-    @Description: Calculates the students module average and assesment average based on the information that is stored in their stages dictionary
-    @param: stages - dictionary that contains a students information for each one of their stages, the module information for each given stage 
-    @return: avgs - array containing the module average and assessment average based on the information within stages
-'''
-def moduleAndAssesmentAvg(stages):
-    # works out moduleAvg and assessmentAvg
-    studentsTotalMark = 0
-    assessmentsTotalMark = 0
-    assessmentsTotalMarksAvailable = 0
-    totalMarksAvailable = 0
-    stageMarks = []
-    # this loop is for the stages that the student has completed
-    for i in range(len(stages)):
-        stageMark = 0
-        # this loops is for the modules that are witin a stage
-        for j in range(len(stages[i])):
-            moduleWeighting = stages[i][j]['weighting']
-            markForModule = stages[i][j]['studentMark']
-            assessmentsInModule = stages[i][j]['assessments']
-            
-            studentsTotalMark += markForModule
-            totalMarksAvailable += 100 # assumes all modules are marked out of 100
-            
-            # this loop is for the assessments that are within a module
-            for x in range(len(assessmentsInModule)):
-                assessmentsTotalMark += assessmentsInModule[x]['mark']
-                assessmentsTotalMarksAvailable += 100
-            
-            stageMark += moduleWeighting * (markForModule/100) # calculates how much of the available CAT points the student has earned based on the weighting of the module
-        stageMarks.append(stageMark)
-    
-    moduleAvg = (studentsTotalMark / totalMarksAvailable)*100
-    assessmentAvg = (assessmentsTotalMark / assessmentsTotalMarksAvailable) * 100
-
-    avgs = [moduleAvg, assessmentAvg]
-
-    return avgs

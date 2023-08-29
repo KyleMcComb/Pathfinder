@@ -237,7 +237,7 @@ def gradeInfo(request):
 
         studentModuleInfoJSON = {
             'name': moduleName,
-            'studentMark': studentMark,
+            'mark': studentMark,
             'weighting': moduleWeighting,
             'assessments': assessments
         }
@@ -248,6 +248,8 @@ def gradeInfo(request):
     avgs = moduleAndAssesmentAvg(stages)
     moduleAvg = avgs[0]
     assessmentAvg = avgs[1]
+
+    left = calcLeftToEarn(currentStage, studentInDb)
     
     end_time = time.time_ns()
     elapsed_time_ns = end_time - start_time
@@ -260,13 +262,13 @@ def gradeInfo(request):
     elapsed_time_us1 = elapsed_time_ns / 1000  # Convert nanoseconds to microseconds
     
     allGradeInfo = {
-        'timing for og': (elapsed_time_us0) / 1000,
-        'timing for 1st attempt': (elapsed_time_us1) / 1000,
+        'Original Timing (miliseconds)': (elapsed_time_us0) / 1000,
+        'Refactored Timing (miliseconds)': (elapsed_time_us1) / 1000,
         'time saving': (elapsed_time_us0 - elapsed_time_us1) / 1000,
         'currentPathwayMark': str(math.trunc(round(currentPathwayMark, 0))),
         'moduleAvg': str(math.trunc(round(moduleAvg,0))),
         'assesmentAvg': str(math.trunc(round(assessmentAvg,0))),
-        'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb),0))),
+        'leftToEarn': str(math.trunc(round(left,0))),
         'stages': stages,
         'result': thing1
     }
@@ -292,7 +294,7 @@ def moduleAndAssesmentAvg(stages):
         # this loops is for the modules that are witin a stage
         for j in range(len(stages[i])):
             moduleWeighting = stages[i][j]['weighting']
-            markForModule = stages[i][j]['studentMark']
+            markForModule = stages[i][j]['mark']
             assessmentsInModule = stages[i][j]['assessments']
             
             studentsTotalMark += markForModule

@@ -125,7 +125,7 @@ function displayStage(stageSelected) {
         // Retrieve module names and grades from the JSON object and push them to corresponding arrays
         for (var j = 0; j < stages[stageSelected - 1].length; j++) {
             modules.push(stages[stageSelected - 1][j].name);
-            grades.push(stages[stageSelected - 1][j].studentMark);
+            grades.push(stages[stageSelected - 1][j].mark);
         }
 
         document.getElementsByClassName('assesments')[0].innerHTML = ''; // Clear existing elements from the assessments div

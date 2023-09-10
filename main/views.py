@@ -15,6 +15,7 @@ from email.mime.multipart import MIMEMultipart
 from database.models import *
 from mysite.settings import *
 from django.db import connection
+from .forms import CustomLoginForm
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -71,47 +72,6 @@ def accountInfo(request):
 
 '''
     @Author: @DeanLogan
-    @Description: Gets the information needed for sign-up then sends an email containing this informatuion, or if email cannot be sent a fail message. 
-    @param: request -  HttpRequest object that contains metadata about the request
-    @return: success - JSON object containing true or false (stored as string as in Django a response can only have a JSON object with strings), depending if a successful email was sent to the admin
-'''
-def signUp(request):
-    # get required info
-    success = {'success':'true'}
-    try:
-        studentNumber = request.GET.get('studentNumber')
-        name = request.GET.get('name')
-        email = request.GET.get('email')
-        selectedPathway = request.GET.get('selectedPathway')
-        currentStage = request.GET.get('currentStage')
-        currentSemester = request.GET.get('currentSemester')
-
-        admin = User.objects.get(username='admin')
-        adminEmail = admin.email
-
-        # below formats the information into an email
-        msg = MIMEMultipart()
-        msg['From'] = 'pathfinder3068@gmail.com'
-        msg['To'] = "{0}".format(adminEmail)
-        msg['Subject'] = 'Sign-Up User'
-
-        messageContentInHtml = '<h1>Request has been made to sign up user</h1><br/><p><b>Student Number: </b>'+studentNumber+'</p><p><b>Name: </b>'+name+'</p><p><b>Email: </b>'+email+'</p><p><b>Pathway: </b>'+selectedPathway+'</p><p><b>Stage: </b>'+currentStage+'</p><p><b>Semester: </b>'+currentSemester+'</p><br/><p>From Pathfinder.'
-
-        body = MIMEText(messageContentInHtml, 'html')
-        msg.attach(body)
-
-        server = smtplib.SMTP('smtp.gmail.com', 587) # connect to email server
-        server.starttls() #encrypts login
-        server.login('pathfinder3068@gmail.com', 'eglrgyaxlnyrvixi') # email account and 3rd party app password for the account which the email will be sent from
-        server.sendmail(msg['From'], msg['To'], msg.as_string())
-        server.quit()
-    except:
-        success = {'success':'false'}
-
-    return JsonResponse(success, safe=False)
-
-'''
-    @Author: @DeanLogan
     @Description: Returns a JSON object with all the pathway names and the stage the pathway is on formatted into a JSON object. 
     @param: request -  HttpRequest object that contains metadata about the request
     @return: pathwayList - JSON object containing the pathway information
@@ -126,26 +86,6 @@ def listOfPathways(request):
         pathwayList.append(pathwayInfo)
 
     return JsonResponse({'pathwayList':pathwayList}, safe=False)
-
-'''
-    @Author: @DeanLogan
-    @Description: Gets the username and password from the request then checks if these credentials are on the system, returns true or false based on authentication result.
-    @param: request -  HttpRequest object that contains metadata about the request
-    @return: loggedIn - JSON object containing whether or not a the log in attempt was successful
-'''
-@csrf_exempt
-def verify(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return JsonResponse({'loggedIn': 'true'})
-        else:
-            return JsonResponse({'loggedIn': 'false'})
-    else:
-        return JsonResponse({'error': 'Invalid request method'})
 
 """
     @Author: @DeanLogan
@@ -289,7 +229,6 @@ def restoreFromBackup(filePath):
         ])  # Run the command as a list (Linux, macOS)
     with connection.cursor() as cursor:
         cursor.execute("VACUUM;")
-    print("complete vacum (hopefully)")
 
 """
     @Author: @DeanLogan
@@ -317,7 +256,7 @@ def receive_message(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'form': CustomLoginForm()})
 
 '''
     @Author: @DeanLogan
@@ -325,7 +264,7 @@ def index(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def settings(request):
-    return render(request, 'settings.html')
+    return render(request, 'settings.html', {'form': CustomLoginForm()})
 
 '''
     @Author: @DeanLogan
@@ -333,7 +272,7 @@ def settings(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def gradeDashboard(request):
-    return render(request, 'gradeDashboard.html')
+    return render(request, 'gradeDashboard.html', {'form': CustomLoginForm()})
 
 '''
     @Author: @DeanLogan
@@ -341,4 +280,4 @@ def gradeDashboard(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def moduleInformation(request):
-    return render(request, 'moduleInformation.html')
+    return render(request, 'moduleInformation.html', {'form': CustomLoginForm()})

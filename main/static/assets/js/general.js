@@ -318,19 +318,16 @@ function goToSignUp() {
  * If successful, the user is logged in; if not, an alert is displayed.
  */
 function login() {
-    // Gather login information
-    var username = document.querySelector('input[name="student-number-login"]').value;
-    var password = document.getElementById('password-login').value;
-    
     // Send a POST request to verify login credentials
-    $.post('/verify/', { username: username, password: password }, function (data) {
+    $.post('/verify/', { username: document.getElementById('username').value, password: document.getElementById('password').value, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()}, function (data) {
+        console.log(data.errors);
         if (data.loggedIn == 'true') {
             // If login is successful, display a success alert and reload the page
             alert('Login success');
             location.reload();
         } else {
             // If login fails, display an alert
-            alert("Login failed, either student number or password is incorrect");
+            alert(data.errors);
         }
     });
 }

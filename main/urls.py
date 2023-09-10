@@ -2,6 +2,7 @@ from . import views
 from django.urls import path
 from .chatbot import receive_message
 from django.urls import path, include
+from .requestFunctions.generalInfo import listOfPathways, accountInfo
 from .requestFunctions.gradeInfo import gradeInfoRequest
 from .requestFunctions.accountHandling import verify, signUp
 from .requestFunctions.searchModules import searchModulesRequest
@@ -18,9 +19,9 @@ urlpatterns = [
     path('receive_message/', receive_message, name='receive_message'),
     path('verify/', verify, name='verify'),
     path('gradeInfo/', gradeInfoRequest, name='gradeInfo'),
-    path('listOfPathways/', views.listOfPathways, name='listOfPathways'),
+    path('listOfPathways/', listOfPathways, name='listOfPathways'),
     path('signUp/', signUp, name='signUp'),
-    path('accountInfo/', views.accountInfo, name='accountInfo'),
+    path('accountInfo/', accountInfo, name='accountInfo'),
     path('searchModules/', searchModulesRequest, name='searchModules'),
     path('listLocalBackupFiles/', listLocalBackupFiles, name='listLocalBackupFiles'),
     path('listCloudBackupFiles/', listCloudBackupFiles, name='listCloudBackupFiles'),

@@ -1,10 +1,11 @@
-from django.urls import path
 from . import views
+from django.urls import path
 from .chatbot import receive_message
 from django.urls import path, include
-from .requestFunctions.accountHandling import verify, signUp
 from .requestFunctions.gradeInfo import gradeInfoRequest
+from .requestFunctions.accountHandling import verify, signUp
 from .requestFunctions.searchModules import searchModulesRequest
+from .requestFunctions.backupHandling import listLocalBackupFiles, listCloudBackupFiles, restoreBackup, rollbackBackup, deleteBackup
 
 app_name = 'main'
 
@@ -21,9 +22,9 @@ urlpatterns = [
     path('signUp/', signUp, name='signUp'),
     path('accountInfo/', views.accountInfo, name='accountInfo'),
     path('searchModules/', searchModulesRequest, name='searchModules'),
-    path('listLocalBackupFiles/', views.listLocalBackupFiles, name='listLocalBackupFiles'),
-    path('listCloudBackupFiles/', views.listCloudBackupFiles, name='listCloudBackupFiles'),
-    path('restoreBackup/', views.restoreBackup, name='restoreBackup'),
-    path('rollbackBackup/', views.rollbackBackup, name='rollbackBackup'),
-    path('deleteBackup/', views.deleteBackup, name='deleteBackup')
+    path('listLocalBackupFiles/', listLocalBackupFiles, name='listLocalBackupFiles'),
+    path('listCloudBackupFiles/', listCloudBackupFiles, name='listCloudBackupFiles'),
+    path('restoreBackup/', restoreBackup, name='restoreBackup'),
+    path('rollbackBackup/', rollbackBackup, name='rollbackBackup'),
+    path('deleteBackup/', deleteBackup, name='deleteBackup')
 ]

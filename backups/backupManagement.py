@@ -1,9 +1,13 @@
-from django.core.management import call_command
-from mysite.settings import *
-from backups.azureBlobStorage import *
-
 import os
 import glob
+import platform
+import subprocess
+
+from mysite.settings import *
+from django.db import connection
+from backups.azureBlobStorage import *
+from django.core.management import call_command
+
 
 """
     @Author: @DeanLogan
@@ -68,3 +72,31 @@ def uploadLatestBackup():
         return uploadFileToBlob(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], latestBackup), latestBackup)
     except:
         return False
+    
+"""
+@Author: @DeanLogan
+@Description: Restores a database backup from the specified file using Django's 'dbrestore' management command.
+@param: filePath - The path to the backup file to restore from.
+"""
+def restoreFromBackup(filePath):
+# Determine the platform (OS) and adjust the command accordingly
+    if platform.system() == "Windows":
+        print("windows")
+        subprocess.run(" ".join([
+            "python", "manage.py", "dbrestore",
+            "-I",
+            f'"{filePath}"',
+            "--noinput",
+            "--skip-checks"
+        ]), shell=True)  # Run the command as a single string using shell (Windows)
+    else:
+        print("unix")
+        subprocess.run([
+            "python", "manage.py", "dbrestore",
+            "-I",
+            f"{filePath}",
+            "--noinput",
+            "--skip-checks"
+        ])  # Run the command as a list (Linux, macOS)
+    with connection.cursor() as cursor:
+        cursor.execute("VACUUM;")

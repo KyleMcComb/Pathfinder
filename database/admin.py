@@ -8,9 +8,15 @@ from .models import *
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
-    list_display = ("moduleID", "moduleName", "moduleSemester", "moduleDescription", "moduleLevel", "moduleWeight")
+    list_display = ("moduleID", "moduleName", "moduleSemester", "moduleDescription", "moduleLevel", "moduleWeight", "display_careers")
     search_fields = ("moduleID", "moduleName")
     list_filter = ("moduleLevel", "moduleSemester")
+
+    def display_careers(self, obj):
+        # This method is to display the associated careers for each module
+        return ", ".join([career.jobTitle for career in obj.careers.all()])
+    
+    display_careers.short_description = "Careers"
 
 @admin.register(Assessment)
 class AssessmentAdmin(admin.ModelAdmin):
@@ -101,14 +107,14 @@ class CareerAdmin(admin.ModelAdmin):
     list_display_links = ("jobTitle",)
     list_filter = ("companyName",)
 
-@admin.register(CareerModule)
-class CareerModuleAdmin(admin.ModelAdmin):
-    def career(self, obj):
-        return mark_safe(f"<a href='/admin/database/career/{obj.careerID.pk}/change/'>{obj.careerID.jobTitle} at {obj.careerID.companyName}</a>")
+# @admin.register(CareerModule)
+# class CareerModuleAdmin(admin.ModelAdmin):
+#     def career(self, obj):
+#         return mark_safe(f"<a href='/admin/database/career/{obj.careerID.pk}/change/'>{obj.careerID.jobTitle} at {obj.careerID.companyName}</a>")
 
-    def module(self, obj):
-        return mark_safe(f"<a href='/admin/database/module/{obj.moduleID.pk}/change/'>{obj.moduleID.moduleName}</a>")
+#     def module(self, obj):
+#         return mark_safe(f"<a href='/admin/database/module/{obj.moduleID.pk}/change/'>{obj.moduleID.moduleName}</a>")
 
-    list_display = ("careerModuleID", "career", "module")
-    search_fields = ("careerModuleID", "jobTitle", "moduleID")
-    list_filter = ("careerID", "moduleID")
+#     list_display = ("careerModuleID", "career", "module")
+#     search_fields = ("careerModuleID", "jobTitle", "moduleID")
+#     list_filter = ("careerID", "moduleID")

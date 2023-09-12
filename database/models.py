@@ -8,6 +8,7 @@ class Module(models.Model):
     moduleDescription = models.CharField(max_length=250)
     moduleLevel = models.IntegerField(default=1)
     moduleWeight = models.IntegerField(default=20)
+    careers = models.ManyToManyField('Career', blank=True)
     def __str__(self):
         return self.moduleID
     
@@ -78,14 +79,18 @@ class StudentModuleAssesment(models.Model):
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
     assesmentMark = models.IntegerField(default=100)
+    def __str__(self):
+        return str(self.studentModuleAssesmentID)
 
 class Career(models.Model):
     careerID = models.IntegerField(primary_key=True, auto_created=True)
     jobTitle = models.CharField(max_length=100)
     companyName = models.CharField(max_length=100)
     jobDescription = models.CharField(max_length=1000)
+    def __str__(self):
+        return str(self.careerID)
 
-class CareerModule(models.Model):   ### Could have CareerModuleStudent
-    careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
-    careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
-    moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
+# class CareerModule(models.Model):   ### Could have CareerModuleStudent
+#     careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
+#     careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
+#     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)

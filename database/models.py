@@ -53,7 +53,7 @@ class Student(models.Model):
     pathwayID = models.ForeignKey(Pathway, on_delete=models.SET_NULL, null=True)
     studentCurrentLevel = models.IntegerField(default=1)
     studentCurrentSemester = models.IntegerField(default=1)
-    currentPathwayMark = models.IntegerField(default=100)
+    currentPathwayMark = models.FloatField(default=100)
     def __str__(self):
         return str(self.studentID)
 

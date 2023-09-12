@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import StudentModuleAssesment
+from .models import StudentModuleAssesment, StudentModule
 
 """
 @Author: @DeanLogan
@@ -27,5 +27,26 @@ def resetStuModMarks(sender, instance, **kwargs):
     # Update the StudentModule's stuModMark attribute with the new total mark
     studentModule.stuModMark = totalMark
     studentModule.save()
-    print(studentModule.stuModMark)  # Print the updated student module mark after recalculation
 
+@receiver(post_save, sender=StudentModule)
+def resetCurrentPathwayMarks(sender, instance, **kwargs):
+    yearWeightings = {
+        3: [10, 30, 60],
+        4: [10, 50, 20, 20]
+    }
+
+    student = instance.studentID
+
+    modules =  StudentModule.objects.filter(studentID=student)
+    
+    # Initialize the total mark
+    totalMark = 0.0
+
+    # Calculate the weighted sum of module marks
+    for module in modules:
+        totalMark += modules.stuModMark * (module.moduleID.moduleWeight / 120) * (yearWeightings[student.pathwayID.pathwayLevels][module.moduleID.moduleSemester - 1] / 100)
+
+    # Update the Student's currentPathwayMark attribute with the new total mark
+    student.currentPathwayMark = totalMark
+    student.save()
+    print(student.currentPathwayMark)

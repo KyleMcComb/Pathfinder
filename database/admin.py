@@ -1,10 +1,9 @@
-from django.contrib import admin
-from django.urls import reverse
-from django.utils.http import urlencode
-from django.utils.safestring import *
-
-# Register your models here.
 from .models import *
+from .forms import AllFieldForm
+from django.urls import reverse
+from django.contrib import admin
+from django.utils.safestring import *
+from django.utils.http import urlencode
 
 @admin.register(Pathway)
 class PathwayAdmin(admin.ModelAdmin):
@@ -62,6 +61,8 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ("studentID", "pathway", "studentCurrentLevel", "studentCurrentSemester", "currentPathwayMark")
     search_fields =  ('studentID', )
 
+    form = AllFieldForm
+
 @admin.register(StudentModule)
 class StudentModuleAdmin(admin.ModelAdmin):
     def student(self, obj):
@@ -94,4 +95,4 @@ class StudentModuleAssesmentAdmin(admin.ModelAdmin):
     search_fields =  ('studentModuleAssesmentID', )
     list_filter = ("studentModuleID", "assessmentID")
 
-admin.site.index_template = 'adminFiles/extendedAdminPage.html'  # Path to your custom template
+admin.site.index_template = 'adminFiles/extendedAdminPage.html'  # Path to custom template for admin index page

@@ -25,7 +25,7 @@ def resetStuModMarks(sender, instance, **kwargs):
         totalMark += assessment.assesmentMark * (assessment.assessmentID.assessmentWeight / 100)
 
     # Update the StudentModule's stuModMark attribute with the new total mark
-    studentModule.stuModMark = totalMark
+    studentModule.stuModMark = round(totalMark)
     studentModule.save()
 
 @receiver(post_save, sender=StudentModule)
@@ -44,9 +44,8 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
 
     # Calculate the weighted sum of module marks
     for module in modules:
-        totalMark += modules.stuModMark * (module.moduleID.moduleWeight / 120) * (yearWeightings[student.pathwayID.pathwayLevels][module.moduleID.moduleSemester - 1] / 100)
+        totalMark += (module.stuModMark * (module.moduleID.moduleWeight / 120) * (yearWeightings[student.pathwayID.pathwayLevels][module.moduleID.moduleLevel - 1])) / 100
 
     # Update the Student's currentPathwayMark attribute with the new total mark
-    student.currentPathwayMark = totalMark
+    student.currentPathwayMark = round(totalMark, 2)
     student.save()
-    print(student.currentPathwayMark)

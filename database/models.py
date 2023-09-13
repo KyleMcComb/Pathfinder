@@ -44,7 +44,7 @@ class ModulePathway(models.Model):
     modulePathwayID = models.IntegerField(primary_key=True, auto_created=True)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     pathwayID = models.ForeignKey(Pathway, on_delete=models.CASCADE)
-    mpCore = models.BooleanField(default=True) #either optional or core
+    mpCore = models.BooleanField(default=True) # either optional or core
     def __str__(self):
         return str(self.modulePathwayID)
     
@@ -53,7 +53,7 @@ class Student(models.Model):
     pathwayID = models.ForeignKey(Pathway, on_delete=models.SET_NULL, null=True)
     studentCurrentLevel = models.IntegerField(default=1)
     studentCurrentSemester = models.IntegerField(default=1)
-    currentPathwayMark = models.FloatField(default=100)
+    currentPathwayMark = models.FloatField(default=100, editable=False)
     def __str__(self):
         return str(self.studentID)
 
@@ -61,7 +61,7 @@ class StudentModule(models.Model):
     studentModuleID = models.IntegerField(primary_key=True, auto_created=True)
     studentID = models.ForeignKey(Student, on_delete=models.CASCADE)
     moduleID = models.ForeignKey(Module, on_delete=models.SET_NULL, null=True)
-    stuModMark = models.FloatField(default=100)
+    stuModMark = models.FloatField(default=100, editable=False)
     def __str__(self):
         return str(self.studentModuleID)
 

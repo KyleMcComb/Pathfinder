@@ -19,7 +19,7 @@ class Module(models.Model):
     moduleID = models.CharField(primary_key=True ,max_length=7, auto_created=False)
     moduleName = models.CharField(max_length=100)
     moduleSemester = models.IntegerField(default=3)
-    moduleDescription = models.CharField(max_length=250)
+    moduleDescription = models.CharField(max_length=2500)
     moduleLevel = models.IntegerField(default=1)
     moduleWeight = models.IntegerField(default=20)
     def __str__(self):
@@ -53,7 +53,7 @@ class Student(models.Model):
     pathwayID = models.ForeignKey(Pathway, on_delete=models.SET_NULL, null=True)
     studentCurrentLevel = models.IntegerField(default=1)
     studentCurrentSemester = models.IntegerField(default=1)
-    currentPathwayMark = models.FloatField(default=100, editable=False)
+    currentPathwayMark = models.FloatField(default=0, editable=False)
     def __str__(self):
         return str(self.studentID)
 
@@ -61,7 +61,7 @@ class StudentModule(models.Model):
     studentModuleID = models.IntegerField(primary_key=True, auto_created=True)
     studentID = models.ForeignKey(Student, on_delete=models.CASCADE)
     moduleID = models.ForeignKey(Module, on_delete=models.SET_NULL, null=True)
-    stuModMark = models.FloatField(default=100, editable=False)
+    stuModMark = models.FloatField(default=0, editable=False)
     def __str__(self):
         return str(self.studentModuleID)
 

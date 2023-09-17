@@ -10,7 +10,7 @@ CONNECTION_STRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;
 CONTAINER_NAME = "pathfinderbackups"
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Retrieves a Blob Storage container client with a specified timeout for completion.
     @param: timeout - The maximum time to wait for the container client retrieval.
     @return: A container client object if retrieved within the timeout, None otherwise.
@@ -26,7 +26,7 @@ def getContainerClientWithTimeout(timeout):
         return thread.result  # Return the result of the thread
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Retrieves or creates a Blob Storage container client using a connection string and container name.
     @return: A container client object for interacting with the specified container.
 """
@@ -44,7 +44,7 @@ def getContainerClient():
         return None
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Uploads a file from the local file system to a specified Blob Storage container.
     @param: filePath - The local path of the file to be uploaded.
     @param: destinationBlobName - The name to assign to the uploaded blob in the container.
@@ -67,7 +67,7 @@ def uploadFileToBlob(filePath, destinationBlobName):
 
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Checks if a specified blob exists in a Blob Storage container.
     @param: destinationBlobName - The name of the blob to check for.
     @return: True if the blob exists in the container, False otherwise.
@@ -92,7 +92,7 @@ def blobInBlobContainer(destinationBlobName):
 
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Deletes a specified blob from a Blob Storage container, if it exists.
     @param: blobNameToDelete - The name of the blob to delete.
     @return: True if the blob was deleted successfully, False if the blob doesn't exist.
@@ -112,7 +112,7 @@ def deleteBlob(blobNameToDelete):
     return False
 
 """
-@Author: DeanLogan123
+@Author: @DeanLogan
 @Description: Downloads a blob from a Blob Storage container and saves it to a local file.
 @param: blobName - The name of the blob to be downloaded.
 @param: filePath - The path of the local file where the blob will be saved.
@@ -135,7 +135,7 @@ def downloadBlob(blobName, filePath):
 
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Retrieves a list of blob names from a Blob Storage container and provides informative output.
     @return: List of blob names retrieved from the container.
 """

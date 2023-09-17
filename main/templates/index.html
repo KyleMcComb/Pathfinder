@@ -2,7 +2,7 @@
 {% block content%}
 
 <!-- 
-    Author: @DeanLogan123
+    Author: @DeanLogan
 -->
 
 <!DOCTYPE html>
@@ -60,17 +60,12 @@
 
         <!-- Login pop up -->
         <div id="id01" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
-            <form class="modal-content animate" action="" method="">
+            <form method="post" class="modal-content animate">
                 <div class="container">
-                    <label for="student-number-login"><b>Student Number</b></label>
-                    <input id="username-login" type="text" placeholder="Enter Student Number" name="student-number-login" required>
-                    <label for="psw"><b>Password</b></label>
-                    <input id="password-login" type="password" placeholder="Enter Password" name="psw" required>
+                    {% csrf_token %}
+                    {{ form.as_p }}
                     <button onclick="login()" type="button">Login</button>
                     <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
-                </div>
-                <div class="container">
-                    <span class="psw"><a href="#">Forget Password?</a></span>
                 </div>
             </form>
         </div>

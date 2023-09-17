@@ -1,5 +1,5 @@
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Initializes the settings page with the current theme and font size preferences.
  * Retrieves and displays the user's account information.
  */
@@ -28,7 +28,7 @@ function settingsPageLoad() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Retrieves and displays user account information.
  */
 function getAccountInfo() {
@@ -55,7 +55,7 @@ function getAccountInfo() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Updates the accessibility options chosen by the user (theme and font size) and applies them.
  */
 function updateAccessabilityOptions() {

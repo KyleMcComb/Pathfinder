@@ -1,5 +1,5 @@
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Executes when the chatbot page loads to initialize and display introductory messages.
  * Displays instructions and capabilities of the chatbot to help EEECS students.
  */
@@ -12,7 +12,7 @@ function chatbotPageLoad() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Sets up event listeners for the chatbot page to handle user input and window resizing.
  */
 function listenersForChatbotPage() {
@@ -35,7 +35,7 @@ function listenersForChatbotPage() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Resizes UI elements of the chatbot page based on window width and navigation status.
  * Adjusts widths and positions of the bottom bar, textarea, and content area.
  */
@@ -69,7 +69,7 @@ function resizeChatbotPage() {
 }
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Toggles the navigation sidebar and resizes UI elements on the chatbot page.
  */
 function navToggleOnChatbotPage(){
@@ -80,7 +80,7 @@ function navToggleOnChatbotPage(){
 /* START OF CHATBOT CODE */
 
 /**
- * @Author - @DeanLogan123
+ * @Author - @DeanLogan
  * @Description - Displays a message in the chatbot interface with a specified sender.
  * Scrolls to the bottom of the chat content for viewing the new message.
  * @param {string} message - The message text to be displayed.

@@ -1,12 +1,16 @@
-from django.core.management import call_command
-from mysite.settings import *
-from backups.azureBlobStorage import *
-
 import os
 import glob
+import platform
+import subprocess
+
+from mysite.settings import *
+from django.db import connection
+from backups.azureBlobStorage import *
+from django.core.management import call_command
+
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Initiates a database backup using Django's 'dbbackup' management command.
     @return: True if the backup process was successful, False otherwise.
 """
@@ -18,7 +22,7 @@ def createBackupFile():
         return False
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Deletes the oldest local backup file if the number of existing backup files exceeds a limit.
     @return: True if a backup file was deleted successfully, False otherwise.
 """
@@ -37,7 +41,7 @@ def deleteOldestBackupFile():
         return False
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Deletes the oldest backup blob from the Azure Blob Storage container if the number of blobs exceeds a limit.
     @return: True if a blob was deleted successfully, False otherwise.
 """
@@ -56,7 +60,7 @@ def deleteOldestBackupBlob():
 
 
 """
-    @Author: DeanLogan123
+    @Author: @DeanLogan
     @Description: Uploads the latest local backup file to the Azure Blob Storage container.
     @return: True if the upload was successful, False otherwise.
 """
@@ -68,3 +72,31 @@ def uploadLatestBackup():
         return uploadFileToBlob(os.path.join(DBBACKUP_STORAGE_OPTIONS['location'], latestBackup), latestBackup)
     except:
         return False
+    
+"""
+@Author: @DeanLogan
+@Description: Restores a database backup from the specified file using Django's 'dbrestore' management command.
+@param: filePath - The path to the backup file to restore from.
+"""
+def restoreFromBackup(filePath):
+# Determine the platform (OS) and adjust the command accordingly
+    if platform.system() == "Windows":
+        print("windows")
+        subprocess.run(" ".join([
+            "python", "manage.py", "dbrestore",
+            "-I",
+            f'"{filePath}"',
+            "--noinput",
+            "--skip-checks"
+        ]), shell=True)  # Run the command as a single string using shell (Windows)
+    else:
+        print("unix")
+        subprocess.run([
+            "python", "manage.py", "dbrestore",
+            "-I",
+            f"{filePath}",
+            "--noinput",
+            "--skip-checks"
+        ])  # Run the command as a list (Linux, macOS)
+    with connection.cursor() as cursor:
+        cursor.execute("VACUUM;")

@@ -68,28 +68,28 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
 # TODO - Add docstring
 # TOFO - Talk to team about the current functionality of how editing primary keys works, currently when a primary key is changed, it creates a new record and keeps the old one, this means that the old one will still have all of the links to it and the new one will have nothing. We could delete the old one and resign all of the links (which the function below will help with) but not sure if it's the greatest idea as this default functionality is probably there for a reason.
 
-@receiver(pre_save)
-def updateForeignKey(sender, instance, **kwargs):
-    # Check if the instance is being added or updated
-    if instance._state.adding:
-        return
+# @receiver(pre_save)
+# def updateForeignKey(sender, instance, **kwargs):
+#     # Check if the instance is being added or updated
+#     if instance._state.adding:
+#         return
 
-    # Get a list of all foreign key fields in the model
-    foreignKeyFields = [field for field in sender._meta.get_fields() if isinstance(field, models.ForeignKey)]
+#     # Get a list of all foreign key fields in the model
+#     foreignKeyFields = [field for field in sender._meta.get_fields() if isinstance(field, models.ForeignKey)]
 
-    for field in foreignKeyFields:
-        relatedModel = field.related_model  # Get the related model
-        relatedFieldName = field.name  # Get the name of the foreign key field
-        primaryKeyFieldName = relatedModel._meta.pk.name  # Get the name of the primary key field in the related model
+#     for field in foreignKeyFields:
+#         relatedModel = field.related_model  # Get the related model
+#         relatedFieldName = field.name  # Get the name of the foreign key field
+#         primaryKeyFieldName = relatedModel._meta.pk.name  # Get the name of the primary key field in the related model
 
-        # Check if the related field has changed
-        if field.attname in instance.__dict__:
-            oldValue = instance.__dict__[field.attname]
-            newValue = getattr(instance, field.name)
+#         # Check if the related field has changed
+#         if field.attname in instance.__dict__:
+#             oldValue = instance.__dict__[field.attname]
+#             newValue = getattr(instance, field.name)
 
-            if oldValue != newValue:
-                # Find all related instances and update their foreign keys
-                relatedInstances = relatedModel.objects.filter(**{relatedFieldName: oldValue})
-                for relatedInstance in relatedInstances:
-                    setattr(relatedInstance, relatedFieldName, newValue)
-                    relatedInstance.save()
+#             if oldValue != newValue:
+#                 # Find all related instances and update their foreign keys
+#                 relatedInstances = relatedModel.objects.filter(**{relatedFieldName: oldValue})
+#                 for relatedInstance in relatedInstances:
+#                     setattr(relatedInstance, relatedFieldName, newValue)
+#                     relatedInstance.save()

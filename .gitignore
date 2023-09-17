@@ -9,6 +9,7 @@ activate_env.ps1
 /backups/dbBackup/*.dump
 /backups/dbBackup/temp/*.dump
 /backups/__pycache__
+packages.txt
 
 # django files
 main/__pycache__/

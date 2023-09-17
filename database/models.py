@@ -19,17 +19,17 @@ class Module(models.Model):
     moduleID = models.CharField(primary_key=True ,max_length=7, auto_created=False)
     moduleName = models.CharField(max_length=100)
     moduleSemester = models.IntegerField(default=3)
-    moduleDescription = models.CharField(max_length=250)
+    moduleDescription = models.CharField(max_length=2500)
     moduleLevel = models.IntegerField(default=1)
     moduleWeight = models.IntegerField(default=20)
     def __str__(self):
         return self.moduleID
     
 class Assessment(models.Model):
-    assessmentID = models.IntegerField(primary_key=True, auto_created=False)
+    assessmentID = models.IntegerField(primary_key=True, auto_created=True)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     assessmentType = models.CharField(max_length=20)
-    assessmentWeight = models.IntegerField(default=20)
+    assessmentWeight = models.FloatField(default=20)
     def __str__(self):
         return str(self.assessmentID)
 
@@ -44,7 +44,7 @@ class ModulePathway(models.Model):
     modulePathwayID = models.IntegerField(primary_key=True, auto_created=True)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     pathwayID = models.ForeignKey(Pathway, on_delete=models.CASCADE)
-    mpCore = models.BooleanField(default=True) #either optional or core
+    mpCore = models.BooleanField(default=True) # either optional or core
     def __str__(self):
         return str(self.modulePathwayID)
     
@@ -53,7 +53,7 @@ class Student(models.Model):
     pathwayID = models.ForeignKey(Pathway, on_delete=models.SET_NULL, null=True)
     studentCurrentLevel = models.IntegerField(default=1)
     studentCurrentSemester = models.IntegerField(default=1)
-    currentPathwayMark = models.IntegerField(default=100)
+    currentPathwayMark = models.FloatField(default=0, editable=False)
     def __str__(self):
         return str(self.studentID)
 
@@ -61,7 +61,7 @@ class StudentModule(models.Model):
     studentModuleID = models.IntegerField(primary_key=True, auto_created=True)
     studentID = models.ForeignKey(Student, on_delete=models.CASCADE)
     moduleID = models.ForeignKey(Module, on_delete=models.SET_NULL, null=True)
-    stuModMark = models.IntegerField(default=100)
+    stuModMark = models.FloatField(default=0, editable=False)
     def __str__(self):
         return str(self.studentModuleID)
 
@@ -77,4 +77,4 @@ class StudentModuleAssesment(models.Model):
     studentModuleAssesmentID =  models.IntegerField(primary_key=True, auto_created=True)
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
-    assesmentMark = models.IntegerField(default=100)
+    assesmentMark = models.FloatField(default=100)

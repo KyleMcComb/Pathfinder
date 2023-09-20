@@ -1,6 +1,5 @@
-from django.core.management import call_command
 from django.http import JsonResponse
-from backups.backupManagement import *
+from backups.backupManagement import createBackupFile, deleteOldestBackupFile, deleteOldestBackupBlob, uploadLatestBackup
 
 
 """

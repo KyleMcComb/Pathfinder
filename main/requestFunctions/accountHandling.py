@@ -1,7 +1,6 @@
 # below imports are used for sending an email
 import smtplib
 from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 
 from database.models import *

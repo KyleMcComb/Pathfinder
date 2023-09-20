@@ -2,7 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from mysite.jobs import *
 
 
 def main():
@@ -17,7 +16,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    #backupJob() # When the server stops backup the database
+    from mysite.jobs import backupJob
+    #backupJob() # When the server stops backup the database -- commented out during development to prevent unnecessary backups
 
 
 if __name__ == '__main__':

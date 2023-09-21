@@ -1,6 +1,15 @@
 from django.db import models
 
 # Create your models here.
+
+class Career(models.Model):
+    careerID = models.IntegerField(primary_key=True, auto_created=True)
+    jobTitle = models.CharField(max_length=100)
+    companyName = models.CharField(max_length=100)
+    jobDescription = models.CharField(max_length=1000)
+    def __str__(self):
+        return str(self.careerID)
+
 class Module(models.Model):
     moduleID = models.CharField(primary_key=True ,max_length=7, auto_created=False)
     moduleName = models.CharField(max_length=100)
@@ -82,15 +91,7 @@ class StudentModuleAssesment(models.Model):
     def __str__(self):
         return str(self.studentModuleAssesmentID)
 
-class Career(models.Model):
-    careerID = models.IntegerField(primary_key=True, auto_created=True)
-    jobTitle = models.CharField(max_length=100)
-    companyName = models.CharField(max_length=100)
-    jobDescription = models.CharField(max_length=1000)
-    def __str__(self):
-        return str(self.careerID)
-
-# class CareerModule(models.Model):   ### Could have CareerModuleStudent
-#     careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
-#     careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
-#     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
+class CareerModule(models.Model):   ### Could have CareerModuleStudent
+    careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
+    careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
+    moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)

@@ -107,10 +107,10 @@ class CareerAdmin(admin.ModelAdmin):
     list_display_links = ("jobTitle",)
     list_filter = ("companyName",)
 
-# @admin.register(CareerModule)
-# class CareerModuleAdmin(admin.ModelAdmin):
-#     def career(self, obj):
-#         return mark_safe(f"<a href='/admin/database/career/{obj.careerID.pk}/change/'>{obj.careerID.jobTitle} at {obj.careerID.companyName}</a>")
+@admin.register(CareerModule)
+class CareerModuleAdmin(admin.ModelAdmin):
+    def career(self, obj):
+        return mark_safe(f"<a href='/admin/database/career/{obj.careerID.pk}/change/'>{obj.careerID.jobTitle} at {obj.careerID.companyName}</a>")
 
 #     def module(self, obj):
 #         return mark_safe(f"<a href='/admin/database/module/{obj.moduleID.pk}/change/'>{obj.moduleID.moduleName}</a>")

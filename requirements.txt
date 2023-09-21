@@ -1,7 +1,13 @@
-django>=3.2, <3.3
-chatterbot==1.0.8
-chatterbot-corpus==1.2.0
-spacy==3.2.0
+pip-system-certs==4.0 # this fixes some SSL certification errors that may occur on machines that have more restrictive firewall settings
+django>=3.2, <3.3 # installing django to run the project using its framework
+chatterbot==1.0.8 # chatbot module
+chatterbot-corpus==1.2.0 # chatbot language learning
+spacy==3.5.0 # chatbot language module
+django-dbbackup==4.0.2 # for database backups
+django-crontab==0.7.1 # for cron job scheduling
+azure-core==1.29.1 # for azure storage
+azure-storage-blob==12.17.0 # for azure storage
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl#sha256=0964370218b7e1672a30ac50d72cdc6b16f7c867496f1d60925691188f4d2510 # for chatbot language module
 Scrapy==2.9.0
 urllib3==2.0.4
 scrapeops-scrapy-proxy-sdk==1.0

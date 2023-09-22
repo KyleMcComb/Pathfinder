@@ -67,8 +67,12 @@ def addLecturerModuleLinks():
     
     ##ADD ALL modules and lecturer links
     modLec_list = [lec1Mod1023, lec1Mod1026, lec1Mod1033, lec1Mod1027, lec1Mod1031,
-                   lec2Mod1028, lec2Mod1023, lec2Mod1025, lec2Mod1029,lec2Mod1030,
-                   lec3Mod2058, lec3Mod2059, lec3Mod2063, lec3Mod2065, lec3Mod2066,
-                   lec3Mod1023]
+                    lec2Mod1028, lec2Mod1023, lec2Mod1025, lec2Mod1029,lec2Mod1030,
+                    lec3Mod2058, lec3Mod2059, lec3Mod2063, lec3Mod2065, lec3Mod2066,
+                    lec3Mod1023]
     for x in modLec_list:
         x.save()
+
+if __name__ == '__main__':
+    addLecturers()
+    addLecturerModuleLinks()

@@ -5,4 +5,4 @@ class DatabaseConfig(AppConfig):
     name = 'database'
 
     def ready(self):
-        import database.signals  # Replace with the actual path to your signals.py file
+        import database.signals

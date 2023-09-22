@@ -28,3 +28,5 @@ database/populateData/migrations/
 *.sqlite3-wal
 
 __pycache__
+
+testingDb.py

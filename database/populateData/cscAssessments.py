@@ -59,9 +59,9 @@ def addAssessments():
 
     ##ADD stage 1 assessments
     stage1Assess_list = [mod1023ass1, mod1023ass2, mod1023ass3, mod1024ass1, mod1024ass2, 
-                         mod1024ass3, mod1024ass4, mod1025ass1, mod1026ass1, mod1026ass2, mod1027ass1, mod1027ass2, 
-                         mod1027ass3, mod1028ass1, mod1029ass1, mod1030ass1,
-                         mod1030ass2, mod1031ass1,mod1031ass2,mod1032ass1,mod1033ass1]
+                        mod1024ass3, mod1024ass4, mod1025ass1, mod1026ass1, mod1026ass2, mod1027ass1, mod1027ass2, 
+                        mod1027ass3, mod1028ass1, mod1029ass1, mod1030ass1,
+                        mod1030ass2, mod1031ass1,mod1031ass2,mod1032ass1,mod1033ass1]
     for x in stage1Assess_list:
         x.save()
 
@@ -119,8 +119,11 @@ def addAssessments():
 
     ##ADD stage 2 assessments
     stage2Assess_list = [mod2051ass1, mod2051ass2, mod2052ass1,mod2053ass1, mod2053ass2, mod2054ass1, 
-                         mod2056ass1, mod2056ass2,mod2057ass1, mod2057ass2, mod2058ass1, mod2059ass1, 
-                         mod2059ass2, mod2060ass1, mod2060ass2, mod2062ass1, mod2062ass2, mod2062ass3,
-                         mod2063ass1, mod2063ass2,mod2065ass1,mod2066ass1]
+                        mod2056ass1, mod2056ass2,mod2057ass1, mod2057ass2, mod2058ass1, mod2059ass1, 
+                        mod2059ass2, mod2060ass1, mod2060ass2, mod2062ass1, mod2062ass2, mod2062ass3,
+                        mod2063ass1, mod2063ass2,mod2065ass1,mod2066ass1]
     for x in stage2Assess_list:
         x.save()
+
+if __name__ == '__main__':
+    addAssessments()

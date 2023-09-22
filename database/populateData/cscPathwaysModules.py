@@ -26,22 +26,6 @@ def addModuleDescriptions():
         allModules[i].moduleDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         allModules[i].save()
 
-def addComputerSciencePathways():
-    #Computer science pathways
-    pathwayG402 = Pathway(pathwayID ='G402', pathwayName = 'MEng Computer Science', pathwayLevels = 4)
-    #pathwayG404 = Pathway(pathwayID = 'G404', pathwayName = 'BENG-I (International) Computer Science', pathwayLevels = 3)
-    pathwayG400 = Pathway(pathwayID='G400', pathwayName='BSc Computer Science', pathwayLevels=3)
-    pathwayG602 = Pathway(pathwayID='G602', pathwayName='MEng Software Engineering', pathwayLevels=4)
-    pathwayG604 = Pathway(pathwayID='G604', pathwayName='BEng Software Engineering', pathwayLevels=3)
-    pathwayG606 = Pathway(pathwayID='G606', pathwayName='BEng Software Engineering with Digital Technology Partnership', pathwayLevels=4)
-    pathwayGG45 = Pathway(pathwayID='GG45', pathwayName='BSc Computing and Information Technology', pathwayLevels=3)
-    #pathwayGN51 = Pathway(pathwayID='GN51', pathwayName='BSc Business Information Technology', pathwayLevels=3)
-
-    ##ADD ALL PATHWAYS
-    path_list = [pathwayG402, pathwayG400, pathwayG602, pathwayG604, pathwayG606, pathwayGG45]
-    for x in path_list:
-        x.save()
-
 
 def addComputerScienceModules():
     #Computer Science Level 1 modules
@@ -941,3 +925,9 @@ def addComputerSciencePathwayModuleLinks():
                     module3031PathwayGG45, module3056PathwayGG45, module3064PathwayGG45]
     for z in GG45Mod3_list:
         z.save()
+
+if __name__ == "__main__":
+    addComputerSciencePathways()
+    addComputerScienceModules()
+    addComputerSciencePathwayModuleLinks()
+    addModuleDescriptions()

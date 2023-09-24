@@ -5,8 +5,10 @@
 -->
 
 {% load static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'assets/css/adminStyles.css' %}">{% endblock %}
+
 {% block content %}
-    <link rel="stylesheet" href="{% static 'assets/css/adminFiles/styles.css' %}">
     <div id="content-main">
         {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
         <div class="module"><input type="submit" onclick="createBackup()" value="Create Backup"></div>

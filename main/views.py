@@ -44,3 +44,19 @@ def gradeDashboard(request):
 '''
 def moduleInformation(request):
     return render(request, 'moduleInformation.html', {'form': CustomLoginForm()})
+
+'''
+    @Author: @DeanLogan
+    @Description: Renders the localBackupPage.html file to be displayed to the user.
+    @param: request -  HttpRequest object that contains metadata about the request
+'''
+def localBackup(request):
+    return render(request, 'adminFiles/localBackupPage.html', {'form': CustomLoginForm()})
+
+'''
+    @Author: @DeanLogan
+    @Description: Renders the cloudBackupPage.html file to be displayed to the user.
+    @param: request -  HttpRequest object that contains metadata about the request
+'''
+def cloudBackup(request):
+    return render(request, 'adminFiles/cloudBackupPage.html', {'form': CustomLoginForm()})

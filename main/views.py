@@ -51,7 +51,7 @@ def moduleInformation(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def localBackup(request):
-    return render(request, 'adminFiles/localBackupPage.html', {'form': CustomLoginForm()})
+    return render(request, 'admin/localBackupPage.html', {'form': CustomLoginForm()})
 
 '''
     @Author: @DeanLogan
@@ -59,4 +59,4 @@ def localBackup(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def cloudBackup(request):
-    return render(request, 'adminFiles/cloudBackupPage.html', {'form': CustomLoginForm()})
+    return render(request, 'admin/cloudBackupPage.html', {'form': CustomLoginForm()})

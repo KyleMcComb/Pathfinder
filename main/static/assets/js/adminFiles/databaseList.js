@@ -16,7 +16,6 @@ function pageLoad() {
     }
     
     if(document.title != "Local Backups"){
-        console.log("how");
         // Populate the cloud backup table with file information
         backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"), true);
     }

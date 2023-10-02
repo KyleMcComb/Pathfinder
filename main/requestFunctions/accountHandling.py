@@ -9,6 +9,7 @@ from main.forms import CustomLoginForm
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from captcha.fields import ReCaptchaField  # Import ReCaptchaField
 
 '''
     @Author: @DeanLogan
@@ -19,6 +20,10 @@ from django.contrib.auth import authenticate, login
 def verify(request):
     if request.method == 'POST':
         form = CustomLoginForm(request, data=request.POST)
+        print(form['username'].value())
+        print(form['password'].value())
+        print(form['captcha'].value())
+
         if form.is_valid():
             login(request, authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password']))
             # Set session timeout based on 'remember_me' value
@@ -26,9 +31,9 @@ def verify(request):
                 request.session.set_expiry(1209600)  # Two weeks (in seconds)
             return JsonResponse({'loggedIn': 'true'})
         else:
-            return JsonResponse({'loggedIn': 'false', 'errors': form.errors})
+            print(form.errors)
+            return JsonResponse({'loggedIn': 'false', 'errors': 'Failed Captcha'})
     else:
-        print("here")
         return JsonResponse({'errors': 'Invalid request method'})
 
 '''

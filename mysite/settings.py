@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'captcha',
     'dbbackup',
     'database',
     'backups'
@@ -141,3 +142,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = "/"
+
+RECAPTCHA_PUBLIC_KEY = '6LfnPW4oAAAAALM65qUErp5CGjZHQ4VPRRYWbPsc'
+RECAPTCHA_PRIVATE_KEY = '6LfnPW4oAAAAABh3tQ-V0-EmfxkfSbtUYtQrAN11'

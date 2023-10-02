@@ -206,7 +206,8 @@ function listeners() {
     window.addEventListener('resize', function() { resizeNav(sessionStorage.getItem('navOpen')); }); // Resize navigation sidebar
 
     document.addEventListener("keypress", function(event) {
-        if (event.key === "Enter" && (event.target.id === "username-login" || event.target.id === "password-login")) {
+        if (event.key == "Enter" && (event.target.id == "username-login" || event.target.id == "password-login")) {
+            console.log("Enter pressed");
             login();
         }
     });
@@ -319,7 +320,13 @@ function goToSignUp() {
  */
 function login() {
     // Send a POST request to verify login credentials
-    $.post('/verify/', { username: document.getElementById('username').value, password: document.getElementById('password').value, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()}, function (data) {
+    $.post('/verify/', {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value,
+        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+        'g-recaptcha-response': document.getElementsByName('g-recaptcha-response')[0].value // Include reCAPTCHA response
+    }, function (data) {
+        console.log("login attempted");
         console.log(data.errors);
         if (data.loggedIn == 'true') {
             // If login is successful, display a success alert and reload the page
@@ -331,6 +338,7 @@ function login() {
         }
     });
 }
+
 
 // Run the pageLoad function when the window is fully loaded
 window.onload = pageLoad();

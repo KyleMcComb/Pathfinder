@@ -1,0 +1,42 @@
+{% extends "admin/index.html" %}
+
+<!-- 
+    Author: @DeanLogan
+-->
+
+{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'assets/css/adminStyles.css' %}">{% endblock %}
+{% block title %}Local Backups{% endblock %}
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="/admin/">Home</a>
+        › Local Backup
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h1>Local Backup</h1>
+    {% block content-main %}
+        <div class="overlay">
+            <div class="overlay-content">
+                <div class="loader"></div>
+            </div>
+        </div>
+        <div>
+            <div class="module">
+                <table>
+                    <caption>
+                        <a href="/localBackups/" class="section" title="Local Backups">Local Backups</a>
+                    </caption>
+                    <tbody id="localBackupTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{% static 'assets/js/adminFiles/databaseList.js' %}"></script>
+    {% endblock %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

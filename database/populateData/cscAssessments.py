@@ -26,7 +26,7 @@ def addAssessments():
     mod1024ass4 = Assessment(assessmentID=10244, moduleID=mod1024, assessmentType='Class Test', assessmentWeight = 20)
 
     mod1025 = Module.objects.get(moduleID='CSC1025')
-    mod1025ass1 = Assessment(assessmentID=10251, moduleID=mod1025, assessmentType='Class Test', assessmentWeight = 100)
+    mod1025ass1 = Assessment(assessmentID=10251, moduleID=mod1025, assessmentType='Continual Assessment', assessmentWeight = 100)
 
     mod1026 = Module.objects.get(moduleID='CSC1026')
     mod1026ass1 = Assessment(assessmentID=10261, moduleID=mod1026, assessmentType='Continual Assessment', assessmentWeight = 60)
@@ -42,14 +42,15 @@ def addAssessments():
 
     mod1029 = Module.objects.get(moduleID='CSC1029')
     mod1029ass1 = Assessment(assessmentID=10291, moduleID=mod1029, assessmentType='Class Test', assessmentWeight = 20)
+    mod1029ass2 = Assessment(assessmentID=10292, moduleID=mod1029, assessmentType='Project', assessmentWeight = 50)
+    mod1029ass3 = Assessment(assessmentID=10293, moduleID=mod1029, assessmentType='Timed exam on Computer', assessmentWeight = 30)
 
     mod1030 = Module.objects.get(moduleID='CSC1030')
     mod1030ass1 = Assessment(assessmentID=10301, moduleID=mod1030, assessmentType='Project', assessmentWeight = 60)
     mod1030ass2 = Assessment(assessmentID=10302, moduleID=mod1030, assessmentType='Continual Assessment', assessmentWeight = 40)
 
     mod1031 = Module.objects.get(moduleID='CSC1031')
-    mod1031ass1 = Assessment(assessmentID=10311, moduleID=mod1031, assessmentType='Group', assessmentWeight = 70)
-    mod1031ass2 = Assessment(assessmentID=10312, moduleID=mod1031, assessmentType='Timed exam on Computer', assessmentWeight = 30)
+    mod1031ass1 = Assessment(assessmentID=10311, moduleID=mod1031, assessmentType='Continual Assessment', assessmentWeight = 100)
 
     mod1032 = Module.objects.get(moduleID='CSC1032')
     mod1032ass1 = Assessment(assessmentID=10321, moduleID=mod1032, assessmentType='Continual Assessment', assessmentWeight = 100)
@@ -60,8 +61,8 @@ def addAssessments():
     ##ADD stage 1 assessments
     stage1Assess_list = [mod1023ass1, mod1023ass2, mod1023ass3, mod1024ass1, mod1024ass2, 
                         mod1024ass3, mod1024ass4, mod1025ass1, mod1026ass1, mod1026ass2, mod1027ass1, mod1027ass2, 
-                        mod1027ass3, mod1028ass1, mod1029ass1, mod1030ass1,
-                        mod1030ass2, mod1031ass1,mod1031ass2,mod1032ass1,mod1033ass1]
+                        mod1027ass3, mod1028ass1, mod1029ass1, mod1029ass2, mod1029ass3, mod1030ass1,
+                        mod1030ass2, mod1031ass1,mod1032ass1,mod1033ass1]
     for x in stage1Assess_list:
         x.save()
 

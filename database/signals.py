@@ -2,7 +2,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
-from .models import StudentModuleAssesment, StudentModule
+from .models import StudentModuleAssessment, StudentModule
 
 """
 @Author: @DeanLogan
@@ -12,19 +12,19 @@ Recalculates and updates the total mark for the associated StudentModule.
 @param: instance - The instance of the StudentModuleAssessment that was saved.
 @param: **kwargs - Additional keyword arguments.
 """
-@receiver(post_save, sender=StudentModuleAssesment)
+@receiver(post_save, sender=StudentModuleAssessment)
 def resetStuModMarks(sender, instance, **kwargs):
     studentModule = instance.studentModuleID
     
     # Get all assessments associated with the given StudentModule
-    assessments =  StudentModuleAssesment.objects.filter(studentModuleID=studentModule)
+    assessments =  StudentModuleAssessment.objects.filter(studentModuleID=studentModule)
     
     # Initialize the total mark
     totalMark = 0.0
     
     # Calculate the weighted sum of assessment marks
     for assessment in assessments:
-        totalMark += assessment.assesmentMark * (assessment.assessmentID.assessmentWeight / 100)
+        totalMark += assessment.assessmentMark * (assessment.assessmentID.assessmentWeight / 100)
 
     # Update the StudentModule's stuModMark attribute with the new total mark
     studentModule.stuModMark = round(totalMark)

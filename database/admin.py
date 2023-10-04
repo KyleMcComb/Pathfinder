@@ -82,16 +82,16 @@ class StudentInterestAdmin(admin.ModelAdmin):
     search_fields =  ('studentInterestID', )
     list_filter = ("studentID", )
 
-@admin.register(StudentModuleAssesment)
-class StudentModuleAssesmentAdmin(admin.ModelAdmin):
+@admin.register(StudentModuleAssessment)
+class StudentModuleAssessmentAdmin(admin.ModelAdmin):
     def studentModule(self, obj):
         return mark_safe(f"<a href='/admin/database/studentmodule/{obj.studentModuleID}/change/'>{obj.studentModuleID}</a>")
     
     def assessment(self, obj):
         return mark_safe(f"<a href='/admin/database/assessment/{obj.assessmentID}/change/'>{obj.assessmentID}</a>")
 
-    list_display = ("studentModuleAssesmentID", "studentModule", "assessment", "assesmentMark")
-    search_fields =  ('studentModuleAssesmentID', )
+    list_display = ("studentModuleAssessmentID", "studentModule", "assessment", "assessmentMark")
+    search_fields =  ('studentModuleAssessmentID', )
     list_filter = ("studentModuleID", "assessmentID")
 
 admin.site.index_template = 'adminFiles/extendedAdminPage.html'  # Path to custom template for admin index page

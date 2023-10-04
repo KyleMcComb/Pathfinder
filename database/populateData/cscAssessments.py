@@ -126,5 +126,82 @@ def addAssessments():
     for x in stage2Assess_list:
         x.save()
 
+#stage 3
+    mod3001 = Module.objects.get(moduleID='CSC3001')
+    mod3001ass1 = Assessment(assessmentID=30011, moduleID=mod3001, assessmentType='Assignment', assessmentWeight = 30)
+    mod3001ass2 = Assessment(assessmentID=30012, moduleID=mod3001, assessmentType='Paper', assessmentWeight = 70)
+
+    mod3002 = Module.objects.get(moduleID='CSC3002')
+    mod3002ass1 = Assessment(assessmentID=30021, moduleID=mod3002, assessmentType='Project', assessmentWeight = 100)
+
+    mod3021 = Module.objects.get(moduleID='CSC3021')
+    mod3021ass1 = Assessment(assessmentID=30211, moduleID=mod3021, assessmentType='Coursework', assessmentWeight = 100)
+
+    mod3023 = Module.objects.get(moduleID='CSC3023')
+    mod3023ass1 = Assessment(assessmentID=30231, moduleID=mod3023, assessmentType='Project', assessmentWeight = 100)
+
+    mod3031 = Module.objects.get(moduleID='CSC3031')
+    mod3031ass1 = Assessment(assessmentID=30311, moduleID=mod3031, assessmentType='Coursework', assessmentWeight = 100)
+
+    mod3032 = Module.objects.get(moduleID='CSC3032')
+    mod3032ass1 = Assessment(assessmentID=30321, moduleID=mod3032, assessmentType='Project', assessmentWeight = 100)
+
+    mod3045 = Module.objects.get(moduleID='CSC3045')
+    mod3045ass1 = Assessment(assessmentID=30451, moduleID=mod3045, assessmentType='Project', assessmentWeight = 100)
+
+    mod3047 = Module.objects.get(moduleID='CSC3047')
+    mod3047ass1 = Assessment(assessmentID=30471, moduleID=mod3047, assessmentType='Project', assessmentWeight = 100)
+
+    mod3056 = Module.objects.get(moduleID='CSC3056')
+    mod3056ass1 = Assessment(assessmentID=30561, moduleID=mod3056, assessmentType='Continual Assessment', assessmentWeight = 60)
+    mod3056ass2 = Assessment(assessmentID=30562, moduleID=mod3056, assessmentType='Timed Exam on Computer', assessmentWeight = 40)
+
+    mod3058 = Module.objects.get(moduleID='CSC3058')
+    mod3058ass1 = Assessment(assessmentID=30581, moduleID=mod3058, assessmentType='Continual Assessment', assessmentWeight = 60)
+    mod3058ass2 = Assessment(assessmentID=30582, moduleID=mod3058, assessmentType='Practical', assessmentWeight = 40)
+
+    mod3059 = Module.objects.get(moduleID='CSC3059')
+    mod3059ass1 = Assessment(assessmentID=30591, moduleID=mod3059, assessmentType='Paper', assessmentWeight = 40)
+    mod3059ass2 = Assessment(assessmentID=30592, moduleID=mod3059, assessmentType='Practical', assessmentWeight = 60)
+
+    mod3062 = Module.objects.get(moduleID='CSC3062')
+    mod3062ass1 = Assessment(assessmentID=30621, moduleID=mod3062, assessmentType='Coursework', assessmentWeight = 100)
+
+    mod3063 = Module.objects.get(moduleID='CSC3063')
+    mod3063ass1 = Assessment(assessmentID=30631, moduleID=mod3063, assessmentType='Assignment', assessmentWeight = 40)
+    mod3063ass2 = Assessment(assessmentID=30632, moduleID=mod3063, assessmentType='Practical 1', assessmentWeight = 30)
+    mod3063ass3 = Assessment(assessmentID=30633, moduleID=mod3063, assessmentType='Practical 2', assessmentWeight = 30)
+
+    mod3064 = Module.objects.get(moduleID='CSC3064')
+    mod3064ass1 = Assessment(assessmentID=30641, moduleID=mod3064, assessmentType='Coursework', assessmentWeight = 100)
+
+    mod3065 = Module.objects.get(moduleID='CSC3065')
+    mod3065ass1 = Assessment(assessmentID=30651, moduleID=mod3065, assessmentType='Continual Assessment', assessmentWeight = 100)
+
+    mod3066 = Module.objects.get(moduleID='CSC3066')
+    mod3066ass1 = Assessment(assessmentID=30661, moduleID=mod3066, assessmentType='Assignment 1', assessmentWeight = 30)
+    mod3066ass2 = Assessment(assessmentID=30662, moduleID=mod3066, assessmentType='Assignment 2', assessmentWeight = 30)
+    mod3066ass3 = Assessment(assessmentID=30663, moduleID=mod3066, assessmentType='Paper', assessmentWeight = 40)
+
+    mod3067 = Module.objects.get(moduleID='CSC3067')
+    mod3067ass1 = Assessment(assessmentID=30671, moduleID=mod3067, assessmentType='Class Test 1', assessmentWeight = 20)
+    mod3067ass2 = Assessment(assessmentID=30672, moduleID=mod3067, assessmentType='Class Test 2', assessmentWeight = 40)
+    mod3067ass3 = Assessment(assessmentID=30673, moduleID=mod3067, assessmentType='Project', assessmentWeight = 40)
+
+    mod3068 = Module.objects.get(moduleID='CSC3068')
+    mod3068ass1 = Assessment(assessmentID=30681, moduleID=mod3068, assessmentType='Project', assessmentWeight = 100)
+
+    mod3069 = Module.objects.get(moduleID='CSC3069')
+    mod3069ass1 = Assessment(assessmentID=30691, moduleID=mod3069, assessmentType='Project ', assessmentWeight = 100)
+
+    ##ADD stage 3 assessments
+    stage3Assess_list = [mod3001ass1, mod3001ass2, mod3002ass1, mod3021ass1, mod3023ass1, mod3031ass1,
+                         mod3032ass1, mod3045ass1, mod3047ass1, mod3056ass1, mod3056ass2, mod3058ass1,
+                         mod3058ass2, mod3059ass1, mod3059ass2, mod3062ass1, mod3063ass1, mod3063ass2,
+                         mod3063ass3, mod3064ass1, mod3065ass1, mod3066ass1, mod3066ass2, mod3066ass3,
+                         mod3067ass1, mod3067ass2, mod3067ass3, mod3068ass1, mod3069ass1]
+    for x in stage3Assess_list:
+        x.save()
+
 if __name__ == '__main__':
     addAssessments()

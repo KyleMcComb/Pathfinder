@@ -73,8 +73,8 @@ class StudentInterest(models.Model):
     def __str__(self):
         return str(self.studentInterestID)
     
-class StudentModuleAssesment(models.Model):
-    studentModuleAssesmentID =  models.IntegerField(primary_key=True, auto_created=True)
+class StudentModuleAssessment(models.Model):
+    studentModuleAssessmentID =  models.IntegerField(primary_key=True, auto_created=True)
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
-    assesmentMark = models.FloatField(default=100)
+    assessmentMark = models.FloatField(default=100)

@@ -1,5 +1,6 @@
 from django.db import models
-
+from django_otp.plugins.otp_totp.models import TOTPDevice
+from django.contrib.auth.models import User
 
 class Pathway(models.Model):
     pathwayID = models.CharField(primary_key=True,max_length=4, auto_created=False)
@@ -78,3 +79,11 @@ class StudentModuleAssesment(models.Model):
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
     assesmentMark = models.FloatField(default=100)
+
+class TwoFactorAuth(TOTPDevice):
+    associatedUser = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Add any additional fields specific to your 2FA implementation
+    # ...
+
+    class Meta:
+        verbose_name = 'Two-Factor Authentication'

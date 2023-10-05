@@ -20,10 +20,8 @@ from captcha.fields import ReCaptchaField  # Import ReCaptchaField
 def verify(request):
     if request.method == 'POST':
         form = CustomLoginForm(request, data=request.POST)
-        print(form['username'].value())
-        print(form['password'].value())
-        print(form['captcha'].value())
 
+        # Check if form is valid, if it is not valid then the user has failed the captcha
         if form.is_valid():
             login(request, authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password']))
             # Set session timeout based on 'remember_me' value

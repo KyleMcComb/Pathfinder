@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
     'captcha',
     'dbbackup',
     'database',

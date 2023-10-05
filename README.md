@@ -102,7 +102,9 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
 * Student Account 2
   * Student Number: 40191566
   * Password: b450ma11
-  
+* Pathfinder Email Account:
+  * Email Address: pathfinder3068@gmail.com
+  * Password: PageRank12*
 
 ## Useful Links
 Below are some links that might be helpful in creating/running docker containers and virtual environments if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familiar with similar technologies these resources can be ignored.

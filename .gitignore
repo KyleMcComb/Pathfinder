@@ -14,11 +14,5 @@ mysite/__pycache__/
 database/__pycache__/
 database/populateData/__pycache__/
 
-main/migrations/
-test/migrations/
-mysite/migrations/
-database/migrations/
-database/populateData/migrations/
-
 db.sqlite3-shm
 db.sqlite3-wal

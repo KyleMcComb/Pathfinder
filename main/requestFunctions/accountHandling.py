@@ -1,15 +1,19 @@
 # below imports are used for sending an email
+import base64
+import qrcode
 import smtplib
+import io
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 from database.models import *
 from mysite.settings import *
-from main.forms import CustomLoginForm
 from django.http import JsonResponse
+from django.http import HttpResponse
+from main.forms import CustomLoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from captcha.fields import ReCaptchaField  # Import ReCaptchaField
+from django_otp.plugins.otp_totp.models import TOTP, TOTPDevice
 
 '''
     @Author: @DeanLogan
@@ -20,19 +24,59 @@ from captcha.fields import ReCaptchaField  # Import ReCaptchaField
 def verify(request):
     if request.method == 'POST':
         form = CustomLoginForm(request, data=request.POST)
-
         # Check if form is valid, if it is not valid then the user has failed the captcha
         if form.is_valid():
-            login(request, authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password']))
+            if twoFactorCheck(request):
+                login(request, authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password']))
+            else:
+                return JsonResponse({'loggedIn': 'false', 'errors': 'Failed 2FA'})
             # Set session timeout based on 'remember_me' value
             if form.cleaned_data.get('remember_me', False):
                 request.session.set_expiry(1209600)  # Two weeks (in seconds)
             return JsonResponse({'loggedIn': 'true'})
         else:
             print(form.errors)
-            return JsonResponse({'loggedIn': 'false', 'errors': 'Failed Captcha'})
+            return JsonResponse({'loggedIn': 'false', 'errors': 'Failed Captcha, or invalid credentials'})
     else:
         return JsonResponse({'errors': 'Invalid request method'})
+
+# the below function will be used to check if the user has 2FA enabled, for now it will return True just for testing purposes
+def twoFactorCheck(request):
+    return True
+    try:
+        user = request.user
+        if user.twoFactorAuth:
+            totpEntered = request.GET.get('totpEntered')
+            if(TOTPDevice.objects.get(user=user).verify_token(totpEntered)):
+                return True
+        else:
+            return False
+    except:
+        return False
+
+def createSecretKey(request):
+    return TOTPDevice.objects.create(user=request.user, confirmed=True, name="Pathfinder - EEECS").config_url
+
+def generateQRCode(url):
+    print(url)
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    buffer = io.BytesIO()
+    img.save(buffer)
+    buffer.seek(0)
+    base64_image = base64.b64encode(buffer.read()).decode("utf-8")
+
+    return base64_image  # Return the Base64-encoded image data
+
+def displayQRCode(request):
+    return HttpResponse(generateQRCode(createSecretKey(request)), content_type="image/png")
 
 '''
     @Author: @DeanLogan

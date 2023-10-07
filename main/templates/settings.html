@@ -66,6 +66,13 @@
                                 <p><b>Current Stage:</b></p>
                                 <p class="accountInformation" id="account-stage"></p>
                             {% endif %}
+                            <p><b>2FA:</b></p>
+                            <p class="accountInformation">
+                                Scan the qr code below with your authenticator app, to setup 2FA on your account.
+                                <br /><br />
+                                <span id="qr-code"></span>
+                            </p>
+                            <br /><br />
                             <p>If any of this information is incorrect please contact the admin here: <b><span class="admin-email"></span></b></p>
                         </form>
                     {% endif %}

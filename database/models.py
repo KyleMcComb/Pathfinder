@@ -82,8 +82,6 @@ class StudentModuleAssesment(models.Model):
 
 class TwoFactorAuth(TOTPDevice):
     associatedUser = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Add any additional fields specific to your 2FA implementation
-    # ...
 
     class Meta:
         verbose_name = 'Two-Factor Authentication'

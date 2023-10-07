@@ -12,5 +12,5 @@ class CustomLoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({'class': 'inputField', 'placeholder': 'Enter Student Number', 'id': 'username'})
         self.fields['password'].widget.attrs.update({'class': 'inputField', 'placeholder': 'Enter Password', 'id': 'password'})
-        self.fields['remember_me'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['remember_me'].widget.attrs.update({'class': 'form-check-input', 'id': 'remember_me'})
         self.fields['captcha'] = ReCaptchaField()

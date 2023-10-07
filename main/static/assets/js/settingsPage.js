@@ -25,6 +25,8 @@ function settingsPageLoad() {
     }
     
     getAccountInfo();
+
+    displayQRCode();
 }
 
 /**
@@ -79,6 +81,22 @@ function updateAccessabilityOptions() {
     } else { // Default option is medium
         localStorage.setItem('fontSize', 'medium');
     }
+}
+
+function displayQRCode(){
+    $.get('/displayQRCode/', function(data) {
+        console.log(data);
+        // Create an image element and set the source to the data URI
+        var img = document.createElement('img');
+        img.src = 'data:image/png;base64,' + data;
+        
+        // Get the element where you want to display the QR code
+        var qrCodeContainer = document.getElementById('qr-code');
+        
+        // Clear the container and append the image
+        qrCodeContainer.innerHTML = '';
+        qrCodeContainer.appendChild(img);
+    });
 }
 
 // Call settingsPageLoad function when the window loads

@@ -204,13 +204,6 @@ function listeners() {
     // When the window is resized, adjust UI elements
     window.addEventListener('resize', function() { resizeContentDiv(); }); // Resize content div
     window.addEventListener('resize', function() { resizeNav(sessionStorage.getItem('navOpen')); }); // Resize navigation sidebar
-
-    document.addEventListener("keypress", function(event) {
-        if (event.key == "Enter" && (event.target.id == "username" || event.target.id == "password")) {
-            console.log("Enter pressed");
-            login();
-        }
-    });
     
     // Menu animation code
     const menu = document.getElementById('menu');
@@ -312,32 +305,6 @@ function goToSignUp() {
         }
     });
 }
-
-/**
- * @Author - @DeanLogan
- * @Description - Gathers the entered login information and sends a POST request to verify the credentials.
- * If successful, the user is logged in; if not, an alert is displayed.
- */
-function login() {
-    // Send a POST request to verify login credentials
-    $.post('/verify/', {
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value,
-        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
-        'g-recaptcha-response': document.getElementsByName('g-recaptcha-response')[0].value, // Include reCAPTCHA response
-        'code': document.getElementById('code').value // Include 2FA code
-    }, function (data) {
-        if (data.loggedIn == 'true') {
-            // If login is successful, display a success alert and reload the page
-            alert('Login success');
-            location.reload();
-        } else {
-            // If login fails, display an alert
-            alert(data.errors);
-        }
-    });
-}
-
 
 // Run the pageLoad function when the window is fully loaded
 window.onload = pageLoad();

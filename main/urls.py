@@ -31,4 +31,5 @@ urlpatterns = [
     path('admin/localBackup/', views.localBackup, name='localBackup'),
     path('admin/cloudBackup/', views.cloudBackup, name='cloudBackup'),
     path('displayQRCode/', displayQRCode, name='displayQRCode'),
+    path('login/', views.loginPage, name='login'),
 ]

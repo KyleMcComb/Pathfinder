@@ -34,7 +34,7 @@
                     {% elif user.is_authenticated and user.username != "admin" %} <!-- displays link to grade dashboard page if user is the student -->
                         <a href="/GradeDashboard" class="menu-item">Grade  <br /> Dashboard</a>
                     {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
-                        <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
+                        <a href="/login" class="menu-item">Login</a>
                         <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
                     {% endif %}
                     {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
@@ -89,18 +89,6 @@
                 <div class="modules-container"></div> <!-- placeholder until the js populates this with the tables for the module information -->
             </div>
         </main>
-
-        <!-- Login pop up -->
-        <div id="id01" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
-            <form method="post" class="modal-content animate">
-                <div class="container">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button onclick="login()" type="button">Login</button>
-                    <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
-                </div>
-            </form>
-        </div>
 
         <!-- Sign-up pop up -->
         <div id="id02" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->

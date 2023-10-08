@@ -1,5 +1,3 @@
-var pathwayData = ''; // global variable that will hold information on each of the pathways which is taken from the database
-
 /**
  * @Author - @DeanLogan
  * @Description - Executes when the page loads to ensure set up of event listeners.
@@ -10,14 +8,19 @@ function loginPageLoad() {
 
 /**
  * @Author - @DeanLogan
- * @Description - Holds event listeners that are applied to every web page.
+ * @Description - Holds event listeners that are applied to the login page.
  */
 function loginListeners() {
     document.addEventListener("keypress", function(event) {
         if (event.key == "Enter" && (event.target.id == "username" || event.target.id == "password")) {
-            console.log("Enter pressed");
-            login();
+            checkTotpDevices();
         }
+    });
+
+    document.getElementById("authForm").addEventListener("submit", function(event) {
+        document.getElementById('code').disabled=true;
+        event.preventDefault();
+        login();
     });
 }
 
@@ -47,6 +50,26 @@ function login() {
     });
 }
 
+/**
+ * @Author - @DeanLogan
+ * Checks if two-factor authentication (2FA) is enabled for the user and takes appropriate action.
+ * Sends a POST request with user credentials and 2FA code, then displays a modal if 2FA is enabled, or logs in if not.
+ */
+function checkTotpDevices() {
+    $.post('/hasTwoFactorEnabled/', {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value,
+        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+        'g-recaptcha-response': document.getElementsByName('g-recaptcha-response')[0].value, // Include reCAPTCHA response
+        'code': document.getElementById('code').value // Include 2FA code
+    }, function (data) {
+        if (data.hasTwoFactorEnabled == 'true') {
+            document.getElementById('id01').style.display = 'block';
+        } else {
+            login();
+        }
+    });
+}
 
 // Run the pageLoad function when the window is fully loaded
 window.onload = loginPageLoad();

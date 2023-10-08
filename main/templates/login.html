@@ -54,20 +54,32 @@
                         {% csrf_token %}
                         <label for="username">Username:</label>
                         {{ form.username }}
-                        <label for="remember_me">Password:</label>
+                        <label for="password">Password:</label>
                         {{ form.password }}
                         <br />
                         <p>{{ form.captcha }}</p>
-                        <input id="code" placeholder="code" class="inputField"/>
-                        <button onclick="login()" type="button">Login</button>
+                        <button onclick="checkTotpDevices()" type="button">Login</button>
                         <br />
-                        <label for="remember_me">Remember me:</label>
+                        <label for="remember_me">Remember Me:</label>
                         {{ form.remember_me }}
                     </div>
                 </form>
             </div>
 
         </main>
+
+        <!-- 2FA pop up -->
+        <div id="id01" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
+            <form method="post" class="modal-content animate" id="authForm">
+                <div class="container">
+                    {% csrf_token %}
+                    <label for="code">2FA Code:</label>
+                    <input id="code" placeholder="code" class="inputField"/>
+                    <button onclick="login()" type="button">Verify</button>
+                    <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
 
         <!-- Sign-up pop up -->
         <div id="id02" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->

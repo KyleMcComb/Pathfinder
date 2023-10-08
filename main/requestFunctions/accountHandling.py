@@ -27,14 +27,10 @@ def verify(request):
         # Check if form is valid, if it is not valid then the user has failed the captcha
         if form.is_valid():
             authenticatedUser = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            print(authenticatedUser)
             if hasTwoFactorEnabled(authenticatedUser):
-                if verifyTotpCode(authenticatedUser, request):
-                    login(request, authenticatedUser)
-                else:   
+                if verifyTotpCode(authenticatedUser, request) == False:
                     return JsonResponse({'loggedIn': 'false', 'errors': 'Failed 2FA, wrong code'})
-            else:
-                return JsonResponse({'loggedIn': 'false', 'errors': 'Failed 2FA'})
+            login(request, authenticatedUser)
             # Set session timeout based on 'remember_me' value
             if form.cleaned_data.get('remember_me', False):
                 request.session.set_expiry(1209600)  # Two weeks (in seconds)
@@ -47,21 +43,24 @@ def verify(request):
 # the below function will be used to check if the user has 2FA enabled, for now it will return True just for testing purposes
 def hasTwoFactorEnabled(authenticatedUser):
     try:
-        totp_device = TOTPDevice.objects.get(user=authenticatedUser)
-        if totp_device.confirmed:
-            return True
+        totp_device = TOTPDevice.objects.filter(user=authenticatedUser)
+        for device in totp_device:
+            if device.confirmed:
+                return True
     except TOTPDevice.DoesNotExist:
         pass
     return False
 
 def verifyTotpCode(authenticatedUser, request):
-    print(request.POST['code'])
     try:
-        totp_device = TOTPDevice.objects.get(user=authenticatedUser)
-        return totp_device.verify_token(request.POST['code'])
+        totp_device = TOTPDevice.objects.filter(user=authenticatedUser)
+        for device in totp_device:
+            if device.verify_token(request.POST['code']):
+                return True
     except TOTPDevice.DoesNotExist:
         # Handle the case where the user doesn't have a TOTP device
-        return False
+        pass
+    return False
 
 def createSecretKey(request):
     return TOTPDevice.objects.create(user=request.user, confirmed=True).config_url

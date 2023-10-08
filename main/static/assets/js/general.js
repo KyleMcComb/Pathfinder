@@ -206,7 +206,7 @@ function listeners() {
     window.addEventListener('resize', function() { resizeNav(sessionStorage.getItem('navOpen')); }); // Resize navigation sidebar
 
     document.addEventListener("keypress", function(event) {
-        if (event.key == "Enter" && (event.target.id == "username-login" || event.target.id == "password-login")) {
+        if (event.key == "Enter" && (event.target.id == "username" || event.target.id == "password")) {
             console.log("Enter pressed");
             login();
         }

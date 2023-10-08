@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from main.forms import CustomLoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django_otp.plugins.otp_totp.models import TOTP, TOTPDevice
+from django_otp.plugins.otp_totp.models import TOTPDevice
 
 '''
     @Author: @DeanLogan
@@ -26,8 +26,13 @@ def verify(request):
         form = CustomLoginForm(request, data=request.POST)
         # Check if form is valid, if it is not valid then the user has failed the captcha
         if form.is_valid():
-            if twoFactorCheck(request):
-                login(request, authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password']))
+            authenticatedUser = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            print(authenticatedUser)
+            if hasTwoFactorEnabled(authenticatedUser):
+                if verifyTotpCode(authenticatedUser, request):
+                    login(request, authenticatedUser)
+                else:   
+                    return JsonResponse({'loggedIn': 'false', 'errors': 'Failed 2FA, wrong code'})
             else:
                 return JsonResponse({'loggedIn': 'false', 'errors': 'Failed 2FA'})
             # Set session timeout based on 'remember_me' value
@@ -35,30 +40,33 @@ def verify(request):
                 request.session.set_expiry(1209600)  # Two weeks (in seconds)
             return JsonResponse({'loggedIn': 'true'})
         else:
-            print(form.errors)
             return JsonResponse({'loggedIn': 'false', 'errors': 'Failed Captcha, or invalid credentials'})
     else:
         return JsonResponse({'errors': 'Invalid request method'})
 
 # the below function will be used to check if the user has 2FA enabled, for now it will return True just for testing purposes
-def twoFactorCheck(request):
-    return True
+def hasTwoFactorEnabled(authenticatedUser):
     try:
-        user = request.user
-        if user.twoFactorAuth:
-            totpEntered = request.GET.get('totpEntered')
-            if(TOTPDevice.objects.get(user=user).verify_token(totpEntered)):
-                return True
-        else:
-            return False
-    except:
+        totp_device = TOTPDevice.objects.get(user=authenticatedUser)
+        if totp_device.confirmed:
+            return True
+    except TOTPDevice.DoesNotExist:
+        pass
+    return False
+
+def verifyTotpCode(authenticatedUser, request):
+    print(request.POST['code'])
+    try:
+        totp_device = TOTPDevice.objects.get(user=authenticatedUser)
+        return totp_device.verify_token(request.POST['code'])
+    except TOTPDevice.DoesNotExist:
+        # Handle the case where the user doesn't have a TOTP device
         return False
 
 def createSecretKey(request):
-    return TOTPDevice.objects.create(user=request.user, confirmed=True, name="Pathfinder - EEECS").config_url
+    return TOTPDevice.objects.create(user=request.user, confirmed=True).config_url
 
 def generateQRCode(url):
-    print(url)
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,

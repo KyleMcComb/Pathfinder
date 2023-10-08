@@ -324,10 +324,9 @@ function login() {
         username: document.getElementById('username').value,
         password: document.getElementById('password').value,
         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
-        'g-recaptcha-response': document.getElementsByName('g-recaptcha-response')[0].value // Include reCAPTCHA response
+        'g-recaptcha-response': document.getElementsByName('g-recaptcha-response')[0].value, // Include reCAPTCHA response
+        'code': document.getElementById('code').value // Include 2FA code
     }, function (data) {
-        console.log("login attempted");
-        console.log(data.errors);
         if (data.loggedIn == 'true') {
             // If login is successful, display a success alert and reload the page
             alert('Login success');

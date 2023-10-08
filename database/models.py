@@ -80,8 +80,8 @@ class StudentModuleAssesment(models.Model):
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
     assesmentMark = models.FloatField(default=100)
 
-class TwoFactorAuth(TOTPDevice):
-    associatedUser = models.OneToOneField(User, on_delete=models.CASCADE)
+# class TwoFactorAuth(TOTPDevice):
+#     associatedUser = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name = 'Two-Factor Authentication'
+#     class Meta:
+#         verbose_name = 'Two-Factor Authentication'

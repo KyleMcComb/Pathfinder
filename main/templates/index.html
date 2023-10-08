@@ -65,6 +65,7 @@
                 <div class="container">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <input id="code" placeholder="code" class="inputField"/>
                     <button onclick="login()" type="button">Login</button>
                     <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
                 </div>

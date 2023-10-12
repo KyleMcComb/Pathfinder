@@ -8,13 +8,6 @@ class Pathway(models.Model):
     def __str__(self):
         return self.pathwayID
     
-class Lecturer(models.Model):
-    lecturerID = models.IntegerField(primary_key=True, auto_created=True)
-    lecturerName = models.CharField(max_length=100)
-    lecturerEmail = models.EmailField()
-    def __str__(self):
-        return str(self.lecturerID)
-
 class Module(models.Model):
     moduleID = models.CharField(primary_key=True ,max_length=7, auto_created=False)
     moduleName = models.CharField(max_length=100)
@@ -25,6 +18,14 @@ class Module(models.Model):
     def __str__(self):
         return self.moduleID
     
+class Lecturer(models.Model):
+    lecturerID = models.IntegerField(primary_key=True, auto_created=True)
+    lecturerName = models.CharField(max_length=100)
+    lecturerEmail = models.EmailField()
+    lecturerModules = models.ManyToManyField(Module)
+    def __str__(self):
+        return str(self.lecturerID)
+    
 class Assessment(models.Model):
     assessmentID = models.IntegerField(primary_key=True, auto_created=True)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
@@ -32,13 +33,6 @@ class Assessment(models.Model):
     assessmentWeight = models.FloatField(default=20)
     def __str__(self):
         return str(self.assessmentID)
-
-class ModuleLecturer(models.Model):
-    moduleLecturerID = models.IntegerField(primary_key=True, auto_created=True)
-    lecturerID = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
-    moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
-    def __str__(self):
-        return str(self.moduleLecturerID)
 
 class ModulePathway(models.Model):
     modulePathwayID = models.IntegerField(primary_key=True, auto_created=True)

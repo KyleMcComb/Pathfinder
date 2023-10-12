@@ -2,7 +2,7 @@ from database.models import *
 ############################ Module to Pathway links #########################
 
 def addPathwayModuleLinks():
-    ####PathwayG402 Link tables
+    #### PathwayG402 Link tables
     #level 1
     module1023PathwayG402 = ModulePathway(pathwayID = 'G402', moduleID='CSC1023')
     module1026PathwayG402 = ModulePathway(pathwayID = 'G402', moduleID='CSC1026')

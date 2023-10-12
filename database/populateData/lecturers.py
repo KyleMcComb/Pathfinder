@@ -35,6 +35,7 @@ def addLecturersToModules():
     lec1.lecturerModules.add(Module.objects.get(moduleID='CSC1031')),
     
     lec2 =  Lecturer.objects.get(lecturerID=2)
+    lec2.lecturerModules.add(Module.objects.get(moduleID='CSC2051')),
 
 if __name__ == '__main__':
     addLecturers()

@@ -28,6 +28,7 @@ class AssessmentAdmin(admin.ModelAdmin):
     search_fields = ("assessmentID", )
     list_filter = ("moduleID", )
 
+'''
 @admin.register(ModuleLecturer)
 class ModuleLecturerAdmin(admin.ModelAdmin):
     def module(self, obj):
@@ -38,6 +39,7 @@ class ModuleLecturerAdmin(admin.ModelAdmin):
     list_display = ("moduleLecturerID", "lecturer", "module")
     search_fields = ("lecturer", )
     list_filter = ("moduleID", )
+'''
 
 @admin.register(ModulePathway)
 class ModulePathwayAdmin(admin.ModelAdmin):

@@ -39,15 +39,17 @@ class LanguageAdapter(LogicAdapter):
         if not detected_language:  # If the language isn't detected based on greetings
             detected_language = detect(input_statement.text)
 
+        base_url = "https://translate.google.com/?sl={}&tl=en"
+
         language_responses = {
             'en': None,
-            'es': "Lo siento, este chatbot solo admite inglés. Por favor, use Google Translate para comunicarse en inglés.",
-            'fr': "Désolé, ce chatbot ne prend en charge que l'anglais. Veuillez utiliser Google Translate pour communiquer en anglais.",
-            'de': "Entschuldigung, dieser Chatbot unterstützt nur Englisch. Bitte verwenden Sie Google Translate, um auf Englisch zu kommunizieren.",
-            'zh-cn': "对不起，此聊天机器人仅支持英语。 请使用Google翻译与英文交流。",
-            'zh-tw': "對不起，此聊天機器人僅支持英語。 請使用Google翻譯與英文交流。",
-            'ms': "Maaf, chatbot ini hanya menyokong Bahasa Inggeris. Sila gunakan Google Translate untuk berkomunikasi dalam Bahasa Inggeris.",
-            'ur': "معاف کیجئے، یہ چیٹ بوٹ صرف انگریزی زبان کو مدعو کرتا ہے۔ براہ کرم انگریزی میں بات چیت کے لئے گوگل ترجمہ استعمال کریں۔"
+            'es': f"Lo siento, este chatbot solo admite inglés. Por favor, use <a href='{base_url.format('es')}' target='_blank'>Google Translate</a> para comunicarse en inglés.",
+            'fr': f"Désolé, ce chatbot ne prend en charge que l'anglais. Veuillez utiliser <a href='{base_url.format('fr')}' target='_blank'>Google Translate</a> pour communiquer en anglais.",
+            'de': f"Entschuldigung, dieser Chatbot unterstützt nur Englisch. Bitte verwenden Sie <a href='{base_url.format('de')}' target='_blank'>Google Translate</a> um auf Englisch zu kommunizieren.",
+            'zh-cn': f"对不起，此聊天机器人仅支持英语。 请使用<a href='{base_url.format('zh-CN')}' target='_blank'>Google翻译</a>与英文交流。",
+            'zh-tw': f"對不起，此聊天機器人僅支持英語。 請使用<a href='{base_url.format('zh-TW')}' target='_blank'>Google翻譯</a>與英文交流。",
+            'ms': f"Maaf, chatbot ini hanya menyokong Bahasa Inggeris. Sila gunakan <a href='{base_url.format('ms')}' target='_blank'>Google Translate</a> untuk berkomunikasi dalam Bahasa Inggeris.",
+            'ur': f"معاف کیجئے، یہ چیٹ بوٹ صرف انگریزی زبان کو مدعو کرتا ہے۔ براہ کرم <a href='{base_url.format('ur')}' target='_blank'>گوگل ترجمہ</a> استعمال کریں۔"
         }
 
         response_text = language_responses.get(detected_language, "Sorry, this chatbot only supports English. Please use Google Translate to communicate in English.")

@@ -47,6 +47,41 @@ def addPathwayModuleLinks():
     module4009PathwayG402 = ModulePathway(pathwayID = 'G402', moduleID='CSC4009', mpCore=False)
     module4010PathwayG402 = ModulePathway(pathwayID = 'G402', moduleID='CSC4010', mpCore=False)
 
+    #### PathwayCS Link tables
+    #level 1 - undefined in the given doc, therefore these modules are assumed for now
+    module1023PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1023')
+    module1026PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1026')
+    module1033PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1033')
+    module1027PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1027') #with SSD
+    module1025PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1025') #without SSD
+    module1029PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1029') #without SSD
+    module1028PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1028', mpCore=False)
+    module1030PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1030', mpCore=False)
+    module1031PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1031', mpCore=False)
+    module1032PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC1032', mpCore=False)
+    
+    #level 2
+    module2058PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2058')
+    module2059PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2059')
+    module2060PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2060')
+    module2065PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2065')
+    module2056PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2056', mpCore=False)
+    module2062PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2062', mpCore=False)
+    module2066PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC2066', mpCore=False)
+
+    #level 3
+    module3002PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3002')
+    module3001PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3001', mpCore=False)
+    module3021PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3021', mpCore=False)
+    module3056PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3056', mpCore=False)
+    module3058PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3058', mpCore=False)
+    module3059PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3059', mpCore=False)
+    module3064PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3064', mpCore=False)
+    module3065PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3065', mpCore=False)
+    module3066PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3066', mpCore=False)
+    module3067PathwayICS = ModulePathway(pathwayID = 'ICS', moduleID='CSC3067', mpCore=False)
+
+
     #PathwayG400 Link tables
     #level 1
     module1023PathwayG400 = ModulePathway(pathwayID = 'G400', moduleID='CSC1023')
@@ -245,6 +280,204 @@ def addPathwayModuleLinks():
     module3056PathwayGG45 = ModulePathway(pathwayID = 'GG45', moduleID='CSC3056', mpCore=False)
     module3064PathwayGG45 = ModulePathway(pathwayID = 'GG45', moduleID='CSC3064', mpCore=False)
 
+    ####Pathway H602 linker Tables
+    module1012PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE1012')
+    module1056PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE1056')
+    module1057PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE1057')
+    module1001PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS1001')
+    module1005PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS1005')
+    module1006PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS1006')
+
+    #Level2
+    module2025PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2025')
+    module2035PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2035')
+    module2037PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2037')
+
+    module2019PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2019', mpCore=False)
+    module2038PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2038', mpCore=False)
+    module2039PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS2039', mpCore=False)
+    module2040PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2040', mpCore=False)
+    module2041PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE2041', mpCore=False)
+
+    #level3
+    module3044PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3044')
+
+    module3003PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS3003', mpCore=False)
+    module3037PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3037', mpCore=False)
+    module3039PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3039', mpCore=False)
+    module3040PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3040', mpCore=False)
+    module3041PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3041', mpCore=False)
+    module3042PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3042', mpCore=False)
+    module3045PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3045', mpCore=False)
+    module3046PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE3046', mpCore=False)
+    #has a music module MUS3006
+
+    #level4
+    module4001PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE4001')
+
+    module4002PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS4002', mpCore=False)
+    module4003PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ECS4003', mpCore=False)
+    module4009PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE4009', mpCore=False)
+    module4023PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE4023', mpCore=False)
+    module4024PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE4024', mpCore=False)
+    module4025PathwayH602 = ModulePathway(pathwayID = 'H602', moduleID='ELE4025', mpCore=False)
+
+    ####H600Pathway linker Tables
+    #level1
+    module1012PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE1012')
+    module1056PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE1056')
+    module1057PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE1057')
+    module1001PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ECS1001')
+    module1005PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ECS1005')
+    module1006PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ECS1006')
+
+    #level2
+    module2025PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2025')
+    module2035PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2035')
+    module2037PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2037')
+    module2037PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2037')
+
+    module2019PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2019', mpCore=False)
+    module2038PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2038', mpCore=False)
+    module2039PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ECS2039', mpCore=False)
+    module2040PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2040', mpCore=False)
+    module2041PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE2041', mpCore=False)
+
+    #level3
+    module3001PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3001')
+    module3043PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3043')
+
+    module3003PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ECS3003', mpCore=False)
+    module3037PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3037', mpCore=False)
+    module3039PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3039', mpCore=False)
+    module3040PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3040', mpCore=False)
+    module3041PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3041', mpCore=False)
+    module3042PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3042', mpCore=False)
+    module3045PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3045', mpCore=False)
+    module3046PathwayH600 = ModulePathway(pathwayID = 'H600', moduleID='ELE3046', mpCore=False)
+    #has a music module MUS3006
+
+    ####IEEEPathway linker Tables
+    #level 1 - assumed modules as they are not defined in doc
+    module1012PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE1012')
+    module1056PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE1056')
+    module1057PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE1057')
+    module1001PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ECS1001')
+    module1005PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ECS1005')
+    module1006PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ECS1006')
+
+    #level 2
+    module2025PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2025')
+    module2035PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2035')
+    module2037PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2037')
+
+    module2019PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2019', mpCore=False)
+    module2038PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2038', mpCore=False)
+    module2039PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ECS2039', mpCore=False)
+    module2040PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2040', mpCore=False)
+    module2041PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE2041', mpCore=False)
+
+    #level 3
+    module3001PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3001')
+    module3043PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3043')
+
+    module3003PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ECS3003', mpCore=False)
+    module3037PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3037', mpCore=False)
+    module3039PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3039', mpCore=False)
+    module3040PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3040', mpCore=False)
+    module3041PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3041', mpCore=False)
+    module3042PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3042', mpCore=False)
+    module3045PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3045', mpCore=False)
+    module3046PathwayIEEE = ModulePathway(pathwayID = 'IEEE', moduleID='ELE3046', mpCore=False)
+    #has a music module MUS3006
+
+    ####PathwayGH6Q linker Tables
+    #level 1
+    module1029PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC1029')
+    module1012PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE1012')
+    module1001PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS1001')
+    module1012PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE1012')
+    module1005PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS1005')
+    module1006PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS1006')
+    module1057PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE1057')
+
+    #level2
+    module2025PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE2025')
+    module2035PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE2035')
+    module2037PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE2037')
+    module2059PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC2059')
+
+    module2038PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE2038', mpCore=False)
+    module2039PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS2039', mpCore=False)
+    module2040PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE2040', mpCore=False)
+    module2041PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE2041', mpCore=False)
+    module2056PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS2056', mpCore=False)
+    module2062PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC2062', mpCore=False)
+
+    #level3
+    module3044PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE3044')
+
+    module3021PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC3021', mpCore=False)
+    module3059PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC3059', mpCore=False)
+    module3066PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC3066', mpCore=False)
+    module3067PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC3067', mpCore=False)
+    module3003PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS3003', mpCore=False)
+    module3040PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE3040', mpCore=False)
+    module3041PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE3041', mpCore=False)
+    module3042PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE3042', mpCore=False)
+    module3046PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE3046', mpCore=False)
+
+    #level4
+    module4001PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE4001')
+    
+    module4003PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC4003', mpCore=False)
+    module4009PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC4009', mpCore=False)
+    module4010PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='CSC4010', mpCore=False)
+    module4002PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS4002', mpCore=False)
+    module4003PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ECS4003', mpCore=False)
+    module4009PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE4009', mpCore=False)
+    module4023PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE4023', mpCore=False)
+    module4024PathwayGH6Q = ModulePathway(pathwayID = 'GH6Q', moduleID='ELE4024', mpCore=False)
+
+
+    ####PathwayGH6P linker Tables
+    #level 1
+    module1029PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC1029')
+    module1012PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE1012')
+    module1001PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ECS1001')
+    module1012PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE1012')
+    module1005PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ECS1005')
+    module1006PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ECS1006')
+    module1057PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE1057')
+
+    #level2
+    module2025PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE2025')
+    module2035PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE2035')
+    module2037PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE2037')
+    module2059PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC2059')
+
+    module2038PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE2038', mpCore=False)
+    module2039PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ECS2039', mpCore=False)
+    module2040PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE2040', mpCore=False)
+    module2041PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE2041', mpCore=False)
+    module2056PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ECS2056', mpCore=False)
+    module2062PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC2062', mpCore=False)
+
+    #Level 3
+    module3001PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE3001')
+    module3043PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE3043')
+
+    module3021PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC3021', mpCore=False)
+    module3059PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC3059', mpCore=False)
+    module3066PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC3066', mpCore=False)
+    module3067PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='CSC3067', mpCore=False)
+    module3003PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ECS3003', mpCore=False)
+    module3040PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE3040', mpCore=False)
+    module3041PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE3041', mpCore=False)
+    module3042PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE3042', mpCore=False)
+    module3046PathwayGH6P = ModulePathway(pathwayID = 'GH6P', moduleID='ELE3046', mpCore=False)
+
+
     ##ADD level 1 Module links to G402
     G402Mod1_list = [module1023PathwayG402, module1026PathwayG402, module1033PathwayG402,
                 module1027PathwayG402, module1025PathwayG402, module1029PathwayG402,
@@ -272,6 +505,50 @@ def addPathwayModuleLinks():
                     module4003PathwayG402, module4009PathwayG402, module4010PathwayG402]
     for z in G402Mod4_list:
         z.save()
+
+    ###Add level 1 Module links to ICS
+    ICSMod1_list = [module1023PathwayICS,
+        module1026PathwayICS,
+        module1033PathwayICS,
+        module1027PathwayICS,
+        module1025PathwayICS,
+        module1029PathwayICS,
+        module1028PathwayICS,
+        module1030PathwayICS,
+        module1031PathwayICS,
+        module1032PathwayICS
+    ]
+    for z in ICSMod1_list:
+        z.save()
+    
+    ##add level 2 Module links to ICS
+    ICSMod2_list = [module2058PathwayICS,
+    module2059PathwayICS,
+    module2060PathwayICS,
+    module2065PathwayICS,
+    module2056PathwayICS,
+    module2062PathwayICS,
+    module2066PathwayICS]
+
+    for z in ICSMod2_list:
+        z.save()
+
+    ##add level 3 Module links to ICS
+    ICSMod3_list = [module3002PathwayICS,
+    module3001PathwayICS,
+    module3021PathwayICS,
+    module3056PathwayICS,
+    module3058PathwayICS,
+    module3059PathwayICS,
+    module3064PathwayICS,
+    module3065PathwayICS,
+    module3066PathwayICS,
+    module3067PathwayICS
+    ]
+    for z in ICSMod3_list:
+        z.save()
+    
+                    
 
     ##ADD level 1 Module links to G400
     G400Mod1_list = [module1023PathwayG400, module1026PathwayG400, module1033PathwayG400,
@@ -396,6 +673,223 @@ def addPathwayModuleLinks():
     for z in GG45Mod3_list:
         z.save()
 
+    ##Add level 1 Module links to H602
+    H602Mod1_list = [
+    module1012PathwayH602,
+    module1056PathwayH602,
+    module1057PathwayH602,
+    module1001PathwayH602,
+    module1005PathwayH602,
+    module1006PathwayH602
+    ]
+    for z in H602Mod1_list:
+        z.save()
+
+    ##Add level 2 Module links to H602
+    H602Mod2_list = [   module2025PathwayH602,
+    module2035PathwayH602,
+    module2037PathwayH602,
+    module2019PathwayH602,
+    module2038PathwayH602,
+    module2039PathwayH602,
+    module2040PathwayH602,
+    module2041PathwayH602]
+    for z in H602Mod2_list:
+        z.save()
+
+    ##Add level 3 Module links to H602
+    H602Mod3_list = [module3044PathwayH602,
+    module3003PathwayH602,
+    module3037PathwayH602,
+    module3039PathwayH602,
+    module3040PathwayH602,
+    module3041PathwayH602,
+    module3042PathwayH602,
+    module3045PathwayH602,
+    module3046PathwayH602]
+    for z in H602Mod3_list:
+        z.save()
+
+    ##Add level 4 Module links to H602
+    H602Mod4_list = [module4001PathwayH602,
+    module4002PathwayH602,
+    module4003PathwayH602,
+    module4009PathwayH602,
+    module4023PathwayH602,
+    module4024PathwayH602,
+    module4025PathwayH602]
+    for z in H602Mod4_list:
+        z.save()
+    
+    ##Add level 1 Module links to H600
+    H600Mod1_list = [
+    module1012PathwayH600,
+    module1056PathwayH600,
+    module1057PathwayH600,
+    module1001PathwayH600,
+    module1005PathwayH600,
+    module1006PathwayH600
+    ]
+    for z in H600Mod1_list:
+        z.save()  # save to database
+
+    ##Add level 2 Module links to H600
+    H600Mod2_list = [
+        module2025PathwayH600,
+        module2035PathwayH600,
+        module2037PathwayH600,
+        module2019PathwayH600,
+        module2038PathwayH600,
+        module2039PathwayH600,
+        module2040PathwayH600,
+        module2041PathwayH600
+    ]
+    for z in H600Mod2_list:
+        z.save()  # save to database
+    
+    ##Add level 3 Module links to H600
+    H600Mod3_list = [
+        module3001PathwayH600,
+        module3043PathwayH600,
+        module3003PathwayH600,
+        module3037PathwayH600,
+        module3039PathwayH600,
+        module3040PathwayH600,
+        module3041PathwayH600,
+        module3042PathwayH600,
+        module3045PathwayH600,
+        module3046PathwayH600
+    ]
+    for z in H600Mod3_list:
+        z.save()  # save to database
+    
+    ##Add level 1 Module links to IEEE
+    IEEEMod1_list = [module1012PathwayIEEE,
+    module1056PathwayIEEE,
+    module1057PathwayIEEE,
+    module1001PathwayIEEE,
+    module1005PathwayIEEE,
+    module1006PathwayIEEE]
+    for z in IEEEMod1_list:
+        z.save()  # save to database
+
+    ##Add level 2 Module links to IEEE
+    IEEEMod2_list = [module2025PathwayIEEE,
+        module2035PathwayIEEE,
+        module2037PathwayIEEE,
+        module2019PathwayIEEE,
+        module2038PathwayIEEE,
+        module2039PathwayIEEE,
+        module2040PathwayIEEE,
+        module2041PathwayIEEE]
+    for z in IEEEMod2_list:
+        z.save()  # save to database
+
+    ##Add level 3 Module links to IEEE
+    IEEEMod3_list = [module3001PathwayIEEE,
+        module3043PathwayIEEE,
+        module3003PathwayIEEE,
+        module3037PathwayIEEE,
+        module3039PathwayIEEE,
+        module3040PathwayIEEE,
+        module3041PathwayIEEE,
+        module3042PathwayIEEE,
+        module3045PathwayIEEE,
+        module3046PathwayIEEE]
+    for z in IEEEMod3_list:
+        z.save()  # save to database
+
+    ##Add level 1 Module links to GH6Q
+    GH6QMod1_list = [module1029PathwayGH6Q,
+        module1012PathwayGH6Q,
+        module1001PathwayGH6Q,
+        module1012PathwayGH6Q,
+        module1005PathwayGH6Q,
+        module1006PathwayGH6Q,
+        module1057PathwayGH6Q]
+    for z in GH6QMod1_list:
+        z.save()  # save to database
+    
+    ##Add level 2 Module links to GH6Q
+    GH6QMod2_list = [module2025PathwayGH6Q,
+        module2035PathwayGH6Q,
+        module2037PathwayGH6Q,
+        module2059PathwayGH6Q,
+        module2038PathwayGH6Q,
+        module2039PathwayGH6Q,
+        module2040PathwayGH6Q,
+        module2041PathwayGH6Q,
+        module2056PathwayGH6Q,
+        module2062PathwayGH6Q]
+    for z in GH6QMod2_list:
+        z.save()  # save to database
+    
+    ##Add level 3 Module links to GH6Q
+    GH6QMod3_list = [module3044PathwayGH6Q,
+        module3021PathwayGH6Q,
+        module3059PathwayGH6Q,
+        module3066PathwayGH6Q,
+        module3067PathwayGH6Q,
+        module3003PathwayGH6Q,
+        module3040PathwayGH6Q,
+        module3041PathwayGH6Q,
+        module3042PathwayGH6Q,
+        module3046PathwayGH6Q]
+    for z in GH6QMod3_list:
+        z.save()  # save to database
+    
+    ##Add level 4 Module links to GH6Q
+    GH6QMod4_list = [ module4001PathwayGH6Q,
+        module4003PathwayGH6Q,
+        module4009PathwayGH6Q,
+        module4010PathwayGH6Q,
+        module4002PathwayGH6Q,
+        module4003PathwayGH6Q,
+        module4009PathwayGH6Q,
+        module4023PathwayGH6Q,
+        module4024PathwayGH6Q]
+    for z in GH6QMod4_list:
+            z.save()  # save to database
+
+    ##Add level 1 Module links to GH6P
+    GH6PMod1_list = [module1029PathwayGH6P,
+        module1012PathwayGH6P,
+        module1001PathwayGH6P,
+        module1012PathwayGH6P,
+        module1005PathwayGH6P,
+        module1006PathwayGH6P,
+        module1057PathwayGH6P]
+    for z in GH6PMod1_list:
+        z.save()  # save to database
+    
+    ##Add level 2 Module links to GH6P
+    GH6PMod2_list = [module2025PathwayGH6P,
+        module2035PathwayGH6P,
+        module2037PathwayGH6P,
+        module2059PathwayGH6P,
+        module2038PathwayGH6P,
+        module2039PathwayGH6P,
+        module2040PathwayGH6P,
+        module2041PathwayGH6P,
+        module2056PathwayGH6P,
+        module2062PathwayGH6P]
+    for z in GH6PMod2_list:
+        z.save()  # save to database
+    
+    ##Add level 3 Module links to GH6P
+    GH6PMod3_list = [module3001PathwayGH6P,
+        module3043PathwayGH6P,
+        module3021PathwayGH6P,
+        module3059PathwayGH6P,
+        module3066PathwayGH6P,
+        module3067PathwayGH6P,
+        module3003PathwayGH6P,
+        module3040PathwayGH6P,
+        module3041PathwayGH6P,
+        module3042PathwayGH6P,
+        module3046PathwayGH6P]
+    for z in GH6PMod3_list:
+        z.save()  # save to database
 
 if __name__ == "__main__":
     addPathwayModuleLinks()

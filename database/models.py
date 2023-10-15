@@ -27,7 +27,7 @@ class Lecturer(models.Model):
         return str(self.lecturerID)
     
 class Assessment(models.Model):
-    assessmentID = models.IntegerField(primary_key=True, auto_created=True)
+    assessmentID = models.CharField(primary_key=True, auto_created=True, max_length=8)
     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
     assessmentType = models.CharField(max_length=20)
     assessmentWeight = models.FloatField(default=20)

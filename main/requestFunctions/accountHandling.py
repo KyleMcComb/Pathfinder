@@ -4,6 +4,7 @@ import json
 import base64
 import qrcode
 import smtplib
+import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -146,6 +147,66 @@ def generateQRCode(url):
 def displayQRCode(request):
     return HttpResponse(generateQRCode(createSecretKey(request)), content_type="image/png")
 
+"""
+    @Author: @DeanLogan
+    @Description: Handles the forgot password request. Validates the user's input and sends a password reset request to the admin.
+    @param: request - The HttpRequest object containing user input (studentNumber and studentEmail).
+    @return: JsonResponse with a status message indicating the result of the password reset request.
+"""
+def forgotPassword(request):
+    try:
+        # Get studentNumber and studentEmail from the request
+        studentNumber = request.GET.get('studentNumber')
+        studentEmail = request.GET.get('studentEmail')
+        
+        # Replace '%40' with '@' in the studentEmail if necessary
+        studentEmail = re.sub('%40', '@', studentEmail)
+
+        # Check if a user with the given username (studentNumber) exists
+        if User.objects.filter(username=studentNumber).exists():
+            # Check if the provided studentEmail matches the user's email
+            if studentEmail == User.objects.get(username=studentNumber).email:
+                # Send a password reset request to the admin and return the status
+                return JsonResponse({'status': forgotPasswordEmail(studentNumber, studentEmail)}, safe=False)
+            else:
+                return JsonResponse({'status': 'Wrong Email Entered'}, safe=False)
+        else:
+            return JsonResponse({'status': 'Username does not exist'}, safe=False)
+    except:
+        return JsonResponse({'status': 'Error during the request'}, safe=False)
+
+"""
+    @Author: @DeanLogan
+    @Description: Sends an email to the admin requesting a password reset for a user.
+    @param: studentNumber - The student's identification number.
+    @param: studentEmail - The student's email address.
+    @return: A message indicating whether the email was sent successfully.
+"""
+def forgotPasswordEmail(studentNumber, studentEmail):
+    try:
+        admin = User.objects.get(username='admin')
+        adminEmail = admin.email
+
+        # below formats the information into an email
+        msg = MIMEMultipart()
+        msg['From'] = 'pathfinder3068@gmail.com'
+        msg['To'] = "{0}".format(adminEmail)
+        msg['Subject'] = 'Sign-Up User'
+
+        messageContentInHtml = '<h1>Request has been made to reset password for</h1><br/><p><b>Student Number: </b>'+studentNumber+'</p><p><b>Email: </b>'+studentEmail+'</p><p>Please reset the users password and email them a new one.</p><br/><p>From Pathfinder.'
+
+        body = MIMEText(messageContentInHtml, 'html')
+        msg.attach(body)
+
+        server = smtplib.SMTP('smtp.gmail.com', 587) # connect to email server
+        server.starttls() # encrypts login
+        server.login('pathfinder3068@gmail.com', 'aaiu vmwm bvzp vcxg') # email account and 3rd party app password for the account which the email will be sent from
+        server.sendmail(msg['From'], msg['To'], msg.as_string())
+        server.quit()
+        return "Email sent, the admin will send you an email in the next 24 hours with a new password"
+    except:
+        return "Email failed to send, please try again later"
+
 '''
     @Author: @DeanLogan
     @Description: Gets the information needed for sign-up then sends an email containing this informatuion, or if email cannot be sent a fail message. 
@@ -179,7 +240,7 @@ def signUp(request):
 
         server = smtplib.SMTP('smtp.gmail.com', 587) # connect to email server
         server.starttls() #encrypts login
-        server.login('pathfinder3068@gmail.com', 'eglrgyaxlnyrvixi') # email account and 3rd party app password for the account which the email will be sent from
+        server.login('pathfinder3068@gmail.com', 'aaiu vmwm bvzp vcxg') # email account and 3rd party app password for the account which the email will be sent from
         server.sendmail(msg['From'], msg['To'], msg.as_string())
         server.quit()
     except:

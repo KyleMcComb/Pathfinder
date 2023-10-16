@@ -71,5 +71,20 @@ function checkTotpDevices() {
     });
 }
 
+/**
+ * @Author - @DeanLogan
+ * Sends a GET request to initiate the password reset process by providing the student number and email.
+ * Displays an alert with the response status.
+ */
+function forgotPassword() {
+    $.get("/forgotPassword/", {
+        'studentNumber': document.getElementById('usernameForgotPassword').value,
+        'studentEmail': document.getElementById('emailForgotPassword').value,
+    
+    }, function(data) {
+        alert(data.status);
+    });
+}
+
 // Run the pageLoad function when the window is fully loaded
 window.onload = loginPageLoad();

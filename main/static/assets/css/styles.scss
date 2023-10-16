@@ -527,7 +527,7 @@ body {
 }
 
 
-/* Login pop up */
+/* Login / pop up */
 
 // Full-width input fields
 .inputField, input[type=text], input[type=password] {
@@ -581,6 +581,11 @@ span.psw {
     padding-bottom:5px;
 }
 
+#forgotPasswordLink {
+    text-decoration: underline; // Remove the default underline
+    cursor: pointer; // Change the cursor to a pointer on hover
+}
+
 .module-picker{
     h3 {
         padding: 5px;
@@ -595,7 +600,7 @@ span.psw {
 }
 
 
-// The Modal (blurred background effect for login pop-up) 
+// The Modal (blurred background effect for the pop-up) 
 .modal {
     display: none; /* Hidden by default */
     position: relative; 
@@ -618,7 +623,7 @@ span.psw {
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-/* Add Zoom Animation for login */
+/* Add Zoom Animation for pop ups */
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s

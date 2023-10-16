@@ -86,7 +86,6 @@ function navToggleOnGradeDashboardPage() {
  */
 function getGradeData() {
     $.get("/gradeInfo/", function(data) {
-        console.log(data);
         progressBar(data.currentPathwayMark); // Update progress bar
         document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'; // Display module average
         document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'; // Display assessment average

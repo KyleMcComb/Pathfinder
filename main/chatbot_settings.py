@@ -6,13 +6,11 @@ from .language_adapter import LanguageAdapter
 import os
 
 
+
 chatbot = ChatBot(
     'Pathfinder',
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
     logic_adapters=[
-        {
-            'import_path': 'main.language_adapter.LanguageAdapter'
-        },
         {
             'import_path': 'main.interest_adapter.InterestAdapter'
         },
@@ -20,8 +18,11 @@ chatbot = ChatBot(
             'import_path': 'main.year_adapter.YearAdapter'
         },
         {
+            'import_path': 'main.language_adapter.LanguageAdapter'
+        },
+        {
             'import_path': 'chatterbot.logic.BestMatch',
-            'default_response': 'I am sorry, but I do not understand.',
+            'default_response': 'I am sorry, but I do not understand. Please refer to <a href="https://www.qub.ac.uk/directorates/InformationServices/Student/" target="_blank">Student Help</a> for assistance.',
             'maximum_similarity_threshold': 0.9
         }
     ],
@@ -45,6 +46,9 @@ except Exception as e:
 
 
 def get_response(msg):
-    msg_lowercase = msg.lower() # Code to convert user response to lowercase
-    return str(chatbot.get_response(msg_lowercase))
+    msg_lowercase = msg.lower()
+    response = str(chatbot.get_response(msg_lowercase)) 
+    if not response or response == "None":
+        return 'I am sorry, but I do not understand. Please refer to <a href="https://www.qub.ac.uk/directorates/InformationServices/Student/" target="_blank">Student Help</a> for assistance.'
+    return response
 

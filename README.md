@@ -7,6 +7,7 @@ This README includes a project description (what the project is along with what 
 * [Set Up](#set-up)
   * [Docker](#docker)
   * [Virtual Environment](#virtual-environment)
+  * [Populating the database from scratch](#populate-database)
 * [Running The Project](#running-the-project)
   * [Docker (Creating a container)](#docker-creating-a-container)
   * [Virtual Environment](#virtual-environment-1)
@@ -42,6 +43,43 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 7.  Open a file manager on your computer and navigate to the folder where you extracted the repository. Then go into the "CSC3068-Pathfinder" folder and copy the "tagging.py" file.
 8.  In a file manager, navigate to the following directory: "CSC3068-Pathfinder\Lib\site-packages\chatterbot". Replace the "tagging.py" file found in this directory with the "tagging.py" file you copied from the "CSC3068-Pathfinder" folder. Alternatively you can navigate back to the terminal and enter the following ```cp -f tagging.py venv/lib/python3.x/site-packages/chatterbot/tagging.py``` (for MacOS/Linux) or ```Copy-Item -Path "tagging.py" -Destination ".\venv\Lib\site-packages\chatterbot\tagging.py" -Force``` (for Windows).
 9.  If you wish to have the cloud backup storage functionality (which is not required for the rest of the system to work), please follow the set up steps outlined [here](#setting-up-azurite).
+
+### Populate Database
+
+If you have wiped the database or the database is completey empty use these commands to populate with some starting data.
+
+1. In the directory path enter the command ```py manage shell```
+2. ```>>> from database.models import *```
+
+Adding Pathways for EEECs (excludes BIT)
+1. ```>>> from database.populateData import pathways```
+2. ```>>> pathways.addPathways()```
+3. To view database: ```>>> Pathway.objects.all()```
+
+Next add CSC modules
+1. ```>>> from database.populateData import cscPathwayModules```
+2. ```>>> cscPathwayModules.addComputerScienceModules()```
+3. To view database: ```>>> Module.objects.all()```
+
+Next add ELE modules
+1. ```>>> from database.populateData import elePathwayModules```
+2. ```>>> elePathwayModules.addEEModules()```
+3. To view database: ```>>> Module.objects.all()```
+
+Next add the assessments to each CSC module
+1. ```>>> from database.populateData import cscAssessments```
+2. ```>>> cscAssessments.addAssessments()```
+3. To view database: ```>>> Assessment.objects.all()```
+
+Next add the assessments to each ELE module
+1. ```>>> from database.populateData import eleAssessments```
+2. ```>>> eleAssessments.addAssessments()```
+3. To view database: ```>>> Assessment.objects.all()```
+
+Next add the links from each pathway to their modules
+1. ```>>> from database.populateData import pathwayModuleLinks```
+2. ```>>> pathwayModuleLinks.addPathwayModuleLinks()```
+3. To view database: ```ModulePathway.objects.all()```
 
 ## Running The Project
 ### Docker (Creating a container)

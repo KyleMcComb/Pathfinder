@@ -5,14 +5,20 @@ window.onload = pageLoad();
  * @Author - @DeanLogan
  * @Description - Executes when the page loads to populate local and cloud backup tables with file information.
  * Fetches and displays backup file information in the respective tables.
+ * Ensures that the correct table is populated based on the page title.
  */
 function pageLoad() {
     document.querySelector(".overlay").style.display = "none";
-    // Populate the local backup table with file information
-    backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"), false);
     
-    // Populate the cloud backup table with file information
-    backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"), true);
+    if(document.title != "Cloud Backups"){
+        // Populate the local backup table with file information
+        backupFilesRequestMaker("/listLocalBackupFiles/", document.getElementById("localBackupTable"), false);
+    }
+    
+    if(document.title != "Local Backups"){
+        // Populate the cloud backup table with file information
+        backupFilesRequestMaker("/listCloudBackupFiles/", document.getElementById("cloudBackupTable"), true);
+    }
 }
 
 /**

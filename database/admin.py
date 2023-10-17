@@ -96,4 +96,4 @@ class StudentModuleAssessmentAdmin(admin.ModelAdmin):
     search_fields =  ('studentModuleAssessmentID', )
     list_filter = ("studentModuleID", "assessmentID")
 
-admin.site.index_template = 'adminFiles/extendedAdminPage.html'  # Path to custom template for admin index page
+admin.site.index_template = 'admin/extendedAdminPage.html'  # Path to custom template for admin index page

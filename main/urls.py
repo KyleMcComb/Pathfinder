@@ -27,5 +27,7 @@ urlpatterns = [
     path('listCloudBackupFiles/', listCloudBackupFiles, name='listCloudBackupFiles'),
     path('restoreBackup/', restoreBackup, name='restoreBackup'),
     path('rollbackBackup/', rollbackBackup, name='rollbackBackup'),
-    path('deleteBackup/', deleteBackup, name='deleteBackup')
+    path('deleteBackup/', deleteBackup, name='deleteBackup'),
+    path('admin/localBackup/', views.localBackup, name='localBackup'),
+    path('admin/cloudBackup/', views.cloudBackup, name='cloudBackup'),
 ]

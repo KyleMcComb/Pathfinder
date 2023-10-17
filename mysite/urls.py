@@ -20,9 +20,9 @@ from main.views import *
 from mysite.jobs import *
 
 urlpatterns = [
+    path('', include('main.urls')),
     path('admin/', admin.site.urls),
     path('',  include("django.contrib.auth.urls")),
-    path('', include('main.urls')),
     path('backup/', backupJob),
     path('settings/', settings),
 ]

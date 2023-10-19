@@ -9,7 +9,7 @@ class InterestAdapter(LogicAdapter):
         super().__init__(chatbot, **kwargs)
         self.awaiting_module_choice = False
         self.modules_to_choose = []
-        self.student_id = 40191566  # using this id as a placeholder atm.
+        self.student_id = 40191566  # using this id as a placeholder atm. - Will need to replace with student who is logged in.
 
     def can_process(self, statement):
         statement_text = statement.text.lower()
@@ -49,7 +49,7 @@ class InterestAdapter(LogicAdapter):
             self.awaiting_module_choice = False
             self.modules_to_choose = []
         else:
-            dislike_match = re.search(r'\bdislike\b', statement_text)
+            dislike_match = re.search(r'\b(dislike|do not like|don\'t like|dont like)\b', statement_text) # Can now tell difference between "I do not like, I don't like etc".
             hate_match = re.search(r'\bhate\b', statement_text)
             like_match = re.search(r'\blike\b', statement_text)
 
@@ -63,8 +63,12 @@ class InterestAdapter(LogicAdapter):
                 interest = statement_text[like_match.end():].strip()
                 response_type = 'like'
 
-            student = Student.objects.get(studentID=self.student_id)
-            modules = Module.objects.filter(moduleName__icontains=interest)
+            try:
+                student = Student.objects.get(studentID=self.student_id)
+                modules = Module.objects.filter(moduleName__icontains=interest)
+            except Student.DoesNotExist:
+                response.text = "Sorry, you aren't currently logged in. So we can't update your interests for each module. Please log in to use full functionality."
+                return response
 
             if response_type == 'like':
                 if modules.count() >= 1:

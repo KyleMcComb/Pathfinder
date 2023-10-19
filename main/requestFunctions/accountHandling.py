@@ -87,8 +87,9 @@ def hasTwoFactorEnabled(request):
 def verifyTotpCode(authenticatedUser, request):
     try:
         totpDevice = TOTPDevice.objects.filter(user=authenticatedUser) # Get all TOTP devices associated with the authenticated user
+        code = request.POST['code'].replace(" ", "") # Remove spaces from the TOTP code (if any
         for device in totpDevice:
-            if device.verify_token(request.POST['code']):
+            if device.verify_token(code):
                 return True # TOTP code is valid for this device
     except TOTPDevice.DoesNotExist:
         # Handle the case where the user doesn't have a TOTP device

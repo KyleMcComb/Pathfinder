@@ -7,6 +7,7 @@ django-dbbackup==4.0.2 # for database backups
 django-crontab==0.7.1 # for cron job scheduling
 azure-core==1.29.1 # for azure storage
 azure-storage-blob==12.17.0 # for azure storage
+langdetect==1.0.9
 django-recaptcha==3.0.0 # for captcha
 django-otp==1.2.3 # for 2FA otp creation and validation
 qrcode==7.4.2 # for 2FA qrcode generation

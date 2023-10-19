@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Career(models.Model):
-    careerID = models.IntegerField(primary_key=True, auto_created=True)
+    careerID = models.AutoField(primary_key=True)
     jobTitle = models.CharField(max_length=100)
     companyName = models.CharField(max_length=100)
     jobDescription = models.CharField(max_length=1000)
@@ -31,7 +31,7 @@ class Assessment(models.Model):
 
 class Lecturer(models.Model):
     lecturerID = models.IntegerField(primary_key=True, auto_created=True)
-    lecturerName = models.CharField(max_length=100)
+    lecturerName = models.CharField(max_length=100, default="name")
     lecturerEmail = models.EmailField()
     def __str__(self):
         return str(self.lecturerID)
@@ -91,7 +91,7 @@ class StudentModuleAssesment(models.Model):
     def __str__(self):
         return str(self.studentModuleAssesmentID)
 
-class CareerModule(models.Model):   ### Could have CareerModuleStudent
-    careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
-    careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
-    moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)
+# class CareerModule(models.Model):   ### Could have CareerModuleStudent
+#     careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
+#     careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
+#     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)

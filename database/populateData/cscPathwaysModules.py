@@ -12,11 +12,11 @@ py manage.py shell
 >>>from database.models import *
 >>>from database.populateData import cscPathwaysModules
 to add pathways
->>>cscPathwaysModules.addComputerSciencePathways
+>>>cscPathwaysModules.addComputerSciencePathways()
 to add modules 
->>>cscPathwaysModules.addComputerScienceModules
+>>>cscPathwaysModules.addComputerScienceModules()
 to add linker tables
->>>cscPathwaysModules.addComputerSciencePathwayModuleLinks
+>>>cscPathwaysModules.addComputerSciencePathwayModuleLinks()
 """
 
 def addModuleDescriptions():

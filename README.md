@@ -53,8 +53,7 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
   
 
 ### Scrapy spiders
-scrapy runspider .\IndeedJobSpider.py 
-Use this command to run the spider under the correct directory.
+scrapy runspider .\webScraping\spiders\IndeedJobSpider.py
 
 ## Useful Links
 Below are some links that might be helpful in creating/running docker containers and virtual environments if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familiar with similar technologies these resources can be ignored.

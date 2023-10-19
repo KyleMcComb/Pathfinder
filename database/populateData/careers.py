@@ -1,14 +1,25 @@
 from ..models import *
 
-#def getCareersDataFromIndeed():
-
 
 def addCareers(jobTitle, companyName, jobDescription):
     career = Career(jobTitle=jobTitle, companyName=companyName, jobDescription=jobDescription)
-    career.save()
+    try:
+        career.save()
+    except Exception as e:
+        print(f"Error saving career: {e}")
+    addCareerModuleRelationship(career)
 
-#def addCareerModuleLinks():
-    #career = Career.objects.last
-    #get modules with similar 
+### Could use chatgpt to search through and create reasoning of how the module and career link together
+### Look at partial name or full name as link
 
+def addCareerModuleRelationship(career):
+    # Fetch all the Module instances from the database
+    all_modules = Module.objects.all()
 
+    for module in all_modules:
+        module_name_words = module.moduleName.split()
+        
+        for word in module_name_words:
+            if word.lower() in career.jobDescription.lower().split():
+                module.careers.add(career)
+                break

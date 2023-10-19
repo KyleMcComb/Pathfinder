@@ -204,12 +204,6 @@ function listeners() {
     // When the window is resized, adjust UI elements
     window.addEventListener('resize', function() { resizeContentDiv(); }); // Resize content div
     window.addEventListener('resize', function() { resizeNav(sessionStorage.getItem('navOpen')); }); // Resize navigation sidebar
-
-    document.addEventListener("keypress", function(event) {
-        if (event.key === "Enter" && (event.target.id === "username-login" || event.target.id === "password-login")) {
-            login();
-        }
-    });
     
     // Menu animation code
     const menu = document.getElementById('menu');
@@ -223,9 +217,10 @@ function listeners() {
     /* Login and signup */
     // When the user clicks anywhere outside of the modal (pop-up), close it
     window.onclick = function(event) {
-        if (event.target == document.getElementById('id01') || event.target == document.getElementById('id02')) {
+        if (event.target == document.getElementById('id01') || event.target == document.getElementById('id02') || event.target == document.getElementById('id03')) {
             document.getElementById('id01').style.display = "none";
             document.getElementById('id02').style.display = "none";
+            document.getElementById('id03').style.display = "none";
         }
     }
 }
@@ -308,26 +303,6 @@ function goToSignUp() {
         } else {
             // If sign-up fails, display an alert
             alert('Sign up failed, try again.');
-        }
-    });
-}
-
-/**
- * @Author - @DeanLogan
- * @Description - Gathers the entered login information and sends a POST request to verify the credentials.
- * If successful, the user is logged in; if not, an alert is displayed.
- */
-function login() {
-    // Send a POST request to verify login credentials
-    $.post('/verify/', { username: document.getElementById('username').value, password: document.getElementById('password').value, 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()}, function (data) {
-        console.log(data.errors);
-        if (data.loggedIn == 'true') {
-            // If login is successful, display a success alert and reload the page
-            alert('Login success');
-            location.reload();
-        } else {
-            // If login fails, display an alert
-            alert(data.errors);
         }
     });
 }

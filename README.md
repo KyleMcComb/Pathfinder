@@ -48,7 +48,7 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 
 If you have wiped the database or the database is completey empty use these commands to populate with some starting data.
 
-1. In the directory path enter the command ```py manage shell```
+1. In the directory path enter the command ```python manage.py shell```
 2. ```>>> from database.models import *```
 
 Adding Pathways for EEECs (excludes BIT)
@@ -80,6 +80,12 @@ Next add the links from each pathway to their modules
 1. ```>>> from database.populateData import pathwayModuleLinks```
 2. ```>>> pathwayModuleLinks.addPathwayModuleLinks()```
 3. To view database: ```ModulePathway.objects.all()```
+
+Next add the lecturers
+1. ```>>> from database.populateData import lecturers```
+2. ```>>> lecturers.addLecturers()```
+3. ```>>> lecturers.addLecturersToModules()```
+4. To view database: ```Lecturer.objects.all()```
 
 ## Running The Project
 ### Docker (Creating a container)
@@ -140,7 +146,9 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
 * Student Account 2
   * Student Number: 40191566
   * Password: b450ma11
-  
+* Pathfinder Email Account:
+  * Email Address: pathfinder3068@gmail.com
+  * Password: PageRank12*
 
 ## Useful Links
 Below are some links that might be helpful in creating/running docker containers and virtual environments if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familiar with similar technologies these resources can be ignored.

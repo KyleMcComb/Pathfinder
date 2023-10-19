@@ -60,3 +60,6 @@ def localBackup(request):
 '''
 def cloudBackup(request):
     return render(request, 'admin/cloudBackupPage.html', {'form': CustomLoginForm()})
+
+def loginPage(request):
+    return render(request, 'login.html', {'form': CustomLoginForm()})

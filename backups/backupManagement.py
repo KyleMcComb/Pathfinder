@@ -155,7 +155,7 @@ def backupStatusEmail(updateMessage, failure=False, error=""):
         # Connect to the email server and send the email
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login('pathfinder3068@gmail.com', 'eglrgyaxlnyrvixi')
+        server.login('pathfinder3068@gmail.com', 'aaiu vmwm bvzp vcxg')
         server.sendmail(msg['From'], msg['To'], msg.as_string())
         server.quit()
         

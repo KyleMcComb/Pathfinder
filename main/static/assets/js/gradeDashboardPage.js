@@ -30,39 +30,45 @@ function progressBar(grade='0'){
  * @Description - Resizes the grade dashboard page's UI elements to fit the screen resolution.
  */
 function resizeGradeDashboardPage() {
-    var bottomBarDiv = document.getElementsByClassName('bottom-bar')[0];
-    var windowWidth = window.innerWidth; // Get the current window width
-    var windowHeight = window.innerHeight; // Get the current window height
-    var progress = windowHeight * 0.078241; // Calculate the progress bar height
-    var barchartWidth = (((windowWidth - 55) * 0.95) * 0.64); // Calculate the width of the bar chart
-    var barchartHeight = (1130 / 2261.3) * barchartWidth; // Calculate the height of the bar chart
-    document.getElementsByClassName('content')[0].style.height = (windowHeight - progress) + 'px'; // Set the content height
-    document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
-    document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
+    try{
+        var bottomBarDiv = document.getElementsByClassName('bottom-bar')[0];
+        var windowWidth = window.innerWidth; // Get the current window width
+        var windowHeight = window.innerHeight; // Get the current window height
+        var progress = windowHeight * 0.078241; // Calculate the progress bar height
+        var barchartWidth = (((windowWidth - 55) * 0.95) * 0.64); // Calculate the width of the bar chart
+        var barchartHeight = (1130 / 2261.3) * barchartWidth; // Calculate the height of the bar chart
+        document.getElementsByClassName('content')[0].style.height = (windowHeight - progress) + 'px'; // Set the content height
+        document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
+        document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
 
-    var navOpen = sessionStorage.getItem("navOpen");
+        var navOpen = sessionStorage.getItem("navOpen");
 
-    // NAV IS OPEN
-    if (navOpen == "true") {
-        // Check if the window width is smaller than 1117.1px
-        if (windowWidth < 1117.1) {
-            bottomBarDiv.style.width = (windowWidth - 145) + 'px'; // Set width for open sidebar
-            bottomBarDiv.style.left = '145px'; // Set left position for open sidebar
-        } else {
-            bottomBarDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
-            bottomBarDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position for open sidebar
+        // NAV IS OPEN
+        if (navOpen == "true") {
+            // Check if the window width is smaller than 1117.1px
+            if (windowWidth < 1117.1) {
+                bottomBarDiv.style.width = (windowWidth - 145) + 'px'; // Set width for open sidebar
+                bottomBarDiv.style.left = '145px'; // Set left position for open sidebar
+            } else {
+                bottomBarDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
+                bottomBarDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position for open sidebar
+            }
+        }
+        // NAV IS NOT OPEN
+        else if (navOpen == "false") {
+            // Check if the window width is smaller than 1117.1px
+            if (windowWidth < 1117.1) {
+                bottomBarDiv.style.width = (windowWidth - 32) + 'px'; // Set width for closed sidebar
+                bottomBarDiv.style.left = '32px'; // Set left position for closed sidebar
+            } else {
+                bottomBarDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
+                bottomBarDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position for closed sidebar
+            }
         }
     }
-    // NAV IS NOT OPEN
-    else if (navOpen == "false") {
-        // Check if the window width is smaller than 1117.1px
-        if (windowWidth < 1117.1) {
-            bottomBarDiv.style.width = (windowWidth - 32) + 'px'; // Set width for closed sidebar
-            bottomBarDiv.style.left = '32px'; // Set left position for closed sidebar
-        } else {
-            bottomBarDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
-            bottomBarDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position for closed sidebar
-        }
+    catch (error) {
+        // Handle any errors that might occur
+        console.log("An error occurred: " + error.message);
     }
 }
 
@@ -86,24 +92,30 @@ function navToggleOnGradeDashboardPage() {
  */
 function getGradeData() {
     $.get("/gradeInfo/", function(data) {
-        progressBar(data.currentPathwayMark); // Update progress bar
-        document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'; // Display module average
-        document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'; // Display assessment average
-        document.getElementById('leftToEarn').innerHTML = data.leftToEarn + '%'; // Display left-to-earn percentage
-
-        var stages = data.stages;
-        for (var i = 0; i < stages.length; i++) {
-            stageNum = i + 1;
-            var defaultChecked = 0;
-            if (i == 0) {
-                defaultChecked = 'checked="true"';
-            }
-            // Add radio buttons to the stage selection dropdown for each of the student's stages
-            document.getElementById('mySelectOptions').innerHTML += `
-                <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-${stageNum}" onchange="radioBtnStatusChange()" value="${stageNum}" ${defaultChecked}/>${stageNum}</label>
-            `;
+        if(data.error == 'True'){
+            document.getElementsByClassName('content')[0].innerHTML = '<h1>There was an error retrieving your grade data. Please try again later.<br /><br />It is possible that you are either not signed in, or you are signed in but do not have any modules connected to your account, please contact the admin to help solve this issue.</h1>';
+            document.getElementsByClassName('bottom-bar')[0].style.display = 'none';
         }
-        displayStage(1); // Display data for the 1st semester on page load
+        else {
+            progressBar(data.currentPathwayMark); // Update progress bar
+            document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'; // Display module average
+            document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'; // Display assessment average
+            document.getElementById('leftToEarn').innerHTML = data.leftToEarn + '%'; // Display left-to-earn percentage
+
+            var stages = data.stages;
+            for (var i = 0; i < stages.length; i++) {
+                stageNum = i + 1;
+                var defaultChecked = 0;
+                if (i == 0) {
+                    defaultChecked = 'checked="true"';
+                }
+                // Add radio buttons to the stage selection dropdown for each of the student's stages
+                document.getElementById('mySelectOptions').innerHTML += `
+                    <label for="stage">&nbsp;&nbsp;<input name="stageSelect" type="radio" id="stage-${stageNum}" onchange="radioBtnStatusChange()" value="${stageNum}" ${defaultChecked}/>${stageNum}</label>
+                `;
+            }
+            displayStage(1); // Display data for the 1st semester on page load
+        }
     });
 }
 
@@ -266,15 +278,21 @@ function radioBtnStatusChange() {
  * @param {boolean} [onlyHide=false] - Indicates whether to only hide the options area.
  */
 function toggleRadioBtnArea(onlyHide = false) {
-    var radioBtns = document.getElementById('mySelectOptions');
-    var displayValue = radioBtns.style.display;
+    try {
+        var radioBtns = document.getElementById('mySelectOptions');
+        var displayValue = radioBtns.style.display;
 
-    if (displayValue != 'block') {
-        if (!onlyHide) {
-            radioBtns.style.display = 'block'; // Show the options area
+        if (displayValue != 'block') {
+            if (!onlyHide) {
+                radioBtns.style.display = 'block'; // Show the options area
+            }
+        } else {
+            radioBtns.style.display = 'none'; // Hide the options area
         }
-    } else {
-        radioBtns.style.display = 'none'; // Hide the options area
+    } 
+    catch (error) {
+        // Handle any errors that might occur
+        console.log("An error occurred: " + error.message);
     }
 }
 

@@ -30,7 +30,7 @@ def getModuleInfofromObject(moduleObject):
     pathways = Pathway.objects.filter(modulepathway__moduleID=moduleCode).values_list('pathwayName', flat=True)
     pathwaysStr = ', '.join(pathways)
 
-    lecturers = Lecturer.objects.filter(modulelecturer__moduleID=moduleCode).values_list('lecturerName', flat=True)
+    lecturers = moduleObject.lecturer_set.all().values_list('lecturerName', flat=True)
     lecturersStr = ', '.join(lecturers)
 
     assessmentsInfo = Assessment.objects.filter(moduleID=moduleCode).values_list('assessmentType', 'assessmentWeight')

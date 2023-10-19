@@ -19,7 +19,6 @@ def moduleInfoForStudent(student, currentStage):
     moduleIds = [moduleId for moduleId, _ in moduleLevels]
     
     assessmentInfos = {moduleId: assessmentInfoForStudentsModule(student, moduleId) for moduleId in moduleIds} # Retrieve assessment information for each module
-    
     # Retrieve module names and weights
     moduleNamesAndWeights = Module.objects.filter(moduleID__in=moduleIds).values('moduleID', 'moduleName', 'moduleWeight')
     studentModuleInfoAsStages = defaultdict(list)
@@ -47,7 +46,7 @@ def moduleInfoForStudent(student, currentStage):
 def assessmentInfoForStudentsModule(studentID, moduleID):
     # Retrieve the student's module and related assessment records
     studentModule = StudentModule.objects.prefetch_related('moduleID').get(studentID_id=studentID, moduleID_id=moduleID)
-    studentAssessments = StudentModuleAssesment.objects.filter(studentModuleID=studentModule).select_related('assessmentID__moduleID')
+    studentAssessments = StudentModuleAssessment.objects.filter(studentModuleID=studentModule).select_related('assessmentID__moduleID')
     
     assessmentInfo = []
     
@@ -124,25 +123,29 @@ def calcLeftToEarn(currentStage, studentInDb):
 
     return leftToEarn
 
-'''
+"""
 @Author: @DeanLogan
-@Description: Calculates the students module average and assesment average throughout their degree, also gets all the modules a student takes along with the assesments relating to those modules and the grades for all the modules and assesments. 
-@param: request -  HttpRequest object that contains metadata about the request
-@return: allGradeInfo - JSON object containing the grade information for the user
-'''
+@Description: Retrieves and returns various grade-related information for a student.
+@param: request - The HttpRequest object containing user information.
+@return: JsonResponse with grade-related information or an error message.
+"""
 def gradeInfoRequest(request):
-    studentInDb = Student.objects.get(studentID=request.user.username)
-    currentStage = studentInDb.studentCurrentLevel
-    stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
-    
-    return JsonResponse(
-        {
-            'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
-            'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
-            'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
-            'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
-            'stages': stagesInfo
-        }, 
-        safe=False
-    )
+    try:
+        studentInDb = Student.objects.get(studentID=request.user.username)
+        currentStage = studentInDb.studentCurrentLevel
+        stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
+        
+        return JsonResponse(
+            {
+                'error': 'False',
+                'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
+                'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
+                'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
+                'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
+                'stages': stagesInfo
+            }, 
+            safe=False
+        )
+    except:
+        return JsonResponse({'error': 'True'}, safe=False)
 

@@ -141,7 +141,7 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
   * Student Number: admin
   * Password: admin
 * Student Account 1
-  * Student Number: 40294254
+  * Student Number: 40294254 (Note this account currently has 2FA enabled, so unless you have the TOTP you cannot login)
   * Password: 8characters
 * Student Account 2
   * Student Number: 40191566

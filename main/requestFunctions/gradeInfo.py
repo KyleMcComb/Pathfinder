@@ -54,7 +54,8 @@ def assessmentInfoForStudentsModule(studentID, moduleID):
     for studentAssessment in studentAssessments:
         assessmentInfo.append({
             'name': studentAssessment.assessmentID.assessmentType,
-            'mark': studentAssessment.assesmentMark
+            'mark': studentAssessment.assesmentMark,
+            'id': studentAssessment.studentModuleAssessmentID
         })
     
     return assessmentInfo

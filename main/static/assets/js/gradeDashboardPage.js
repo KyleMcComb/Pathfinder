@@ -151,11 +151,12 @@ function displayStage(stageSelected) {
             assessments = stage[i].assessments;
             for (var j = 0; j < assessments.length; j++) {
                 htmlFormat += `
-                    <p>&nbsp;&nbsp;${assessments[j].name}: ${assessments[j].mark}%</p>
+                    <p>&nbsp;&nbsp;${assessments[j].name}: <input class="assesment-grade" type="text" value="${assessments[j].mark}" placeholder="Grade" name="${assessments[j].id}" required>%</p>
                 `;
             }
         }
 
+        htmlFormat += `<button onclick="updateGrades()" type="button">Save</button>`;
         document.getElementsByClassName('assesments')[0].innerHTML = htmlFormat;
 
         // Destroy the previous chart that was being displayed on the page
@@ -167,6 +168,30 @@ function displayStage(stageSelected) {
     });
 }
 
+function updateGrades(){
+    const divElement = document.getElementsByClassName("assesments")[0]; // Replace "myDiv" with the ID of your specific div
+
+    if (divElement) {
+        const pTags = divElement.getElementsByTagName("p");
+        var assessmentGrades = [];
+
+        for (const p of pTags) {
+            const inputField = p.querySelector("input");
+            if (inputField) {
+                assessment = {
+                    'id': inputField.name,
+                    'mark': inputField.value
+                }
+                assessmentGrades.push(assessment);
+            }
+        }
+    }
+
+    console.log(assessmentGrades);
+    // $.get('/verify/', { username: username, password: password }, function (data) {
+
+    // });
+}
 
 /**
  * @Author - @DeanLogan

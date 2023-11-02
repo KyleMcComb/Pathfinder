@@ -168,6 +168,11 @@ function displayStage(stageSelected) {
     });
 }
 
+/**
+ * @Author - @DeanLogan
+ * Retrieves and updates assessment grades from input fields within a specific div.
+ * Sends a GET request to update the assessment marks and displays an alert with the response message.
+ */
 function updateGrades(){
     const divElement = document.getElementsByClassName("assesments")[0]; // Replace "myDiv" with the ID of your specific div
 
@@ -187,10 +192,10 @@ function updateGrades(){
         }
     }
 
-    console.log(assessmentGrades);
-    // $.get('/verify/', { username: username, password: password }, function (data) {
-
-    // });
+    $.get('/updateMarks/', { assessmentMark: JSON.stringify(assessmentGrades) }, function (data) {
+        alert(data.message);
+        location.reload();
+    });
 }
 
 /**

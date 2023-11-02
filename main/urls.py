@@ -3,7 +3,7 @@ from django.urls import path
 from .chatbot import receive_message
 from django.urls import path, include
 from .requestFunctions.generalInfo import listOfPathways, accountInfo
-from .requestFunctions.gradeInfo import gradeInfoRequest
+from .requestFunctions.gradeInfo import gradeInfoRequest, updateMarks
 from .requestFunctions.accountHandling import verify, signUp, displayQRCode, hasTwoFactorEnabled, forgotPassword
 from .requestFunctions.searchModules import searchModulesRequest
 from .requestFunctions.backupHandling import listLocalBackupFiles, listCloudBackupFiles, restoreBackup, rollbackBackup, deleteBackup
@@ -34,4 +34,5 @@ urlpatterns = [
     path('hasTwoFactorEnabled/', hasTwoFactorEnabled, name='hasTwoFactorEnabled'),
     path('login/', views.loginPage, name='login'),
     path('forgotPassword/', forgotPassword, name='forgotPassword'),
+    path('updateMarks/', updateMarks, name='updateMarks')
 ]

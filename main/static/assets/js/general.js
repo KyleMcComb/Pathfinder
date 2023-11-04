@@ -175,10 +175,10 @@ function resizeContentDiv() {
     if (navOpen == 'true') {
         // Check if the window width is smaller than 1117.1px
         if (windowWidth < 1117.1) {
-            contentDiv.style.width = (windowWidth - 145) + 'px'; // Set the width for open sidebar on small screens
+            //contentDiv.style.width = (windowWidth - 145) + 'px'; // Set the width for open sidebar on small screens
             contentDiv.style.left = '145px'; // Set the left position
         } else {
-            contentDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
+            //contentDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
             contentDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position
         }
     }
@@ -186,10 +186,10 @@ function resizeContentDiv() {
     else if (navOpen == 'false') {
         // Check if the window width is smaller than 1117.1px
         if (windowWidth < 1117.1) {
-            contentDiv.style.width = (windowWidth - 32) + 'px'; // Set the width for closed sidebar on small screens
+            //contentDiv.style.width = (windowWidth - 32) + 'px'; // Set the width for closed sidebar on small screens
             contentDiv.style.left = '32px'; // Set the left position
         } else {
-            contentDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
+            //contentDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
             contentDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position
         }
     }

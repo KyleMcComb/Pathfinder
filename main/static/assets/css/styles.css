@@ -62,7 +62,7 @@ body {
 
 /* main content div for all pages */
 .content {
-  height: 100vh;
+  width: 98%;
   overflow-y: visible;
   background-color: var(--color-primary);
   transition: all 0.23s ease-in-out;
@@ -87,6 +87,10 @@ body {
 }
 .content form {
   padding: 18px;
+}
+
+.title {
+  margin-bottom: 8%;
 }
 
 /* the bar that appears at the bottom of the chatbot page and gradedashboard page, this is pinned to the bottom of the screen */
@@ -159,7 +163,7 @@ body {
   transition: opacity 400ms ease;
 }
 .sidebar #menu-items {
-  padding-left: 3.125vw;
+  padding-left: 5.125vw;
 }
 .sidebar #menu-items a {
   -webkit-user-select: none; /* Safari */

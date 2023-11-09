@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'captcha',
+    'dbbackup',
     'database',
+    'backups'
+]
+
+# Below are the backup settings for the project
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR / 'backups' / 'dbBackup'}
+
+# Below is a list of the jobs to be run and the time intervals for those jobs
+CRONJOBS = [
+    ('0 2 * * 0', 'mysite.jobs.backupJob')  # Run at 2:00 AM every Sunday (0:00 is Sunday).
 ]
 
 MIDDLEWARE = [
@@ -56,7 +71,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [BASE_DIR / "main" / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,6 +96,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# SIGNALS_APP_CONFIG = 'database.apps.SignalsConfig'
 
 
 # Password validation
@@ -126,6 +143,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/login"
 
-LOGOUT_REDIRECT_URL = "/"
+RECAPTCHA_PUBLIC_KEY = '6LfnPW4oAAAAALM65qUErp5CGjZHQ4VPRRYWbPsc'
+RECAPTCHA_PRIVATE_KEY = '6LfnPW4oAAAAABh3tQ-V0-EmfxkfSbtUYtQrAN11'

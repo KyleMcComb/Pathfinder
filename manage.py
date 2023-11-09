@@ -16,6 +16,8 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
+    from mysite.jobs import backupJob
+    #backupJob() # When the server stops backup the database -- commented out during development to prevent unnecessary backups
 
 
 if __name__ == '__main__':

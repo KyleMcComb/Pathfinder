@@ -2,7 +2,7 @@
 {% block content%}
 
 <!-- 
-    Author: @DeanLogan123
+    Author: @DeanLogan
 -->
 
 <!DOCTYPE html>
@@ -11,7 +11,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pathfinder</title>
+    <title>Settings | Pathfinder</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}">
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
 </head>
     <body>
@@ -32,7 +33,7 @@
                     {% elif user.is_authenticated and user.username != "admin" %} <!-- displays link to grade dashboard page if user is the student -->
                         <a href="/GradeDashboard" class="menu-item">Grade  <br /> Dashboard</a>
                     {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
-                        <a class="menu-item" onclick="document.getElementById('id01').style.display='block'">Login</a>
+                        <a href="/login"class="menu-item">Login</a>
                         <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
                     {% endif %}
                     {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
@@ -65,6 +66,13 @@
                                 <p><b>Current Stage:</b></p>
                                 <p class="accountInformation" id="account-stage"></p>
                             {% endif %}
+                            <p><b>2FA:</b></p>
+                            <p class="accountInformation">
+                                Scan the qr code below with your authenticator app, to setup 2FA on your account.
+                                <br /><br />
+                                <span id="qr-code"></span>
+                            </p>
+                            <br /><br />
                             <p>If any of this information is incorrect please contact the admin here: <b><span class="admin-email"></span></b></p>
                         </form>
                     {% endif %}
@@ -91,23 +99,6 @@
                 </div>
             </div>
         </main>
-
-        <!-- Login pop up -->
-        <div id="id01" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
-            <form class="modal-content animate" action="" method="">
-                <div class="container">
-                    <label for="student-number-login"><b>Student Number</b></label>
-                    <input type="text" placeholder="Enter Student Number" name="student-number-login" required>
-                    <label for="psw"><b>Password</b></label>
-                    <input id="password-login" type="password" placeholder="Enter Password" name="psw" required>
-                    <button onclick="login()" type="button">Login</button>
-                    <button onclick="document.getElementById('id01').style.display='none'" type="button">Cancel</button>
-                </div>
-                <div class="container">
-                    <span class="psw"><a href="#">Forget Password?</a></span>
-                </div>
-            </form>
-        </div>
 
         <!-- Sign-up pop up -->
         <div id="id02" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
@@ -139,7 +130,7 @@
                     <label for="semester-1"><input type="radio" id="semester-1" name="semester" value="1" checked="true"/> 1</label>
                     <label for="semester-2"><input type="radio" id="semester-2" name="semester" value="2" /> 2</label>
 
-                    <button onclick="goToSignUp2()" type="button">Next</button>
+                    <button onclick="goToSignUp()" type="button">Next</button>
                     <button  onclick="document.getElementById('id02').style.display='none'">Cancel</button>
                 </div>
             </form>

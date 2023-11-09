@@ -1,0 +1,48 @@
+{% extends "admin/index.html" %}
+
+<!-- 
+    Author: @DeanLogan
+-->
+
+{% load static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'assets/css/adminStyles.css' %}">{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+        <div class="module"><input type="submit" onclick="createBackup()" value="Create Backup"></div>
+        <div class="overlay">
+            <div class="overlay-content">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <div id="content-local-backup" class="backups">
+        <div class="module">
+            <table>
+                <caption>
+                    <a href="/admin/localBackup/" class="section" title="Local Backups">Local Backups</a>
+                </caption>
+                <tbody id="localBackupTable"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="content-cloud-backup" class="backups">
+        <div class="module">
+            <table>
+                <caption>
+                    <a href="/admin/cloudBackup/" class="section" title="Cloud Backups">Cloud Backups</a>
+                </caption>
+                <tbody id="cloudBackupTable"></tbody>
+            </table>        
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'assets/js/adminFiles/databaseList.js' %}"></script>
+{% endblock %}

@@ -64,7 +64,7 @@ def addExtraStudent():
     stu1Mod12 = StudentModule(studentID=student1ID, moduleID=Module.objects.get(moduleID='CSC2052'), stuModMark=84)
 
     stuMod_list = [stu1Mod1, stu1Mod2, stu1Mod3,stu1Mod4, stu1Mod5, stu1Mod6, stu1Mod7, stu1Mod8,
-                   stu1Mod9, stu1Mod10, stu1Mod11, stu1Mod12]
+                    stu1Mod9, stu1Mod10, stu1Mod11, stu1Mod12]
     for x in stuMod_list:
         x.save()
 
@@ -144,14 +144,14 @@ def addExtraStudent():
 
 def addStudentInterest():
     studentInterest1 = StudentInterest(studentID=Student.objects.get(studentID=40291577), 
-                                       interestName='Artificial Intelligence', interestImportance=1)
+                                        interestName='Artificial Intelligence', interestImportance=1)
     studentInterest2 = StudentInterest(studentID=Student.objects.get(studentID=40291577), 
-                                       interestName='Coding with Java', interestImportance=2)
+                                        interestName='Coding with Java', interestImportance=2)
     studentInterest3 = StudentInterest(studentID=Student.objects.get(studentID=40191566), 
-                                       interestName='Artificial Intelligence & Machine Learning', 
-                                       interestImportance=2)
+                                        interestName='Artificial Intelligence & Machine Learning', 
+                                        interestImportance=2)
     studentInterest4 = StudentInterest(studentID=Student.objects.get(studentID=40191566), 
-                                       interestName='Sql Databases', interestImportance=1)
+                                        interestName='Sql Databases', interestImportance=1)
 
     ##ADD ALL Students Info
     stuInter_list = [studentInterest1, studentInterest2, studentInterest3,studentInterest4]
@@ -230,3 +230,10 @@ def addStudentModuleAssessmentGrades():
     assessmentStudent_list = [mod1023ass1g, mod1023ass2g, mod1023ass3g,mod1026ass1g,mod1026ass2g ,mod1033ass1g ,mod1025ass1g ,mod1029ass1g ,mod1030ass1g, mod1030ass2g]
     for x in assessmentStudent_list:
         x.save()
+
+if __name__ == "__main__":
+    addStudents()
+    addStudentInterest()
+    addStudentModules()
+    addStudentModuleAssessmentGrades()
+    addExtraStudent()

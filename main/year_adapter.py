@@ -2,10 +2,12 @@ import re
 from chatterbot.logic import LogicAdapter
 from chatterbot.conversation import Statement
 from database.models import Module
+from django.db.models import Q
 
 class YearAdapter(LogicAdapter):
     def __init__(self, chatbot, **kwargs):
         super().__init__(chatbot, **kwargs)
+        self.student_id = 40191566  # Placeholder atm. Will be used in future for assigning / updating the student's year to the database to provide accurate recommendations.
 
     def can_process(self, statement):
         statement_text = statement.text.lower()
@@ -20,22 +22,22 @@ class YearAdapter(LogicAdapter):
             year = year_match.group()
 
         if year in ["first year", "1st year", "year 1", "stage 1"]:
-            first_year_modules = Module.objects.filter(moduleID__startswith="CSC1")
+            first_year_modules = Module.objects.filter(Q(moduleID__startswith="CSC1") | Q(moduleID__startswith="ECS1") | Q(moduleID__startswith="ELE1")) 
             response.text = "Good to know. Here are all the first-year modules you can do for EEECS:<br>"
             for module in first_year_modules:
                 response.text += f"- {module.moduleID}: {module.moduleName}<br>"
         elif year in ["second year", "2nd year", "year 2", "stage 2"]:
-            second_year_modules = Module.objects.filter(moduleID__startswith="CSC2")
+            second_year_modules = Module.objects.filter(Q(moduleID__startswith="CSC2") | Q(moduleID__startswith="ECS2") | Q(moduleID__startswith="ELE2"))
             response.text = "Good to know. Here are all the second-year modules you can do for EEECS:<br>"
             for module in second_year_modules:
                 response.text += f"- {module.moduleID}: {module.moduleName}<br>"
         elif year in ["final year", "3rd year", "year 3", "stage 3"]:
-            final_year_modules = Module.objects.filter(moduleID__startswith="CSC3")
+            final_year_modules = Module.objects.filter(Q(moduleID__startswith="CSC3") | Q(moduleID__startswith="ECS3") | Q(moduleID__startswith="ELE3"))
             response.text = "Good to know. Here are all the final year modules you can do for EEECS:<br>"
             for module in final_year_modules:
                 response.text += f"- {module.moduleID}: {module.moduleName}<br>"
         elif year in ["fourth year", "4th year", "year 4", "stage 4"]:
-            fourth_year_modules = Module.objects.filter(moduleID__startswith="CSC3")
+            fourth_year_modules = Module.objects.filter(Q(moduleID__startswith="CSC4") | Q(moduleID__startswith="ECS4") | Q(moduleID__startswith="ELE4"))
             response.text = "Good to know. Here are all the fourth-year modules you can do for EEECS:<br>"
             for module in fourth_year_modules:
                 response.text += f"- {module.moduleID}: {module.moduleName}<br>"

@@ -1,10 +1,17 @@
+from .models import *
 from django.contrib import admin
-from django.urls import reverse
-from django.utils.http import urlencode
 from django.utils.safestring import *
 
-# Register your models here.
-from .models import *
+@admin.register(Pathway)
+class PathwayAdmin(admin.ModelAdmin):
+    list_display = ("pathwayID", "pathwayName", "pathwayLevels")
+    search_fields = ("pathwayName", )
+    list_filter = ("pathwayLevels", )
+
+@admin.register(Lecturer)
+class LecturerAdmin(admin.ModelAdmin):
+    list_display = ("lecturerID", "lecturerName", "lecturerEmail")
+    search_fields = ("lecturerName", )
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
@@ -24,14 +31,10 @@ class AssessmentAdmin(admin.ModelAdmin):
         return mark_safe(f"<a href='/admin/database/module/{obj.moduleID}/change/'>{obj.moduleID}</a>")
 
     list_display = ("assessmentID", "module", "assessmentType", "assessmentWeight")
-    search_fields = ("assessmentID", "assessmentType")
+    search_fields = ("assessmentID", )
     list_filter = ("moduleID", )
 
-@admin.register(Lecturer)
-class LecturerAdmin(admin.ModelAdmin):
-    list_display = ("lecturerID", "lecturerName", "lecturerEmail")
-    search_fields = ("lecturerID", "lecturerName")
-
+'''
 @admin.register(ModuleLecturer)
 class ModuleLecturerAdmin(admin.ModelAdmin):
     def module(self, obj):
@@ -40,14 +43,9 @@ class ModuleLecturerAdmin(admin.ModelAdmin):
         return mark_safe(f"<a href='/admin/database/lecturer/{obj.lecturerID}/change/'>{obj.lecturerID}</a>")
 
     list_display = ("moduleLecturerID", "lecturer", "module")
-    search_fields = ("moduleLecturerID", "lecturerID", "moduleID")
+    search_fields = ("lecturer", )
     list_filter = ("moduleID", )
-
-@admin.register(Pathway)
-class PathwayAdmin(admin.ModelAdmin):
-    list_display = ("pathwayID", "pathwayName", "pathwayLevels")
-    search_fields = ("pathwayID", "pathwayName")
-    list_filter = ("pathwayLevels", )
+'''
 
 @admin.register(ModulePathway)
 class ModulePathwayAdmin(admin.ModelAdmin):
@@ -57,7 +55,7 @@ class ModulePathwayAdmin(admin.ModelAdmin):
         return mark_safe(f"<a href='/admin/database/pathway/{obj.pathwayID}/change/'>{obj.pathwayID}</a>")
     
     list_display = ("modulePathwayID", "module", "pathway", "mpCore")
-    search_fields = ("modulePathwayID", "moduleID", "pathwayID")
+    search_fields = ("modulePathwayID", )
     list_filter = ("mpCore", "pathwayID", "moduleID")
 
 @admin.register(Student)
@@ -68,6 +66,8 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ("studentID", "pathway", "studentCurrentLevel", "studentCurrentSemester", "currentPathwayMark")
     search_fields =  ('studentID', )
 
+    readonly_fields=('currentPathwayMark',)
+
 @admin.register(StudentModule)
 class StudentModuleAdmin(admin.ModelAdmin):
     def student(self, obj):
@@ -76,8 +76,10 @@ class StudentModuleAdmin(admin.ModelAdmin):
         return mark_safe(f"<a href='/admin/database/module/{obj.moduleID}/change/'>{obj.moduleID}</a>")
     
     list_display = ("studentModuleID", "student", "module", "stuModMark")
-    search_fields =  ('studentModuleID', "studentID", "moduleID")
+    search_fields =  ('studentModuleID', )
     list_filter = ("studentID", "moduleID")
+
+    readonly_fields=('stuModMark',)
 
 @admin.register(StudentInterest)
 class StudentInterestAdmin(admin.ModelAdmin):
@@ -85,19 +87,19 @@ class StudentInterestAdmin(admin.ModelAdmin):
         return mark_safe(f"<a href='/admin/database/student/{obj.studentID}/change/'>{obj.studentID}</a>")
     
     list_display = ("studentInterestID", "student", "interestName", "interestImportance")
-    search_fields =  ('studentInterestID', "studentID", "interestName")
+    search_fields =  ('studentInterestID', )
     list_filter = ("studentID", )
 
-@admin.register(StudentModuleAssesment)
-class StudentModuleAssesmentAdmin(admin.ModelAdmin):
+@admin.register(StudentModuleAssessment)
+class StudentModuleAssessmentAdmin(admin.ModelAdmin):
     def studentModule(self, obj):
         return mark_safe(f"<a href='/admin/database/studentmodule/{obj.studentModuleID}/change/'>{obj.studentModuleID}</a>")
     
     def assessment(self, obj):
         return mark_safe(f"<a href='/admin/database/assessment/{obj.assessmentID}/change/'>{obj.assessmentID}</a>")
 
-    list_display = ("studentModuleAssesmentID", "studentModule", "assessment", "assesmentMark")
-    search_fields =  ('studentModuleAssesmentID', )
+    list_display = ("studentModuleAssessmentID", "studentModule", "assessment", "assessmentMark")
+    search_fields =  ('studentModuleAssessmentID', )
     list_filter = ("studentModuleID", "assessmentID")
 
 @admin.register(Career)
@@ -107,6 +109,8 @@ class CareerAdmin(admin.ModelAdmin):
     list_display_links = ("jobTitle",)
     list_filter = ("companyName",)
 
+    
+admin.site.index_template = 'admin/extendedAdminPage.html'  # Path to custom template for admin index page
 # @admin.register(CareerModule)
 # class CareerModuleAdmin(admin.ModelAdmin):
 #     def career(self, obj):

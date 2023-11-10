@@ -3,6 +3,11 @@ from ..models import *
 ### Could use chatgpt to search through and create reasoning of how the module and career link together
 ### Look at partial name or full name as link
 
+# from database.models import *
+# from database.populateData.careers import populateAllModuleCareers, clearAllModuleCareers
+# clearAllModuleCareers()
+# populateAllModuleCareers()
+
 def clearAllModuleCareers():
     all_modules = Module.objects.all()
     for module in all_modules:
@@ -26,7 +31,7 @@ def tokenize_string(s):
     return set(s.lower().split())
 
 def calculate_similarity(module, career):
-    stop_words = set(["to", "and", "of", "in", "for"])
+    stop_words = set(["to", "and", "of", "in", "for", "the","this","an", "on", "with","is","a","into","will","as","their","use","or","at","all","how"])
 
     module_name_tokens = tokenize_string(module.moduleName)
     module_desc_tokens = tokenize_string(module.moduleDescription)
@@ -60,7 +65,7 @@ def link_module_to_career(module, career, threshold):
 def addCareerModuleRelationship(career):
     # Fetch all the Module instances from the database
     all_modules = Module.objects.all()
-    similarity_threshold = 2  # this can be adjusted based on your requirements
+    similarity_threshold = 5  # this can be adjusted based on your requirements
 
     for module in all_modules:
         if calculate_similarity(module, career) >= similarity_threshold:

@@ -7,6 +7,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,129 +15,163 @@
     <title>Module Information | Pathfinder</title>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}">
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
-    <body>
-        <main>
-            <!-- This is for the sidebar/navigation, this will change depending on the access levels the user has. -->
-            <div class="sidebar" id="menu">
-                <div class="toggleButton">
-                    <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
-                </div>
-                <br />
-                <div id="menu-items">
-                    <a href="/" class="menu-item">Home</a>
-                    <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
-                    <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
-                    <a href="/settings", target="_parent" class="menu-item">Settings</a>
-                    {% if user.is_authenticated and user.username == "admin" %} <!-- displays link to admin page if user is the admin -->
+
+<body>
+    <main>
+        <!-- This is for the sidebar/navigation, this will change depending on the access levels the user has. -->
+        <div class="row">
+            <div class="col-1" id="column1">
+                <div class="sidebar" id="menu">
+                    <div class="toggleButton">
+                        <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;&nbsp;Pathfinder
+                        </p>
+                    </div>
+                    <br />
+                    <div class="menu-items">
+                        <a href="/" class="menu-item">Home</a>
+                        <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
+                        <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
+                        <a href="/settings" , target="_parent" class="menu-item">Settings</a>
+                        {% if user.is_authenticated and user.username == "admin" %}
+                        <!-- displays link to admin page if user is the admin -->
                         <a href="/admin" class="menu-item">Admin Page</a>
-                    {% elif user.is_authenticated and user.username != "admin" %} <!-- displays link to grade dashboard page if user is the student -->
-                        <a href="/GradeDashboard" class="menu-item">Grade  <br /> Dashboard</a>
-                    {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
+                        {% elif user.is_authenticated and user.username != "admin" %}
+                        <!-- displays link to grade dashboard page if user is the student -->
+                        <a href="/GradeDashboard" class="menu-item">Grade <br /> Dashboard</a>
+                        {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
                         <a href="/login" class="menu-item">Login</a>
                         <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
-                    {% endif %}
-                    {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
+                        {% endif %}
+                        {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
                         <a onclick="logout()" class="menu-item">Logout</a>
-                    {% endif %}
+                        {% endif %}
+                    </div>
+                    <div id="menu-background-pattern"></div>
+                    <!-- this is for the dots that appear in the background of the side bar -->
                 </div>
-                <div id="menu-background-pattern"></div> <!-- this is for the dots that appear in the background of the side bar -->
             </div>
-
-            <div class="content">
-                <div class="title">
-                    <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                    <h1 onclick="signUp()">Module Information</h1>
+    
+            <div class="col-2" id="column2">
+                <div class="top-bar">
+                    <div class="title">
+                        <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
+                        <h1 onclick="signUp()">Module Information</h1>
+                    </div>
                 </div>
-                
-                <div class="filter-and-search">
-                    <form onsubmit="return false" class="search-bar">
-                        <input type="text" placeholder="Search by module name, clear bar and hit enter to clear search option" name="search" id="search-input">
-                        <button type="button" id="searchbutton"><i class="fa fa-search"></i></button>
-                    </form>
-
-                    <div class="filter">
-                        <div id="myMultiselect" class="multiselect">
-                            <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
-                                <select class="filtersApplied">
-                                    <option>No Filters are applied</option>
-                                </select>
-                                <div class="overSelect"></div>
-                            </div>
-                            <div id="mySelectOptions">
-                                <label>Stage</label>
-                                <label for="stage-1">&nbsp;&nbsp;<input type="checkbox" id="stage-1" onchange="checkboxStatusChange()" value="stage-1" /> 1</label>
-                                <label for="stage-2">&nbsp;&nbsp;<input type="checkbox" id="stage-2" onchange="checkboxStatusChange()" value="stage-2" /> 2</label>
-                                <label for="stage-3">&nbsp;&nbsp;<input type="checkbox" id="stage-3" onchange="checkboxStatusChange()" value="stage-3" /> 3</label>
-                                <label for="stage-4">&nbsp;&nbsp;<input type="checkbox" id="stage-4" onchange="checkboxStatusChange()" value="stage-4" /> 4</label>
-
-                                <label>Semester</label>
-                                <label for="semester-1">&nbsp;&nbsp;<input type="checkbox" id="semester-1" onchange="checkboxStatusChange()" value="semester-1" /> 1</label>
-                                <label for="semester-2">&nbsp;&nbsp;<input type="checkbox" id="semester-2" onchange="checkboxStatusChange()" value="semester-2" /> 2</label>
-                                
-                                <label>Pathways</label>
-                                <div class="pathways">
-                                    <label for="BIT">&nbsp;&nbsp;<input type="checkbox" id="BIT" onchange="checkboxStatusChange()" value="BIT" /> BIT</label>
-                                    <label for="CS">&nbsp;&nbsp;<input type="checkbox" id="CS" onchange="checkboxStatusChange()" value="CS" /> CS</label>
-                                    <label for="SE">&nbsp;&nbsp;<input type="checkbox" id="SE" onchange="checkboxStatusChange()" value="SE" /> SE</label>
+    
+                <div class="content">
+                    <div class="filter-and-search">
+                        <form onsubmit="return false" class="search-bar">
+                            <input type="text"
+                                placeholder="Search by module name, clear bar and hit enter to clear search option"
+                                name="search" id="search-input">
+                            <button type="button" id="searchbutton"><i class="fa fa-search"></i></button>
+                        </form>
+                        <div class="filter">
+                            <div id="myMultiselect" class="multiselect">
+                                <div id="mySelectLabel" class="selectBox" onclick="toggleCheckboxArea()">
+                                    <select class="filtersApplied">
+                                        <option>No Filters are applied</option>
+                                    </select>
+                                    <div class="overSelect"></div>
+                                </div>
+                                <div id="mySelectOptions">
+                                    <label>Stage</label>
+                                    <label for="stage-1">&nbsp;&nbsp;<input type="checkbox" id="stage-1"
+                                            onchange="checkboxStatusChange()" value="stage-1" /> 1</label>
+                                    <label for="stage-2">&nbsp;&nbsp;<input type="checkbox" id="stage-2"
+                                            onchange="checkboxStatusChange()" value="stage-2" /> 2</label>
+                                    <label for="stage-3">&nbsp;&nbsp;<input type="checkbox" id="stage-3"
+                                            onchange="checkboxStatusChange()" value="stage-3" /> 3</label>
+                                    <label for="stage-4">&nbsp;&nbsp;<input type="checkbox" id="stage-4"
+                                            onchange="checkboxStatusChange()" value="stage-4" /> 4</label>
+    
+                                    <label>Semester</label>
+                                    <label for="semester-1">&nbsp;&nbsp;<input type="checkbox" id="semester-1"
+                                            onchange="checkboxStatusChange()" value="semester-1" /> 1</label>
+                                    <label for="semester-2">&nbsp;&nbsp;<input type="checkbox" id="semester-2"
+                                            onchange="checkboxStatusChange()" value="semester-2" /> 2</label>
+    
+                                    <label>Pathways</label>
+                                    <div class="pathways">
+                                        <label for="BIT">&nbsp;&nbsp;<input type="checkbox" id="BIT"
+                                                onchange="checkboxStatusChange()" value="BIT" /> BIT</label>
+                                        <label for="CS">&nbsp;&nbsp;<input type="checkbox" id="CS"
+                                                onchange="checkboxStatusChange()" value="CS" /> CS</label>
+                                        <label for="SE">&nbsp;&nbsp;<input type="checkbox" id="SE"
+                                                onchange="checkboxStatusChange()" value="SE" /> SE</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="modules-container"></div> <!-- placeholder until the js populates this with the tables for the module information -->
-            </div>
-        </main>
-
-        <!-- Sign-up pop up -->
-        <div id="id02" class="modal"> <!-- the modal allows for the blurred background to appear around the "container" div -->
-            <form id="sign-up-1" class="modal-content animate" onsubmit="nextSignUpStep()">
-                <div class="container">
-                    <h2>Enter Account Information</h2><br />
-                    <p>All fields must be filled, then a request to the admin to create your account will be sent.</p><br /><br />
-                    <label for="student-number-sign-up"><b>Student Number</b></label>
-                    <input type="text" placeholder="Enter student number" name="student-number-sign-up" required>
-                    <label for="name"><b>Name</b></label>
-                    <input type="text" placeholder="Enter name" name="name" required>
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" name="email" required>
-                    
-                    <label><b>Pathway</b></label><br />
-                    <!-- this is where the pathways will be added to once they are got from the database -->
-                    <div class="Pathway">
-                        <label for="BIT"><input type="radio" id="BIT" name="pathway" value="BIT" onchange="updateStageOptions()" checked="true"/> BIT</label> <!-- placeholder until the js populates this with the correct pathways -->
-                    </div>
-
-                    <label for="stage"><b>Stage</b></label><br />
-                    <label for="stage-1"><input type="radio" id="stage-1" name="stage" value="1"checked="true" /> 1</label>
-                    <label for="stage-2"><input type="radio" id="stage-2" name="stage" value="2" /> 2</label>
-                    <label for="stage-3"><input type="radio" id="stage-3" name="stage" value="3" /> 3</label>
-                    <label for="stage-4" class="stage-4"><input type="radio" id="stage-4" name="stage" value="4" /> 4</label>
-                    <br />
-
-                    <label><b>Semester</b></label><br />
-                    <label for="semester-1"><input type="radio" id="semester-1" name="semester" value="1" checked="true"/> 1</label>
-                    <label for="semester-2"><input type="radio" id="semester-2" name="semester" value="2" /> 2</label>
-
-                    <button onclick="goToSignUp()" type="button">Next</button>
-                    <button  onclick="document.getElementById('id02').style.display='none'">Cancel</button>
-                </div>
-            </form>
-
-            <div id="sign-up-2" class="modal-content animate">
-                <div>
-                    <h2>Sign Up Request Submitted!</h2><br /><br />
-                    <p>Your information has been sent to the admin <br /> Once the admin creates your, they'll send an email with your login details <br />If you have any questions please contact the admin here: <span id="admin-email"></span></p>
+                    <div class="modules-container"></div>
+                    <!-- placeholder until the js populates this with the tables for the module information -->
                 </div>
             </div>
         </div>
+    </main>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="{% static 'assets/js/general.js' %}"></script>
-        <script src="{% static 'assets/js/moduleInformationPage.js' %}"></script>
-    </body>
+    <!-- Sign-up pop up -->
+    <div id="id02" class="modal">
+        <!-- the modal allows for the blurred background to appear around the "container" div -->
+        <form id="sign-up-1" class="modal-content animate" onsubmit="nextSignUpStep()">
+            <div class="container">
+                <h2>Enter Account Information</h2><br />
+                <p>All fields must be filled, then a request to the admin to create your account will be sent.</p>
+                <br /><br />
+                <label for="student-number-sign-up"><b>Student Number</b></label>
+                <input type="text" placeholder="Enter student number" name="student-number-sign-up" required>
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Enter name" name="name" required>
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter email" name="email" required>
+
+                <label><b>Pathway</b></label><br />
+                <!-- this is where the pathways will be added to once they are got from the database -->
+                <div class="Pathway">
+                    <label for="BIT"><input type="radio" id="BIT" name="pathway" value="BIT"
+                            onchange="updateStageOptions()" checked="true" /> BIT</label>
+                    <!-- placeholder until the js populates this with the correct pathways -->
+                </div>
+
+                <label for="stage"><b>Stage</b></label><br />
+                <label for="stage-1"><input type="radio" id="stage-1" name="stage" value="1" checked="true" /> 1</label>
+                <label for="stage-2"><input type="radio" id="stage-2" name="stage" value="2" /> 2</label>
+                <label for="stage-3"><input type="radio" id="stage-3" name="stage" value="3" /> 3</label>
+                <label for="stage-4" class="stage-4"><input type="radio" id="stage-4" name="stage" value="4" />
+                    4</label>
+                <br />
+
+                <label><b>Semester</b></label><br />
+                <label for="semester-1"><input type="radio" id="semester-1" name="semester" value="1" checked="true" />
+                    1</label>
+                <label for="semester-2"><input type="radio" id="semester-2" name="semester" value="2" /> 2</label>
+
+                <button onclick="goToSignUp()" type="button">Next</button>
+                <button onclick="document.getElementById('id02').style.display='none'">Cancel</button>
+            </div>
+        </form>
+
+        <div id="sign-up-2" class="modal-content animate">
+            <div>
+                <h2>Sign Up Request Submitted!</h2><br /><br />
+                <p>Your information has been sent to the admin <br /> Once the admin creates your, they'll send an email
+                    with your login details <br />If you have any questions please contact the admin here: <span
+                        id="admin-email"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'assets/js/general.js' %}"></script>
+    <!--<script src="{% static 'assets/js/moduleInformationPage.js' %}"></script>-->
+</body>
+
 </html>
 
 {% endblock %}

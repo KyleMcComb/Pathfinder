@@ -4,9 +4,10 @@
     scroll-behavior: smooth;
     list-style: none;
     box-sizing: border-box;
-    transition: all .23s ease-in-out;
-    overflow: hidden;
+    transition: all .05s ease-in-out !important;
 }
+
+
 
 
 :root{ //dark mode (default)
@@ -55,139 +56,156 @@ html {
 body {
     background-color: var(--color-primary);
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+    font-size: 2.31vh;
     color: var(--color-tertiary);
-    transition: all .23s ease-in-out;
-    overflow-y: visible;
+    transition: all .05s ease-in-out !important;
 }
 
-/* main content div for all pages */
+//defining 1 row and 2 columns to contain everything, 
+//col 1 is only for navigation, col 2 for everything else
 
-.content{
-    overflow-y: visible;
-    background-color: var(--color-primary);
-    transition: all .23s ease-in-out;
-    float: right;
-    display: inline;
-    position: absolute;
-    padding-top: 28.11px;
-    padding-left: 30px;
-    padding-right: 30px;
-    /* Resize image and header */
-    img{
-        float: left;
-        width: 12vh;
-        height: 12vh;
+[class*="col-"] {
+    float: left;
+    height: 100%
+}
+  
+.row {
+    height: 100vh;
+}
+
+//width with nav open for screens between 800 and 1921 pixels
+.col-1 {width: 18%; }
+.col-2 {width: 72%;}
+//width for nav closed
+.col-1-closed {
+    width: 5%;
+    .sidebar{
+        overflow-y: hidden;
+        overflow-x: hidden;
+        .menu-items{
+            margin-left: -400%; //force menu items off screen
+        }
     }
-    h1{
-        padding-top: 1vh;
-        position: relative;
-        top: 32px;
-        left: 10px;
-        //padding-bottom: 9vh;
+}
+.col-2-closed{
+    width: 95%;
+}
+/* Extra small devices below 800 width*/
+@media only screen and (max-width: 800px) {
+    .col-1{
+        width: 52%;
     }
-    form{
-        padding: 18px;
+    .col-2{
+        width: 48%;
+    }
+    //width for nav closed
+    .col-1-closed {
+        width: 10%;
+        .sidebar{
+            overflow-y: hidden;
+            overflow-x: hidden;
+            padding-top: 2vh;
+            padding-left: 3vw;
+            .menu-items{
+                margin-left: -570%; //force menu items off screen
+            }
+        }
+    }
+    .col-2-closed{
+        width: 90%;
+    }
+    .filter-and-search{
+        font-size: 1.5vh;
+    }
+}    
+/* Extra large devices above 1921 width */
+@media only screen and (min-width: 1921px) {
+    .col-1{
+        width: 15%;
+    }
+    .col-2{
+        width: 85%;
+    }
+    //width for nav closed
+    .col-1-closed {
+        width: 3%;
+        .sidebar{
+            overflow-y: hidden;
+            padding-top: 2vh;
+            padding-left: 1vw;
+            .menu-items{
+                margin-left: -470%; //force menu items off screen
+            }
+        }
+    }
+    .col-2-closed{
+        width: 97%;
     }
 }
 
-/* the bar that appears at the bottom of the chatbot page and gradedashboard page, this is pinned to the bottom of the screen */
-.bottom-bar{
-    width: 100%;
-    position: fixed;
-    left: 0%;
-    transition: all .23s ease-in-out;
-    background-color: var(--color-primary);
-    min-height:85px;
-    position: absolute;
-    bottom: -24px;
-    margin: 1.5rem 0;
-    padding-left: 3.125vw;
-    /* where the user enters text to send to the chatbot */
-    textarea{
-        width:100%;
-        overflow-y: visible;
-        text-align: left !important;
-        position: absolute;
-        top: 7.5px;
-        border-radius: 30px;
-        padding: 0.8rem 1.1rem;
-        font-weight: inherit;
-        font-size: inherit;
-        font-family: inherit;
-        outline: none;
-        border: none;
-        background-color: var(--color-grey);
-        color: var(--color-tertiary);
-        height: 70%;
-    }
-}
-
-.hidden{
-    opacity: 0;
+main:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /* sidebar menu */
 .sidebar{
-    color: var(--color-white);
-    white-space: nowrap;
     height: 100vh;
+    width: inherit;
+    color: var(--color-white);
     background-color: var(--color-secondary);
-    transition: all .23s ease-in-out;
-    width: 2.864vw;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding: 10px;
-    //padding: 0.53vw;
-    margin: 0px;
+    padding-top: 3vh;
+    padding-left: 2vw;
     .closebtn{
+        z-index: 3;
         padding-left: 0.05vw;
         padding-right: 0.75vw;
-        font-size: 1.8vw;
+        font-size: inherit;
         cursor:pointer;
         position: relative;
         top: 30;
         color: var(--color-white);
     }
-    .menu-item {
-        cursor: pointer;
-        display: block;
-        padding: clamp(0.25rem, 0.5vw, 1rem) 0rem;
-        text-decoration: none;
-        transition: opacity 400ms ease;
-    }
-    #menu-items{
-        //padding-left: 60px;
-        padding-left: 3.125vw;
+    .menu-items{
         a {
+            z-index: 3;
+            position: relative;
+            cursor: pointer;
+            padding: 6px 6px 6px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            display: block;
+            padding: clamp(0.25rem, 0.5vw, 1rem) 0rem;
+            transition: opacity 400ms ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: inherit;
+            color: var(--color-white);
+
             // makes text non highlightable - thanks to https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
             -webkit-user-select: none; /* Safari */        
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+/Edge */
             user-select: none; /* Standard */
-            font-family: 'Poppins', sans-serif;
-            font-size: inherit;
-            color: var(--color-white);
         }
     }
     #menu-background-pattern {
+        z-index: 1;
         background-image: radial-gradient(rgba(255, 255, 255, 0.1) 9%, transparent 9%);
         background-position: 0% 0%;
         background-size: 12vmin 12vmin;
-        position: absolute;
+        position: fixed;
         height: 200vh;
         left: 0px;
         top: 0px;
         transition: opacity 800ms ease, background-size 800ms ease, background-position 800ms ease;
-        //width: 250px;
-        width: 12vw;
-        z-index: -2;
+        width: inherit;
     }
-}
+}  
 
 .toggleButton{
     // makes text non highlightable - thanks to https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
@@ -196,7 +214,6 @@ body {
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
-
 /* below is the animation for the background for whenever a user hovers over a menu item, it will change the position of the pattern based on which item is being hovered over */ 
 #menu[data-active-index="0"] > #menu-background-pattern {
     background-position: 0% -12.5%;
@@ -243,6 +260,91 @@ body {
     opacity: 1; 
 }
 
+/* main content div for all pages */
+.top-bar{
+    padding-top: 3vh;
+    padding-left: 5vw;
+    transition: all .23s ease-in-out;
+    position: fixed;
+    z-index: 25;
+    background-color: var(--color-primary);
+    width: inherit;
+    img{
+        //-webkit-filter: invert(100%);
+        filter: invert(100%);
+        float: left;
+        width: 10%;
+    }
+    @media only screen and (max-width: 800px) {
+        img{display: none};
+    }
+    h1{
+        padding-top: 1vh;
+        top: 32px;
+        left: 10px;
+    }
+}
+.top-bar::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+.content{
+    background-color: var(--color-primary);
+    transition: all .23s ease-in-out;
+    position: relative;
+    top: 20%;
+
+    .chatbot{
+        overflow-y: visible;
+        padding-left: 5vw;
+        padding-bottom: 15vh;
+        div {
+            padding-top: 3vh;
+        }
+    }
+}
+
+/* the bar that appears at the bottom of the chatbot page and gradedashboard page, this is pinned to the bottom of the screen */
+.bottom-bar{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: inherit;
+    transition: all .23s ease-in-out;
+    background-color: var(--color-primary);
+    min-height:85px;
+    /* where the user enters text to send to the chatbot */
+    textarea{
+        display: block;
+        width:85%;
+        overflow-y: visible;
+        text-align: left !important;
+        position: relative;
+        top: 7.5px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 3vh;
+        border-radius: 30px;
+        padding: 0.8rem 1.1rem;
+        font-weight: inherit;
+        font-size: inherit;
+        font-family: inherit;
+        outline: none;
+        border: none;
+        background-color: var(--color-grey);
+        color: var(--color-tertiary);
+        height: 70%;
+    }
+}
+
+.hidden{
+    opacity: 0;
+}
+
+
+
 /* styling for the chat bubbles*/
 .userText {
     overflow-x: visible;
@@ -257,8 +359,16 @@ body {
         border-radius: 8px;
         border-bottom-right-radius: 2px;
         max-width: 80%;
-        margin-right: 10px;
+        margin-right: 50px;
         animation: floatup .5s forwards;
+    }
+    /* Extra small devices below 800 width*/
+    @media only screen and (max-width: 800px) {
+        p{margin-right: 18px;}
+    }
+    /* Extra large devices above 1921 width */
+    @media only screen and (min-width: 1921px) {
+        p{margin-right: 80px;}
     }
 }
 
@@ -295,13 +405,12 @@ body {
 
 /* container for all of the module tables */
 .modules-container{
-    padding-left: 2.5%;
-    padding-right: 5%;
-    width:100%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    position: absolute;
-    top:25.5vh;
+    top:10.5vh;
     padding-bottom: 50px;
 
     //formatting for each of the module tables
@@ -336,17 +445,11 @@ body {
 /* styling for search bar and filter */
 .filter-and-search{
     z-index: 3;
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem;
-
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
     .search-bar{
-        grid-template-rows: 5.5vh;
         width: 100%;
-        display:grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 0rem;
-        grid-template-columns: 1fr 5.5vh;
     }
 }
 

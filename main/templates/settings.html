@@ -42,14 +42,18 @@
                 </div>
                 <div id="menu-background-pattern"></div> <!-- this is for the dots that appear in the background of the side bar -->
             </div>
-
-            <div class="content">
-                <div class="title">
-                    <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                    <h1>Settings</h1>
-                </div>
-                <div>
-                    {% if user.is_authenticated %}
+            
+            <div class="col-11">
+            
+                <div class="content">
+                    <div class="top-bar">
+                        <div class="title">
+                            <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
+                            <h1>Settings</h1>
+                        </div>
+                    </div>
+                    <div>
+                        {% if user.is_authenticated %}
                         <h2>Account Information</h2>
                         <form class="" action="" method="">
                             <p><b>Name:</b></p>
@@ -57,14 +61,14 @@
                             <p><b>Email:</b></p>
                             <p class="accountInformation" id="account-email"></p>
                             {% if user.is_authenticated and user.username != "admin" %}
-                                <p><b>Student Number:</b></p>
-                                <p class="accountInformation" id="account-student-number"></p>
-                                <p><b>Pathway:</b></p>
-                                <p class="accountInformation" id="account-pathway"></p>
-                                <p><b>Current Semester:</b></p>
-                                <p class="accountInformation" id="account-semester"></p>
-                                <p><b>Current Stage:</b></p>
-                                <p class="accountInformation" id="account-stage"></p>
+                            <p><b>Student Number:</b></p>
+                            <p class="accountInformation" id="account-student-number"></p>
+                            <p><b>Pathway:</b></p>
+                            <p class="accountInformation" id="account-pathway"></p>
+                            <p><b>Current Semester:</b></p>
+                            <p class="accountInformation" id="account-semester"></p>
+                            <p><b>Current Stage:</b></p>
+                            <p class="accountInformation" id="account-stage"></p>
                             {% endif %}
                             <p><b>2FA:</b></p>
                             <p class="accountInformation">
@@ -73,29 +77,31 @@
                                 <span id="qr-code"></span>
                             </p>
                             <br /><br />
-                            <p>If any of this information is incorrect please contact the admin here: <b><span class="admin-email"></span></b></p>
+                            <p>If any of this information is incorrect please contact the admin here: <b><span
+                                        class="admin-email"></span></b></p>
                         </form>
-                    {% endif %}
-
-                    <h2>Accessability</h2>
-                    <form onsubmit="return updateAccessabilityOptions()">
-                        <label class="" for="theme"><b>Theme: </b></label>
-                        <input type="radio" id="dark" name="theme" value="dark-mode" checked="checked">
-                        <label for="dark">Dark</label>
-                        <input type="radio" id="light" name="theme" value="light-mode">
-                        <label for="light">Light</label>
-                        <input type="radio" id="highContrast" name="theme" value="high-contrast-mode">
-                        <label for="highContrast">High Contrast</label><br>
-                        
-                        <label><b>Font Size: </b></label>
-                        <input type="radio" id="small" name="fontSize" value="small">
-                        <label for="small">Small</label>
-                        <input type="radio" id="medium" name="fontSize" value="medium" checked="checked">
-                        <label for="medium">Medium</label>
-                        <input type="radio" id="large" name="fontSize" value="large">
-                        <label for="large">Large</label><br>
-                        <button type="submit">Save Changes</button>
-                    </form>
+                        {% endif %}
+            
+                        <h2>Accessability</h2>
+                        <form onsubmit="return updateAccessabilityOptions()">
+                            <label class="" for="theme"><b>Theme: </b></label>
+                            <input type="radio" id="dark" name="theme" value="dark-mode" checked="checked">
+                            <label for="dark">Dark</label>
+                            <input type="radio" id="light" name="theme" value="light-mode">
+                            <label for="light">Light</label>
+                            <input type="radio" id="highContrast" name="theme" value="high-contrast-mode">
+                            <label for="highContrast">High Contrast</label><br>
+            
+                            <label><b>Font Size: </b></label>
+                            <input type="radio" id="small" name="fontSize" value="small">
+                            <label for="small">Small</label>
+                            <input type="radio" id="medium" name="fontSize" value="medium" checked="checked">
+                            <label for="medium">Medium</label>
+                            <input type="radio" id="large" name="fontSize" value="large">
+                            <label for="large">Large</label><br>
+                            <button type="submit">Save Changes</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </main>

@@ -7,7 +7,7 @@ class DatabaseTestCase(unittest.TestCase):
     def test_module_table(self):
         fields = [field.name for field in Module._meta.get_fields()]
         self.assertEqual(fields, ['assessment', 'modulelecturer', 'modulepathway', 'studentmodule', 'moduleID', 'moduleName', 'moduleSemester', 'moduleDescription', 'moduleLevel', 'moduleWeight', 'careers'])
-       
+
     def test_pathway_table(self):
         fields = [field.name for field in Pathway._meta.get_fields()]
         self.assertEqual(fields, ['modulepathway', 'student', 'pathwayID', 'pathwayName', 'pathwayLevels'])
@@ -33,7 +33,7 @@ class DatabaseTestCase(unittest.TestCase):
         self.assertEqual(fields, ['studentmoduleassesment', 'studentModuleID', 'studentID', 'moduleID', 'stuModMark'])
 
     def test_student_module_assessment_table(self):
-        fields = [field.name for field in StudentModuleAssesment._meta.get_fields()]
+        fields = [field.name for field in StudentModuleAssessment._meta.get_fields()]
         self.assertEqual(fields, ['studentModuleAssesmentID', 'studentModuleID', 'assessmentID', 'assesmentMark'])
 
     def test_career_table(self):

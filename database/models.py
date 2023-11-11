@@ -85,8 +85,3 @@ class StudentModuleAssessment(models.Model):
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
     assessmentMark = models.FloatField(default=100)
-
-# class CareerModule(models.Model):   ### Could have CareerModuleStudent
-#     careerModuleID = models.IntegerField(primary_key=True, auto_created=True)
-#     careerID = models.ForeignKey(Career, on_delete=models.CASCADE)
-#     moduleID = models.ForeignKey(Module, on_delete=models.CASCADE)

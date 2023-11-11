@@ -34,19 +34,6 @@ class AssessmentAdmin(admin.ModelAdmin):
     search_fields = ("assessmentID", )
     list_filter = ("moduleID", )
 
-'''
-@admin.register(ModuleLecturer)
-class ModuleLecturerAdmin(admin.ModelAdmin):
-    def module(self, obj):
-        return mark_safe(f"<a href='/admin/database/module/{obj.moduleID}/change/'>{obj.moduleID}</a>")
-    def lecturer(self, obj):
-        return mark_safe(f"<a href='/admin/database/lecturer/{obj.lecturerID}/change/'>{obj.lecturerID}</a>")
-
-    list_display = ("moduleLecturerID", "lecturer", "module")
-    search_fields = ("lecturer", )
-    list_filter = ("moduleID", )
-'''
-
 @admin.register(ModulePathway)
 class ModulePathwayAdmin(admin.ModelAdmin):
     def module(self, obj):
@@ -111,14 +98,3 @@ class CareerAdmin(admin.ModelAdmin):
 
     
 admin.site.index_template = 'admin/extendedAdminPage.html'  # Path to custom template for admin index page
-# @admin.register(CareerModule)
-# class CareerModuleAdmin(admin.ModelAdmin):
-#     def career(self, obj):
-#         return mark_safe(f"<a href='/admin/database/career/{obj.careerID.pk}/change/'>{obj.careerID.jobTitle} at {obj.careerID.companyName}</a>")
-
-#     def module(self, obj):
-#         return mark_safe(f"<a href='/admin/database/module/{obj.moduleID.pk}/change/'>{obj.moduleID.moduleName}</a>")
-
-#     list_display = ("careerModuleID", "career", "module")
-#     search_fields = ("careerModuleID", "jobTitle", "moduleID")
-#     list_filter = ("careerID", "moduleID")

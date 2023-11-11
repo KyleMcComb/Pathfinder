@@ -6,11 +6,24 @@ from urllib.parse import urlencode
 class IndeedJobSpider(scrapy.Spider):
     name = "indeedSpider"
 
+    '''
+        @Author: @DeanLogan
+        @Description: Constructs an Indeed search URL for a given keyword, location, and offset.
+        @param keyword: The keyword for the job search.
+        @param location: The location for the job search.
+        @param offset: The starting offset for paginating through job results (default is 0).
+        @return: The constructed Indeed search URL.
+    '''
     def getIndeedSearchUrl(self, keyword, location, offset=0):
         # Helper function to construct the Indeed search URL
         parameters = {"q": keyword, "l": location, "filter": 0, "start": offset}
         return "https://www.indeed.com/jobs?" + urlencode(parameters)
 
+    '''
+        @Author: @DeanLogan
+        @Description: Generates start requests for job search using specified keywords and locations.
+        @return: A sequence of requests for each combination of keyword and location.
+    '''
     def start_requests(self):
         # List of keywords and locations to search for jobs
         keywordList = ['data analyst']
@@ -24,6 +37,12 @@ class IndeedJobSpider(scrapy.Spider):
                 # Yield a request with the 'parseSearchResults' callback
                 yield scrapy.Request(url=indeedJobsUrl, callback=self.parseSearchResults, meta={'keyword': keyword, 'location': location, 'offset': 0})
 
+    '''
+        @Author: @DeanLogan
+        @Description: Parses the search result pages for job listings and handles pagination.
+        @param: response - The response object containing the search result page data.
+        @return: Yields requests for individual job pages and further search result pages.
+    '''
     def parseSearchResults(self, response):
         # Callback for handling the search result pages
         location = response.meta['location']
@@ -66,6 +85,12 @@ class IndeedJobSpider(scrapy.Spider):
                                 'jobKey': job.get('jobkey'),
                             })
 
+    '''
+        @Author: @DeanLogan
+        @Description: Parses individual job pages, extracts job information, and yields the scraped data.
+        @param: response - The response object containing the job page data.
+        @return: Yields a dictionary with job-related information.
+    '''
     def parseJob(self, response):
         # Callback for handling individual job pages
         location = response.meta['location']

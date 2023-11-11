@@ -15,9 +15,15 @@ class LecturerAdmin(admin.ModelAdmin):
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
-    list_display = ("moduleID", "moduleName", "moduleSemester", "moduleDescription", "moduleLevel", "moduleWeight")
-    search_fields = ("moduleName", )
+    list_display = ("moduleID", "moduleName", "moduleSemester", "moduleDescription", "moduleLevel", "moduleWeight", "display_careers")
+    search_fields = ("moduleID", "moduleName")
     list_filter = ("moduleLevel", "moduleSemester")
+
+    def display_careers(self, obj):
+        # This method is to display the associated careers for each module
+        return ", ".join([career.jobTitle for career in obj.careers.all()])
+    
+    display_careers.short_description = "Careers"
 
 @admin.register(Assessment)
 class AssessmentAdmin(admin.ModelAdmin):
@@ -27,19 +33,6 @@ class AssessmentAdmin(admin.ModelAdmin):
     list_display = ("assessmentID", "module", "assessmentType", "assessmentWeight")
     search_fields = ("assessmentID", )
     list_filter = ("moduleID", )
-
-'''
-@admin.register(ModuleLecturer)
-class ModuleLecturerAdmin(admin.ModelAdmin):
-    def module(self, obj):
-        return mark_safe(f"<a href='/admin/database/module/{obj.moduleID}/change/'>{obj.moduleID}</a>")
-    def lecturer(self, obj):
-        return mark_safe(f"<a href='/admin/database/lecturer/{obj.lecturerID}/change/'>{obj.lecturerID}</a>")
-
-    list_display = ("moduleLecturerID", "lecturer", "module")
-    search_fields = ("lecturer", )
-    list_filter = ("moduleID", )
-'''
 
 @admin.register(ModulePathway)
 class ModulePathwayAdmin(admin.ModelAdmin):
@@ -96,4 +89,12 @@ class StudentModuleAssessmentAdmin(admin.ModelAdmin):
     search_fields =  ('studentModuleAssessmentID', )
     list_filter = ("studentModuleID", "assessmentID")
 
+@admin.register(Career)
+class CareerAdmin(admin.ModelAdmin):
+    list_display = ("careerID", "jobTitle", "companyName", "jobDescription")
+    search_fields = ("careerID", "jobTitle", "companyName")
+    list_display_links = ("jobTitle",)
+    list_filter = ("companyName",)
+
+    
 admin.site.index_template = 'admin/extendedAdminPage.html'  # Path to custom template for admin index page

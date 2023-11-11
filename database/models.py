@@ -1,13 +1,17 @@
 from django.db import models
+
 from django_otp.plugins.otp_totp.models import TOTPDevice
 from django.contrib.auth.models import User
 
-class Pathway(models.Model):
-    pathwayID = models.CharField(primary_key=True,max_length=4, auto_created=False)
-    pathwayName = models.CharField(max_length=100)
-    pathwayLevels = models.IntegerField(default=3)
+# Create your models here.
+
+class Career(models.Model):
+    careerID = models.AutoField(primary_key=True)
+    jobTitle = models.CharField(max_length=100)
+    companyName = models.CharField(max_length=100)
+    jobDescription = models.CharField(max_length=1000)
     def __str__(self):
-        return self.pathwayID
+        return str(self.careerID)
 
 class Module(models.Model):
     moduleID = models.CharField(primary_key=True ,max_length=7, auto_created=False)
@@ -16,12 +20,13 @@ class Module(models.Model):
     moduleDescription = models.CharField(max_length=2500)
     moduleLevel = models.IntegerField(default=1)
     moduleWeight = models.IntegerField(default=20)
+    careers = models.ManyToManyField('Career', blank=True)
     def __str__(self):
         return self.moduleID
     
 class Lecturer(models.Model):
     lecturerID = models.IntegerField(primary_key=True, auto_created=True)
-    lecturerName = models.CharField(max_length=100)
+    lecturerName = models.CharField(max_length=100, default="name")
     lecturerEmail = models.EmailField()
     lecturerModules = models.ManyToManyField(Module)
     def __str__(self):
@@ -34,6 +39,13 @@ class Assessment(models.Model):
     assessmentWeight = models.FloatField(default=20)
     def __str__(self):
         return str(self.assessmentID)
+    
+class Pathway(models.Model):
+    pathwayID = models.CharField(primary_key=True,max_length=4, auto_created=False)
+    pathwayName = models.CharField(max_length=100)
+    pathwayLevels = models.IntegerField(default=3)
+    def __str__(self):
+        return self.pathwayID
 
 class ModulePathway(models.Model):
     modulePathwayID = models.IntegerField(primary_key=True, auto_created=True)
@@ -73,4 +85,3 @@ class StudentModuleAssessment(models.Model):
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
     assessmentMark = models.FloatField(default=100)
-

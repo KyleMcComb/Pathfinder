@@ -70,7 +70,7 @@ function checkTheme() {
  */
 function checkFontSize() {
     var fontSize = localStorage.getItem('fontSize'); // Get the user's selected font size from local storage
-    var element = document.body; // Get the body element of the page
+    var element = document.getElementById('column2'); // Get the column 2 element of the page
 
     // Check the selected font size and apply it to the page's body element
     if (fontSize == 'small') {

@@ -35,6 +35,12 @@
     --color-chat-bubble-user: #b92261;
     --color-chat-bubble-bot: #47535c;
     --color-progression-bar: #000000;
+    //removes invert filter from logo
+    .top-bar {
+        img{
+            filter: none;
+        }
+    }
 }
 
 .high-contrast-mode{
@@ -47,6 +53,12 @@
     --color-chat-bubble-user: #000000;
     --color-chat-bubble-bot: #000000;
     --color-progression-bar: #f8f8f8;
+    //removes invert filter from logo
+    .top-bar {
+        img{
+            filter: none;
+        }
+    }
 }
 
 html {
@@ -132,7 +144,46 @@ body {
             font-size: 6vh !important;
         }
     }
-}    
+}
+/* small to medium devices above 800px*/
+@media only screen and (min-width: 801px) and (max-width: 1400px) {
+    .col-1{
+        width: 33%;
+    }
+    .col-2{
+        width: 67%;
+        .bottom-bar {
+            right: 0vw;
+        }
+    }
+    //width for nav closed
+    .col-1-closed {
+        width: 10%;
+        .sidebar{
+            overflow-y: hidden;
+            overflow-x: hidden;
+            padding-top: 2vh;
+            padding-left: 3vw;
+            .menu-items{
+                margin-left: -570%; //force menu items off screen
+            }
+        }
+    }
+    .col-2-closed{
+        width: 90%;
+        .content{
+            top: 15%;
+        }
+    }
+    .filter-and-search{
+        font-size: 1.5vh;
+    }
+    .top-bar{
+        h1 {
+            font-size: 6vh !important;
+        }
+    }
+} 
 /* Extra large devices above 1921 width */
 @media only screen and (min-width: 1921px) {
     .col-1{
@@ -288,7 +339,6 @@ main:after {
     background-color: var(--color-primary);
     width: inherit;
     img{
-        //-webkit-filter: invert(100%);
         filter: invert(100%);
         float: left;
         width: 10%;

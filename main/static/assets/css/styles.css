@@ -33,6 +33,9 @@
   --color-chat-bubble-bot: #47535c;
   --color-progression-bar: #000000;
 }
+.light-mode .top-bar img {
+  filter: none;
+}
 
 .high-contrast-mode {
   --color-primary: #FFFFFF;
@@ -44,6 +47,9 @@
   --color-chat-bubble-user: #000000;
   --color-chat-bubble-bot: #000000;
   --color-progression-bar: #f8f8f8;
+}
+.high-contrast-mode .top-bar img {
+  filter: none;
 }
 
 html {
@@ -118,6 +124,42 @@ body {
   }
   .col-2-closed {
     width: 90%;
+  }
+  .filter-and-search {
+    font-size: 1.5vh;
+  }
+  .top-bar h1 {
+    font-size: 6vh !important;
+  }
+}
+/* small to medium devices above 800px*/
+@media only screen and (min-width: 801px) and (max-width: 1400px) {
+  .col-1 {
+    width: 33%;
+  }
+  .col-2 {
+    width: 67%;
+  }
+  .col-2 .bottom-bar {
+    right: 0vw;
+  }
+  .col-1-closed {
+    width: 10%;
+  }
+  .col-1-closed .sidebar {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-top: 2vh;
+    padding-left: 3vw;
+  }
+  .col-1-closed .sidebar .menu-items {
+    margin-left: -570%;
+  }
+  .col-2-closed {
+    width: 90%;
+  }
+  .col-2-closed .content {
+    top: 15%;
   }
   .filter-and-search {
     font-size: 1.5vh;

@@ -151,9 +151,13 @@ function listeners() {
     /* Login and signup */
     // When the user clicks anywhere outside of the modal (pop-up), close it
     window.onclick = function(event) {
-        if (event.target == document.getElementById('id01') || event.target == document.getElementById('id02') || event.target == document.getElementById('id03')) {
+        if (event.target == document.getElementById('id01')) {
             document.getElementById('id01').style.display = "none";
+        }
+        else if (event.target == document.getElementById('id02')) {
             document.getElementById('id02').style.display = "none";
+        }
+        else if(event.target == document.getElementById('id03')) {
             document.getElementById('id03').style.display = "none";
         }
     }

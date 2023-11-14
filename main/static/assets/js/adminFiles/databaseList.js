@@ -82,16 +82,26 @@ function addBackupRowsToTable(fileNames, tbody, cloud) {
 function backupFilesRequestMaker(request, tbody, cloud) {
     // Make a GET request to fetch backup file information
     $.get(request, function(data) {
-        if (data.fileNames.length > 0) {
-            // If there are files, add rows with backup details to the table
-            addBackupRowsToTable(data.fileNames, tbody, cloud);
-        } else {
-            // If no files found, add a row indicating no files are available
+        if(data.fileNames == null){ 
             tbody.insertAdjacentHTML('beforeend', `
-                <tr class="model-group">
-                    <th scope="row"><a href="">No Files Found</a></th><td></td>
-                </tr>
-            `);
+                    <tr class="model-group">
+                        <th scope="row"><a href="">This backup storage system is currently down</a></th><td></td>
+                    </tr>
+                `);
+        }
+        else{
+            if (data.fileNames.length > 0) {
+                // If there are files, add rows with backup details to the table
+                addBackupRowsToTable(data.fileNames, tbody, cloud);
+            } 
+            else {
+                // If no files found, add a row indicating no files are available
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr class="model-group">
+                        <th scope="row"><a href="">No Files Found</a></th><td></td>
+                    </tr>
+                `);
+            }
         }
     });
 }
@@ -122,7 +132,7 @@ function createBackup(){
     setTimeout(function() {
         document.querySelector(".overlay").style.display = "none";
         location.reload();
-    }, 600);
+    }, 3500);
 }
 
 // TODO: Refactor the restore and rollback functions to reduce code repetition
@@ -169,14 +179,15 @@ function deleteBackup(fileName, cloud){
     if (window.confirm("You are attempting to delete this backup\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";
         $.get('/deleteBackup/', { fileName:fileName, cloud:cloud }, function (data) {
+            var message = 'Deletion Failed';
             if (data.Status == 'true') {
+                message = 'Deleted backup successful'
+            } 
+            setTimeout(function() {
                 document.querySelector(".overlay").style.display = "none";
-                alert('Deleted backup successful');
+                alert(message);
                 location.reload();
-            } else {
-                document.querySelector(".overlay").style.display = "none";
-                alert("Deletion Failed");
-            }
+            }, 3500);
         });
     }
     else{

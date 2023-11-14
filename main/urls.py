@@ -1,5 +1,5 @@
 from . import views
-from django.urls import path
+from django.urls import path, re_path
 from .chatbot import receive_message
 from django.urls import path, include
 from .requestFunctions.generalInfo import listOfPathways, accountInfo
@@ -13,7 +13,7 @@ app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
     path('receive_message/', views.receive_message, name='receive_message'),
-    path('Settings/', views.settings, name='settings'),
+    path('settings/', views.settings, name='settings'),
     path('GradeDashboard/', views.gradeDashboard, name='GradeDashboard'),
     path('ModuleInformation/', views.moduleInformation, name='ModuleInformation'),
     path('receive_message/', receive_message, name='receive_message'),
@@ -34,4 +34,5 @@ urlpatterns = [
     path('hasTwoFactorEnabled/', hasTwoFactorEnabled, name='hasTwoFactorEnabled'),
     path('login/', views.loginPage, name='login'),
     path('forgotPassword/', forgotPassword, name='forgotPassword'),
+    re_path(r'^.*/$', views.custom404), # comment this line out if you want to see the old 404 page that displayed error info
 ]

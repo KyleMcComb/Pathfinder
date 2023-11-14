@@ -1,7 +1,8 @@
 from django.db import models
 
-from django_otp.plugins.otp_totp.models import TOTPDevice
 from django.contrib.auth.models import User
+from django_otp.plugins.otp_totp.models import TOTPDevice
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -84,4 +85,7 @@ class StudentModuleAssessment(models.Model):
     studentModuleAssessmentID =  models.IntegerField(primary_key=True, auto_created=True)
     studentModuleID = models.ForeignKey(StudentModule, on_delete=models.CASCADE)
     assessmentID = models.ForeignKey(Assessment, on_delete=models.CASCADE)
-    assessmentMark = models.FloatField(default=100)
+    assessmentMark = models.FloatField(default=100, validators=[
+            MinValueValidator(0, message='Value must be greater than or equal to 0.'),
+            MaxValueValidator(100, message='Value must be less than or equal to 100.')
+        ])

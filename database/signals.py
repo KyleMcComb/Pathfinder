@@ -1,3 +1,4 @@
+import math
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
@@ -62,12 +63,13 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
         )
 
     # Update the student's currentPathwayMark attribute with the new total mark
-    student.currentPathwayMark = round(totalMark, 2)
+    student.currentPathwayMark = math.trunc(totalMark)
     student.save()
 
-# TODO - Add docstring
-# TOFO - Talk to team about the current functionality of how editing primary keys works, currently when a primary key is changed, it creates a new record and keeps the old one, this means that the old one will still have all of the links to it and the new one will have nothing. We could delete the old one and resign all of the links (which the function below will help with) but not sure if it's the greatest idea as this default functionality is probably there for a reason.
 
+# TODO - Talk to team about the current functionality of how editing primary keys works, currently when a primary key is changed, it creates a new record and keeps the old one, this means that the old one will still have all of the links to it and the new one will have nothing. We could delete the old one and resign all of the links (which the function below will help with) but not sure if it's the greatest idea as this default functionality is probably there for a reason.
+
+# TODO - Add docstring
 # @receiver(pre_save)
 # def updateForeignKey(sender, instance, **kwargs):
 #     # Check if the instance is being added or updated

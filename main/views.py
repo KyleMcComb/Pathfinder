@@ -67,6 +67,8 @@ def cloudBackup(request):
     @param: request -  HttpRequest object that contains metadata about the request
 '''
 def loginPage(request):
+    from django.contrib import admin
+    print(admin.site.urls)
     return render(request, 'login.html', {'form': CustomLoginForm()})
 
 '''

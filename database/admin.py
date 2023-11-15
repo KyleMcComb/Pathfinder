@@ -1,6 +1,7 @@
 from .models import *
 from django.contrib import admin
 from django.utils.safestring import *
+from mysite.admin import customAdminSite
 
 @admin.register(Pathway)
 class PathwayAdmin(admin.ModelAdmin):
@@ -96,5 +97,9 @@ class CareerAdmin(admin.ModelAdmin):
     list_display_links = ("jobTitle",)
     list_filter = ("companyName",)
 
-    
+
+for model, admin_class in admin.site._registry.items():
+    customAdminSite.register(model, admin_class.__class__)
+
+customAdminSite.index_template = 'admin/extendedAdminPage.html'  # Path to custom template for admin index page
 admin.site.index_template = 'admin/extendedAdminPage.html'  # Path to custom template for admin index page

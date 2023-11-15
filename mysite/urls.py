@@ -14,17 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
+from mysite.admin import customAdminSite
 from main.views import *
 from mysite.jobs import *
 
+handler404 =  custom404 # comment this line out if you want to see the old 404 page that displayed error info
+
+# Register your custom admin site
+admin.site = customAdminSite
+
 urlpatterns = [
-    path('', include('main.urls')),
     path('admin/', admin.site.urls),
-    path('',  include("django.contrib.auth.urls")),
+    path('', include('main.urls')),
     path('backup/', backupJob),
     path('settings/', settings),
+    re_path(r'^.*/$', custom404), # comment this line out if you want to see the old 404 page that displayed error info
+    path('', include("django.contrib.auth.urls")),
 ]
 
 admin.site.site_header = "Pathfinder Administration"

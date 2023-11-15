@@ -1,7 +1,6 @@
 from . import views
-from django.urls import path, re_path
 from .chatbot import receive_message
-from django.urls import path, include
+from django.urls import path
 from .requestFunctions.generalInfo import listOfPathways, accountInfo
 from .requestFunctions.gradeInfo import gradeInfoRequest
 from .requestFunctions.accountHandling import verify, signUp, displayQRCode, hasTwoFactorEnabled, forgotPassword
@@ -34,5 +33,4 @@ urlpatterns = [
     path('hasTwoFactorEnabled/', hasTwoFactorEnabled, name='hasTwoFactorEnabled'),
     path('login/', views.loginPage, name='login'),
     path('forgotPassword/', forgotPassword, name='forgotPassword'),
-    re_path(r'^.*/$', views.custom404), # comment this line out if you want to see the old 404 page that displayed error info
 ]

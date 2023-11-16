@@ -180,13 +180,13 @@ function displayStage(stageSelected) {
 function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6'], grades=[55, 49, 44, 24, 15, 22]) {
     // Check the current theme to determine bar chart colors
     var theme = localStorage.getItem('theme');
-    var barColours = '#27AE60'; // Defaults to dark-mode
+    var barColours = '#E30613'// var barColours = '#27AE60'; // Defaults to dark-mode
     var axisAndGridColour = '#FFFFFF'; 
     if (theme == 'high-contrast-mode') {
         barColours = '#000000';
         axisAndGridColour = '#000000'; 
     } else if (theme == 'light-mode') {
-        barColours = '#b92261';
+        // barColours = '#b92261';
         axisAndGridColour = '#000000'; 
     }
     

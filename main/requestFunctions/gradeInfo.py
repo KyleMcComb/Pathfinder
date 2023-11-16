@@ -44,19 +44,20 @@ def moduleInfoForStudent(student, currentStage):
 @return: A list of dictionaries containing assessment information for the student's module.
 """
 def assessmentInfoForStudentsModule(studentID, moduleID):
-    # Retrieve the student's module and related assessment records
-    studentModule = StudentModule.objects.prefetch_related('moduleID').get(studentID_id=studentID, moduleID_id=moduleID)
-    studentAssessments = StudentModuleAssessment.objects.filter(studentModuleID=studentModule).select_related('assessmentID__moduleID')
-    
     assessmentInfo = []
-    
-    # Create a list of dictionaries containing assessment information
-    for studentAssessment in studentAssessments:
-        assessmentInfo.append({
-            'name': studentAssessment.assessmentID.assessmentType,
-            'mark': studentAssessment.assessmentMark
-        })
-    
+    try:
+        # Retrieve the student's module and related assessment records
+        studentModule = StudentModule.objects.prefetch_related('moduleID').get(studentID_id=studentID, moduleID_id=moduleID)
+        studentAssessments = StudentModuleAssessment.objects.filter(studentModuleID=studentModule).select_related('assessmentID__moduleID')
+        
+        # Create a list of dictionaries containing assessment information
+        for studentAssessment in studentAssessments:
+            assessmentInfo.append({
+                'name': studentAssessment.assessmentID.assessmentType,
+                'mark': studentAssessment.assessmentMark
+            })
+    except:
+        pass
     return assessmentInfo
 
 """
@@ -66,11 +67,14 @@ def assessmentInfoForStudentsModule(studentID, moduleID):
 @return: The calculated average module mark or 0 if no modules are present.
 """
 def moduleAvgAllStages(stages):
-    avgForStage = 0
-    for stage in stages:
-        avgForStage += calcAvgMark(stage)
-    
-    return avgForStage / len(stages)
+    if len(stages) != 0:
+        avgForStage = 0
+        for stage in stages:
+            avgForStage += calcAvgMark(stage)
+        
+        return avgForStage / len(stages)
+    else:
+        return 0
 
 """
 @Author: @DeanLogan
@@ -95,7 +99,10 @@ def assessmentAvgAllStages(stages):
 @return: The calculated average mark or 0 if the list is empty.
 """
 def calcAvgMark(arr):
-    return sum(grade['mark'] for grade in arr) / len(arr) if len(arr) != 0 else 0
+    try:
+        return sum(grade['mark'] for grade in arr) / len(arr) if len(arr) != 0 else 0
+    except:
+        return 0
 
 
 """

@@ -104,6 +104,9 @@ body {
         .menu-items{
             margin-left: -530%; //force menu items off screen
         }
+        #menu-background-pattern {
+            transition: none !important;
+        }
     }
 }
 .col-2-closed{
@@ -118,6 +121,11 @@ body {
         width: 48%;
         .bottom-bar {
             right: 0vw;
+        }
+        .content{
+            .modules-container{
+                overflow-x: scroll;
+            }
         }
     }
     //width for nav closed
@@ -155,6 +163,11 @@ body {
         .bottom-bar {
             right: 0vw;
         }
+        .content{
+            .modules-container{
+                overflow-x: scroll;
+            }
+        }
     }
     //width for nav closed
     .col-1-closed {
@@ -172,7 +185,7 @@ body {
     .col-2-closed{
         width: 90%;
         .content{
-            top: 15%;
+            top: 22%;
         }
     }
     .filter-and-search{
@@ -271,7 +284,7 @@ main:after {
         height: 200vh;
         left: 0px;
         top: 0px;
-        transition: opacity 800ms ease, background-size 800ms ease, background-position 800ms ease;
+        transition: opacity 800ms ease, background-size 800ms ease, background-position 800ms ease !important;
         width: inherit;
     }
 }  
@@ -363,7 +376,7 @@ main:after {
     background-color: var(--color-primary);
     transition: all .23s ease-in-out;
     position: relative;
-    top: 20%;
+    top: 22%;
     padding-bottom: 15vh;
     .chatbot {
         overflow-y: visible;
@@ -510,7 +523,7 @@ main:after {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     padding-bottom: 50px;
-    overflow-x: scroll;
+    overflow-x: hidden;
 
     //formatting for each of the module tables
     .module-table {

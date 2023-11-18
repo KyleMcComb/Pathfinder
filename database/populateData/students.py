@@ -7,7 +7,7 @@ py manage.py shell
 >>>StudentInfo.objects.all()
 >>>StudentInterest.objects.all()
 >>>StudentModule.objects.all()
->>>StudentModuleAssesment.objects.all()        
+>>>StudentModuleAssessment.objects.all()        
 
 to add this data to the database again run these commands:
 py manage.py shell
@@ -102,40 +102,40 @@ def addExtraStudent():
     mod2053ass2 = Assessment.objects.get(assessmentID='20532')
     mod2052ass1 = Assessment.objects.get(assessmentID='20521')
 
-    mod2056ass1g = StudentModuleAssesment(studentModuleID = stu2Mod7, assessmentID = mod2056ass1, assesmentMark=98)
-    mod2056ass2g = StudentModuleAssesment(studentModuleID = stu2Mod7, assessmentID = mod2056ass2, assesmentMark=90)
+    mod2056ass1g = StudentModuleAssessment(studentModuleID = stu2Mod7, assessmentID = mod2056ass1, AssessmentMark=98)
+    mod2056ass2g = StudentModuleAssessment(studentModuleID = stu2Mod7, assessmentID = mod2056ass2, AssessmentMark=90)
 
-    mod2057ass1g = StudentModuleAssesment(studentModuleID = stu2Mod8, assessmentID = mod2057ass1, assesmentMark=70)
-    mod2057ass2g = StudentModuleAssesment(studentModuleID = stu2Mod8, assessmentID = mod2057ass2, assesmentMark=93)
+    mod2057ass1g = StudentModuleAssessment(studentModuleID = stu2Mod8, assessmentID = mod2057ass1, AssessmentMark=70)
+    mod2057ass2g = StudentModuleAssessment(studentModuleID = stu2Mod8, assessmentID = mod2057ass2, AssessmentMark=93)
 
-    mod2065ass1g = StudentModuleAssesment(studentModuleID = stu2Mod9, assessmentID = mod2065ass1, assesmentMark=78)
+    mod2065ass1g = StudentModuleAssessment(studentModuleID = stu2Mod9, assessmentID = mod2065ass1, AssessmentMark=78)
 
-    mod2054ass1g = StudentModuleAssesment(studentModuleID = stu2Mod10, assessmentID = mod2054ass1, assesmentMark=72)
+    mod2054ass1g = StudentModuleAssessment(studentModuleID = stu2Mod10, assessmentID = mod2054ass1, AssessmentMark=72)
 
-    mod2053ass1g = StudentModuleAssesment(studentModuleID = stu2Mod11, assessmentID = mod2053ass1, assesmentMark=56)
-    mod2053ass2g = StudentModuleAssesment(studentModuleID = stu2Mod11, assessmentID = mod2053ass2, assesmentMark=56)
+    mod2053ass1g = StudentModuleAssessment(studentModuleID = stu2Mod11, assessmentID = mod2053ass1, AssessmentMark=56)
+    mod2053ass2g = StudentModuleAssessment(studentModuleID = stu2Mod11, assessmentID = mod2053ass2, AssessmentMark=56)
 
-    mod2052ass1g = StudentModuleAssesment(studentModuleID = stu2Mod12, assessmentID = mod2052ass1, assesmentMark=84)
+    mod2052ass1g = StudentModuleAssessment(studentModuleID = stu2Mod12, assessmentID = mod2052ass1, AssessmentMark=84)
 
     assessmentStudent_list = [mod2056ass1g, mod2056ass2g, mod2057ass1g,mod2057ass2g,mod2065ass1g ,mod2054ass1g ,mod2053ass1g ,mod2053ass2g ,mod2052ass1g]
     for x in assessmentStudent_list:
         x.save()
 
-    mod1023ass1g = StudentModuleAssesment(studentModuleID = stu2Mod1, assessmentID = mod1023ass1, assesmentMark=70)
-    mod1023ass2g = StudentModuleAssesment(studentModuleID = stu2Mod1, assessmentID = mod1023ass2, assesmentMark=70)
-    mod1023ass3g = StudentModuleAssesment(studentModuleID = stu2Mod1, assessmentID = mod1023ass3, assesmentMark=75)
+    mod1023ass1g = StudentModuleAssessment(studentModuleID = stu2Mod1, assessmentID = mod1023ass1, AssessmentMark=70)
+    mod1023ass2g = StudentModuleAssessment(studentModuleID = stu2Mod1, assessmentID = mod1023ass2, AssessmentMark=70)
+    mod1023ass3g = StudentModuleAssessment(studentModuleID = stu2Mod1, assessmentID = mod1023ass3, AssessmentMark=75)
 
-    mod1026ass1g = StudentModuleAssesment(studentModuleID = stu2Mod2, assessmentID = mod1026ass1, assesmentMark=70)
-    mod1026ass2g = StudentModuleAssesment(studentModuleID = stu2Mod2, assessmentID = mod1026ass2, assesmentMark=70)
+    mod1026ass1g = StudentModuleAssessment(studentModuleID = stu2Mod2, assessmentID = mod1026ass1, AssessmentMark=70)
+    mod1026ass2g = StudentModuleAssessment(studentModuleID = stu2Mod2, assessmentID = mod1026ass2, AssessmentMark=70)
 
-    mod1033ass1g = StudentModuleAssesment(studentModuleID = stu2Mod3, assessmentID = mod1033ass1, assesmentMark=70)
+    mod1033ass1g = StudentModuleAssessment(studentModuleID = stu2Mod3, assessmentID = mod1033ass1, AssessmentMark=70)
 
-    mod1025ass1g = StudentModuleAssesment(studentModuleID = stu2Mod4, assessmentID = mod1025ass1, assesmentMark=67)
+    mod1025ass1g = StudentModuleAssessment(studentModuleID = stu2Mod4, assessmentID = mod1025ass1, AssessmentMark=67)
 
-    mod1029ass1g = StudentModuleAssesment(studentModuleID = stu2Mod5, assessmentID = mod1029ass1, assesmentMark=67)
+    mod1029ass1g = StudentModuleAssessment(studentModuleID = stu2Mod5, assessmentID = mod1029ass1, AssessmentMark=67)
 
-    mod1030ass1g = StudentModuleAssesment(studentModuleID = stu2Mod6, assessmentID = mod1030ass1, assesmentMark=75)
-    mod1030ass2g = StudentModuleAssesment(studentModuleID = stu2Mod6, assessmentID = mod1030ass2, assesmentMark=75)
+    mod1030ass1g = StudentModuleAssessment(studentModuleID = stu2Mod6, assessmentID = mod1030ass1, AssessmentMark=75)
+    mod1030ass2g = StudentModuleAssessment(studentModuleID = stu2Mod6, assessmentID = mod1030ass2, AssessmentMark=75)
 
     assessmentStudent_list = [mod1023ass1g, mod1023ass2g, mod1023ass3g,mod1026ass1g,mod1026ass2g ,mod1033ass1g ,mod1025ass1g ,mod1029ass1g ,mod1030ass1g, mod1030ass2g]
     for x in assessmentStudent_list:
@@ -210,21 +210,21 @@ def addStudentModuleAssessmentGrades():
     mod1030ass1 = Assessment.objects.get(assessmentID='10301')
     mod1030ass2 = Assessment.objects.get(assessmentID='10302')
 
-    mod1023ass1g = StudentModuleAssesment(studentModuleID = stu2Mod1, assessmentID = mod1023ass1, assesmentMark=70)
-    mod1023ass2g = StudentModuleAssesment(studentModuleID = stu2Mod1, assessmentID = mod1023ass2, assesmentMark=70)
-    mod1023ass3g = StudentModuleAssesment(studentModuleID = stu2Mod1, assessmentID = mod1023ass3, assesmentMark=75)
+    mod1023ass1g = StudentModuleAssessment(studentModuleID = stu2Mod1, assessmentID = mod1023ass1, AssessmentMark=70)
+    mod1023ass2g = StudentModuleAssessment(studentModuleID = stu2Mod1, assessmentID = mod1023ass2, AssessmentMark=70)
+    mod1023ass3g = StudentModuleAssessment(studentModuleID = stu2Mod1, assessmentID = mod1023ass3, AssessmentMark=75)
 
-    mod1026ass1g = StudentModuleAssesment(studentModuleID = stu2Mod2, assessmentID = mod1026ass1, assesmentMark=70)
-    mod1026ass2g = StudentModuleAssesment(studentModuleID = stu2Mod2, assessmentID = mod1026ass2, assesmentMark=70)
+    mod1026ass1g = StudentModuleAssessment(studentModuleID = stu2Mod2, assessmentID = mod1026ass1, AssessmentMark=70)
+    mod1026ass2g = StudentModuleAssessment(studentModuleID = stu2Mod2, assessmentID = mod1026ass2, AssessmentMark=70)
 
-    mod1033ass1g = StudentModuleAssesment(studentModuleID = stu2Mod3, assessmentID = mod1033ass1, assesmentMark=70)
+    mod1033ass1g = StudentModuleAssessment(studentModuleID = stu2Mod3, assessmentID = mod1033ass1, AssessmentMark=70)
 
-    mod1025ass1g = StudentModuleAssesment(studentModuleID = stu2Mod4, assessmentID = mod1025ass1, assesmentMark=67)
+    mod1025ass1g = StudentModuleAssessment(studentModuleID = stu2Mod4, assessmentID = mod1025ass1, AssessmentMark=67)
 
-    mod1029ass1g = StudentModuleAssesment(studentModuleID = stu2Mod5, assessmentID = mod1029ass1, assesmentMark=67)
+    mod1029ass1g = StudentModuleAssessment(studentModuleID = stu2Mod5, assessmentID = mod1029ass1, AssessmentMark=67)
 
-    mod1030ass1g = StudentModuleAssesment(studentModuleID = stu2Mod6, assessmentID = mod1030ass1, assesmentMark=75)
-    mod1030ass2g = StudentModuleAssesment(studentModuleID = stu2Mod6, assessmentID = mod1030ass2, assesmentMark=75)
+    mod1030ass1g = StudentModuleAssessment(studentModuleID = stu2Mod6, assessmentID = mod1030ass1, AssessmentMark=75)
+    mod1030ass2g = StudentModuleAssessment(studentModuleID = stu2Mod6, assessmentID = mod1030ass2, AssessmentMark=75)
 
     ##ADD ALL Assessments for Student 
     assessmentStudent_list = [mod1023ass1g, mod1023ass2g, mod1023ass3g,mod1026ass1g,mod1026ass2g ,mod1033ass1g ,mod1025ass1g ,mod1029ass1g ,mod1030ass1g, mod1030ass2g]

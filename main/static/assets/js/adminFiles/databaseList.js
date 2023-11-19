@@ -106,6 +106,12 @@ function backupFilesRequestMaker(request, tbody, cloud) {
     });
 }
 
+/**
+ * @Author - @DeanLogan
+ * Initiates the process to create a backup.
+ * Displays an overlay during the backup process and alerts the user about the status.
+ * Relocates to the updated page after completion.
+ */
 function createBackup(){
     document.querySelector(".overlay").style.display = "flex";
     $.get("/backup/", function(data) {
@@ -135,8 +141,15 @@ function createBackup(){
     }, 3500);
 }
 
-// TODO: Refactor the restore and rollback functions to reduce code repetition
-
+/**
+ * @Author - @DeanLogan
+ * Initiates the process to restore the database from a backup.
+ * Displays a confirmation dialog to ensure the user wants to proceed.
+ * Shows an overlay during the restore process and alerts the user about the status.
+ * Relocates to the updated page after a successful restore.
+ * @param {string} fileName - The name of the backup file to restore.
+ * @param {boolean} cloud - Indicates whether the backup is stored in the cloud.
+ */
 function restoreDb(fileName, cloud){
     if (window.confirm("You are attempting to restore the database\nThis will add/update records from this backup but WILL NOT DELETE RECORDS THAT HAVE BEEN ADDED FROM THIS BACKUP\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";
@@ -156,6 +169,15 @@ function restoreDb(fileName, cloud){
     }
 }
 
+/**
+ * @Author - @DeanLogan
+ * Initiates the process to rollback the database to a specific backup.
+ * Displays a confirmation dialog to inform the user about the consequences of rollback.
+ * Shows an overlay during the rollback process and alerts the user about the status.
+ * Relocates to the updated page after a successful rollback, which includes logging the user out.
+ * @param {string} fileName - The name of the backup file to rollback to.
+ * @param {boolean} cloud - Indicates whether the backup is stored in the cloud.
+ */
 function rollbackDb(fileName, cloud){
     if (window.confirm("You are attempting to rollback the database\nThis will cause you to be logged out of the system and you will need to login again\nThe database will be brought back to the EXACT STATE of this backup\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";
@@ -175,6 +197,15 @@ function rollbackDb(fileName, cloud){
     }
 }
 
+/**
+ * @Author - @DeanLogan
+ * Initiates the process to delete a specific backup file.
+ * Displays a confirmation dialog to inform the user about the consequences of deletion.
+ * Shows an overlay during the deletion process and alerts the user about the status.
+ * Reloads the page after a successful deletion to reflect the changes.
+ * @param {string} fileName - The name of the backup file to delete.
+ * @param {boolean} cloud - Indicates whether the backup is stored in the cloud.
+ */
 function deleteBackup(fileName, cloud){
     if (window.confirm("You are attempting to delete this backup\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";

@@ -3,6 +3,8 @@ from chatterbot.logic import LogicAdapter
 from chatterbot.conversation import Statement
 from database.models import Module, StudentInterest, Student
 from django.core.exceptions import MultipleObjectsReturned
+from database.models import Career
+from django.db.models import Q
 
 class InterestAdapter(LogicAdapter):
     def __init__(self, chatbot, **kwargs):
@@ -65,7 +67,9 @@ class InterestAdapter(LogicAdapter):
 
             try:
                 student = Student.objects.get(studentID=self.student_id)
-                modules = Module.objects.filter(moduleName__icontains=interest)
+                modules = Module.objects.filter(
+                    Q(moduleName__icontains=interest) | Q(moduleDescription__icontains=interest)
+                )
             except Student.DoesNotExist:
                 response.text = "Sorry, you aren't currently logged in. So we can't update your interests for each module. Please log in to use full functionality."
                 return response
@@ -73,16 +77,56 @@ class InterestAdapter(LogicAdapter):
             if response_type == 'like':
                 if modules.count() >= 1:
                     response.text = f"That's great! Here are some modules related to {interest}:<br>"
+                    career_info = ""
                     for i, module in enumerate(modules, start=1):
                         response.text += f"{i}. {module.moduleID}: {module.moduleName}<br>"
-                    response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any."
 
+                        # Fetch and format careers related to the module
+                        careers = module.careers.all()
+                        if careers.exists():
+                            career_titles = ", ".join([career.jobTitle for career in careers])
+                            career_info += f"\nCareers related to {module.moduleName}: {career_titles}"
+                        else:
+                            career_info += f"\nThere are no specific career suggestions for {module.moduleName}."
+
+                    response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any."
+                    response.text += career_info
                     self.awaiting_module_choice = True
                     self.modules_to_choose = list(modules)
                 else:
+                    careers_response = self.connect_careers_to_chatbot(interest)
                     response.text = f"You like {interest}. I will try and recommend any modules that contain {interest}."
+                    response.text += careers_response
             else:
                 response.text = f"Thanks for providing me with this information. I won't recommend any modules that contain {interest}."
 
             response.confidence = 1
         return response
+
+    
+    def find_percentage_of_careers_with_interest(self, interest):
+        relevant_careers = Career.objects.filter(
+            Q(jobDescription__icontains=interest) | Q(jobTitle__icontains=interest)
+        )
+        all_careers_count = Career.objects.count()
+        relevant_careers_count = relevant_careers.count()
+
+        if all_careers_count > 0:
+            percent_of_relevant_careers = (relevant_careers_count / all_careers_count) * 100
+        else:
+            percent_of_relevant_careers = 0
+        relevant_career_titles = [career.jobTitle for career in relevant_careers]
+
+        return percent_of_relevant_careers, relevant_career_titles
+    
+    def connect_careers_to_chatbot(self, interest):
+        percent_of_relevant_careers, relevant_career_titles = self.find_percentage_of_careers(interest)
+        
+        # Join the job titles with a comma
+        relevant_career_titles_str = ", ".join(relevant_career_titles)
+        careers_response = f"\nYour interest ({interest}) was found to be relevant in {percent_of_relevant_careers:.2f}% of job roles we've checked."
+        if relevant_career_titles_str != "":
+            careers_response += f"\nHere are some of the job roles we have found: \n{relevant_career_titles_str}"
+        else:
+            careers_response += f"\nThis could indicate lower employability for this interest ({interest})."
+        return careers_response

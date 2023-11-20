@@ -8,7 +8,11 @@ from django.http import HttpResponsePermanentRedirect, Http404
 
 from django.contrib.admin import AdminSite
 
-
+"""
+    @Author: @DeanLogan
+    @Description: Custom admin site class that extends the default Django AdminSite.
+    Includes a 'catch_all_view' method to handle URLs without a trailing slash.
+"""
 class CustomAdminSite(AdminSite):
     @no_append_slash
     def catch_all_view(self, request, url):

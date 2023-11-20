@@ -30,8 +30,8 @@ urlpatterns = [
     path('', include('main.urls')),
     path('backup/', backupJob),
     path('settings/', settings),
-    re_path(r'^.*/$', custom404), # comment this line out if you want to see the old 404 page that displayed error info
     path('', include("django.contrib.auth.urls")),
+    re_path(r'^.*/$', custom404), # comment this line out if you want to see the old 404 page that displayed error info
 ]
 
 admin.site.site_header = "Pathfinder Administration"

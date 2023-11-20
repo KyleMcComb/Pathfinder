@@ -137,21 +137,23 @@ def calcLeftToEarn(currentStage, studentInDb):
 @return: JsonResponse with grade-related information or an error message.
 """
 def gradeInfoRequest(request):
+    try:
+        studentInDb = Student.objects.get(studentID=request.user.username)
+        currentStage = studentInDb.studentCurrentLevel
+        stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
 
-    studentInDb = Student.objects.get(studentID=request.user.username)
-    currentStage = studentInDb.studentCurrentLevel
-    stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
-    
-    return JsonResponse(
-        {
-            'error': 'False',
-            'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
-            'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
-            'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
-            'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
-            'stages': stagesInfo
-        }, 
-        safe=False
-    )
+        return JsonResponse(
+            {
+                'error': 'False',
+                'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
+                'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
+                'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
+                'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
+                'stages': stagesInfo
+            }, 
+            safe=False
+        )
+    except:
+        return JsonResponse({'error': 'True'}, safe=False)
 
 

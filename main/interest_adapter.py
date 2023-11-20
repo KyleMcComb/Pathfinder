@@ -78,18 +78,22 @@ class InterestAdapter(LogicAdapter):
                 if modules.count() >= 1:
                     response.text = f"That's great! Here are some modules related to {interest}:<br>"
                     career_info = ""
+                    unique_careers = set()  # Set to store unique career titles
+
                     for i, module in enumerate(modules, start=1):
                         response.text += f"{i}. {module.moduleID}: {module.moduleName}<br>"
 
                         # Fetch and format careers related to the module
                         careers = module.careers.all()
-                        if careers.exists():
-                            career_titles = ", ".join([career.jobTitle for career in careers])
-                            career_info += f"\nCareers related to {module.moduleName}: {career_titles}"
-                        else:
-                            career_info += f"\nThere are no specific career suggestions for {module.moduleName}."
-
-                    response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any."
+                        for career in careers:
+                            unique_careers.add(career.jobTitle)
+                    # Format the unique career titles
+                    if unique_careers:
+                        career_info = "<br>Careers related to " + interest + ":<br>" + "<br>".join(["- " + career for career in unique_careers])
+                    else:
+                        career_info = f"<br>There are no specific career suggestions for {interest}."
+                    
+                    response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any.<br>"
                     response.text += career_info
                     self.awaiting_module_choice = True
                     self.modules_to_choose = list(modules)

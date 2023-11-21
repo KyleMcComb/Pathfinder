@@ -41,6 +41,8 @@ class InterestAdapter(LogicAdapter):
                             interest_obj.interestImportance = 1
                             interest_obj.save()
                         response.text = f"Thanks for your input! I've updated your interest for {module.moduleName}."
+                        careers_response = self.connect_careers_to_chatbot(interest=None, module=module)
+                        response.text += careers_response
                     else:
                         response.text = "Thanks for your input! I will not update your interest for the given modules."
                 else:
@@ -77,28 +79,15 @@ class InterestAdapter(LogicAdapter):
             if response_type == 'like':
                 if modules.count() >= 1:
                     response.text = f"That's great! Here are some modules related to {interest}:<br>"
-                    career_info = ""
-                    unique_careers = set()  # Set to store unique career titles
 
                     for i, module in enumerate(modules, start=1):
                         response.text += f"{i}. {module.moduleID}: {module.moduleName}<br>"
-
-                        # Fetch and format careers related to the module
-                        careers = module.careers.all()
-                        for career in careers:
-                            unique_careers.add(career.jobTitle)
-                    # Format the unique career titles
-                    if unique_careers:
-                        career_info = "<br>Careers related to " + interest + ":<br>" + "<br>".join(["- " + career for career in unique_careers])
-                    else:
-                        career_info = f"<br>There are no specific career suggestions for {interest}."
                     
                     response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any.<br>"
-                    response.text += career_info
                     self.awaiting_module_choice = True
                     self.modules_to_choose = list(modules)
                 else:
-                    careers_response = self.connect_careers_to_chatbot(interest)
+                    careers_response = self.connect_careers_to_chatbot(interest=interest, module=None)
                     response.text = f"You like {interest}. I will try and recommend any modules that contain {interest}."
                     response.text += careers_response
             else:
@@ -108,29 +97,46 @@ class InterestAdapter(LogicAdapter):
         return response
 
     
-    def find_percentage_of_careers_with_interest(self, interest):
-        relevant_careers = Career.objects.filter(
-            Q(jobDescription__icontains=interest) | Q(jobTitle__icontains=interest)
-        )
+    def find_percent_of_careers_related(self, interest=None, module=None):
+        if interest:
+            query_filter = Q(jobDescription__icontains=interest) | Q(jobTitle__icontains=interest)
+            relevant_careers = Career.objects.filter(query_filter)
+        elif module:
+            relevant_careers = module.careers.all()  # Accessing related careers directly from the module
+        else:
+            return 0, []
+
         all_careers_count = Career.objects.count()
         relevant_careers_count = relevant_careers.count()
-
-        if all_careers_count > 0:
-            percent_of_relevant_careers = (relevant_careers_count / all_careers_count) * 100
-        else:
-            percent_of_relevant_careers = 0
+        percent_of_relevant_careers = (relevant_careers_count / all_careers_count) * 100 if all_careers_count else 0
         relevant_career_titles = [career.jobTitle for career in relevant_careers]
 
         return percent_of_relevant_careers, relevant_career_titles
     
-    def connect_careers_to_chatbot(self, interest):
-        percent_of_relevant_careers, relevant_career_titles = self.find_percentage_of_careers(interest)
-        
-        # Join the job titles with a comma
-        relevant_career_titles_str = ", ".join(relevant_career_titles)
-        careers_response = f"\nYour interest ({interest}) was found to be relevant in {percent_of_relevant_careers:.2f}% of job roles we've checked."
-        if relevant_career_titles_str != "":
-            careers_response += f"\nHere are some of the job roles we have found: \n{relevant_career_titles_str}"
+    
+    def connect_careers_to_chatbot(self, interest, module):
+        # Check which parameter is provided and call the appropriate method
+        if module is not None:
+            percent_of_relevant_careers, relevant_career_titles = self.find_percent_of_careers_related(module=module)
+            context = f"module {module.moduleName}"
+        elif interest is not None:
+            percent_of_relevant_careers, relevant_career_titles = self.find_percent_of_careers_related(interest=interest)
+            context = f"interest ({interest})"
         else:
-            careers_response += f"\nThis could indicate lower employability for this interest ({interest})."
+            return "No specific career suggestions can be provided without interest or module information."
+
+        # Remove duplicates by converting the list to a set, then back to a list
+        unique_career_titles = list(set(relevant_career_titles))
+
+        # Join the job titles with a comma
+        relevant_career_titles_str = ", ".join(unique_career_titles)
+        careers_response = f"<br><br>Your {context} was found to be relevant in {percent_of_relevant_careers:.2f}% of IT job roles we've checked."
+        
+        if relevant_career_titles_str:
+            careers_response += "<br>Here are some of the relevant job roles we have found:<br>"
+            for career_title in unique_career_titles:
+                careers_response += f"- {career_title}<br>"
+        else:
+            careers_response += f"<br>We found no specific IT career suggestions for {context}."
+
         return careers_response

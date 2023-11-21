@@ -132,7 +132,7 @@ body {
             padding-top: 2vh;
             padding-left: 3vw;
             .menu-items{
-                margin-left: -570%; //force menu items off screen
+                margin-left: -590%; //force menu items off screen
             }
         }
     }
@@ -206,7 +206,7 @@ body {
             padding-top: 2vh;
             padding-left: 1vw;
             .menu-items{
-                margin-left: -470%; //force menu items off screen
+                margin-left: -510%; //force menu items off screen
             }
         }
     }
@@ -398,7 +398,8 @@ main:after {
         padding-left: 5vw;
         padding-bottom: 5vh;
         .g-recaptcha {
-            overflow-x: scroll;
+            overflow-y: hidden;
+            overflow-x: hidden;
             width: auto;
             height: auto;
         }

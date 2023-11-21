@@ -122,11 +122,6 @@ body {
         .bottom-bar {
             right: 0vw;
         }
-        .content{
-            .modules-container{
-                overflow-x: scroll;
-            }
-        }
     }
     //width for nav closed
     .col-1-closed {
@@ -162,11 +157,6 @@ body {
         width: 67%;
         .bottom-bar {
             right: 0vw;
-        }
-        .content{
-            .modules-container{
-                overflow-x: scroll;
-            }
         }
     }
     //width for nav closed
@@ -550,6 +540,18 @@ main:after {
                 transform: translateX(-50%);
             }
         }
+    }
+}
+/* Extra small devices below 800 width*/
+@media only screen and (max-width: 800px) {
+    .modules-container{
+        overflow-x: scroll;
+    }
+}
+/* small to medium devices above 800px*/
+@media only screen and (min-width: 801px) and (max-width: 1400px) {
+    .modules-container{
+        overflow-x: scroll;
     }
 }
 

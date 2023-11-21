@@ -113,9 +113,6 @@ body {
   .col-2 .bottom-bar {
     right: 0vw;
   }
-  .col-2 .content .modules-container {
-    overflow-x: scroll;
-  }
   .col-1-closed {
     width: 10%;
   }
@@ -148,9 +145,6 @@ body {
   }
   .col-2 .bottom-bar {
     right: 0vw;
-  }
-  .col-2 .content .modules-container {
-    overflow-x: scroll;
   }
   .col-1-closed {
     width: 10%;
@@ -520,6 +514,18 @@ main:after {
   transform: translateX(-50%);
 }
 
+/* Extra small devices below 800 width*/
+@media only screen and (max-width: 800px) {
+  .modules-container {
+    overflow-x: scroll;
+  }
+}
+/* small to medium devices above 800px*/
+@media only screen and (min-width: 801px) and (max-width: 1400px) {
+  .modules-container {
+    overflow-x: scroll;
+  }
+}
 /* styling for search bar and filter */
 .filter-and-search {
   z-index: 3;

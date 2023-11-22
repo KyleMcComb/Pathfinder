@@ -135,15 +135,6 @@ class IndeedJobSpider(scrapy.Spider):
             jsonBlob = json.loads(scriptTag[0])
             job = jsonBlob["jobInfoWrapperModel"]["jobInfoModel"]
 
-            # # Extract job role data
-            # jobTitle = job["jobInfoHeaderModel"]["jobTitle"]
-            # companyName = job["jobInfoHeaderModel"]["companyName"]
-            # jobDescription = job["sanitizedJobDescription"]
-
-            # print(jobTitle)
-            # print(companyName)
-            # print(jobDescription)
-
 
             # Yield scraped job information
             yield {

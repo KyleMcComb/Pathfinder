@@ -547,7 +547,6 @@ main:after {
 
 .filter {
   z-index: 3;
-  padding-top: 24px;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */ /* IE10+/Edge */
   user-select: none; /* Standard */
@@ -604,9 +603,12 @@ main:after {
   z-index: 0;
   padding-top: 20px;
   padding-bottom: 10px;
-  position: absolute;
-  top: 24vh;
+  position: relative;
+  top: 5vh;
   width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
 }
 .dashboard-container .assesments {
   z-index: -1;

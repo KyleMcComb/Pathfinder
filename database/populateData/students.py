@@ -35,6 +35,23 @@ def addStudents():
     for x in stu_list:
         x.save()
 
+def addStudent40191566Info():
+    stu = Student.objects.get(studentID="40191566")
+    stu.pathwayID = Pathway.objects.get(pathwayID='G400')
+    stu.save()
+    stuModCSC1023 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1023'), stuModMark=72)
+    stuModCSC1023.save()
+    stuModCSC1026 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1026'), stuModMark=56)
+    stuModCSC1026.save()
+    stuModCSC1033 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1033'), stuModMark=76)
+    stuModCSC1033.save()
+    stuModCSC1027 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1027'), stuModMark=86)
+    stuModCSC1027.save()
+    stuModCSC1028 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1028'), stuModMark=67)
+    stuModCSC1028.save()
+    stuModCSC1030 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1030'), stuModMark=76)
+    stuModCSC1030.save()
+
 def addExtraStudent():
     student1 = Student(studentID=40294254, pathwayID=Pathway.objects.get(pathwayID='G606'), studentCurrentLevel=2, studentCurrentSemester=2, currentPathwayMark=31)
 
@@ -237,3 +254,4 @@ if __name__ == "__main__":
     addStudentModules()
     addStudentModuleAssessmentGrades()
     addExtraStudent()
+    addStudent40191566Info()

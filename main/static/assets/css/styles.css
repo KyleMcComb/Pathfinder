@@ -134,6 +134,20 @@ body {
   .top-bar h1 {
     font-size: 6vh !important;
   }
+  .dashboard-container {
+    display: grid;
+  }
+  .dashboard-container .assesments {
+    visibility: hidden;
+  }
+  .dashboard-container .grades {
+    visibility: hidden;
+  }
+  .dashboard-container .stats {
+    position: absolute;
+    padding-bottom: 8vh !important;
+    width: 95% !important;
+  }
 }
 /* small to medium devices above 800px*/
 @media only screen and (min-width: 801px) and (max-width: 1400px) {
@@ -169,6 +183,20 @@ body {
   }
   .top-bar h1 {
     font-size: 6vh !important;
+  }
+  .dashboard-container {
+    display: grid;
+  }
+  .dashboard-container .assesments {
+    visibility: hidden;
+  }
+  .dashboard-container .grades {
+    visibility: hidden;
+  }
+  .dashboard-container .stats {
+    position: absolute;
+    padding-bottom: 8vh !important;
+    width: 95% !important;
   }
 }
 /* Extra large devices above 1921 width */

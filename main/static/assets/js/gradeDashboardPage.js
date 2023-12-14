@@ -38,7 +38,7 @@ function resizeGradeDashboardPage() {
         var barchartWidth = (((windowWidth - 55) * 0.95) * 0.64); // Calculate the width of the bar chart
         var barchartHeight = (1130 / 2261.3) * barchartWidth; // Calculate the height of the bar chart
         document.getElementsByClassName('content')[0].style.height = (windowHeight - progress) + 'px'; // Set the content height
-        document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
+        //document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
         document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
 
         var navOpen = sessionStorage.getItem("navOpen");
@@ -99,7 +99,7 @@ function getGradeData() {
         else {
             progressBar(data.currentPathwayMark); // Update progress bar
             document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'; // Display module average
-            document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'; // Display assessment average
+            document.getElementById('asAvg').innerHTML = data.assessmentAvg + '%'; // Display assessment average
             document.getElementById('leftToEarn').innerHTML = data.leftToEarn + '%'; // Display left-to-earn percentage
 
             var stages = data.stages;
@@ -139,7 +139,7 @@ function displayStage(stageSelected) {
             grades.push(stages[stageSelected - 1][j].mark);
         }
 
-        document.getElementsByClassName('assesments')[0].innerHTML = ''; // Clear existing elements from the assessments div
+        document.getElementsByClassName('assessments')[0].innerHTML = ''; // Clear existing elements from the assessments div
         var stage = stages[stageSelected - 1];
         var htmlFormat = '';
 
@@ -151,13 +151,13 @@ function displayStage(stageSelected) {
             assessments = stage[i].assessments;
             for (var j = 0; j < assessments.length; j++) {
                 htmlFormat += `
-                    <p>&nbsp;&nbsp;${assessments[j].name}: <input class="assesment-grade" type="text" value="${assessments[j].mark}" placeholder="Grade" name="${assessments[j].id}" required>%</p>
+                    <p>&nbsp;&nbsp;${assessments[j].name}: <input class="assessment-grade" type="text" value="${assessments[j].mark}" placeholder="Grade" name="${assessments[j].id}" required>%</p>
                 `;
             }
         }
 
         htmlFormat += `<button onclick="updateGrades()" type="button">Save</button>`;
-        document.getElementsByClassName('assesments')[0].innerHTML = htmlFormat;
+        document.getElementsByClassName('assessments')[0].innerHTML = htmlFormat;
 
         // Destroy the previous chart that was being displayed on the page
         if (chart != null) {
@@ -174,7 +174,7 @@ function displayStage(stageSelected) {
  * Sends a GET request to update the assessment marks and displays an alert with the response message.
  */
 function updateGrades(){
-    const divElement = document.getElementsByClassName("assesments")[0]; // Replace "myDiv" with the ID of your specific div
+    const divElement = document.getElementsByClassName("assessments")[0]; // Replace "myDiv" with the ID of your specific div
 
     if (divElement) {
         const pTags = divElement.getElementsByTagName("p");

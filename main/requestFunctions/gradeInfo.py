@@ -55,7 +55,7 @@ def assessmentInfoForStudentsModule(studentID, moduleID):
     for studentAssessment in studentAssessments:
         assessmentInfo.append({
             'name': studentAssessment.assessmentID.assessmentType,
-            'mark': studentAssessment.assesmentMark,
+            'mark': studentAssessment.assessmentMark,
             'id': studentAssessment.studentModuleAssessmentID
         })
     
@@ -142,7 +142,7 @@ def gradeInfoRequest(request):
                 'error': 'False',
                 'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
                 'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
-                'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
+                'assessmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
                 'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
                 'stages': stagesInfo
             }, 

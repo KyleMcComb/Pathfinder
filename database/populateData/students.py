@@ -37,20 +37,55 @@ def addStudents():
 
 def addStudent40191566Info():
     stu = Student.objects.get(studentID="40191566")
-    stu.pathwayID = Pathway.objects.get(pathwayID='G400')
     stu.save()
     stuModCSC1023 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1023'), stuModMark=72)
     stuModCSC1023.save()
+    savedStuMod1023 = StudentModule.objects.filter(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1023'))[0]
+    stuMod1023Ass1 = StudentModuleAssessment(studentModuleID = savedStuMod1023, assessmentID = Assessment.objects.get(assessmentID='csc10231'), assessmentMark=86)
+    stuMod1023Ass2 = StudentModuleAssessment(studentModuleID = savedStuMod1023, assessmentID = Assessment.objects.get(assessmentID='csc10232'), assessmentMark=60)
+    stuMod1023Ass3 = StudentModuleAssessment(studentModuleID = savedStuMod1023, assessmentID = Assessment.objects.get(assessmentID='csc10233'), assessmentMark=70)
+    stuMod1023Ass1.save()
+    stuMod1023Ass2.save()
+    stuMod1023Ass3.save()
+
     stuModCSC1026 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1026'), stuModMark=56)
     stuModCSC1026.save()
+    savedStuMod1026 = StudentModule.objects.filter(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1026'))[0]
+    stuMod1026Ass1 = StudentModuleAssessment(studentModuleID = savedStuMod1026, assessmentID = Assessment.objects.get(assessmentID='csc10261'), assessmentMark=56)
+    stuMod1026Ass2 = StudentModuleAssessment(studentModuleID = savedStuMod1026, assessmentID = Assessment.objects.get(assessmentID='csc10262'), assessmentMark=56)
+    stuMod1026Ass1.save()
+    stuMod1026Ass2.save()
+
     stuModCSC1033 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1033'), stuModMark=76)
     stuModCSC1033.save()
+    savedStuMod1033 = StudentModule.objects.filter(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1033'))[0]
+    stuMod1033Ass1 = StudentModuleAssessment(studentModuleID = savedStuMod1033, assessmentID = Assessment.objects.get(assessmentID='csc10331'), assessmentMark=76)
+    stuMod1033Ass1.save()
+
     stuModCSC1027 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1027'), stuModMark=86)
     stuModCSC1027.save()
+    savedStuMod1027 = StudentModule.objects.filter(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1027'))[0]
+    stuMod1027Ass1 = StudentModuleAssessment(studentModuleID = savedStuMod1027, assessmentID = Assessment.objects.get(assessmentID='csc10271'), assessmentMark=86)
+    stuMod1027Ass2 = StudentModuleAssessment(studentModuleID = savedStuMod1027, assessmentID = Assessment.objects.get(assessmentID='csc10272'), assessmentMark=83)
+    stuMod1027Ass3 = StudentModuleAssessment(studentModuleID = savedStuMod1027, assessmentID = Assessment.objects.get(assessmentID='csc10273'), assessmentMark=89)
+    stuMod1027Ass1.save()
+    stuMod1027Ass2.save()
+    stuMod1027Ass3.save()
+
     stuModCSC1028 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1028'), stuModMark=67)
     stuModCSC1028.save()
+    savedStuMod1028 = StudentModule.objects.filter(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1028'))[0]
+    stuMod1028Ass1 = StudentModuleAssessment(studentModuleID = savedStuMod1028, assessmentID = Assessment.objects.get(assessmentID='csc10281'), assessmentMark=67)
+    stuMod1028Ass1.save()
+    
     stuModCSC1030 = StudentModule(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1030'), stuModMark=76)
     stuModCSC1030.save()
+    savedStuMod1030 = StudentModule.objects.filter(studentID=stu, moduleID=Module.objects.get(moduleID='CSC1030'))[0]
+    stuMod1030Ass1 = StudentModuleAssessment(studentModuleID = savedStuMod1030, assessmentID = Assessment.objects.get(assessmentID='csc10301'), assessmentMark=78)
+    stuMod1030Ass2 = StudentModuleAssessment(studentModuleID = savedStuMod1030, assessmentID = Assessment.objects.get(assessmentID='csc10302'), assessmentMark=74)
+    stuMod1030Ass1.save()
+    stuMod1030Ass2.save()   
+
 
 def addExtraStudent():
     student1 = Student(studentID=40294254, pathwayID=Pathway.objects.get(pathwayID='G606'), studentCurrentLevel=2, studentCurrentSemester=2, currentPathwayMark=31)

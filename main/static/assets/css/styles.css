@@ -4,7 +4,7 @@
   scroll-behavior: smooth;
   list-style: none;
   box-sizing: border-box;
-  transition: all 0.05s ease-in-out !important;
+  transition: all 0.23s ease-in-out;
 }
 
 :root {
@@ -61,7 +61,6 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: 3vh;
   color: var(--color-tertiary);
-  transition: all 0.05s ease-in-out !important;
 }
 
 [class*=col-] {
@@ -91,11 +90,8 @@ body {
   overflow-y: hidden;
   overflow-x: hidden;
 }
-.col-1-closed .sidebar .menu-items {
-  margin-left: -530%;
-}
 .col-1-closed .sidebar #menu-background-pattern {
-  transition: none !important;
+  opacity: 0;
 }
 
 .col-2-closed {
@@ -114,7 +110,7 @@ body {
     right: 0vw;
   }
   .col-1-closed {
-    width: 10%;
+    width: 11%;
   }
   .col-1-closed .sidebar {
     overflow-y: hidden;
@@ -122,11 +118,8 @@ body {
     padding-top: 2vh;
     padding-left: 3vw;
   }
-  .col-1-closed .sidebar .menu-items {
-    margin-left: -590%;
-  }
   .col-2-closed {
-    width: 90%;
+    width: 89%;
   }
   .filter-and-search {
     font-size: 1.5vh;
@@ -136,9 +129,6 @@ body {
   }
   .dashboard-container {
     display: grid;
-  }
-  .dashboard-container .assesments {
-    visibility: hidden;
   }
   .dashboard-container .grades {
     visibility: hidden;
@@ -169,9 +159,6 @@ body {
     padding-top: 2vh;
     padding-left: 3vw;
   }
-  .col-1-closed .sidebar .menu-items {
-    margin-left: -570%;
-  }
   .col-2-closed {
     width: 90%;
   }
@@ -186,9 +173,6 @@ body {
   }
   .dashboard-container {
     display: grid;
-  }
-  .dashboard-container .assesments {
-    visibility: hidden;
   }
   .dashboard-container .grades {
     visibility: hidden;
@@ -211,18 +195,15 @@ body {
     right: 0vw;
   }
   .col-1-closed {
-    width: 3%;
+    width: 4%;
   }
   .col-1-closed .sidebar {
     overflow-y: hidden;
     padding-top: 2vh;
     padding-left: 1vw;
   }
-  .col-1-closed .sidebar .menu-items {
-    margin-left: -510%;
-  }
   .col-2-closed {
-    width: 97%;
+    width: 96%;
   }
 }
 main:after {
@@ -272,7 +253,7 @@ main:after {
   user-select: none; /* Standard */
 }
 .sidebar #menu-background-pattern {
-  z-index: 1;
+  z-index: -1;
   background-image: radial-gradient(rgba(255, 255, 255, 0.1) 9%, transparent 9%);
   background-position: 0% 0%;
   background-size: 12vmin 12vmin;
@@ -336,13 +317,46 @@ main:after {
   opacity: 1;
 }
 
+@keyframes slideMenuItemsIn {
+  from {
+    transform: translateX(-300px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.slideMenuItemsIn {
+  animation-name: slideMenuItemsIn;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideMenuItemsOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-300px);
+    opacity: 0;
+  }
+}
+.slideMenuItemsOut {
+  animation-name: slideMenuItemsOut;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
 /* main content div for all pages */
 .top-bar {
   padding-top: 3vh;
   padding-left: 5vw;
-  transition: all 0.23s ease-in-out;
   position: fixed;
-  z-index: 25;
+  z-index: 1;
   background-color: var(--color-primary);
   width: inherit;
 }
@@ -371,7 +385,6 @@ main:after {
 
 .content {
   background-color: var(--color-primary);
-  transition: all 0.23s ease-in-out;
   position: relative;
   top: 22%;
   padding-bottom: 15vh;
@@ -415,7 +428,6 @@ main:after {
   bottom: 0;
   right: 0vw;
   width: inherit;
-  transition: all 0.23s ease-in-out;
   background-color: var(--color-primary);
   min-height: 85px;
   /* where the user enters text to send to the chatbot */
@@ -638,12 +650,12 @@ main:after {
   margin-right: auto;
   overflow-x: hidden;
 }
-.dashboard-container .assesments {
+.dashboard-container .assessments {
   z-index: -1;
   float: left;
   width: 17.7%;
 }
-.dashboard-container .assesments .assesment-grade {
+.dashboard-container .assessments .assessment-grade {
   z-index: 20;
   width: 100px;
 }

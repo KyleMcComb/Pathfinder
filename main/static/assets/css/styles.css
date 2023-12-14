@@ -128,15 +128,19 @@ body {
     font-size: 6vh !important;
   }
   .dashboard-container {
-    display: grid;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .dashboard-container .assessments {
+    width: auto !important;
   }
   .dashboard-container .grades {
     visibility: hidden;
+    width: 0% !important;
+    height: 0% !important;
   }
   .dashboard-container .stats {
-    position: absolute;
-    padding-bottom: 8vh !important;
-    width: 95% !important;
+    width: auto !important;
   }
 }
 /* small to medium devices above 800px*/
@@ -172,15 +176,17 @@ body {
     font-size: 6vh !important;
   }
   .dashboard-container {
-    display: grid;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .dashboard-container .assessments {
+    width: auto !important;
   }
   .dashboard-container .grades {
-    visibility: hidden;
+    width: auto !important;
   }
   .dashboard-container .stats {
-    position: absolute;
-    padding-bottom: 8vh !important;
-    width: 95% !important;
+    width: auto !important;
   }
 }
 /* Extra large devices above 1921 width */
@@ -654,6 +660,7 @@ main:after {
   z-index: -1;
   float: left;
   width: 17.7%;
+  padding-bottom: 15vh;
 }
 .dashboard-container .assessments .assessment-grade {
   z-index: 20;

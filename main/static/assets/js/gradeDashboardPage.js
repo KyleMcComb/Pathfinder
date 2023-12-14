@@ -39,7 +39,7 @@ function resizeGradeDashboardPage() {
         var barchartHeight = (1130 / 2261.3) * barchartWidth; // Calculate the height of the bar chart
         document.getElementsByClassName('content')[0].style.height = (windowHeight - progress) + 'px'; // Set the content height
         //document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
-        document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
+        //document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
 
         var navOpen = sessionStorage.getItem("navOpen");
 
@@ -47,22 +47,22 @@ function resizeGradeDashboardPage() {
         if (navOpen == "true") {
             // Check if the window width is smaller than 1117.1px
             if (windowWidth < 1117.1) {
-                bottomBarDiv.style.width = (windowWidth - 145) + 'px'; // Set width for open sidebar
-                bottomBarDiv.style.left = '145px'; // Set left position for open sidebar
+                //bottomBarDiv.style.width = (windowWidth - 145) + 'px'; // Set width for open sidebar
+                //bottomBarDiv.style.left = '145px'; // Set left position for open sidebar
             } else {
-                bottomBarDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
-                bottomBarDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position for open sidebar
+                //bottomBarDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
+                //bottomBarDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position for open sidebar
             }
         }
         // NAV IS NOT OPEN
         else if (navOpen == "false") {
             // Check if the window width is smaller than 1117.1px
             if (windowWidth < 1117.1) {
-                bottomBarDiv.style.width = (windowWidth - 32) + 'px'; // Set width for closed sidebar
-                bottomBarDiv.style.left = '32px'; // Set left position for closed sidebar
+                //bottomBarDiv.style.width = (windowWidth - 32) + 'px'; // Set width for closed sidebar
+                //bottomBarDiv.style.left = '32px'; // Set left position for closed sidebar
             } else {
-                bottomBarDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
-                bottomBarDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position for closed sidebar
+                //bottomBarDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
+                //bottomBarDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position for closed sidebar
             }
         }
     }

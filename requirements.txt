@@ -12,3 +12,7 @@ django-recaptcha==3.0.0 # for captcha
 django-otp==1.2.3 # for 2FA otp creation and validation
 qrcode==7.4.2 # for 2FA qrcode generation
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl#sha256=0964370218b7e1672a30ac50d72cdc6b16f7c867496f1d60925691188f4d2510 # for chatbot language module
+Scrapy==2.9.0
+urllib3==2.0.4
+scrapeops-scrapy-proxy-sdk==1.0
+#en_core_web_sm==3.2.0

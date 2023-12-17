@@ -82,36 +82,20 @@ function addBackupRowsToTable(fileNames, tbody, cloud) {
 function backupFilesRequestMaker(request, tbody, cloud) {
     // Make a GET request to fetch backup file information
     $.get(request, function(data) {
-        if(data.fileNames == null){ 
+        if (data.fileNames.length > 0) {
+            // If there are files, add rows with backup details to the table
+            addBackupRowsToTable(data.fileNames, tbody, cloud);
+        } else {
+            // If no files found, add a row indicating no files are available
             tbody.insertAdjacentHTML('beforeend', `
-                    <tr class="model-group">
-                        <th scope="row"><a href="">This backup storage system is currently down</a></th><td></td>
-                    </tr>
-                `);
-        }
-        else{
-            if (data.fileNames.length > 0) {
-                // If there are files, add rows with backup details to the table
-                addBackupRowsToTable(data.fileNames, tbody, cloud);
-            } 
-            else {
-                // If no files found, add a row indicating no files are available
-                tbody.insertAdjacentHTML('beforeend', `
-                    <tr class="model-group">
-                        <th scope="row"><a href="">No Files Found</a></th><td></td>
-                    </tr>
-                `);
-            }
+                <tr class="model-group">
+                    <th scope="row"><a href="">No Files Found</a></th><td></td>
+                </tr>
+            `);
         }
     });
 }
 
-/**
- * @Author - @DeanLogan
- * Initiates the process to create a backup.
- * Displays an overlay during the backup process and alerts the user about the status.
- * Relocates to the updated page after completion.
- */
 function createBackup(){
     document.querySelector(".overlay").style.display = "flex";
     $.get("/backup/", function(data) {
@@ -138,18 +122,11 @@ function createBackup(){
     setTimeout(function() {
         document.querySelector(".overlay").style.display = "none";
         location.reload();
-    }, 3500);
+    }, 600);
 }
 
-/**
- * @Author - @DeanLogan
- * Initiates the process to restore the database from a backup.
- * Displays a confirmation dialog to ensure the user wants to proceed.
- * Shows an overlay during the restore process and alerts the user about the status.
- * Relocates to the updated page after a successful restore.
- * @param {string} fileName - The name of the backup file to restore.
- * @param {boolean} cloud - Indicates whether the backup is stored in the cloud.
- */
+// TODO: Refactor the restore and rollback functions to reduce code repetition
+
 function restoreDb(fileName, cloud){
     if (window.confirm("You are attempting to restore the database\nThis will add/update records from this backup but WILL NOT DELETE RECORDS THAT HAVE BEEN ADDED FROM THIS BACKUP\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";
@@ -169,15 +146,6 @@ function restoreDb(fileName, cloud){
     }
 }
 
-/**
- * @Author - @DeanLogan
- * Initiates the process to rollback the database to a specific backup.
- * Displays a confirmation dialog to inform the user about the consequences of rollback.
- * Shows an overlay during the rollback process and alerts the user about the status.
- * Relocates to the updated page after a successful rollback, which includes logging the user out.
- * @param {string} fileName - The name of the backup file to rollback to.
- * @param {boolean} cloud - Indicates whether the backup is stored in the cloud.
- */
 function rollbackDb(fileName, cloud){
     if (window.confirm("You are attempting to rollback the database\nThis will cause you to be logged out of the system and you will need to login again\nThe database will be brought back to the EXACT STATE of this backup\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";
@@ -197,28 +165,18 @@ function rollbackDb(fileName, cloud){
     }
 }
 
-/**
- * @Author - @DeanLogan
- * Initiates the process to delete a specific backup file.
- * Displays a confirmation dialog to inform the user about the consequences of deletion.
- * Shows an overlay during the deletion process and alerts the user about the status.
- * Reloads the page after a successful deletion to reflect the changes.
- * @param {string} fileName - The name of the backup file to delete.
- * @param {boolean} cloud - Indicates whether the backup is stored in the cloud.
- */
 function deleteBackup(fileName, cloud){
     if (window.confirm("You are attempting to delete this backup\nDo you want to proceed?")){
         document.querySelector(".overlay").style.display = "flex";
         $.get('/deleteBackup/', { fileName:fileName, cloud:cloud }, function (data) {
-            var message = 'Deletion Failed';
             if (data.Status == 'true') {
-                message = 'Deleted backup successful'
-            } 
-            setTimeout(function() {
                 document.querySelector(".overlay").style.display = "none";
-                alert(message);
+                alert('Deleted backup successful');
                 location.reload();
-            }, 3500);
+            } else {
+                document.querySelector(".overlay").style.display = "none";
+                alert("Deletion Failed");
+            }
         });
     }
     else{

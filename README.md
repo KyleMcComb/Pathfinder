@@ -150,9 +150,6 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
   * Email Address: pathfinder3068@gmail.com
   * Password: PageRank12*
 
-### Scrapy spiders
-scrapy runspider .\webScraping\spiders\IndeedJobSpider.py
-
 ## Useful Links
 Below are some links that might be helpful in creating/running docker containers and virtual environments if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familiar with similar technologies these resources can be ignored.
 * [Download Docker](https://www.docker.com/products/docker-desktop/)

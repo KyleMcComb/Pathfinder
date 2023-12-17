@@ -1,6 +1,7 @@
 from . import views
-from .chatbot import receive_message
 from django.urls import path
+from .chatbot import receive_message
+from django.urls import path, include
 from .requestFunctions.generalInfo import listOfPathways, accountInfo
 from .requestFunctions.gradeInfo import gradeInfoRequest, updateMarks
 from .requestFunctions.accountHandling import verify, signUp, displayQRCode, hasTwoFactorEnabled, forgotPassword
@@ -12,7 +13,7 @@ app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
     path('receive_message/', views.receive_message, name='receive_message'),
-    path('settings/', views.settings, name='settings'),
+    path('Settings/', views.settings, name='settings'),
     path('GradeDashboard/', views.gradeDashboard, name='GradeDashboard'),
     path('ModuleInformation/', views.moduleInformation, name='ModuleInformation'),
     path('receive_message/', receive_message, name='receive_message'),

@@ -21,6 +21,15 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Career',
+            fields=[
+                ('careerID', models.IntegerField(auto_created=True, primary_key=True, serialize=False)),
+                ('jobTitle', models.CharField(max_length=100)),
+                ('companyName', models.CharField(max_length=100)),
+                ('jobDescription', models.CharField(max_length=1000)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Lecturer',
             fields=[
                 ('lecturerID', models.IntegerField(auto_created=True, primary_key=True, serialize=False)),
@@ -98,6 +107,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('moduleLecturerID', models.IntegerField(auto_created=True, primary_key=True, serialize=False)),
                 ('lecturerID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.lecturer')),
+                ('moduleID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.module')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='CareerModule',
+            fields=[
+                ('careerModuleID', models.IntegerField(auto_created=True, primary_key=True, serialize=False)),
+                ('careerID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.career')),
                 ('moduleID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='database.module')),
             ],
         ),

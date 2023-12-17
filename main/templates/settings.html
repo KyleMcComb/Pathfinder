@@ -18,63 +18,45 @@
     <body>
         <main>
             <!-- This is for the sidebar/navigation, this will change depending on the access levels the user has. -->
-            <div class="row">
-                <div class="col-1" id="column1">
-                    <div class="sidebar" id="menu">
-                        <div class="toggleButton">
-                            <p><span class="closebtn" onclick="navToggle()">&#9776;</span></p>
-                        </div>
-                        <br />
-                        <div id="sidebar-items" class="sidebar-items">
-                            <div id='menu-items' class="menu-items">
-                                <a href="/" class="menu-item">Home</a>
-                                <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
-                                <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
-                                <a href="/settings" , target="_parent" class="menu-item">Settings</a>
-                                {% if user.is_authenticated and user.username == "admin" %}
-                                <!-- displays link to admin page if user is the admin -->
-                                <a href="/admin" class="menu-item">Admin Page</a>
-                                {% elif user.is_authenticated and user.username != "admin" %}
-                                <!-- displays link to grade dashboard page if user is the student -->
-                                <a href="/GradeDashboard" class="menu-item">Grade <br /> Dashboard</a>
-                                {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
-                                <a href="/login" class="menu-item">Login</a>
-                                <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
-                                {% endif %}
-                                {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
-                                <a onclick="logout()" class="menu-item">Logout</a>
-                                {% endif %}
-                            </div>
-                            {% if user.is_authenticated %}
-                            <div class="loggedInDisplay">
-                                <p>Hello {{ user.username }}</p>
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div id="menu-background-pattern"></div>
-                        <!-- this is for the dots that appear in the background of the side bar -->
-                    </div>
+            <div class="sidebar" id="menu">
+                <div class="toggleButton">
+                    <p><span class="closebtn" onclick="navToggle()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
                 </div>
-        
-                <div class="col-2" id="column2">
-                    <div class="top-bar">
-                        <div class="title">
-                            <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                            <h1>Settings</h1>
-                        </div>
-                    </div>
-        
-                    <div class="content">
-                        
-                        {% if user.is_authenticated %}
-                        <div class="account-info">
-                            <h2>Account Information</h2>
-                            <form class="" action="" method="">
-                                <p><b>Name:</b></p>
-                                <p class="accountInformation" id="account-name"></p>
-                                <p><b>Email:</b></p>
-                                <p class="accountInformation" id="account-email"></p>
-                                {% if user.is_authenticated and user.username != "admin" %}
+                <br />
+                <div id="menu-items">
+                    <a href="/" class="menu-item">Home</a>
+                    <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
+                    <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
+                    <a href="/settings", target="_parent" class="menu-item">Settings</a>
+                    {% if user.is_authenticated and user.username == "admin" %} <!-- displays link to admin page if user is the admin -->
+                        <a href="/admin" class="menu-item">Admin Page</a>
+                    {% elif user.is_authenticated and user.username != "admin" %} <!-- displays link to grade dashboard page if user is the student -->
+                        <a href="/GradeDashboard" class="menu-item">Grade  <br /> Dashboard</a>
+                    {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
+                        <a href="/login"class="menu-item">Login</a>
+                        <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
+                    {% endif %}
+                    {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
+                        <a onclick="logout()" class="menu-item">Logout</a>
+                    {% endif %}
+                </div>
+                <div id="menu-background-pattern"></div> <!-- this is for the dots that appear in the background of the side bar -->
+            </div>
+
+            <div class="content">
+                <div>
+                    <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
+                    <h1>Settings</h1>
+                </div>
+                <div>
+                    {% if user.is_authenticated %}
+                        <h2>Account Information</h2>
+                        <form class="" action="" method="">
+                            <p><b>Name:</b></p>
+                            <p class="accountInformation" id="account-name"></p>
+                            <p><b>Email:</b></p>
+                            <p class="accountInformation" id="account-email"></p>
+                            {% if user.is_authenticated and user.username != "admin" %}
                                 <p><b>Student Number:</b></p>
                                 <p class="accountInformation" id="account-student-number"></p>
                                 <p><b>Pathway:</b></p>
@@ -83,42 +65,37 @@
                                 <p class="accountInformation" id="account-semester"></p>
                                 <p><b>Current Stage:</b></p>
                                 <p class="accountInformation" id="account-stage"></p>
-                                {% endif %}
-                                <p><b>2FA:</b></p>
-                                <p class="accountInformation">
-                                    Scan the qr code below with your authenticator app, to setup 2FA on your account.
-                                    <br /><br />
-                                    <span id="qr-code"></span>
-                                </p>
+                            {% endif %}
+                            <p><b>2FA:</b></p>
+                            <p class="accountInformation">
+                                Scan the qr code below with your authenticator app, to setup 2FA on your account.
                                 <br /><br />
-                                <p>If any of this information is incorrect please contact the admin here: <b><span
-                                            class="admin-email"></span></b></p>
-                            </form>
-                        </div>
-                        {% endif %}
+                                <span id="qr-code"></span>
+                            </p>
+                            <br /><br />
+                            <p>If any of this information is incorrect please contact the admin here: <b><span class="admin-email"></span></b></p>
+                        </form>
+                    {% endif %}
+
+                    <h2>Accessability</h2>
+                    <form onsubmit="return updateAccessabilityOptions()">
+                        <label class="" for="theme"><b>Theme: </b></label>
+                        <input type="radio" id="dark" name="theme" value="dark-mode" checked="checked">
+                        <label for="dark">Dark</label>
+                        <input type="radio" id="light" name="theme" value="light-mode">
+                        <label for="light">Light</label>
+                        <input type="radio" id="highContrast" name="theme" value="high-contrast-mode">
+                        <label for="highContrast">High Contrast</label><br>
                         
-                        <div class="accessability">
-                            <h2>Accessability</h2>
-                            <form onsubmit="return updateAccessabilityOptions()">
-                                <label class="" for="theme"><b>Theme: </b></label>
-                                <input type="radio" id="dark" name="theme" value="dark-mode" checked="checked">
-                                <label for="dark">Dark</label>
-                                <input type="radio" id="light" name="theme" value="light-mode">
-                                <label for="light">Light</label>
-                                <input type="radio" id="highContrast" name="theme" value="high-contrast-mode">
-                                <label for="highContrast">High Contrast</label><br>
-        
-                                <label><b>Font Size: </b></label>
-                                <input type="radio" id="small" name="fontSize" value="small">
-                                <label for="small">Small</label>
-                                <input type="radio" id="medium" name="fontSize" value="medium" checked="checked">
-                                <label for="medium">Medium</label>
-                                <input type="radio" id="large" name="fontSize" value="large">
-                                <label for="large">Large</label><br>
-                                <button type="submit">Save Changes</button>
-                            </form>
-                        </div>
-                    </div>
+                        <label><b>Font Size: </b></label>
+                        <input type="radio" id="small" name="fontSize" value="small">
+                        <label for="small">Small</label>
+                        <input type="radio" id="medium" name="fontSize" value="medium" checked="checked">
+                        <label for="medium">Medium</label>
+                        <input type="radio" id="large" name="fontSize" value="large">
+                        <label for="large">Large</label><br>
+                        <button type="submit">Save Changes</button>
+                    </form>
                 </div>
             </div>
         </main>
@@ -162,7 +139,6 @@
                 <div>
                     <h2>Sign Up Request Submitted!</h2><br /><br />
                     <p>Your information has been sent to the admin <br /> Once the admin creates your, they'll send an email with your login details <br />If you have any questions please contact the admin here: <span id="admin-email"></span></p>
-                    <button  onclick="document.getElementById('id02').style.display='none'">Close</button>
                 </div>
             </div>
         </div>

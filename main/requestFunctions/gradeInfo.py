@@ -1,4 +1,3 @@
-import json
 import math
 from collections import defaultdict
 
@@ -45,20 +44,20 @@ def moduleInfoForStudent(student, currentStage):
 @return: A list of dictionaries containing assessment information for the student's module.
 """
 def assessmentInfoForStudentsModule(studentID, moduleID):
-    # Retrieve the student's module and related assessment records
-    studentModule = StudentModule.objects.prefetch_related('moduleID').get(studentID_id=studentID, moduleID_id=moduleID)
-    studentAssessments = StudentModuleAssessment.objects.filter(studentModuleID=studentModule).select_related('assessmentID__moduleID')
-    
     assessmentInfo = []
-    
-    # Create a list of dictionaries containing assessment information
-    for studentAssessment in studentAssessments:
-        assessmentInfo.append({
-            'name': studentAssessment.assessmentID.assessmentType,
-            'mark': studentAssessment.assessmentMark,
-            'id': studentAssessment.studentModuleAssessmentID
-        })
-    
+    try:
+        # Retrieve the student's module and related assessment records
+        studentModule = StudentModule.objects.prefetch_related('moduleID').get(studentID_id=studentID, moduleID_id=moduleID)
+        studentAssessments = StudentModuleAssessment.objects.filter(studentModuleID=studentModule).select_related('assessmentID__moduleID')
+        
+        # Create a list of dictionaries containing assessment information
+        for studentAssessment in studentAssessments:
+            assessmentInfo.append({
+                'name': studentAssessment.assessmentID.assessmentType,
+                'mark': studentAssessment.assessmentMark
+            })
+    except:
+        pass
     return assessmentInfo
 
 """
@@ -68,11 +67,14 @@ def assessmentInfoForStudentsModule(studentID, moduleID):
 @return: The calculated average module mark or 0 if no modules are present.
 """
 def moduleAvgAllStages(stages):
-    avgForStage = 0
-    for stage in stages:
-        avgForStage += calcAvgMark(stage)
-    
-    return avgForStage / len(stages)
+    if len(stages) != 0:
+        avgForStage = 0
+        for stage in stages:
+            avgForStage += calcAvgMark(stage)
+        
+        return avgForStage / len(stages)
+    else:
+        return 0
 
 """
 @Author: @DeanLogan
@@ -97,7 +99,10 @@ def assessmentAvgAllStages(stages):
 @return: The calculated average mark or 0 if the list is empty.
 """
 def calcAvgMark(arr):
-    return sum(grade['mark'] for grade in arr) / len(arr) if len(arr) != 0 else 0
+    try:
+        return sum(grade['mark'] for grade in arr) / len(arr) if len(arr) != 0 else 0
+    except:
+        return 0
 
 
 """
@@ -136,13 +141,13 @@ def gradeInfoRequest(request):
         studentInDb = Student.objects.get(studentID=request.user.username)
         currentStage = studentInDb.studentCurrentLevel
         stagesInfo = moduleInfoForStudent(studentInDb, currentStage)
-        
+
         return JsonResponse(
             {
                 'error': 'False',
                 'currentPathwayMark': str(math.trunc(round(studentInDb.currentPathwayMark, 0))),
                 'moduleAvg': str(math.trunc(round(moduleAvgAllStages(stagesInfo), 0))),
-                'assessmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
+                'assesmentAvg': str(math.trunc(round(assessmentAvgAllStages(stagesInfo), 0))),
                 'leftToEarn': str(math.trunc(round(calcLeftToEarn(currentStage, studentInDb), 0))),
                 'stages': stagesInfo
             }, 
@@ -152,33 +157,3 @@ def gradeInfoRequest(request):
         return JsonResponse({'error': 'True'}, safe=False)
 
 
-"""
-@Author: @DeanLogan
-@Description: Update assessment marks for students.
-@param: request - The HttpRequest object containing assessment grades.
-@return: JsonResponse with a status message indicating the result of the updates.
-"""
-def updateMarks(request):
-    # Extract assessment grades from the request
-    assessmentGrades = json.loads(request.GET.get('assessmentMark'))
-    
-    # Initialize a variable to store failed updates
-    failedUpdates = ''
-
-    # Iterate through the provided assessment grades
-    for assessmentInfo in assessmentGrades:
-        # Get the corresponding assessment from the database
-        assessment = StudentModuleAssessment.objects.get(studentModuleAssessmentID=assessmentInfo['id'])
-        try:
-            # Attempt to update the assessment mark with the provided value
-            assessment.assessmentMark = int(assessmentInfo['mark'].replace(" ", ""))
-        except:
-            # Handle the case where the mark cannot be updated and record the failed update
-            assessmentName = str(assessment.assessmentID.assessmentType) + " - " + str(Module.objects.get(moduleID=assessment.assessmentID.moduleID).moduleName)
-            failedUpdates += assessmentName + '\n'
-        assessment.save()
-
-    if failedUpdates != '':
-        return JsonResponse({'message': f'Error: The following assessments (they have not been updated): \n{failedUpdates}\n', 'status': 'fail'}, safe=False)
-    else:
-        return JsonResponse({'message': 'Grades have been successfully updated', 'status': 'success'}, safe=False)

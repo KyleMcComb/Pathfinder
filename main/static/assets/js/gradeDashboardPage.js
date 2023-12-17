@@ -38,8 +38,8 @@ function resizeGradeDashboardPage() {
         var barchartWidth = (((windowWidth - 55) * 0.95) * 0.64); // Calculate the width of the bar chart
         var barchartHeight = (1130 / 2261.3) * barchartWidth; // Calculate the height of the bar chart
         document.getElementsByClassName('content')[0].style.height = (windowHeight - progress) + 'px'; // Set the content height
-        //document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
-        //document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
+        document.getElementsByClassName('bottom-bar')[0].style.height = progress + 'px'; // Set the bottom bar height
+        document.getElementsByClassName('stats')[0].style.height = barchartHeight + 'px'; // Set the bar chart height
 
         var navOpen = sessionStorage.getItem("navOpen");
 
@@ -47,22 +47,22 @@ function resizeGradeDashboardPage() {
         if (navOpen == "true") {
             // Check if the window width is smaller than 1117.1px
             if (windowWidth < 1117.1) {
-                //bottomBarDiv.style.width = (windowWidth - 145) + 'px'; // Set width for open sidebar
-                //bottomBarDiv.style.left = '145px'; // Set left position for open sidebar
+                bottomBarDiv.style.width = (windowWidth - 145) + 'px'; // Set width for open sidebar
+                bottomBarDiv.style.left = '145px'; // Set left position for open sidebar
             } else {
-                //bottomBarDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
-                //bottomBarDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position for open sidebar
+                bottomBarDiv.style.width = windowWidth - (windowWidth * 0.13) + 'px'; // Set responsive width for open sidebar
+                bottomBarDiv.style.left = windowWidth * 0.13 + 'px'; // Set responsive left position for open sidebar
             }
         }
         // NAV IS NOT OPEN
         else if (navOpen == "false") {
             // Check if the window width is smaller than 1117.1px
             if (windowWidth < 1117.1) {
-                //bottomBarDiv.style.width = (windowWidth - 32) + 'px'; // Set width for closed sidebar
-                //bottomBarDiv.style.left = '32px'; // Set left position for closed sidebar
+                bottomBarDiv.style.width = (windowWidth - 32) + 'px'; // Set width for closed sidebar
+                bottomBarDiv.style.left = '32px'; // Set left position for closed sidebar
             } else {
-                //bottomBarDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
-                //bottomBarDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position for closed sidebar
+                bottomBarDiv.style.width = windowWidth - (windowWidth * 0.0286) + 'px'; // Set responsive width for closed sidebar
+                bottomBarDiv.style.left = windowWidth * 0.0286 + 'px'; // Set responsive left position for closed sidebar
             }
         }
     }
@@ -99,7 +99,7 @@ function getGradeData() {
         else {
             progressBar(data.currentPathwayMark); // Update progress bar
             document.getElementById('modAvg').innerHTML = data.moduleAvg + '%'; // Display module average
-            document.getElementById('asAvg').innerHTML = data.assessmentAvg + '%'; // Display assessment average
+            document.getElementById('asAvg').innerHTML = data.assesmentAvg + '%'; // Display assessment average
             document.getElementById('leftToEarn').innerHTML = data.leftToEarn + '%'; // Display left-to-earn percentage
 
             var stages = data.stages;
@@ -139,7 +139,7 @@ function displayStage(stageSelected) {
             grades.push(stages[stageSelected - 1][j].mark);
         }
 
-        document.getElementsByClassName('assessments')[0].innerHTML = ''; // Clear existing elements from the assessments div
+        document.getElementsByClassName('assesments')[0].innerHTML = ''; // Clear existing elements from the assessments div
         var stage = stages[stageSelected - 1];
         var htmlFormat = '';
 
@@ -151,13 +151,12 @@ function displayStage(stageSelected) {
             assessments = stage[i].assessments;
             for (var j = 0; j < assessments.length; j++) {
                 htmlFormat += `
-                    <p>&nbsp;&nbsp;${assessments[j].name}: <input class="assessment-grade" type="text" value="${assessments[j].mark}" placeholder="Grade" name="${assessments[j].id}" required>%</p>
+                    <p>&nbsp;&nbsp;${assessments[j].name}: ${assessments[j].mark}%</p>
                 `;
             }
         }
 
-        htmlFormat += `<button onclick="updateGrades()" type="button">Save</button>`;
-        document.getElementsByClassName('assessments')[0].innerHTML = htmlFormat;
+        document.getElementsByClassName('assesments')[0].innerHTML = htmlFormat;
 
         // Destroy the previous chart that was being displayed on the page
         if (chart != null) {
@@ -168,35 +167,6 @@ function displayStage(stageSelected) {
     });
 }
 
-/**
- * @Author - @DeanLogan
- * Retrieves and updates assessment grades from input fields within a specific div.
- * Sends a GET request to update the assessment marks and displays an alert with the response message.
- */
-function updateGrades(){
-    const divElement = document.getElementsByClassName("assessments")[0]; // Replace "myDiv" with the ID of your specific div
-
-    if (divElement) {
-        const pTags = divElement.getElementsByTagName("p");
-        var assessmentGrades = [];
-
-        for (const p of pTags) {
-            const inputField = p.querySelector("input");
-            if (inputField) {
-                assessment = {
-                    'id': inputField.name,
-                    'mark': inputField.value
-                }
-                assessmentGrades.push(assessment);
-            }
-        }
-    }
-
-    $.get('/updateMarks/', { assessmentMark: JSON.stringify(assessmentGrades) }, function (data) {
-        alert(data.message);
-        location.reload();
-    });
-}
 
 /**
  * @Author - @DeanLogan
@@ -210,13 +180,13 @@ function updateGrades(){
 function createGradeBarChart(modules=['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6'], grades=[55, 49, 44, 24, 15, 22]) {
     // Check the current theme to determine bar chart colors
     var theme = localStorage.getItem('theme');
-    var barColours = '#27AE60'; // Defaults to dark-mode
+    var barColours = '#E30613'// var barColours = '#27AE60'; // Defaults to dark-mode
     var axisAndGridColour = '#FFFFFF'; 
     if (theme == 'high-contrast-mode') {
         barColours = '#000000';
         axisAndGridColour = '#000000'; 
     } else if (theme == 'light-mode') {
-        barColours = '#b92261';
+        // barColours = '#b92261';
         axisAndGridColour = '#000000'; 
     }
     

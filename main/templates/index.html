@@ -19,44 +19,65 @@
     <body>
         <main>
             <!-- This is for the sidebar/navigation, this will change depending on the access levels the user has. -->
-            <div class="sidebar" id="menu">
-                <div class="toggleButton">
-                    <p><span class="closebtn" onclick="navToggleOnChatbotPage()">&#9776;</span>&nbsp;&nbsp;Pathfinder</p>
+            <div class="row">
+                <div class="col-1" id="column1">
+                    <div class="sidebar" id="menu">
+                        <div class="toggleButton">
+                            <p><span class="closebtn" onclick="navToggle()">&#9776;</span>
+                            </p>
+                        </div>
+                        <br />
+                        <div id="sidebar-items" class="sidebar-items">
+                            <div id='menu-items' class="menu-items">
+                                <a href="/" class="menu-item">Home</a>
+                                <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
+                                <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
+                                <a href="/settings" , target="_parent" class="menu-item">Settings</a>
+                                {% if user.is_authenticated and user.username == "admin" %}
+                                <!-- displays link to admin page if user is the admin -->
+                                <a href="/admin" class="menu-item">Admin Page</a>
+                                {% elif user.is_authenticated and user.username != "admin" %}
+                                <!-- displays link to grade dashboard page if user is the student -->
+                                <a href="/GradeDashboard" class="menu-item">Grade <br /> Dashboard</a>
+                                {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
+                                <a href="/login" class="menu-item">Login</a>
+                                <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
+                                {% endif %}
+                                {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
+                                <a onclick="logout()" class="menu-item">Logout</a>
+                                {% endif %}
+                            </div>
+                            {% if user.is_authenticated %}
+                            <div class="loggedInDisplay">
+                                <p>Hello {{ user.username }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div id="menu-background-pattern"></div>
+                        <!-- this is for the dots that appear in the background of the side bar -->
+                    </div>
                 </div>
-                <br />
-                <div id="menu-items">
-                    <a href="/" class="menu-item">Home</a>
-                    <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
-                    <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
-                    <a href="/settings", target="_parent" class="menu-item">Settings</a>
-                    {% if user.is_authenticated and user.username == "admin" %} <!-- displays link to admin page if user is the admin -->
-                        <a href="/admin" class="menu-item">Admin Page</a>
-                    {% elif user.is_authenticated and user.username != "admin" %} <!-- displays link to grade dashboard page if user is the student -->
-                        <a href="/GradeDashboard" class="menu-item">Grade  <br /> Dashboard</a>
-                    {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
-                        <a href="/login" class="menu-item">Login</a>
-                        <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
-                    {% endif %}
-                    {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
-                        <a onclick="logout()" class="menu-item">Logout</a>
-                    {% endif %}
+        
+                <div class="col-2" id="column2">
+                    <div class="top-bar">
+                        <div class="title">
+                            <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
+                            <h1>Pathfinder Chatbot</h1>
+                        </div>
+                    </div>
+        
+                    <div class="content">
+                        <div class="chatbot"></div>
+                        <!-- this div will be populated with the chat bubbles as the user or chatbot communicate with each other -->
+        
+        
+                    </div>
+                    <div class="bottom-bar">
+                        <textarea autocomplete="chrome-off" id="userInput" type="text" required
+                            placeholder="ENTER TEXT"></textarea>
+                    </div>
                 </div>
-                <div id="menu-background-pattern"></div> <!-- this is for the dots that appear in the background of the side bar -->
             </div>
-
-            <div class="content">
-                <div>
-                    <img src="{% static 'assets/img/pathfinder.png' %}" alt="logo" />
-                    <h1>Pathfinder Chatbot</h1>
-                </div>
-                
-                <div class="chatbot"></div> <!-- this div will be populated with the chat bubbles as the user or chatbot communicate with each other -->
-            </div>
-            
-            <div class="bottom-bar">
-                <textarea autocomplete="chrome-off" id="userInput" type="text" required placeholder="ENTER TEXT"></textarea>
-            </div>
-
         </main>
 
         <!-- Sign-up pop up -->
@@ -98,6 +119,7 @@
                 <div>
                     <h2>Sign Up Request Submitted!</h2><br /><br />
                     <p>Your information has been sent to the admin <br /> Once the admin creates your, they'll send an email with your login details <br />If you have any questions please contact the admin here: <span id="admin-email"></span></p>
+                    <button  onclick="document.getElementById('id02').style.display='none'">Cancel</button>
                 </div>
             </div>
         </div>

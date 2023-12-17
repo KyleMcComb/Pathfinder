@@ -8,11 +8,11 @@ from email.mime.multipart import MIMEMultipart
 
 from mysite.settings import *
 from django.db import connection
-from django.contrib.auth.models import User
 from django.core.management import call_command
 from backups.azureBlobStorage import getContainerClientWithTimeout, uploadFileToBlob, deleteBlob
 
 
+from django.contrib.auth.models import User
 
 """
     @Author: @DeanLogan
@@ -54,22 +54,26 @@ def deleteOldestBackupFile():
     @return: True if a blob was deleted successfully, False otherwise.
 """
 def deleteOldestBackupBlob():
-    containerClient = getContainerClientWithTimeout(0.4) # Get a container client, if there is no response in 0.4 secs containerClient is None
-    try:
-        blobList = containerClient.list_blobs()
-        
-        backupFiles = [(blob.name, blob.last_modified) for blob in blobList] # Convert the blob list to a list of (blob_name, last_modified) tuples
-        print(f"num of files: {len(backupFiles)}")
-        if len(backupFiles) >= 20:
-            backupFiles.sort(key=lambda x: x[1]) # Sort backup files by last_modified time (oldest first)
+    containerClient = getContainerClientWithTimeout(0.4)
+    if containerClient is None:
+        try:
+            blobList = containerClient.list_blobs()
             
-            # Delete the oldest backup blob
-            oldestBackupName = backupFiles[0][0] 
-            return deleteBlob(oldestBackupName)
-        return True
-    
-    except Exception as e:
-        backupStatusEmail("Oldest backup blob deletion of cloud backup failed", True, e)
+            backupFiles = [(blob.name, blob.last_modified) for blob in blobList] # Convert the blob list to a list of (blob_name, last_modified) tuples
+            if len(backupFiles) > 20:
+                backupFiles.sort(key=lambda x: x[1]) # Sort backup files by last_modified time (oldest first)
+                
+                # Delete the oldest backup blob
+                oldestBackupName = backupFiles[0][0] 
+                return deleteBlob(oldestBackupName)
+            return False
+        
+        except Exception as e:
+            backupStatusEmail("Oldest backup blob deletion of cloud backup failed", True, e)
+            return False
+
+    else:
+        backupStatusEmail("Oldest backup blob deletion of cloud backup failed", True, "Container client could not connect within the timeout.")
         return False
 
 
@@ -158,8 +162,3 @@ def backupStatusEmail(updateMessage, failure=False, error=""):
         return True  # Email sent successfully
     except Exception as e:
         return False  # An error occurred while sending the emai
-    
-if __name__ == "__main__":
-    print("backupManagement.py")
-    from azureBlobStorage import listBlobs
-    listBlobs()

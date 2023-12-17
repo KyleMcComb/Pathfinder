@@ -146,7 +146,10 @@ def generateQRCode(url):
     @return: HttpResponse containing the QR code image in PNG format.
 """
 def displayQRCode(request):
-    return HttpResponse(generateQRCode(createSecretKey(request)), content_type="image/png")
+    try:
+        return HttpResponse(generateQRCode(createSecretKey(request)), content_type="image/png")
+    except:
+        return HttpResponse("Error generating QR code")
 
 """
     @Author: @DeanLogan

@@ -98,8 +98,9 @@ def blobInBlobContainer(destinationBlobName):
     @return: True if the blob was deleted successfully, False if the blob doesn't exist.
 """
 def deleteBlob(blobNameToDelete):
-    containerClient = getContainerClientWithTimeout(0.4) # Get a container client, if there is no response in 0.4 secs containerClient is None
-    if containerClient is not None:
+    try:
+        containerClient = getContainerClientWithTimeout(0.4) # Get a container client, if there is no response in 0.4 secs containerClient is None
+
         # Get the blob client for the specified blob name
         blobClient = containerClient.get_blob_client(blobNameToDelete)
         
@@ -109,7 +110,8 @@ def deleteBlob(blobNameToDelete):
             return True  # Return True if the blob was deleted successfully
         else:
             return False  # Return False if the blob doesn't exist in the container
-    return False
+    except:
+        return False
 
 """
 @Author: @DeanLogan
@@ -156,6 +158,7 @@ def listBlobs():
             print("Container is empty")
     else:
         print("Container not connected")
+        return None
     
     return blobNames
 

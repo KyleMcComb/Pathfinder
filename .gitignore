@@ -21,6 +21,8 @@ database/populateData/__pycache__/
 *.sqlite3-shm
 *.sqlite3-wal
 
+*.pyc
+
 __pycache__
 
 testingDb.py

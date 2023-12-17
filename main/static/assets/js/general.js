@@ -112,7 +112,7 @@ function navToggle() {
 function resizeNav() {
     var column1Ele = document.getElementById('column1');
     var column2Ele = document.getElementById('column2');
-    var sideItemsEle = document.getElementById('sidebar-items');
+    var menuItemsEle = document.getElementById('menu-items');
 
     //if column has closed class, then remove it and open nav
     if (column1Ele.classList.contains('col-1-closed')) {
@@ -122,8 +122,8 @@ function resizeNav() {
         column2Ele.classList.add('col-2');
         column2Ele.classList.remove('col-2-closed');
 
-        sideItemsEle.classList.add('slideMenuItemsIn');
-        sideItemsEle.classList.remove('slideMenuItemsOut');
+        menuItemsEle.classList.add('slideMenuItemsIn');
+        menuItemsEle.classList.remove('slideMenuItemsOut');
     }
     else if (column1Ele.classList.contains('col-1')) { //or if it has regular class, remove ut and close nav
         column1Ele.classList.add('col-1-closed');
@@ -132,8 +132,8 @@ function resizeNav() {
         column2Ele.classList.add('col-2-closed');
         column2Ele.classList.remove('col-2');      
 
-        sideItemsEle.classList.add('slideMenuItemsOut');
-        sideItemsEle.classList.remove('slideMenuItemsIn');
+        menuItemsEle.classList.add('slideMenuItemsOut');
+        menuItemsEle.classList.remove('slideMenuItemsIn');
     }
     else {
         //error, column 1 does not have either of the correct classes.

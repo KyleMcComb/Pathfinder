@@ -27,30 +27,23 @@
                             </p>
                         </div>
                         <br />
-                        <div id="sidebar-items" class="sidebar-items">
-                            <div id='menu-items' class="menu-items">
-                                <a href="/" class="menu-item">Home</a>
-                                <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
-                                <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
-                                <a href="/settings" , target="_parent" class="menu-item">Settings</a>
-                                {% if user.is_authenticated and user.username == "admin" %}
-                                <!-- displays link to admin page if user is the admin -->
-                                <a href="/admin" class="menu-item">Admin Page</a>
-                                {% elif user.is_authenticated and user.username != "admin" %}
-                                <!-- displays link to grade dashboard page if user is the student -->
-                                <a href="/GradeDashboard" class="menu-item">Grade <br /> Dashboard</a>
-                                {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
-                                <a href="/login" class="menu-item">Login</a>
-                                <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
-                                {% endif %}
-                                {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
-                                <a onclick="logout()" class="menu-item">Logout</a>
-                                {% endif %}
-                            </div>
-                            {% if user.is_authenticated %}
-                            <div class="loggedInDisplay">
-                                <p>Hello {{ user.username }}</p>
-                            </div>
+                        <div id='menu-items' class="menu-items">
+                            <a href="/" class="menu-item">Home</a>
+                            <a href="/ModuleInformation" class="menu-item">Module <br /> Information</a>
+                            <a href='https://www.qub.ac.uk/' target="_blank" class="menu-item">Queen's <br /> Website</a>
+                            <a href="/settings" , target="_parent" class="menu-item">Settings</a>
+                            {% if user.is_authenticated and user.username == "admin" %}
+                            <!-- displays link to admin page if user is the admin -->
+                            <a href="/admin" class="menu-item">Admin Page</a>
+                            {% elif user.is_authenticated and user.username != "admin" %}
+                            <!-- displays link to grade dashboard page if user is the student -->
+                            <a href="/GradeDashboard" class="menu-item">Grade <br /> Dashboard</a>
+                            {% else %} <!-- displays login and sign-up buttons if the user is not authenticated -->
+                            <a href="/login" class="menu-item">Login</a>
+                            <a class="menu-item" onclick="displaySignUpPage()">Sign-Up</a>
+                            {% endif %}
+                            {% if user.is_authenticated %} <!-- displays logout button if the user is authenticated -->
+                            <a onclick="logout()" class="menu-item">Logout</a>
                             {% endif %}
                         </div>
                         <div id="menu-background-pattern"></div>

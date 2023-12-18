@@ -272,7 +272,7 @@ main:after {
   place-items: center;
 }
 .sidebar .sidebar-items .loggedInDisplay p {
-  color: var(--color-white);
+  color: var(--color-tertiary);
 }
 .sidebar #menu-background-pattern {
   z-index: -1;

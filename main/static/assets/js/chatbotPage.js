@@ -7,8 +7,6 @@ function chatbotPageLoad() {
     // Display introductory messages to the user
     displayText("Hello I am Pathfinder. A chatbot to help EEECS Students. Here is a list of commands to use: <br><br>- What do you do?<br>- What can you help me with? <br>- I'm in first year<br>- I'm in second year<br>- I'm in fourth year<br>- I'm in final year<br>","botText");
     displayText("I can recommend you modules based off your likes or dislikes. Try saying 'I like ai' or 'i hate ai' and I will recommend a module based off your response.","botText");
-    // Resize the chatbot page to ensure proper UI layout
-    resizeChatbotPage();
 }
 
 /**
@@ -27,58 +25,9 @@ function listenersForChatbotPage() {
             displayText(usersInput, "userText"); // Display the user's input as a message
         }
     });
-
-    // Listen for window resize event to adjust UI elements
-    window.addEventListener('resize', function() {
-        resizeChatbotPage(); // Resize UI elements when the window is resized
-    });
-}
-
-/**
- * @Author - @DeanLogan
- * @Description - Resizes UI elements of the chatbot page based on window width and navigation status.
- * Adjusts widths and positions of the bottom bar, textarea, and content area.
- */
-function resizeChatbotPage() {
-    const bottomBarDiv = document.querySelector('.bottom-bar'); // Get the bottom bar element
-    const textarea = document.getElementById("userInput"); // Get the user input textarea element
-    const windowWidth = window.innerWidth; // Get the current window width
-    const navOpen = sessionStorage.getItem("navOpen") === "true"; // Check if navigation sidebar is open
-
-    // Adjust content area height to fit the remaining space
-    document.querySelector('.content').style.height = (window.innerHeight - 85) + "px";
-
-    // Initialize variables for new dimensions
-    let newBottomBarWidth, newBottomBarLeft, newTextareaWidth;
-
-    // Check window width for responsive adjustments
-    if (windowWidth < 1117.1) {
-        newBottomBarWidth = windowWidth - (navOpen ? 145 : 32);
-        newBottomBarLeft = navOpen ? 145 : 32;
-        newTextareaWidth = windowWidth - (windowWidth * 0.0625) - newBottomBarLeft;
-    } else {
-        newBottomBarWidth = windowWidth - (windowWidth * (navOpen ? 0.13 : 0.0286));
-        newBottomBarLeft = windowWidth * (navOpen ? 0.13 : 0.0286);
-        newTextareaWidth = windowWidth - (windowWidth * (navOpen ? 0.1925 : 0.0911));
-    }
-
-    // Apply the new dimensions to UI elements
-    bottomBarDiv.style.width = newBottomBarWidth + 'px';
-    bottomBarDiv.style.left = newBottomBarLeft + 'px';
-    textarea.style.width = newTextareaWidth + "px";
-}
-
-/**
- * @Author - @DeanLogan
- * @Description - Toggles the navigation sidebar and resizes UI elements on the chatbot page.
- */
-function navToggleOnChatbotPage(){
-    navToggle();
-    resizeChatbotPage();
 }
 
 /* START OF CHATBOT CODE */
-
 /**
  * @Author - @DeanLogan
  * @Description - Displays a message in the chatbot interface with a specified sender.

@@ -1,6 +1,6 @@
 from chatterbot.logic import LogicAdapter
 from chatterbot.conversation import Statement
-from langdetect import detect, DetectorFactory, LangDetectException
+from langdetect import detect, DetectorFactory
 
 # Set a deterministic seed for langdetect
 DetectorFactory.seed = 0
@@ -24,6 +24,7 @@ class LanguageAdapter(LogicAdapter):
         }
 
     def can_process(self, statement):
+        # We are attempting to handle all languages, so we'll always return True here
         return True
 
     def detect_language_based_on_greetings(self, message):
@@ -35,18 +36,9 @@ class LanguageAdapter(LogicAdapter):
         return None
 
     def process(self, input_statement, additional_response_selection_parameters=None):
-        statement_text = input_statement.text.strip()
-
-        # Check if the text is too short or includes numbers
-        if len(statement_text) < 3 or statement_text.isdigit():
-            return Statement("I am sorry, but I do not understand.", confidence=0.5)
-
-        detected_language = self.detect_language_based_on_greetings(statement_text)
+        detected_language = self.detect_language_based_on_greetings(input_statement.text)
         if not detected_language:  # If the language isn't detected based on greetings
-            try:
-                detected_language = detect(statement_text)
-            except LangDetectException:
-                return Statement("I am sorry, but I do not understand.", confidence=0.5)
+            detected_language = detect(input_statement.text)
 
         base_url = "https://translate.google.com/?sl={}&tl=en"
 

@@ -1,8 +1,9 @@
 from . import views
-from .chatbot import receive_message
 from django.urls import path
+from .chatbot import receive_message
+from django.urls import path, include
 from .requestFunctions.generalInfo import listOfPathways, accountInfo
-from .requestFunctions.gradeInfo import gradeInfoRequest
+from .requestFunctions.gradeInfo import gradeInfoRequest, updateMarks
 from .requestFunctions.accountHandling import verify, signUp, displayQRCode, hasTwoFactorEnabled, forgotPassword
 from .requestFunctions.searchModules import searchModulesRequest
 from .requestFunctions.backupHandling import listLocalBackupFiles, listCloudBackupFiles, restoreBackup, rollbackBackup, deleteBackup
@@ -12,7 +13,7 @@ app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
     path('receive_message/', views.receive_message, name='receive_message'),
-    path('settings/', views.settings, name='settings'),
+    path('Settings/', views.settings, name='settings'),
     path('GradeDashboard/', views.gradeDashboard, name='GradeDashboard'),
     path('ModuleInformation/', views.moduleInformation, name='ModuleInformation'),
     path('receive_message/', receive_message, name='receive_message'),
@@ -33,4 +34,5 @@ urlpatterns = [
     path('hasTwoFactorEnabled/', hasTwoFactorEnabled, name='hasTwoFactorEnabled'),
     path('login/', views.loginPage, name='login'),
     path('forgotPassword/', forgotPassword, name='forgotPassword'),
+    path('updateMarks/', updateMarks, name='updateMarks')
 ]

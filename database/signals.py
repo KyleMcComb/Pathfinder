@@ -1,9 +1,8 @@
-import math
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
-from .models import StudentModuleAssessment, StudentModule
+from .models import StudentModuleAssessment, StudentModule, Student
 
 """
 @Author: @DeanLogan
@@ -46,7 +45,7 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
         3: [10, 30, 60],
         4: [10, 50, 20, 20]
     }
-
+    
     student = instance.studentID
 
     # Get all modules associated with the student
@@ -54,7 +53,6 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
     
     # Initialize the total mark
     totalMark = 0.0
-
     # Calculate the weighted sum of module marks
     for module in modules:
         totalMark += (
@@ -63,13 +61,12 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
         )
 
     # Update the student's currentPathwayMark attribute with the new total mark
-    student.currentPathwayMark = math.trunc(totalMark)
+    student.currentPathwayMark = round(totalMark, 2)
     student.save()
 
-
-# TODO - Talk to team about the current functionality of how editing primary keys works, currently when a primary key is changed, it creates a new record and keeps the old one, this means that the old one will still have all of the links to it and the new one will have nothing. We could delete the old one and resign all of the links (which the function below will help with) but not sure if it's the greatest idea as this default functionality is probably there for a reason.
-
 # TODO - Add docstring
+# TOFO - Talk to team about the current functionality of how editing primary keys works, currently when a primary key is changed, it creates a new record and keeps the old one, this means that the old one will still have all of the links to it and the new one will have nothing. We could delete the old one and resign all of the links (which the function below will help with) but not sure if it's the greatest idea as this default functionality is probably there for a reason.
+
 # @receiver(pre_save)
 # def updateForeignKey(sender, instance, **kwargs):
 #     # Check if the instance is being added or updated

@@ -40,11 +40,9 @@ function displayText(message, sender) {
         // Append the message to the chatbot interface with the specified sender
         $(".chatbot").append('<div class=' + sender + '><p>' + message + '</p></div>');
         
-        const element = $('.content'); // Get the chat content element
-        // Scroll to the bottom of the chat content for viewing the new message
-        element.animate({
-            scrollTop: element.prop("scrollHeight")
-        }, 30); // Wait 30ms for response from the chatbot
+        setTimeout(() => {
+            $(window).scrollTop($(document).height());
+        }, 30); // Wait 30ms for response from the chatbot and then scroll to the bottom of the screen
     }
 }
 

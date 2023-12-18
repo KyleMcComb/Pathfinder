@@ -3,7 +3,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
-from .models import StudentModuleAssessment, StudentModule, Student
+from .models import StudentModuleAssessment, StudentModule
 
 """
 @Author: @DeanLogan
@@ -46,7 +46,7 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
         3: [10, 30, 60],
         4: [10, 50, 20, 20]
     }
-    
+
     student = instance.studentID
 
     # Get all modules associated with the student
@@ -54,6 +54,7 @@ def resetCurrentPathwayMarks(sender, instance, **kwargs):
     
     # Initialize the total mark
     totalMark = 0.0
+
     # Calculate the weighted sum of module marks
     for module in modules:
         totalMark += (

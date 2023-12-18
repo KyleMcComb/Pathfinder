@@ -64,7 +64,7 @@ function checkTheme() {
 }
 
 /**
- * @Author - @RossMcAlliste + @DeanLogan
+ * @Author - @DeanLogan
  * @Description - Checks the user's selected font size and applies it to the page's body element.
  * Adjusts the font size of the body element based on user preference.
  */
@@ -105,7 +105,7 @@ function navToggle() {
 
 
 /**
- * @author - @RossMcAllister
+ * @Author - @RossMcAllister
  * @Description - Resizes the navigation sidebar based on its state (open or closed) and window width.
  * Adjusts the width and height of the sidebar and resizes the close button accordingly.
  */

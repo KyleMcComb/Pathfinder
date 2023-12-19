@@ -79,9 +79,6 @@ body {
 .col-2 {
   width: 72%;
 }
-.col-2 .bottom-bar {
-  right: 5vw;
-}
 
 .col-1-closed {
   width: 4%;
@@ -105,9 +102,6 @@ body {
   }
   .col-2 {
     width: 48%;
-  }
-  .col-2 .bottom-bar {
-    right: 0vw;
   }
   .col-1-closed {
     width: 11%;
@@ -151,9 +145,6 @@ body {
   .col-2 {
     width: 67%;
   }
-  .col-2 .bottom-bar {
-    right: 0vw;
-  }
   .col-1-closed {
     width: 10%;
   }
@@ -196,9 +187,6 @@ body {
   }
   .col-2 {
     width: 85%;
-  }
-  .col-2 .bottom-bar {
-    right: 0vw;
   }
   .col-1-closed {
     width: 4%;
@@ -272,7 +260,7 @@ main:after {
   place-items: center;
 }
 .sidebar .sidebar-items .loggedInDisplay p {
-  color: var(--color-white);
+  color: var(--color-tertiary);
 }
 .sidebar #menu-background-pattern {
   z-index: -1;
@@ -448,7 +436,6 @@ main:after {
   /* the bar that appears at the bottom of the chatbot page and gradedashboard page, this is pinned to the bottom of the screen */
   position: fixed;
   bottom: 0;
-  right: 0vw;
   width: inherit;
   background-color: var(--color-primary);
   min-height: 85px;

@@ -1,7 +1,7 @@
 import re
 from chatterbot.logic import LogicAdapter
 from chatterbot.conversation import Statement
-from database.models import Module, StudentInterest, Student
+from database.models import Module, StudentInterest, Student, Lecturer, Assessment, ModulePathway, Pathway
 from django.core.exceptions import MultipleObjectsReturned
 from database.models import Career
 from django.db.models import Q
@@ -12,6 +12,8 @@ class InterestAdapter(LogicAdapter):
         self.awaiting_module_choice = False
         self.modules_to_choose = []
         self.student_id = 40191566  # using this id as a placeholder atm. - Will need to replace with student who is logged in.
+        #self.student_id = None  # Initially set to None
+        # studentInDb = Student.objects.get(studentID=request.user.username)
 
     def can_process(self, statement):
         statement_text = statement.text.lower()
@@ -40,7 +42,7 @@ class InterestAdapter(LogicAdapter):
                             interest_obj = StudentInterest.objects.filter(studentID=student, interestName=module.moduleName).first()
                             interest_obj.interestImportance = 1
                             interest_obj.save()
-                        response.text = f"Thanks for your input! I've updated your interest for {module.moduleName}."
+                        response.text = f"Thanks for your input! I've updated your interest for {module.moduleID} - {module.moduleName}."
                         careers_response = self.connect_careers_to_chatbot(interest=None, module=module)
                         response.text += careers_response
                     else:
@@ -70,7 +72,8 @@ class InterestAdapter(LogicAdapter):
             try:
                 student = Student.objects.get(studentID=self.student_id)
                 modules = Module.objects.filter(
-                    Q(moduleName__icontains=interest) | Q(moduleDescription__icontains=interest)
+                    Q(moduleName__icontains=interest) | Q(moduleDescription__icontains=interest) |
+                    Q(moduleID__iexact=interest) #iexact  - used to check if an item matches case-insensitiviely 
                 )
             except Student.DoesNotExist:
                 response.text = "Sorry, you aren't currently logged in. So we can't update your interests for each module. Please log in to use full functionality."
@@ -78,12 +81,34 @@ class InterestAdapter(LogicAdapter):
 
             if response_type == 'like':
                 if modules.count() >= 1:
-                    response.text = f"That's great! Here are some modules related to {interest}:<br>"
-
+                    response.text = f"That's great! Here are some modules related to {interest}:<br><br>"
                     for i, module in enumerate(modules, start=1):
                         response.text += f"{i}. {module.moduleID}: {module.moduleName}<br>"
-                    
+                        response.text += f"Module Description: {module.moduleDescription}<br> Module Level: {module.moduleLevel}<br> Module Weight: {module.moduleWeight}<br>"
+                        # Query for lecturers associated with this module
+                        lecturers = Lecturer.objects.filter(lecturerModules=module)
+                        lecturer_names = ', '.join([lecturer.lecturerName for lecturer in lecturers])
+                        response.text += f"Lecturers: {lecturer_names if lecturer_names else 'Not available'}<br>"
+                        # Fetch and format assessments
+                        assessments = Assessment.objects.filter(moduleID=module)
+                        if assessments:
+                            for assessment in assessments:
+                                response.text += f"Assessment: {assessment.assessmentType}, Weight: {assessment.assessmentWeight}%<br>"
+                        else:
+                                response.text += "Assessments: Not available<br>"
+
+                        if module.moduleSemester == 3:
+                            response.text += f"Module Semester: Module takes place over both semesters<br>" 
+                        else:
+                            response.text += f"Module Semester: {module.moduleSemester}<br>"
+
+                        # Fetch and format pathways
+                        module_pathways = ModulePathway.objects.filter(moduleID=module)
+                        pathways = [Pathway.objects.get(pathwayID=mp.pathwayID).pathwayName for mp in module_pathways]
+                        pathways_text = ", ".join(pathways) if pathways else "Not available"
+                        response.text += f"Pathways: {pathways_text}<br><br>"
                     response.text += f"Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any.<br>"
+
                     self.awaiting_module_choice = True
                     self.modules_to_choose = list(modules)
                 else:

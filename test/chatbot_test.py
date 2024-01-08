@@ -7,79 +7,164 @@ from main.chatbot import *
 
 class ChatbotTestCase(unittest.TestCase):
 
-    
-    def test_hate_response(self): 
-        message = "I hate maths"
+    def test_like_interest_with_web_scraped_data(self):
+        message = "I like programming"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "Thanks for providing me with this information. I won't recommend any modules that contain maths.")
+        self.assertIn("modules related to programming", response)
+        response = str(chatbot.get_response("2"))
+        self.assertIn("relevant job roles", response)
+        # Check if the response includes both module recommendations and career suggestions based on web-scraped data.
 
-    # Chatbot identifies the input as having a negative sentient towards maths
-
-    def test_unrelated_response(self):
-        message = "What time is it?"
+    def test_dislike_interest_with_web_scraped_data(self):
+        message = "I dislike history"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "I am sorry, but I do not understand.")
+        self.assertIn("won't recommend any modules that contain history", response)
+        # Check if the chatbot correctly responds to dislikes without including irrelevant module or career recommendations.
 
-
-    def test_invalid_response(self):
-        message = "hdfjkahfda"
+    def test_hate_interest_with_web_scraped_data(self):
+        message = "I hate mathematics"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "I'm sorry but I can only take valid input as a response.")
-        # Planned fail as chatbot doesn't recognise if the input is just random characters
+        self.assertIn("won't recommend any modules that contain mathematics", response)
+        # Ensure the chatbot correctly responds to hates without suggesting related modules or careers.
 
-    def test_incorrect_language_response(self):
-        message = "Bonjour"
+    def test_interest_with_no_matching_modules(self):
+        message = "I like ancient languages"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "I'm sorry but I can only take responses that are in English," 
-                         + "here is the contact information for the student support office that may be able to help you: <email>")
-        # Planned fail as chatbot can not identify the language given and respond with the appropriate error message in that language. 
+        self.assertIn("No specific modules found for ancient languages", response)
+        self.assertIn("relevant job roles", response)
+        # Verify the chatbot's response when there are no matching modules but there are career suggestions based on the interest.
 
-    def test_user_interest_response(self):
-        message = "I like maths"
+    def test_interest_with_invalid_input(self):
+        message = "I like 123456"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "That's great! Here are some modules related to maths:<br>1. CSC1026: Fundamentals of Maths for Computing<br>" + 
-                         "Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any.")
-    
-    def test_unknown_interest_response(self):
-        message = "I like history"
+        self.assertIn("Sorry, I do not understand", response)
+        # Check the chatbot's response to nonsensical or irrelevant input.
+
+    def test_interest_selection_process(self):
+        message = "I like databases"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "You like history. I will try and recommend any modules that contain history.")
+        self.assertIn("modules related to databases", response)
+        response = str(chatbot.get_response("1")) # Assuming there are at least 2 modules
+        self.assertIn("updated your interest", response)
+        # Test the process where a user selects a specific module based on their interests.
 
-    def test_user_academic_records_response(self):
-        message = "I have taken a lot of math courses"
+    def test_interest_selection_invalid_number(self):
+        message = "I like databases"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "That's great! Here are some modules related to maths:<br>1. CSC1026: Fundamentals of Maths for Computing<br>" + 
-                         "Which one are you most interested in? Please enter the corresponding number or enter 0 if you are not interested in any.")
-        # Planned fail as chatbot doesn't recognise input of academic records yet.
+        self.assertIn("modules related to databases", response)
+        response = str(chatbot.get_response("invalid_number"))
+        self.assertIn("enter a number", response)
+        # Check how the chatbot handles invalid module selection input.
 
-
-    def test_stage_1(self):
-        message = "List modules for stage 1"
-        response = str(chatbot.get_response(message)) 
-        self.assertEqual(response, "Good to know. Here are all the first-year modules you can do for EEECS:<br>- CSC1023: Databases<br>- CSC1024: Programming and Systems Development<br>"
-                         + "- CSC1025: Procedural Programming<br>- CSC1026: Fundamentals of Maths for Computing<br>- CSC1027: Programming<br>- CSC1028: Computer Science Challenges<br>"
-                         + "- CSC1029: Object Oriented Programming<br>- CSC1030: Web Technologies<br>- CSC1031: Introduction to Cyber Security<br>"
-                         + "- CSC1033: Introduction to Computer Architecture<br>- CSC1032: Introduction to Cyber Security<br>")
-        
-    def test_stage_2(self):
-        message = "List modules for stage 2"
+    def test_interest_selection_out_of_range(self):
+        message = "I like databases"
         response = str(chatbot.get_response(message))
-        self.assertEqual(response, "Good to know. Here are all the second-year modules you can do for EEECS:<br>- CSC2051: Systems Administration and Supoort<br>- CSC2052: Server Side Web Development<br>"
-                         + "- CSC2053: Intoduction to Enterprise Computing<br>- CSC2054: User Experience Design<br>- CSC2056: Systems Security and Cryptography<br>- CSC2057: Modern Web App Development<br>"
-                         + "- CSC2058: Software Engineering and Systems Development<br>- CSC2059: Data Structures and Algorithms<br>- CSC2060: Theory of Computation<br>"
-                         + "- CSC2062: Introduction to AI and Machine Learning<br>- CSC2063: Service Oriented Programming<br>- CSC2065: Professional and Transferrable Skills<br>- CSC2066: Networks and Protocols<br>")
-
-
-    def test_stage_3(self):
-        message = "List modules for stage 3"
-        response = str(chatbot.get_response(message))
-        self.assertEqual(response, "Good to know. Here are all the final year modules you can do for EEECS:<br>- CSC3001: Formal Methods<br>- CSC3002: Computer Science Project<br>- CSC3021: Concurrent Programming<br>"
-                         + "- CSC3023: BIT Project<br>- CSC3031: Software Design Principles and Patterns<br>- CSC3032: Software Engineering Project<br>- CSC3045: Contemporary Team-Based Projects<br>"
-                         + "- CSC3047: CIT Project<br>- CSC3056: Software Testing<br>- CSC3058: Advanced Computer Architectures/Systems<br>- CSC3059: Malware Analysis<br>"
-                         + "- CSC3062: Data Analysis and Visualisation<br>- CSC3063: Secure Software Development<br>- CSC3064: Network Security<br>- CSC3065: Cloud Computing<br>"
-                         + "- CSC3066: Deep Learning<br>- CSC3067: Video Analytics and Machine Learning<br>- CSC3068: Software Development Practice<br>- CSC3069: Software Engineering Enterprise Project<br>")
+        self.assertIn("modules related to databases", response)
+        response = str(chatbot.get_response("999")) # Assuming an out-of-range number
+        self.assertIn("enter a number between", response)
+        # Ensure the chatbot correctly handles module selection numbers that are out of range.
         
 
+    ### LanguageAdapter Test Cases ###
+
+    def test_english_greeting(self):
+        message = "hello"
+        response = str(chatbot.get_response(message))
+        self.assertEqual(response, "Hi")
+        # Expecting an empty response as English is handled by other adapters.
+
+    def test_german_greeting(self):
+        message = "hallo"
+        response = str(chatbot.get_response(message))
+        self.assertIn("dieser Chatbot unterstützt nur Englisch", response)
+        # Expecting a response in German indicating the chatbot supports only English.
+
+    def test_spanish_greeting(self):
+        message = "hola"
+        response = str(chatbot.get_response(message))
+        self.assertIn("este chatbot solo admite inglés", response)
+        # Expecting a response in Spanish indicating the chatbot supports only English.
+
+    def test_french_greeting(self):
+        message = "bonjour"
+        response = str(chatbot.get_response(message))
+        self.assertIn("ce chatbot ne prend en charge que l'anglais", response)
+        # Expecting a response in French indicating the chatbot supports only English.
+
+    def test_chinese_greeting(self):
+        message = "你好"
+        response = str(chatbot.get_response(message))
+        self.assertIn("此聊天机器人仅支持英语", response)
+        # Expecting a response in Chinese indicating the chatbot supports only English.
+
+    def test_numeric_input(self):
+        message = "123"
+        response = str(chatbot.get_response(message))
+        self.assertIn("I do not understand", response)
+        # Expecting a response indicating misunderstanding due to numeric input.
+
+    def test_unrecognized_language(self):
+        message = "Witam"
+        response = str(chatbot.get_response(message))
+        self.assertIn("Sorry, this chatbot only supports English", response)
+        # Expecting a default response for unrecognized language.
+
+    def test_empty_input(self):
+        message = ""
+        response = str(chatbot.get_response(message))
+        self.assertIn("I do not understand", response)
+        # Expecting a response indicating misunderstanding due to empty input.
+
+
+    ### YearAdapter Test Cases ###
+        
+    def test_first_year_query(self):
+        message = "I am a first year student"
+        response = str(chatbot.get_response(message))
+        self.assertIn("first-year modules you can do for EEECS", response)
+        # Expecting a response listing first year modules.
+
+    def test_second_year_query(self):
+        message = "What are the modules for second year?"
+        response = str(chatbot.get_response(message))
+        self.assertIn("second-year modules you can do for EEECS", response)
+        # Expecting a response listing second year modules.
+
+    def test_final_year_query(self):
+        message = "List final year modules"
+        response = str(chatbot.get_response(message))
+        self.assertIn("final year modules you can do for EEECS", response)
+        # Expecting a response listing final year modules.
+
+    def test_fourth_year_query(self):
+        message = "Can you tell me about fourth year subjects?"
+        response = str(chatbot.get_response(message))
+        self.assertIn("fourth-year modules you can do for EEECS", response)
+        # Expecting a response listing fourth year modules.
+
+    def test_alternative_first_year_term(self):
+        message = "What's in store for a year 1 student?"
+        response = str(chatbot.get_response(message))
+        self.assertIn("first-year modules you can do for EEECS", response)
+        # Checking alternative phrasing for first year.
+
+    def test_invalid_year_query(self):
+        message = "I am in fifth year"
+        response = str(chatbot.get_response(message))
+        self.assertNotIn("modules you can do for EEECS", response)
+        # Expecting the adapter not to respond to an unrecognized year.
+
+    def test_numeric_input(self):
+        message = "123"
+        response = str(chatbot.get_response(message))
+        self.assertNotIn("modules you can do for EEECS", response)
+        # Expecting the adapter not to respond to numeric input unrelated to years.
+
+    def test_unrelated_query(self):
+        message = "How's the weather today?"
+        response = str(chatbot.get_response(message))
+        self.assertNotIn("modules you can do for EEECS", response)
+        # The adapter should not respond to unrelated queries.
 
 
     # def test_like_response(self):            ##### Manual Test

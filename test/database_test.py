@@ -6,7 +6,7 @@ import unittest
 class DatabaseTestCase(unittest.TestCase):
     def test_module_table(self):
         fields = [field.name for field in Module._meta.get_fields()]
-        self.assertEqual(fields, ['assessment', 'modulelecturer', 'modulepathway', 'studentmodule', 'moduleID', 'moduleName', 'moduleSemester', 'moduleDescription', 'moduleLevel', 'moduleWeight', 'careers'])
+        self.assertEqual(fields, ['lecturer', 'assessment', 'modulepathway', 'studentmodule', 'moduleID', 'moduleName', 'moduleSemester', 'moduleDescription', 'moduleLevel', 'moduleWeight', 'careers'])
 
     def test_pathway_table(self):
         fields = [field.name for field in Pathway._meta.get_fields()]
@@ -18,11 +18,11 @@ class DatabaseTestCase(unittest.TestCase):
 
     def test_lecturer_table(self):
         fields = [field.name for field in Lecturer._meta.get_fields()]
-        self.assertEqual(fields, ['modulelecturer', 'lecturerID', 'lecturerName', 'lecturerEmail'])
+        self.assertEqual(fields, ['lecturerID', 'lecturerName', 'lecturerEmail', 'lecturerModules'])
 
     def test_assessment_table(self):
         fields = [field.name for field in Assessment._meta.get_fields()]
-        self.assertEqual(fields, ['studentmoduleassesment', 'assessmentID', 'moduleID', 'assessmentType', 'assessmentWeight'])
+        self.assertEqual(fields, ['studentmoduleassessment', 'assessmentID', 'moduleID', 'assessmentType', 'assessmentWeight'])
 
     def test_module_pathway_table(self):
         fields = [field.name for field in ModulePathway._meta.get_fields()]
@@ -30,11 +30,11 @@ class DatabaseTestCase(unittest.TestCase):
 
     def test_student_module_table(self):
         fields = [field.name for field in StudentModule._meta.get_fields()]
-        self.assertEqual(fields, ['studentmoduleassesment', 'studentModuleID', 'studentID', 'moduleID', 'stuModMark'])
+        self.assertEqual(fields, ['studentmoduleassessment', 'studentModuleID', 'studentID', 'moduleID', 'stuModMark'])
 
     def test_student_module_assessment_table(self):
         fields = [field.name for field in StudentModuleAssessment._meta.get_fields()]
-        self.assertEqual(fields, ['studentModuleAssesmentID', 'studentModuleID', 'assessmentID', 'assesmentMark'])
+        self.assertEqual(fields, ['studentModuleAssessmentID', 'studentModuleID', 'assessmentID', 'assessmentMark'])
 
     def test_career_table(self):
         fields = [field.name for field in Career._meta.get_fields() if field.name != 'module']

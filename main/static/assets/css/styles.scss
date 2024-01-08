@@ -91,7 +91,7 @@ body {
     width: 18%;
 }
 .col-2 {
-    width: 72%;
+    width: 82%;
 }
 //width for nav closed
 .col-1-closed {
@@ -776,6 +776,8 @@ main:after {
     }
     .degree-classifications{
         width:95%;
+        margin-left: auto;
+        margin-right: auto;
         span{
             display: inline-block;
             text-align: end !important;
@@ -792,6 +794,8 @@ main:after {
         display: flex;
         border-radius: 30px;
         width:95%;
+        margin-left: auto;
+        margin-right: auto;
         border: solid 1px;
         border-color: var(--color-black);
         background-color: var(--color-progression-bar);
@@ -802,6 +806,7 @@ main:after {
             width: 40%;
             background-color: var(--color-secondary);
             color: var(--color-white);
+            border-radius: 30px;
         }
     }
 }

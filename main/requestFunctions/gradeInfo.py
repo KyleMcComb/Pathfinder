@@ -54,6 +54,7 @@ def assessmentInfoForStudentsModule(studentID, moduleID):
         # Create a list of dictionaries containing assessment information
         for studentAssessment in studentAssessments:
             assessmentInfo.append({
+                'id': studentAssessment.studentModuleAssessmentID,
                 'name': studentAssessment.assessmentID.assessmentType,
                 'mark': studentAssessment.assessmentMark
             })

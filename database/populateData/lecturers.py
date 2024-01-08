@@ -15,6 +15,7 @@ to add lecturers
 to add lecturers to modules linkers
 >>>lecturers.addLecturerModuleLinks()
 """
+import random
 
 def addLecturers():
     lecturer1 = Lecturer(lecturerName='Thomas Mckinstry', lecturerEmail='thomasMckinstry@qub.ac.uk')
@@ -26,17 +27,13 @@ def addLecturers():
     for x in lec_list:
         x.save()
 
-def addLecturersToModules():
-    lec1 = Lecturer.objects.get(lecturerID=1)
-    lec1.lecturerModules.add(Module.objects.get(moduleID='CSC1023')),
-    lec1.lecturerModules.add(Module.objects.get(moduleID='CSC1026')),
-    lec1.lecturerModules.add(Module.objects.get(moduleID='CSC1033')),
-    lec1.lecturerModules.add(Module.objects.get(moduleID='CSC1027')),
-    lec1.lecturerModules.add(Module.objects.get(moduleID='CSC1031')),
-    
-    lec2 =  Lecturer.objects.get(lecturerID=2)
-    lec2.lecturerModules.add(Module.objects.get(moduleID='CSC2051')),
+def addLecturesToModules():
+    print(Lecturer.objects.all())
+    for module in Module.objects.all():
+        random_lecturer = random.randint(1, 3)
+        lecturer = Lecturer.objects.get(lecturerID=random_lecturer)
+        lecturer.lecturerModules.add(module)
 
 if __name__ == '__main__':
     addLecturers()
-    addLecturersToModules()
+    addLecturesToModules()

@@ -14,9 +14,11 @@
   --color-black: #000000;
   --color-white: #FFFFFF;
   --color-grey: #13181b;
-  --color-chat-bubble-user: #27AE60;
+  --color-chat-bubble-user: #E30613;
   --color-chat-bubble-bot: #2a2e35;
   --color-progression-bar: #000000;
+  --color-toggle-on: #00ed64;
+  --color-toggle-off: #ff0000;
   --br-sm-2: 14px;
   --box-shadow-1: 0 3px 15px rgba(0,0,0,.2)
   //--transition-1: all .23s ease-in-out;
@@ -29,9 +31,11 @@
   --color-black: #000;
   --color-white: #FFFFFF;
   --color-grey: #f8f8f8;
-  --color-chat-bubble-user: #b92261;
+  --color-chat-bubble-user: #E30613;
   --color-chat-bubble-bot: #47535c;
   --color-progression-bar: #000000;
+  --color-toggle-on: #00ed64;
+  --color-toggle-off: #ff0000;
 }
 .light-mode .top-bar img {
   filter: none;
@@ -47,6 +51,8 @@
   --color-chat-bubble-user: #000000;
   --color-chat-bubble-bot: #000000;
   --color-progression-bar: #f8f8f8;
+  --color-toggle-on: #000000;
+  --color-toggle-off: #000000;
 }
 .high-contrast-mode .top-bar img {
   filter: none;
@@ -759,6 +765,41 @@ main:after {
   background-color: var(--color-secondary);
   color: var(--color-white);
   border-radius: 30px;
+}
+
+input[type=checkbox] {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  background: var(--color-toggle-off);
+  outline: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+input[type=checkbox]::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+}
+
+input[type=checkbox]:checked::before {
+  transform: translateX(100%);
+  background: #fff;
+}
+
+input[type=checkbox]:checked {
+  background: var(--color-toggle-on);
 }
 
 /* Login / pop up */

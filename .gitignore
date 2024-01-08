@@ -22,6 +22,7 @@ database/populateData/__pycache__/
 *.sqlite3-wal
 
 *.pyc
+*.tar
 
 __pycache__
 

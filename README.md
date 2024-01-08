@@ -18,6 +18,8 @@ This README includes a project description (what the project is along with what 
   * [Using your own Azure Blob Storage](#using-your-own-azure-storage-account)
 * [Accounts](#accounts)
 * [Useful Links](#useful-links)
+* [Extra Information](#extra-information)
+ * [Populating The Database](populate-database)
 
 ## Project Description
 
@@ -43,49 +45,6 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 7.  Open a file manager on your computer and navigate to the folder where you extracted the repository. Then go into the "CSC3068-Pathfinder" folder and copy the "tagging.py" file.
 8.  In a file manager, navigate to the following directory: "CSC3068-Pathfinder\Lib\site-packages\chatterbot". Replace the "tagging.py" file found in this directory with the "tagging.py" file you copied from the "CSC3068-Pathfinder" folder. Alternatively you can navigate back to the terminal and enter the following ```cp -f tagging.py venv/lib/python3.x/site-packages/chatterbot/tagging.py``` (for MacOS/Linux) or ```Copy-Item -Path "tagging.py" -Destination ".\venv\Lib\site-packages\chatterbot\tagging.py" -Force``` (for Windows).
 9.  If you wish to have the cloud backup storage functionality (which is not required for the rest of the system to work), please follow the set up steps outlined [here](#setting-up-azurite).
-
-### Populate Database
-
-If you have wiped the database or the database is completey empty use these commands to populate with some starting data.
-
-1. In the directory path enter the command ```python manage.py shell```
-2. ```>>> from database.models import *```
-
-Adding Pathways for EEECs (excludes BIT)
-1. ```>>> from database.populateData import pathways```
-2. ```>>> pathways.addPathways()```
-3. To view database: ```>>> Pathway.objects.all()```
-
-Next add CSC modules
-1. ```>>> from database.populateData import cscPathwayModules```
-2. ```>>> cscPathwayModules.addComputerScienceModules()```
-3. To view database: ```>>> Module.objects.all()```
-
-Next add ELE modules
-1. ```>>> from database.populateData import elePathwayModules```
-2. ```>>> elePathwayModules.addEEModules()```
-3. To view database: ```>>> Module.objects.all()```
-
-Next add the assessments to each CSC module
-1. ```>>> from database.populateData import cscAssessments```
-2. ```>>> cscAssessments.addAssessments()```
-3. To view database: ```>>> Assessment.objects.all()```
-
-Next add the assessments to each ELE module
-1. ```>>> from database.populateData import eleAssessments```
-2. ```>>> eleAssessments.addAssessments()```
-3. To view database: ```>>> Assessment.objects.all()```
-
-Next add the links from each pathway to their modules
-1. ```>>> from database.populateData import pathwayModuleLinks```
-2. ```>>> pathwayModuleLinks.addPathwayModuleLinks()```
-3. To view database: ```ModulePathway.objects.all()```
-
-Next add the lecturers
-1. ```>>> from database.populateData import lecturers```
-2. ```>>> lecturers.addLecturers()```
-3. ```>>> lecturers.addLecturersToModules()```
-4. To view database: ```Lecturer.objects.all()```
 
 ## Running The Project
 ### Docker (Creating a container)
@@ -141,7 +100,7 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
   * Student Number: admin
   * Password: admin
 * Student Account 1
-  * Student Number: 40294254 (Note this account currently has 2FA enabled, so unless you have the TOTP you cannot login)
+  * Student Number: 40294254 
   * Password: 8characters
 * Student Account 2
   * Student Number: 40191566
@@ -164,3 +123,48 @@ Below are some links that might be helpful in creating/running docker containers
 * [How to create a Python virtual environment for a new project - IDG TECHtalk Youtube Channel](https://www.youtube.com/watch?v=ohlRbcasPAc)
 * [Azurite Github Page](https://github.com/Azure/Azurite)
 * [Configure Azure Storage connection strings](https://learn.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string)
+
+## Extra Information
+
+### Populate Database
+
+It is possible to add some test data to the database using some of the python scripts the team has created, the following is how to run these scripts
+
+1. In the directory path enter the command ```python manage.py shell```
+2. ```>>> from database.models import *```
+
+Adding Pathways for EEECs (excludes BIT)
+1. ```>>> from database.populateData import pathways```
+2. ```>>> pathways.addPathways()```
+3. To view database: ```>>> Pathway.objects.all()```
+
+Next add CSC modules
+1. ```>>> from database.populateData import cscPathwayModules```
+2. ```>>> cscPathwayModules.addComputerScienceModules()```
+3. To view database: ```>>> Module.objects.all()```
+
+Next add ELE modules
+1. ```>>> from database.populateData import elePathwayModules```
+2. ```>>> elePathwayModules.addEEModules()```
+3. To view database: ```>>> Module.objects.all()```
+
+Next add the assessments to each CSC module
+1. ```>>> from database.populateData import cscAssessments```
+2. ```>>> cscAssessments.addAssessments()```
+3. To view database: ```>>> Assessment.objects.all()```
+
+Next add the assessments to each ELE module
+1. ```>>> from database.populateData import eleAssessments```
+2. ```>>> eleAssessments.addAssessments()```
+3. To view database: ```>>> Assessment.objects.all()```
+
+Next add the links from each pathway to their modules
+1. ```>>> from database.populateData import pathwayModuleLinks```
+2. ```>>> pathwayModuleLinks.addPathwayModuleLinks()```
+3. To view database: ```ModulePathway.objects.all()```
+
+Next add the lecturers
+1. ```>>> from database.populateData import lecturers```
+2. ```>>> lecturers.addLecturers()```
+3. ```>>> lecturers.addLecturersToModules()```
+4. To view database: ```Lecturer.objects.all()```

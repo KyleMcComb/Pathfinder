@@ -23,10 +23,41 @@ function settingsPageLoad() {
     } else { // Default option is medium font size
         document.getElementById('medium').checked = true;
     }
-    
-    getAccountInfo();
 
+    setOtpToggleState();
+    getAccountInfo();
+    addListenerForSettings();
     displayQRCode();
+}
+
+function setOtpToggleState(){
+    $.get("/isOTPEnabled/", function (data) {
+        console.log(data["enabled"])
+        if(data["enabled"] == true){
+            document.getElementById('otpToggle').checked = true;
+        } else if(data["enabled"] == false) {
+            document.getElementById('otpToggle').checked = false;
+        } 
+    });
+}
+
+function addListenerForSettings(){
+    // event listener for otpToggle, when the toggle changes update the OTP state in the database for the logged in user
+    document.getElementById('otpToggle').addEventListener('change', function(){
+        changleOtpState();
+    });
+}
+
+function changleOtpState(){
+    if(document.getElementById('otpToggle').checked) {
+        $.get("/toggleOTP/", function (data) {
+            alert("2FA is now enabled, you will now be prompted with a 2FA code next time you try and login. Ensure you have access to a device that has an authenticator app installed and linked to this account. (If not scan the QR code below to setup a device)");
+        });
+    } else {
+        $.get("/toggleOTP/", function (data) {
+            alert("2FA is now disabled");
+        });
+    }
 }
 
 /**

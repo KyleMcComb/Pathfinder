@@ -49,13 +49,13 @@ def extractedDate(filename):
     else:
         return None, None  # Return None if no match is found in the filename
 
-# TODO: Refactor the restore and rollback functions to reduce code repetition  
+
 
 """
-@Author: @DeanLogan
-@Description: Restores the database from a local backup file if the user is authenticated as 'admin'.
-@param: request - HttpRequest object that contains metadata about the request.
-@return: JsonResponse indicating the status of the restore operation.
+    @Author: @DeanLogan
+    @Description: Restores the database from a local backup file if the user is authenticated as 'admin'.
+    @param: request - HttpRequest object that contains metadata about the request.
+    @return: JsonResponse indicating the status of the restore operation.
 """
 def restoreBackup(request):
     try:
@@ -77,10 +77,10 @@ def restoreBackup(request):
     return JsonResponse({'Status': 'true'}, safe=False)  # Return status 'true' if the operation is successful
 
 """
-@Author: @DeanLogan
-@Description: Rolls back the database to a previous state by restoring a backup file.
-@param: request - HttpRequest object that contains metadata about the request.
-@return: JsonResponse indicating the status of the rollback operation.
+    @Author: @DeanLogan
+    @Description: Rolls back the database to a previous state by restoring a backup file.
+    @param: request - HttpRequest object that contains metadata about the request.
+    @return: JsonResponse indicating the status of the rollback operation.
 """
 def rollbackBackup(request):
     try:
@@ -107,10 +107,10 @@ def rollbackBackup(request):
 
 
 """
-@Author: @DeanLogan
-@Description: Deletes a backup file if the user is authenticated as 'admin'.
-@param: request - HttpRequest object that contains metadata about the request.
-@return: JsonResponse indicating the status of the delete operation.
+    @Author: @DeanLogan
+    @Description: Deletes a backup file if the user is authenticated as 'admin'.
+    @param: request - HttpRequest object that contains metadata about the request.
+    @return: JsonResponse indicating the status of the delete operation.
 """
 def deleteBackup(request):
     try:

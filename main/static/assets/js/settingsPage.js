@@ -30,6 +30,11 @@ function settingsPageLoad() {
     displayQRCode();
 }
 
+/**
+ * @Author - @DeanLogan
+ * @Description - Retrieves the current state of OTP (One-Time Password) functionality from the server
+ * and sets the state of the OTP toggle accordingly.
+ */
 function setOtpToggleState(){
     $.get("/isOTPEnabled/", function (data) {
         console.log(data["enabled"])
@@ -41,6 +46,11 @@ function setOtpToggleState(){
     });
 }
 
+/**
+ * @Author - @DeanLogan
+ * @Description - Adds an event listener to the OTP toggle element ('otpToggle'). When the toggle state changes,
+ * it triggers the function to update the OTP (One-Time Password) state in the database for the logged-in user.
+ */
 function addListenerForSettings(){
     // event listener for otpToggle, when the toggle changes update the OTP state in the database for the logged in user
     document.getElementById('otpToggle').addEventListener('change', function(){
@@ -48,6 +58,15 @@ function addListenerForSettings(){
     });
 }
 
+/**
+ * @Author - @DeanLogan
+ * @Description - Toggles the state of Two-Factor Authentication (2FA) for the logged-in user.
+ * Sends a request to the server to enable or disable 2FA based on the current state of the OTP toggle.
+ * Displays an alert message to inform the user of the 2FA state change.
+ * 
+ * @function
+ * @returns {void} This function does not return any value.
+ */
 function changleOtpState(){
     if(document.getElementById('otpToggle').checked) {
         $.get("/toggleOTP/", function (data) {

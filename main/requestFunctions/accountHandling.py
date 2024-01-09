@@ -108,6 +108,12 @@ def createSecretKey(request):
         return TOTPDevice.objects.create(user=request.user, confirmed=False).config_url
     return None
 
+"""
+    @Author: @DeanLogan
+    @Description: Checks whether two-factor authentication is enabled for the authenticated user.
+    @param: request - HttpRequest object that contains metadata about the request.
+    @return: JsonResponse indicating whether two-factor authentication is enabled ('error': 'false', 'enabled': True/False).
+"""
 def isOTPEnabled(request):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'false'})
@@ -119,13 +125,22 @@ def isOTPEnabled(request):
             check = False
         return JsonResponse({'error': 'false', 'enabled': check})
 
+"""
+    @Author: @DeanLogan
+    @Description: Toggles the status of two-factor authentication for the authenticated user.
+    @param: request - HttpRequest object that contains metadata about the request.
+    @return: JsonResponse indicating whether the operation was successful ('error': 'false').
+"""
 def toggleOTP(request):
-    setFactor = TOTPDevice.objects.filter(user=request.user)[0].confirmed
-    totpDevices = TOTPDevice.objects.filter(user=request.user)
-    for device in totpDevices:
-        device.confirmed = not setFactor
-        device.save()
-    return JsonResponse({'error': 'false'})
+    try:
+        setFactor = TOTPDevice.objects.filter(user=request.user)[0].confirmed
+        totpDevices = TOTPDevice.objects.filter(user=request.user)
+        for device in totpDevices:
+            device.confirmed = not setFactor
+            device.save()
+        return JsonResponse({'error': 'false'})
+    except:
+        return JsonResponse({'error': 'true'})
 
 """
     @Author: @DeanLogan

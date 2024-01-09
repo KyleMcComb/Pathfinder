@@ -59,7 +59,7 @@ function processUserInput(inputMessage) {
 }
 
 
-/* END OF CHATBOT CODE */
+
 
 // Execute chatbotPageLoad function when the window finishes loading
 window.onload = chatbotPageLoad();

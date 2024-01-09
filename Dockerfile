@@ -24,8 +24,10 @@ COPY addjobs.sh /app/addjobs.sh
 RUN apt-get update && apt-get install -y dos2unix
 RUN dos2unix /app/addjobs.sh
 
+RUN chmod +x /app/addjobs.sh
+
 # Set the entrypoint for the container
-ENTRYPOINT ["/app/addjobs.sh"]
+ENTRYPOINT ["/bin/bash", "/app/addjobs.sh"]
 
 # below has been removed for the time being, might be added back in at some point do do not delete it
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder

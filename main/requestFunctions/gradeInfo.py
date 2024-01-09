@@ -158,36 +158,6 @@ def gradeInfoRequest(request):
     except:
         return JsonResponse({'error': 'True'}, safe=False)
 
-"""
-@Author: @DeanLogan
-@Description: Update assessment marks for students.
-@param: request - The HttpRequest object containing assessment grades.
-@return: JsonResponse with a status message indicating the result of the updates.
-"""
-def updateMarks(request):
-    # Extract assessment grades from the request
-    assessmentGrades = json.loads(request.GET.get('assessmentMark'))
-    
-    # Initialize a variable to store failed updates
-    failedUpdates = ''
-
-    # Iterate through the provided assessment grades
-    for assessmentInfo in assessmentGrades:
-        # Get the corresponding assessment from the database
-        assessment = StudentModuleAssessment.objects.get(studentModuleAssessmentID=assessmentInfo['id'])
-        try:
-            # Attempt to update the assessment mark with the provided value
-            assessment.assessmentMark = int(assessmentInfo['mark'].replace(" ", ""))
-        except:
-            # Handle the case where the mark cannot be updated and record the failed update
-            assessmentName = str(assessment.assessmentID.assessmentType) + " - " + str(Module.objects.get(moduleID=assessment.assessmentID.moduleID).moduleName)
-            failedUpdates += assessmentName + '\n'
-        assessment.save()
-
-    if failedUpdates != '':
-        return JsonResponse({'message': f'Error: The following assessments (they have not been updated): \n{failedUpdates}\n', 'status': 'fail'}, safe=False)
-    else:
-        return JsonResponse({'message': 'Grades have been successfully updated', 'status': 'success'}, safe=False)
 
 """
 @Author: @DeanLogan
@@ -208,14 +178,18 @@ def updateMarks(request):
         assessment = StudentModuleAssessment.objects.get(studentModuleAssessmentID=assessmentInfo['id'])
         try:
             # Attempt to update the assessment mark with the provided value
-            assessment.assessmentMark = int(assessmentInfo['mark'].replace(" ", ""))
+            mark = int(assessmentInfo['mark'].replace(" ", ""))
+            if mark >= 0 and mark <= 100:
+                assessment.assessmentMark = mark
+            else:
+                failedUpdates += str(assessment.assessmentID.assessmentType) + " - " + str(Module.objects.get(moduleID=assessment.assessmentID.moduleID).moduleName) + ': Value entered must be between 0 and 100' + '\n'
         except:
             # Handle the case where the mark cannot be updated and record the failed update
             assessmentName = str(assessment.assessmentID.assessmentType) + " - " + str(Module.objects.get(moduleID=assessment.assessmentID.moduleID).moduleName)
-            failedUpdates += assessmentName + '\n'
+            failedUpdates += assessmentName + ': A non-integer value has been entered' + '\n'
         assessment.save()
 
     if failedUpdates != '':
-        return JsonResponse({'message': f'Error: The following assessments (they have not been updated): \n{failedUpdates}\n', 'status': 'fail'}, safe=False)
+        return JsonResponse({'message': f'Error in the following assessments (your changes have not been made): \n\n{failedUpdates}\n', 'status': 'fail'}, safe=False)
     else:
         return JsonResponse({'message': 'Grades have been successfully updated', 'status': 'success'}, safe=False)

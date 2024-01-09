@@ -51,11 +51,11 @@ function addListenerForSettings(){
 function changleOtpState(){
     if(document.getElementById('otpToggle').checked) {
         $.get("/toggleOTP/", function (data) {
-            alert("2FA is now enabled, you will now be prompted with a 2FA code next time you try and login. Ensure you have access to a device that has an authenticator app installed and linked to this account. (If not scan the QR code below to setup a device)");
+            alert("2FA is now enabled, you will now be prompted with a 2FA code next time you try and login. \n \nEnsure you have access to a device that has an authenticator app installed and linked to this account.\n \nIf you do not have access to a device setup scan the QR code below to do this, or disable 2FA again.");
         });
     } else {
         $.get("/toggleOTP/", function (data) {
-            alert("2FA is now disabled");
+            alert("WARNING: 2FA is now disabled");
         });
     }
 }

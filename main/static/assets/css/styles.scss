@@ -87,7 +87,7 @@ body {
     float: left;
     height: 100%
 }
-  
+
 .row {
     height: 100vh;
 }
@@ -812,7 +812,8 @@ main:after {
             width: 40%;
             background-color: var(--color-secondary);
             color: var(--color-white);
-            border-radius: 30px;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
         }
     }
 }

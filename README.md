@@ -14,16 +14,16 @@ This README includes a project description (what the project is along with what 
 * [Cloud Backup Storage](#cloud-backup-storage)
   * [Azurite for Local Azure Storage Emulation](#azurite-for-local-azure-storage-emulation)
     * [Setting Up Azurite](#setting-up-azurite)
-    * [Running Azurite](#running-azurite-1)
+    * [Running Azurite](#running-azurite)
   * [Using your own Azure Blob Storage](#using-your-own-azure-storage-account)
 * [Accounts](#accounts)
 * [Useful Links](#useful-links)
 * [Extra Information](#extra-information)
- * [Populating The Database](populate-database)
+ * [Populating The Database](#populate-database)
 
 ## Project Description
 
-This project is a prototype for a system called Pathfinder that will assist students in selecting modules based on their preferences and relevant career information. The system will use a chatbot built with the Django framework and Chatterbot 1.0.8. Students will also be able to search and filter all modules within EEECS on a separate page and access a dashboard to track their grades throughout their degree. The project was completed as part of the module CSC3068 and the technologies used include Python 3.7.9, Django >=3.2, <3.3, Spacy 3.5.0 (English language model), Sass (for CSS) and Azurite (for Azure storage emulation through a docker container).
+This project is a prototype for a system called Pathfinder that will assist students in selecting modules based on their preferences and relevant career information. The system will use a chatbot built with the Django framework and Chatterbot 1.0.8. Students will also be able to search and filter all modules within EEECS on a separate page and access a dashboard to track their grades throughout their degree. The project was completed as part of the modules CSC3068 and CSC3069, the technologies used include Python 3.7.9, Django >=3.2, <3.3, Spacy 3.5.0 (English language model), Sass (for CSS) and Azurite (for Azure storage emulation through a docker container).
 The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllister & Kyle McComb.
 
 
@@ -32,28 +32,28 @@ The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllis
 ### Docker
 1.	Clone the repository to your system.
 2.	[Install Docker Desktop](https://www.docker.com/products/docker-desktop/) on your computer if it has not already been installed.
-3.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called CSC3068-Pathfinder.
+3.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called Pathfinder.
 4.	Then run the following command to build the image ```docker-compose up -d```
 
 ### Virtual Environment
 1.  Clone the repository to your computer.
 2.  [Install Python 3.7.9](https://www.python.org/downloads/release/python-379/) on your computer if it has not already been installed.
-3.  Open a terminal window (PowerShell if you're on Windows) on your computer and navigate to the directory where the project has been cloned to. To do this, open the folder where you extracted the repository, then right-click on the folder called "CSC3068-Pathfinder" and choose "Open in Terminal" (for Linux/Mac) or "Open Powershell window here" (for Windows).
+3.  Open a terminal window (PowerShell if you're on Windows) on your computer and navigate to the directory where the project has been cloned to. To do this, open the folder where you extracted the repository, then right-click on the folder called "Pathfinder" and choose "Open in Terminal" (for Linux/Mac) or "Open Powershell window here" (for Windows).
 4.  In the terminal, create a virtual environment by running the following command, replacing "<directory to python install>" with the directory where Python 3.7.9 was installed: ```<directory to python install>\python.exe -m venv .```. For example, if Python 3.7.9 was installed in ```C:\Python37```, the command would be: ```C:\Python37\python.exe -m venv .```.
 5.  Activate the virtual environment by running the following command: ```.\Scripts\activate``` (for Windows) or ```source bin\activate``` (for Linux/Mac).
 6.  Install the required packages by entering the following command into the terminal: ```pip install -r requirements.txt``` (keep this terminal open).
-7.  Open a file manager on your computer and navigate to the folder where you extracted the repository. Then go into the "CSC3068-Pathfinder" folder and copy the "tagging.py" file.
-8.  In a file manager, navigate to the following directory: "CSC3068-Pathfinder\Lib\site-packages\chatterbot". Replace the "tagging.py" file found in this directory with the "tagging.py" file you copied from the "CSC3068-Pathfinder" folder. Alternatively you can navigate back to the terminal and enter the following ```cp -f tagging.py venv/lib/python3.x/site-packages/chatterbot/tagging.py``` (for MacOS/Linux) or ```Copy-Item -Path "tagging.py" -Destination ".\venv\Lib\site-packages\chatterbot\tagging.py" -Force``` (for Windows).
+7.  Open a file manager on your computer and navigate to the folder where you extracted the repository. Then go into the "Pathfinder" folder and copy the "tagging.py" file.
+8.  In a file manager, navigate to the following directory: "Pathfinder\Lib\site-packages\chatterbot". Replace the "tagging.py" file found in this directory with the "tagging.py" file you copied from the "Pathfinder" folder. Alternatively you can navigate back to the terminal and enter the following ```cp -f tagging.py venv/lib/python3.x/site-packages/chatterbot/tagging.py``` (for MacOS/Linux) or ```Copy-Item -Path "tagging.py" -Destination ".\venv\Lib\site-packages\chatterbot\tagging.py" -Force``` (for Windows).
 9.  If you wish to have the cloud backup storage functionality (which is not required for the rest of the system to work), please follow the set up steps outlined [here](#setting-up-azurite).
 
 ## Running The Project
 ### Docker (Creating a container)
-1.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called CSC3068-Pathfinder.
+1.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called Pathfinder.
 2.	Then run the following command this will build the images and run the corresponding containers ```docker-compse up -d```
 3.	Now you can navigate to http://localhost:8080/ to view the website.
 
 ### Virtual Environment
-1.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called CSC3068-Pathfinder.
+1.	Open a terminal window then navigate to the directory where the project has been cloned to, the folder should be called Pathfinder.
 2.  If you wish to have the Azurite Emulator running for cloud storage see the steps [here](#running-azurite), if you want to run the system without cloud storage please skip this step and proced to step 3.
 3.	In the terminal run the following command ```.\Scripts\activate```.
 4.	In the terminal run the following command ```python manage.py runserver```.

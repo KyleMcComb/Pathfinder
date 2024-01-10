@@ -72,13 +72,26 @@ function checkFontSize() {
     var fontSize = localStorage.getItem('fontSize'); // Get the user's selected font size from local storage
     var element = document.getElementById('column2'); // Get the column 2 element of the page
 
-    // Check the selected font size and apply it to the page's body element
-    if (fontSize == 'small') {
-        element.style.fontSize = '1.5vh'; // Apply the small font size
-    } else if (fontSize == 'large') {
-        element.style.fontSize = '3vh'; // Apply the large font size
-    } else {
-        element.style.fontSize = '2vh'; // Apply the default (medium) font size
+    // Check the window width and apply the appropriate font size
+    if(window.innerWidth > 800) {
+        // Check the selected font size and apply it to the page's body element
+        if (fontSize == 'small') {
+            element.style.fontSize = '1.28vh'; // Apply the small font size
+        } else if (fontSize == 'large') {
+            element.style.fontSize = '2.41vh'; // Apply the large font size
+        } else {
+            element.style.fontSize = '1.58vh'; // Apply the default (medium) font size
+        }
+    }
+    else {
+        // Check the selected font size and apply it to the page's body element
+        if (fontSize == 'small') {
+            element.style.fontSize = '1.5vh'; // Apply the small font size
+        } else if (fontSize == 'large') {
+            element.style.fontSize = '3vh'; // Apply the large font size
+        } else {
+            element.style.fontSize = '2vh'; // Apply the default (medium) font size
+        }
     }
 }
 
@@ -155,7 +168,7 @@ function listeners() {
         }
     });
 
-    /* Login and signup */
+    /* signup */
     // When the user clicks anywhere outside of the modal (pop-up), close it
     window.onclick = function(event) {
         if (event.target == document.getElementById('id01')) {
@@ -168,6 +181,11 @@ function listeners() {
             document.getElementById('id03').style.display = "none";
         }
     }
+
+    window.addEventListener('resize', function(event) {
+        // This code will be executed whenever the window is resized
+        checkFontSize();
+    });
 }
 
 /**

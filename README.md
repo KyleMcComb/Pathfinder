@@ -4,6 +4,11 @@ This README includes a project description (what the project is along with what 
 ## Contents
 
 * [Project Description](#project-description)
+  * [Key Features](#key-features)
+  * [Technological Stack](#technological-stack)
+  * [Security Measures](#security-measures)
+  * [Backup and Restore Functionality](#backup-and-restore-functionality)
+  * [Project Team](#project-team)
 * [Set Up](#set-up)
   * [Docker](#docker)
   * [Virtual Environment](#virtual-environment)
@@ -18,14 +23,50 @@ This README includes a project description (what the project is along with what 
   * [Using your own Azure Blob Storage](#using-your-own-azure-storage-account)
 * [Accounts](#accounts)
 * [Useful Links](#useful-links)
+* [Run Indeed Job Spider](#run-indeed-job-spider)
 * [Extra Information](#extra-information)
- * [Populating The Database](#populate-database)
+  * [Populating The Database](#populate-database)
+  * [Branches Overview](#branches-overview)
 
 ## Project Description
 
-This project is a prototype for a system called Pathfinder that will assist students in selecting modules based on their preferences and relevant career information. The system will use a chatbot built with the Django framework and Chatterbot 1.0.8. Students will also be able to search and filter all modules within EEECS on a separate page and access a dashboard to track their grades throughout their degree. The project was completed as part of the modules CSC3068 and CSC3069, the technologies used include Python 3.7.9, Django >=3.2, <3.3, Spacy 3.5.0 (English language model), Sass (for CSS) and Azurite (for Azure storage emulation through a docker container).
-The group for this project is as follows: Dean Logan, Conor Nugent, Ross McAllister & Kyle McComb.
+**Pathfinder** is a system prototype designed to streamline the module selection process for students, empowering them to make informed choices based on their preferences and relevant career information. Developed as part of the *CSC3068* and *CSC3069* modules, this project aims to enhance the academic journey of students within the EEECS department.
 
+### Key Features
+
+- **Chatbot:**
+  - Pathfinder incorporates a chatbot system built on the Django framework and Chatterbot 1.0.8. This chatbot serves as an interactive guide, assisting students in navigating the vast array of available modules by providing tailored recommendations based on their preferences and career aspirations.
+
+- **Comprehensive Module Search and Filtering:**
+  - The system offers a dedicated page enabling students to efficiently search and filter all modules within EEECS. This functionality enhances accessibility and ensures that students can easily explore and discover modules aligning with their academic and career goals.
+
+- **Personalized Dashboard:**
+  - Pathfinder provides students with a user-friendly dashboard to track their grades and overall academic progress throughout their degree. This feature offers valuable insights into their performance, aiding in goal-setting and informed decision-making.
+
+### Technological Stack
+
+- Python 3.7.9
+- Django 3.2
+- Spacy 3.5.0 (English language model)
+- Sass (for CSS)
+- Azurite (for Azure storage emulation through a Docker container)
+
+### Security Measures
+
+The project places a strong emphasis on security, implementing features such as hidden passwords on the page, encryption of sensitive data, and additional login security steps like two-factor authentication (2FA) and Captcha. These measures ensure a secure and reliable user experience, safeguarding both user credentials and academic data.
+
+### Backup and Restore Functionality
+
+The system incorporates effective backup and restore functionality with user-friendly confirmation dialogs for critical actions. This minimizes the risk of accidental data manipulation, providing users with a secure and reliable process for managing their academic information.
+
+### Project Team
+
+- Dean Logan
+- Ross McAllister
+- Kyle McComb
+- Conor Nugent
+
+*Pathfinder* represents a collaborative effort to enhance the academic experience, offering students a technologically advanced tool to navigate their educational journey effectively.
 
 ## Set Up 
 (Note: at the bottom of this README are some links to resources that might help you use Docker or Virtual Environments if this is your first time using these)
@@ -102,15 +143,13 @@ There are 2 access levels to the system “admin” and “student”. Admin acc
 * Student Account 1
   * Student Number: 40294254 
   * Password: 8characters
-* Student Account 2
-  * Student Number: 40191566
-  * Password: b450ma11
 * Pathfinder Email Account:
   * Email Address: pathfinder3068@gmail.com
   * Password: PageRank12*
 
-### Scrapy spiders
-scrapy runspider .\webScraping\spiders\IndeedJobSpider.py
+## Run Indeed Job Spider
+1.  Open a terminal window (PowerShell if you're on Windows) on your computer and navigate to the directory where the project has been cloned to. To do this, open the folder where you extracted the repository, then right-click on the folder called "Pathfinder" and choose "Open in Terminal" (for Linux/Mac) or "Open Powershell window here" (for Windows).
+2.	In the terminal run the following command ```scrapy runspider .\webScraping\spiders\IndeedJobSpider.py```.
 
 ## Useful Links
 Below are some links that might be helpful in creating/running docker containers and virtual environments if this is the first time using these resources. If you have used Docker or Virtual Environments before or are familiar with similar technologies these resources can be ignored.
@@ -125,6 +164,20 @@ Below are some links that might be helpful in creating/running docker containers
 * [Configure Azure Storage connection strings](https://learn.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string)
 
 ## Extra Information
+
+### Branches Overview
+
+- **Main Branch:**
+  - The main branch houses the latest and improved version of the PATHFINDER system. This branch is intended for running the system locally, providing the most up-to-date and stable version of the codebase. Developers should primarily interact with this branch for ongoing development and testing.
+
+- **Prototype-(SDP2-submission) Branch:**
+  - The Prototype-(SDP2-submission) branch preserves an older prototype of the PATHFINDER project, specifically submitted for CSC3068. This branch serves as a historical record and showcases the evolution of the system from its early stages to its current state in the main branch. While the main branch represents the new and improved version, the Prototype branch offers insights into the project's development history and milestones.
+
+- **Server Branch:**
+  - The server branch is dedicated to the codebase configured for deployment on a server within Queen's University Belfast. This branch includes modifications and settings tailored for a server environment, ensuring compatibility and optimal performance when hosting the PATHFINDER system on the university's server infrastructure. Developers focusing on deployment-related tasks and server integration should refer to this branch for relevant configurations and code adjustments.
+
+These branches serve distinct purposes within the development lifecycle, offering a clear separation of concerns for local development, historical reference, and server deployment. It is essential for contributors and users to choose the appropriate branch based on their specific needs and the stage of the project they are working on.
+
 
 ### Populate Database
 
